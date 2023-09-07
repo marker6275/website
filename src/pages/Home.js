@@ -6,7 +6,7 @@ export default function Home() {
     <div className='bg-[#EBE8E2] h-screen flex flex-col font-inter'>
       <Navbar/>
       <div className='flex-grow grid grid-cols-2'>
-        <h1 className='flex justify-center items-center font-medium text-6xl'>
+        <h1 className='flex justify-center items-center font-semibold text-6xl'>
           Hello, I'm Mark
         </h1>
         <div className='flex justify-center items-center bg-[#E6E4DD] p-10'>
@@ -17,13 +17,13 @@ export default function Home() {
             <p>
               Hey! I'm a junior at Northwestern University studying computer science and music. I am a percussionist and I play piano as well.
             </p>
-            <p className='flex justify-center'>
+            <p className='flex justify-start'>
               -
             </p>
             <p>
               I just made this website as a small project and a place to put my music. Hopefully in the future I can put my code and other projects up on here too.
             </p>
-            <p className='flex justify-center'>
+            <p className='flex justify-start'>
               -
             </p>
             <p>

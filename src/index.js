@@ -5,6 +5,7 @@ import './index.css';
 import Home from './pages/Home';
 import Music from './pages/Music';
 import Contact from './pages/Contact';
+import Future from './pages/Future';
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: '/contact',
     element: <Contact/>
+  },
+  {
+    path: '/future',
+    element: <Future/>
   }
 ])
 const root = createRoot(document.getElementById('root'));

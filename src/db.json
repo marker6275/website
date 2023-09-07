@@ -1,12 +1,69 @@
 [
+    [
+        {
+            "id": 7,
+            "title": "Rain in Ohio",
+            "composer": "Richard Bann and Mark Li",
+            "date": "05/27/2023",
+            "link": "http://www.youtube.com/embed/omPUBVzmrfI"
+        },
+        {
+            "id": 6,
+            "title": "Like The Movies (Cover)",
+            "composer": "Laufey",
+            "date": "08/15/2022",
+            "link": "http://www.youtube.com/embed/Wyi5RoGHUUY"
+        },
+        {
+            "id": 5,
+            "title": "Cello Suite No. 3 in C Major, Bourrée I and II",
+            "composer": "J.S. Bach",
+            "date": "11/30/2021",
+            "link": "http://www.youtube.com/embed/pkiqkZC4dqY"
+        },
+        {
+            "id": 4,
+            "title": "Etude in C Major",
+            "composer": "Clair Omar Musser",
+            "date": "10/17/2021",
+            "link": "http://www.youtube.com/embed/tN243nfGiCk"
+        },
+        {
+            "id": 3,
+            "title": "For River (Johnny's Version)",
+            "composer": "Kan Gao",
+            "date": "03/12/2021",
+            "link": "http://www.youtube.com/embed/ZE1PwQoxTEc"
+        },
+        {
+            "id": 2,
+            "title": "Prelude No. 1",
+            "composer": "Ney Rosauro",
+            "date": "10/20/2020",
+            "link": "http://www.youtube.com/embed/LI7Uo4DtMcQ"
+        },
+        {
+            "id": 1,
+            "title": "Catching Shadows",
+            "composer": "Ivan Trevino",
+            "date": "03/5/2020",
+            "link": "https://www.youtube.com/embed/5ZPgPuwKkIs"
+        },
+        {
+            "id": 0,
+            "title": "Oogway Ascends",
+            "composer": "Hans Zimmer and John Powell",
+            "date": "09/29/2020",
+            "link": "https://www.youtube.com/embed/uNvje8uq7LY"
+        }
+        
+    ],
     {
-        "id": 1,
-        "title": "Unknown",
-        "link": "https://www.youtube.com/watch?v=ZkbduoVJfw0"
-    },
-    {
-        "id": 2,
-        "title": "idkwhatthisis",
-        "link": "https://www.youtube.com/watch?v=TRplwPRheiE"
+        "email": "markli2025@u.northwestern.edu",
+        "phone": "(832) 945-8288",
+        "linkedin": "https://www.linkedin.com/in/markli627554/",
+        "github": "https://github.com/marker6275/",
+        "instagram": "https://www.instagram.com/marker6275/",
+        "youtube": "https://www.youtube.com/channel/UC-mobmskJ9ksfh3kXmX3XIA"
     }
 ]
