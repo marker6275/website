@@ -1,20 +1,20 @@
 import React from 'react';
-import { createRoot } from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import ReactDOM from 'react-dom/client';
+import { createHashRouter, RouterProvider } from 'react-router-dom'
 import './index.css';
 import Home from './pages/Home';
 import Music from './pages/Music';
 import Contact from './pages/Contact';
 import Future from './pages/Future';
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: '/',
     element: <Home/>
   },
   {
     path: '/music',
-    element: <Music/>
+    element: <Music/> 
   },
   {
     path: '/contact',
@@ -26,7 +26,8 @@ const router = createBrowserRouter([
   }
 ])
 
-const root = createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <React.StrictMode>
     <RouterProvider router={router} />
