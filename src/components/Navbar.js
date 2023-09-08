@@ -1,7 +1,8 @@
 import React from 'react';
 import logo from '../assets/logo.jpg';
-
+import { Link } from 'react-router-dom';
 export default function Navbar() {
+
     return (
         <div className="bg-[#282828] h-20 flex justify-between w-full font-inter">
             <a href='/'>
@@ -10,26 +11,34 @@ export default function Navbar() {
                 </div>
             </a>
             <div className='flex'>
-                <a href='/' className="flex p-3 justify-center items-center text-white w-40 hover:bg-[#424242] text-lg">
-                    <div>
+                <Link to="/" className="flex p-3 justify-center items-center text-white w-40 hover:bg-[#424242] text-lg">
                         HOME
-                    </div>
-                </a>
-                <a href='/music' className='flex p-3 justify-center items-center text-white w-40 hover:bg-[#424242] text-lg'>
-                    <div>
+                </Link>
+                {/* <a href='/' className="flex p-3 justify-center items-center text-white w-40 hover:bg-[#424242] text-lg">
+                    
+                </a> */}
+                <Link to="/music" className="flex p-3 justify-center items-center text-white w-40 hover:bg-[#424242] text-lg">
                         MUSIC
-                    </div>
-                </a>
-                <a href='/contact' className='flex p-3 justify-center items-center text-white w-40 hover:bg-[#424242] text-lg'>
+                </Link>
+                {/* <a href='/music' className='flex p-3 justify-center items-center text-white w-40 hover:bg-[#424242] text-lg'>
+                    
+                </a> */}
+                <Link to="/contact" className="flex p-3 justify-center items-center text-white w-40 hover:bg-[#424242] text-lg">
+                CONTACT
+                </Link>
+                {/* <a href='/contact' className='flex p-3 justify-center items-center text-white w-40 hover:bg-[#424242] text-lg'>
                     <div>
                         CONTACT
                     </div>
-                </a>
-                <a href='/future' className='flex p-3 justify-center items-center text-white w-40 hover:bg-[#424242] text-lg'>
+                </a> */}
+                <Link to="/future" className="flex p-3 justify-center items-center text-white w-40 hover:bg-[#424242] text-lg">
+                    Other
+                </Link>
+                {/* <a href='/future' className='flex p-3 justify-center items-center text-white w-40 hover:bg-[#424242] text-lg'>
                     <div>
                         Other
                     </div>
-                </a>
+                </a> */}
             </div>
         </div>
     )

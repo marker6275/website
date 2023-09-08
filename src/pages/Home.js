@@ -1,10 +1,8 @@
-import Navbar from '../components/Navbar.js'
 import RandomColorButton from '../components/RandomColorButton.js';
 
 export default function Home() {
   return (
     <div className='bg-[#EBE8E2] h-screen flex flex-col font-inter'>
-      <Navbar/>
       <div className='flex-grow grid grid-cols-2'>
         <h1 className='flex justify-center items-center font-semibold text-6xl'>
           Hello, I'm Mark

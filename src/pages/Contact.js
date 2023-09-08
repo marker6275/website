@@ -1,4 +1,3 @@
-import Navbar from "../components/Navbar";
 import data from "../db.json";
 import React, { useRef } from 'react';
 import emailjs from '@emailjs/browser';
@@ -26,7 +25,6 @@ export default function Contact() {
     
     return (
         <div className="bg-[#EBE8E2] h-screen flex flex-col font-inter">
-            <Navbar/>
             <div className="flex justify-center mt-24">
                 {/* left */}
                 <div className="flex justify-start m-10">
