@@ -9,14 +9,15 @@ export default class Modal extends React.Component {
         if (!this.props.show) {
             return null;
         }
-
+        
         return (
-            <div className="bg-[#cfcfcf] bg-opacity-80 fixed top-0 left-0 h-screen w-screen">
-                <div className="flex flex-col  items-center fixed top-[50vh] left-[50vw] -translate-x-[50%] -translate-y-[50%] w-[80vw] h-[90vh] bg-white border-2 border-gray-600 rounded-xl transition-transform transition-opacity transition-shadow-transform transform scale-100 opacity-100 visible shadow-md">
-                    <p className="bg-blue-300 w-full">words</p>
-                    <div>{this.props.title}</div>
-                    <button className="bg-blue-400 p-2" onClick={e => {this.onClose(e)}}>Close</button>
+            <div className="bg-[#cfcfcf] bg-opacity-80 fixed top-0 left-0 h-full w-full flex flex-col items-center justify-center">
+                <div className="flex flex-col overflow-y-auto overflow-x-hidden relative w-[65vw] h-[90vh] bg-white border-2 border-gray-600 rounded-t-xl shadow-md">
+                    <div className="w-full h-full text-lg text-left px-10">
+                        {this.props.children}
+                    </div>
                 </div>
+                <button className="bg-[#282828] py-2 px-8 w-[65vw] text-white rounded-b-xl hover:bg-[#343434] duration-300" onClick={e => {this.onClose(e)}}>Close</button>
             </div>
         )
     }

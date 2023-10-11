@@ -4,9 +4,11 @@ export default function Home() {
   return (
     <div className='h-screen flex flex-col font-inter'>
       <div className='flex-grow grid grid-cols-2'>
-        <h1 className='flex justify-center items-center font-semibold text-6xl'>
-          Hello, I'm Mark
-        </h1>
+        <div className='flex justify-center items-center font-semibold text-6xl'>
+          <h1 className='cursor-pointer drop-shadow-2xl text-[#282828] hover:text-blue-500 transition-all duration-500'>
+            Hello, I'm Mark
+          </h1>
+        </div>
         <div className='flex justify-center items-center bg-[#E6E4DD] p-10'>
           <div>
           <div className='flex justify-center items-center'>

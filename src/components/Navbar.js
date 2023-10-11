@@ -13,16 +13,16 @@ export default function Navbar() {
             </Link>
                 
             <div className='flex'>
-                <Link to="/" className="flex p-2 justify-center items-center text-white w-36 hover:bg-[#424242] text-lg">
+                <Link to="/" className="flex p-2 justify-center items-center text-white w-36 hover:bg-[#424242] text-lg duration-300">
                     HOME
                 </Link>
-                <Link to="/music" className="flex p-3 justify-center items-center text-white w-36 hover:bg-[#424242] text-lg">
+                <Link to="/music" className="flex p-3 justify-center items-center text-white w-36 hover:bg-[#424242] text-lg duration-300">
                     MUSIC
                 </Link>
-                <Link to="/projects" className="flex p-3 justify-center items-center text-white w-36 hover:bg-[#424242] text-lg">
+                <Link to="/projects" className="flex p-3 justify-center items-center text-white w-36 hover:bg-[#424242] text-lg duration-300">
                     PROJECTS
                 </Link>
-                <Link to="/contact" className="flex p-3 justify-center items-center text-white w-36 hover:bg-[#424242] text-lg">
+                <Link to="/contact" className="flex p-3 justify-center items-center text-white w-36 hover:bg-[#424242] text-lg duration-300">
                     CONTACT
                 </Link>
                 {/* <Link to="/future" className="flex p-3 justify-center items-center text-white w-36 hover:bg-[#424242] text-lg">

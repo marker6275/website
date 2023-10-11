@@ -8,7 +8,7 @@ export default function Music() {
             <h1 className="text-6xl font-medium mb-5">
                 My Music
             </h1>
-            <div className="flex flex-col items-center mt-5 gap-10">
+            <div className="flex flex-col items-center mt-5 gap-x-20 gap-y-10 grid grid-cols-2">
                     {info.map(item => (
                         <MusicCard id={item.id} title={item.title} link={item.link} month={parseInt(item.date.substring(0, 2), 10) - 1} year={item.date.substring(item.date.length - 4)} composer={item.composer} youtube={data[1].youtube}/>
                     ))}
