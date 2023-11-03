@@ -1,9 +1,9 @@
 import ProjectCard from "../components/ProjectCard";
 import ComingSoon from '../projects/ComingSoon.js'
-import Template from "../projects/Template";
+import Website from "../projects/Website";
 
 function Projects() {
-    const projects = [<ComingSoon/>, <Template/>]
+    const projects = [<ComingSoon/>, <Website/>]
 
     return (
         <div className="bg-[#EBE8E2] h-fill flex flex-col items-center justify-center">
