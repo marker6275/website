@@ -7,6 +7,11 @@ import Home from './pages/Home';
 import Music from './pages/Music';
 import Projects from './pages/Projects';
 
+// To update:
+
+// npm run deploy
+// change domain name to custom name on gh-pages
+
 const App = () => {
     return (
         <div className='bg-[#EBE8E2] flex flex-col h-screen'>

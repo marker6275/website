@@ -3,7 +3,7 @@ import ComingSoon from '../projects/ComingSoon.js'
 import Website from "../projects/Website";
 
 function Projects() {
-    const projects = [<ComingSoon/>, <Website/>]
+    const projects = [Website, ComingSoon]
 
     return (
         <div className="bg-[#EBE8E2] h-fill flex flex-col items-center justify-center">
@@ -12,7 +12,7 @@ function Projects() {
             </h1>
             <div className="grid grid-cols-2 flex justify-items-center w-full gap-y-20 p-10">
                 {projects.map(item => (
-                    <ProjectCard>{item}</ProjectCard>
+                    <ProjectCard name={item.name} color={item.color}>{item.body}</ProjectCard>
                 ))}
             </div>
             
