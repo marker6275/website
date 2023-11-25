@@ -4,7 +4,7 @@ import data from '../db.json';
 export default function Music() {
     const info = data[0]
     return (
-        <div className="bg-[#EBE8E2] h-fill flex flex-col font-inter py-10 items-center">
+        <div className="bg-[#EBE8E2] h-fill flex flex-col py-10 items-center">
             <h1 className="text-6xl font-medium mb-5">
                 My Music
             </h1>

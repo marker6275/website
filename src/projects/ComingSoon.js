@@ -20,8 +20,7 @@ class Coming extends React.Component {
                     I don't exactly know what I want to do with this website, but it is really fun to add to and work on.
                     I think I'm likely to just end up putting any of my homework assignments that are cool or I think were interesting (or more likely the ones that took the most work).
                 </p>
-                <br/>
-                <h1 className="font-semibold">Future projects:</h1>
+                <h1 className="font-semibold text-2xl pb-2 pt-5">Future projects</h1>
                 <p>
                     I'd love to create a chatbot that helps with translation and language learning. I've thought into it a little with Twilio messaging and the ChatGPT API, 
                     but other than that I don't have anything for it yet.
@@ -32,8 +31,7 @@ class Coming extends React.Component {
                     I have started working on it but probably want to hold off on it until I know what I'm doing. However, since I am interested in machine learning and AI,
                     this is something I'm going to revisit eventually, possibly after taking a Machine Learning class.
                 </p>
-                <br/>
-                <h1 className="font-semibold">Website:</h1>
+                <h1 className="font-semibold text-2xl pb-2 pt-5">Website</h1>
                 <p>
                     My biggest goal here would just be to improve the UI, since a lot of how this website looks is bland and old-school,
                     which is mostly what I had in mind when I created it but I think I enjoy the modern look much more.

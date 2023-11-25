@@ -14,7 +14,7 @@ import Projects from './pages/Projects';
 
 const App = () => {
     return (
-        <div className='bg-[#EBE8E2] flex flex-col h-screen'>
+        <div className='bg-[#EBE8E2] flex flex-col h-screen font-inter'>
             <Navbar />
             <Routes>
                 <Route path ="/" element={<Home />}></Route>

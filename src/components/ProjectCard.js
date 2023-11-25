@@ -11,6 +11,10 @@ class ProjectCard extends React.Component {
         });
     };
     render() {
+        if (!this.state.show) {
+            window.onscroll = function() {};
+        }
+        
         return (
             <div>
                 <div onClick={e => {if (!this.state.show) {setTimeout(() => {this.showModal(e)}, 100)}}} className={`cursor-pointer ${this.props.color} p-10 md:w-[400px] lg:w-[750px] h-96 flex items-center gap-10 rounded-xl shadow-md hover:shadow-xl duration-300`}>

@@ -4,9 +4,9 @@ class Web extends React.Component {
     render() {
         return (    
             <div className="py-5">
-                <h1 className="text-5xl mb-5">Website</h1> 
+                <h1 className="text-5xl mb-5 font-semibold">Website</h1> 
                 <hr className="mb-5"/>
-                <h1 className="font-semibold">Details</h1>
+                <h1 className="font-semibold text-2xl pb-2">Details</h1>
                 <p>This was just a simple website I made entirely on my own, which is something cool to show.</p>
                 <br/>
                 <ul className="pl-10 list-disc list-outside">

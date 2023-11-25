@@ -1,9 +1,10 @@
 import ProjectCard from "../components/ProjectCard";
 import ComingSoon from '../projects/ComingSoon.js'
 import Website from "../projects/Website";
+import PythonRedex from "../projects/PythonRedex.js";
 
 function Projects() {
-    const projects = [Website, ComingSoon]
+    const projects = [PythonRedex, Website, ComingSoon]
 
     return (
         <div className="bg-[#EBE8E2] h-fill flex flex-col items-center justify-center">
