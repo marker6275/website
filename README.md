@@ -12,5 +12,8 @@ Projects was added.
 Music was re-formatted to look nicer.
 
 **11/25/2023**
-Added Python Redex Model to projects
-Updated fonts
+Added Python Redex Model to projects.
+Updated fonts.
+
+**12/14/2023**
+Added Text Classifier to projects.
