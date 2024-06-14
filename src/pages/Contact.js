@@ -24,7 +24,7 @@ export default function Contact() {
     };
     
     return (
-        <div className="bg-[#EBE8E2] h-screen flex flex-col font-inter">
+        <div className="bg-[#D2D3D6] h-screen flex flex-col font-inter">
             <div className="flex justify-center mt-24">
                 {/* left */}
                 <div className="flex justify-start m-10">
