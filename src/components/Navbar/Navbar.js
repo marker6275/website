@@ -7,7 +7,7 @@ export default function Navbar() {
 
     return (
         // sticky top-0 z-10 to keep at top
-        <div className="h-16 flex justify-center w-full font-inter duration-500">                
+        <div className="h-16 flex justify-center w-full font-inter duration-500 mb-10">                
             <div className='flex'>
                 <NavbarButton title="MUSIC" link="/music"/>
                 <NavbarButton title="PROJECTS" link="/projects"/>
