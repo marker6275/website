@@ -15,13 +15,7 @@ export default function Home() {
             <h1 className='font-bold text-xl mb-4'>About Me</h1>
           </div>
             <p>
-              Hey! I'm a junior at Northwestern University studying computer science and music. I am a percussionist and I play piano as well.
-            </p>
-            <p className='flex justify-start'>
-              -
-            </p>
-            <p>
-              I just made this website as a small project and a place to put my music. Hopefully in the future I can put my code and other projects up on here too.
+            Hey! I'm a senior at Northwestern University studying computer science and music. I just made this website as a small project and a place to put my music. Hopefully in the future I can put other projects up on here too.
             </p>
             <p className='flex justify-start'>
               -
