@@ -17,16 +17,15 @@ const App = () => {
     return (
         <div className='bg-[#D2D3D6] flex flex-col h-screen font-inter'>
             <Navbar/>
-            
-                <Routes>
-                    <Route path ="/" element={<Home/>}/>
-                    <Route path ="/music" element={<Music/>}/>
-                    <Route path ="/projects" element={<Projects/>}/>
-                    <Route path ="/contact" element={<Contact/>}/>
-                    <Route path ="/future" element={<Future/>}/>
-                    <Route path ="/analyze" element={<Analyze/>}/>
-                    {/* <Route path ="/resume" element={<Resume/>}/> */}
-                </Routes>
+            <Routes>
+                <Route path ="/" element={<Home/>}/>
+                <Route path ="/music" element={<Music/>}/>
+                <Route path ="/projects" element={<Projects/>}/>
+                <Route path ="/contact" element={<Contact/>}/>
+                <Route path ="/future" element={<Future/>}/>
+                <Route path ="/analyze" element={<Analyze/>}/>
+                {/* <Route path ="/resume" element={<Resume/>}/> */}
+            </Routes>
         </div>
     )
 }
