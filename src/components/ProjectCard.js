@@ -17,7 +17,7 @@ class ProjectCard extends React.Component {
         
         return (
             <div>
-                <div onClick={e => {if (!this.state.show) {setTimeout(() => {this.showModal(e)}, 100)}}} className={`cursor-pointer ${this.props.color} p-10 w-[750px] h-48 flex items-center gap-10 rounded-xl shadow-md hover:shadow-xl duration-300`}>
+                <div onClick={e => {if (!this.state.show) {setTimeout(() => {this.showModal(e)}, 100)}}} className={`cursor-pointer ${this.props.color} p-10 w-[750px] h-56 flex items-center gap-10 rounded-xl shadow-md hover:shadow-xl duration-300`}>
                     <h1 className="text-4xl font-semibold">
                         {this.props.name}
                     </h1>
