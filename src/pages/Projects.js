@@ -8,8 +8,8 @@ function Projects() {
     const projects = [TextClassifier, PythonRedex, Website, ComingSoon]
 
     return (
-        <div className="bg-[#EBE8E2] h-screen flex flex-col items-center justify-center">
-            <h1 className="text-6xl font-semibold mb-20">
+        <div className="bg-[#EBE8E2] flex flex-col items-center justify-center py-10">
+            <h1 className="text-6xl font-medium mb-5">
                 My Projects
             </h1>
             <div className="grid grid-cols-2 flex justify-items-center w-full gap-y-20 p-10">
