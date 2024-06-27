@@ -2,11 +2,6 @@ import RandomColorButton from '../components/RandomColorButton.js';
 
 export default function Home() {
   return (
-    // <div className='flex justify-center items-center font-semibold text-6xl bg-blue-200 grid grid-cols-2'>
-    //   <h1 className='cursor-pointer drop-shadow-2xl text-[#282828] hover:text-blue-500 transition-all duration-500'>
-    //     Hello, I'm Mark
-    //   </h1>
-    // </div>
     <div className='h-screen flex flex-col'>
       <div className='grid grid-cols-2'>
         <div className='flex justify-center items-center font-semibold text-6xl'>
