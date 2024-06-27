@@ -2,7 +2,7 @@ import RandomColorButton from '../components/RandomColorButton.js';
 
 export default function Home() {
   return (
-    <div className='h-screen flex flex-col'>
+    <div className='h-screen flex flex-col mt-36'>
       <div className='grid grid-cols-2'>
         <div className='flex justify-center items-center font-semibold text-6xl'>
           <div>
