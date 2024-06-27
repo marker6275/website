@@ -17,3 +17,6 @@ Updated fonts.
 
 **12/14/2023**
 Added Text Classifier to projects.
+
+**6/26/2024**
+Updated navbar formatting
