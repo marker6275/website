@@ -23,7 +23,7 @@ const RandomColorButton = () => {
   };
 
   return (
-    <button className={`px-4 py-2 rounded ${textColor} ${buttonColor}`} onClick={changeColor}>
+    <button className={`px-4 py-2 rounded ${textColor} ${buttonColor} duration-200`} onClick={changeColor}>
       Click to change colors
     </button>
   );

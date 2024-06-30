@@ -16,6 +16,7 @@ class Temp extends React.Component {
 const Template = {
     name: "Template",
     color: "bg-white",
+    text: "hover:text-white",
     body: <Temp/>
 }
 export default Template;

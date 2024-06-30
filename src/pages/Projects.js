@@ -1,9 +1,7 @@
 import ProjectCard from "../components/cards/ProjectCard";
-// import projects from '../components/misc/ProjectList';
 import { projects } from '../utils.js';
 
 function Projects() {
-    // not bop-it
 
     return (
         <div className="flex flex-col items-center py-10 min-h-screen">

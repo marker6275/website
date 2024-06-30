@@ -2,8 +2,9 @@ import ComingSoon from "./projects/ComingSoon.js";
 import Website from "./projects/Website";
 import PythonRedex from "./projects/PythonRedex.js";
 import TextClassifier from "./projects/TextClassifier.js";
+import NotBopIt from "./projects/NotBopIt.js";
 
-const projects = [TextClassifier, PythonRedex, Website, ComingSoon];
+const projects = [NotBopIt, TextClassifier, PythonRedex, Website, ComingSoon];
 
 //   To add new colors
 //   https://coolors.co/gradient-palette/1c49ff-ffffff?number=8

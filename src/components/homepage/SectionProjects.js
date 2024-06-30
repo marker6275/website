@@ -1,5 +1,5 @@
-import projects from '../misc/ProjectList';
 import HomeProjectCard from '../cards/HomeProjectCard';
+import { projects } from '../../utils';
 import { Link } from 'react-router-dom';
 
 export default function SectionProjects() {
