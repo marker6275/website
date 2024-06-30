@@ -125,6 +125,7 @@ class TC extends React.Component {
 const TextClassifier = {
     name: "Text Classifer",
     color: "bg-white",
+    text: "hover:text-gray-600",
     body: <TC/>
 }
 export default TextClassifier;

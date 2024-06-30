@@ -1,6 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar/Navbar';
+import Navbar from './components/navbar/Navbar';
 import Contact from './pages/Contact';
 import Future from './pages/Future';
 import Home from './pages/Home';
@@ -15,7 +15,7 @@ import Analyze from './pages/Analyze/Analyze';
 
 const App = () => {
     return (
-        <div className='bg-[#D2D3D6] flex flex-col h-screen font-inter'>
+        <body className='bg-[#D2D3D6] flex flex-col font-inter min-h-screen'>
             <Navbar/>
             <Routes>
                 <Route path ="/" element={<Home/>}/>
@@ -26,7 +26,7 @@ const App = () => {
                 <Route path ="/analyze" element={<Analyze/>}/>
                 {/* <Route path ="/resume" element={<Resume/>}/> */}
             </Routes>
-        </div>
+        </body>
     )
 }
 

@@ -1,18 +1,16 @@
-import ProjectCard from "../components/ProjectCard";
-import ComingSoon from '../projects/ComingSoon.js'
-import Website from "../projects/Website";
-import PythonRedex from "../projects/PythonRedex.js";
-import TextClassifier from "../projects/TextClassifier.js";
+import ProjectCard from "../components/cards/ProjectCard";
+// import projects from '../components/misc/ProjectList';
+import { projects } from '../utils.js';
 
 function Projects() {
-    const projects = [TextClassifier, PythonRedex, Website, ComingSoon]
+    // not bop-it
 
     return (
-        <div className="bg-[#EBE8E2] flex flex-col items-center justify-center h-screen">
+        <div className="flex flex-col items-center py-10 min-h-screen">
             <h1 className="text-6xl font-medium mb-5">
-                My Projects
+                Projects
             </h1>
-            <div className="grid grid-cols-2 flex justify-items-center w-full gap-y-20 p-10">
+            <div className="grid grid-cols-2 flex justify-items-center gap-20 p-20">
                 {projects.map(item => (
                     <ProjectCard name={item.name} color={item.color}>{item.body}</ProjectCard>
                 ))}

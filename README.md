@@ -21,3 +21,10 @@ Added Text Classifier to projects.
 **6/26/2024**
 Updated navbar formatting
 Updated homepage view
+
+**6/30/2024**
+Revamped homepage
+Lots of refactoring
+Cleaned up file directories
+Updated projects
+Updated UI
