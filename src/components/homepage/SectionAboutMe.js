@@ -15,7 +15,7 @@ export default function SectionAboutMe() {
               <h1 className='font-medium text-2xl mb-4'>About Me</h1>
             </div>
             <p>
-              Hey! I'm a senior at Northwestern University studying computer science and music. I just made this website as a small project and a place to put my music. Hopefully in the future I can put other projects up on here too.
+              Hey! I'm a senior at Northwestern University studying computer science and music. I just made this website as a small project and a place to put my music. I'm hoping to be able to update this with other things as well.
             </p>
             <p className='flex justify-start'>
               -

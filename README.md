@@ -9,7 +9,7 @@ Page created and custom domain is set.
 
 **11/10/2023**
 Projects was added.
-Music was re-formatted to look nicer.
+Music was reformatted to look nicer.
 
 **11/25/2023**
 Added Python Redex Model to projects.
@@ -29,3 +29,6 @@ Cleaned up file directories
 Updated projects
 Updated UI
 Added Not Bop-It to projects
+
+**7/5/2024/**
+Added Audi Famam Illius to music

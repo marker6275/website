@@ -6,18 +6,18 @@ import NotBopIt from "./projects/NotBopIt.js";
 
 const projects = [NotBopIt, TextClassifier, PythonRedex, Website, ComingSoon];
 
-//   To add new colors
-//   https://coolors.co/gradient-palette/1c49ff-ffffff?number=8
-
+// color difference - 0xBE1
+// hover color difference - 0x1FC
 const colors = [
     ["text-[#1C49FF]", "hover:bg-[#E3E8FF]", "border-[#1C49FF]"],
     ["text-[#1C55E0]", "hover:bg-[#E3EAFB]", "border-[#1C55E0]"],
-    ["text-[#1C61C2]", "hover:bg-[#E3EBF7]", "border-[#1C61C2]"],
-    ["text-[#1C6DA3]", "hover:bg-[#E3EDF4]", "border-[#1C6DA3]"],
-    ["text-[#1C7985]", "hover:bg-[#E3EEF0]", "border-[#1C7985]"],
-    ["text-[#1C8566]", "hover:bg-[#E3F0EC]", "border-[#1C8566]"],
-    ["text-[#1C9148]", "hover:bg-[#E3F1E8]", "border-[#1C9148]"],
-    ["text-[#1C9D29]", "hover:bg-[#E3F3E4]", "border-[#1C9D29]"]
+    ["text-[#1C61C1]", "hover:bg-[#E3ECF7]", "border-[#1C61C1]"],
+    ["text-[#1C6DA2]", "hover:bg-[#E3EEF3]", "border-[#1C6DA2]"],
+    ["text-[#1C7983]", "hover:bg-[#E3F0EF]", "border-[#1C7983]"],
+    ["text-[#1C8564]", "hover:bg-[#E3F2EB]", "border-[#1C8564]"],
+    ["text-[#1C9145]", "hover:bg-[#E3F4E7]", "border-[#1C9145]"],
+    ["text-[#1C9D26]", "hover:bg-[#E3F6E3]", "border-[#1C9D26]"],
+    ["text-[#1CA907]", "hover:bg-[#E3F8DF]", "border-[#1CA907]"],
 ];
 
 const months = [
