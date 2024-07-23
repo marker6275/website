@@ -1,6 +1,6 @@
-import RandomColorButton from '../misc/RandomColorButton.js';
+import { RandomColorButton } from '../misc';
 
-export default function SectionAboutMe() {
+export function SectionAboutMe() {
   return (
     <div className='flex flex-col my-36'>
       <div className='grid grid-cols-2'>
@@ -24,7 +24,7 @@ export default function SectionAboutMe() {
               Meanwhile, here's a button that changes colors when you click on it :D
             </p>
             <div className='flex justify-center mt-4'>
-              <RandomColorButton/>
+              <RandomColorButton />
             </div>
           </div>
         </div>

@@ -1,8 +1,8 @@
-import HomeProjectCard from '../cards/HomeProjectCard';
+import { HomeProjectCard } from '../cards';
 import { projects } from '../../utils';
 import { Link } from 'react-router-dom';
 
-export default function SectionProjects() {
+export function SectionProjects() {
   const featuredProjects = projects.slice(0, 3);
 
   return (
@@ -11,11 +11,13 @@ export default function SectionProjects() {
       <div className="grid grid-cols-3 gap-20 px-36 py-10">
         {featuredProjects.map((project) => <HomeProjectCard name={project.name} color={project.color} text={project.text}>{project.body}</HomeProjectCard>)}
       </div>
-      <Link to='/projects'>
-        <div className='px-36 text-[#495497] font-bold text-lg'>
-          All projects {'>'}{'>'}
-        </div>
-      </Link>
+      <div className='px-36 text-[#495497] font-bold text-lg'>
+        <Link to='/projects'>
+          <div>
+            <span className='underline'>All projects</span> {'>'}{'>'}
+          </div>
+        </Link>
+      </div>
     </div>
   );
 }

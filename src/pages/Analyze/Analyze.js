@@ -6,7 +6,7 @@ const config = require('./config.js');
 
 const baseurl = config.baseurl;
 
-function Analyze() {
+export function Analyze() {
     const [file, setFile] = useState(null);
     const [output, setOutput] = useState('Upload to see result');
     const [numFiles, setNumFiles] = useState('loading...');
@@ -49,12 +49,12 @@ function Analyze() {
                 'filename': file.name,
                 'data': fileBytes.toString('base64')
             }));
-            
+
             console.log('calling /upload...')
             axios.post(url, data, config).then((response) => {
                 console.log(response);
                 setFileSubmitted(true)
-                
+
                 let output = getOutput();
                 Promise.resolve(output);
             }).catch((err) => {
@@ -65,7 +65,7 @@ function Analyze() {
 
         fileReader.readAsText(file);
     }
-    
+
     async function getOutput() {
         const api = '/download';
         const url = baseurl + api;
@@ -122,6 +122,7 @@ function Analyze() {
 
     return (
         <div>
+            <div className='flex justify-center p-5 bg-red-700 text-white text-2xl animate-pulse'>DOES NOT WORK ANYMORE!</div>
             <div className='flex justify-center mt-16 mb-10'>
                 <div>
                     <div className='bg-gray-800 h-[24rem] min-w-[48rem] max-w-fit cursor-pointer text-white py-5 px-12 flex justify-center items-center hover:bg-indigo-900 duration-500 transition relative' onClick={getOutput}>
@@ -134,8 +135,8 @@ function Analyze() {
                 <div className='mt-5'>
                     <p className='font-semibold text-2xl'>Upload file here</p>
                     <form onSubmit={handleSubmit} className='flex justify-between items-center p-5 border-2 border-black w-[40rem] mb-2'>
-                        <input type='file' onChange={(e) => handleChange(e)}/>
-                        <input type='submit' className='py-3 px-5 w-32 bg-gray-700 cursor-pointer hover:bg-gray-500 duration-300 rounded-lg text-white'/>
+                        <input type='file' onChange={(e) => handleChange(e)} />
+                        <input type='submit' className='py-3 px-5 w-32 bg-gray-700 cursor-pointer hover:bg-gray-500 duration-300 rounded-lg text-white' />
                     </form>
                     <div className='flex justify-between items-center'>
                         <div className='text-lg flex items-center'>
@@ -153,5 +154,3 @@ function Analyze() {
         </div>
     )
 }
-
-export default Analyze;

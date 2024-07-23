@@ -1,11 +1,12 @@
-import SectionAboutMe from '../components/homepage/SectionAboutMe.js';
-import SectionProjects from '../components/homepage/SectionProjects.js';
+import { SectionAboutMe, SectionMusic, SectionProjects } from '../components/homepage';
 
-export default function Home() {
+export function Home() {
   return (
     <div className='bg-[#D2D3D6]'>
-      <SectionAboutMe/>
-      <SectionProjects/>
+      <SectionAboutMe />
+      <SectionProjects />
+      <hr />
+      <SectionMusic />
     </div>
   );
 }

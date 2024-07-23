@@ -32,3 +32,8 @@ Added Not Bop-It to projects
 
 **7/5/2024/**
 Added Audi Famam Illius to music
+
+**7/22/2024**
+Removed Analyze page
+Updated file folders
+Added music to homepage 

@@ -14,26 +14,26 @@ class PyRe extends React.Component {
     render() {
         const github_url = 'https://github.com/marker6275/Python-Redex-Model'
         const paper_url = 'https://cs.brown.edu/people/sk/Publications/Papers/Published/pmmwplck-python-full-monty/paper.pdf'
-        return (    
+        return (
             <div className="py-5">
                 <h1 className="text-5xl mb-5 font-semibold">Python Redex Model</h1>
-                <hr className="mb-5"/>
-                
+                <hr className="mb-5" />
+
                 <h1 className="font-semibold text-2xl pb-2">Intro</h1>
                 <p>
-                    So we made this model as a group for a class, <i>CS 396: Dynamics of Programming Languages</i> which I took in Spring 2023. Overall, 
+                    So we made this model as a group for a class, <i>CS 396: Dynamics of Programming Languages</i> which I took in Spring 2023. Overall,
                     the class was very abstract and featured a lot of math, so I'm very surprised I could actually keep up and most of it still made sense
                     to me, but otherwise the project wasn't too bad. But we were assigned to implement the mathematical model behind a programming language.
                     The programming language we did was Python, which we thought would be very easy since Python was such a popular language and we were
                     pretty familiar with it... I mean we weren't too wrong.
                 </p>
-                <br/>
+                <br />
                 <p>
                     If you don't want to look at our budget remake of something beautiful, allow me to redirect you directly to the original <a href={paper_url} className="text-blue-500 underline">paper</a> and <a href="https://cs.brown.edu/research/plt/dl/lambda-py/ae/" className="text-blue-500 underline">model</a> which is much much much better and complete than what we created. Since this page is pretty long, this is your chance to leave.
                 </p>
-                <br/>
+                <br />
                 <p>
-                    Now that you've had your chance to leave, allow me to highlight some parts in our model.<br/>
+                    Now that you've had your chance to leave, allow me to highlight some parts in our model.<br />
                     All of the code is in this <a href={github_url} className="text-blue-500 underline">Github</a>
                 </p>
 
@@ -47,29 +47,29 @@ class PyRe extends React.Component {
                     This model was made using Racket (a super popular language) and using Redex, a package that is commonly used to implement models
                     of programming languages.
                 </p>
-                <br/>
+                <br />
                 <p>
                     If we start at the top,
                 </p>
-                <br/>
+                <br />
                 <div>
                     <div className="grid grid-cols-2">
-                        <img src={define_language} alt="define language function" className="h-[700px]"/>
-                        <img src={lambdapiexpressions} alt="lambda pi expressions" className="h-[700px] "/>
+                        <img src={define_language} alt="define language function" className="h-[700px]" />
+                        <img src={lambdapiexpressions} alt="lambda pi expressions" className="h-[700px] " />
                     </div>
-                <p className="flex items-center justify-center font-bold text-sm">Reference 1</p>
+                    <p className="flex items-center justify-center font-bold text-sm">Reference 1</p>
                 </div>
-                <br/>
+                <br />
                 <p>
                     The <i>define-language</i> section is our creation of this model. Here we're defining every possible thing that can be created,
-                    such as variables, expressions, types, primitive functions. Using these, we want to define the behavior of Python using this 
+                    such as variables, expressions, types, primitive functions. Using these, we want to define the behavior of Python using this
                     language base when we see certain keywords (see <a href={github_url} className="text-blue-500 underline">Github</a> for examples).
                 </p>
-                <br/>
+                <br />
                 <p>So this is what's going on:</p>
                 <ul className="pl-10 list-disc list-outside">
                     <li>
-                        <span className="font-semibold">Line 6</span> refers to a <i>store</i>, a concept in programming languages that means the storage place for everythings. We can see here that 
+                        <span className="font-semibold">Line 6</span> refers to a <i>store</i>, a concept in programming languages that means the storage place for everythings. We can see here that
                         our store is a list, which elements that are created as a pair consisting of a <i>ref</i> (reference value) and a <i>v+undef</i> (regular value).
                     </li>
                     <li>
@@ -85,7 +85,7 @@ class PyRe extends React.Component {
                         <span className="font-semibold">Lines 57</span>, <span className="font-semibold">58</span>, and <span className="font-semibold">59</span> are just helper components we created to create and access various elements of our program since our stores are basically association list dictionaries, we needed a way to store different values, so these types are used so that our functions which call on these dictionaries only need to return one type of value.
                     </li>
                 </ul>
-                <br/>
+                <br />
                 <p>
                     There's some more various parts that aren't really too relevant because we either don't implement them or they're not very important, but this is our model language called λπ!
                 </p>
@@ -93,11 +93,11 @@ class PyRe extends React.Component {
                 <p>
                     There's a lot of stuff covered in the paper that we look over and didn't really cover in depth since they were pretty basic. They're all implemented in the <a href={github_url} className="text-blue-500 underline">model</a> if you want to check it out but otherwise I'm only going to give a quick summary.
                 </p>
-                <br/>
+                <br />
                 <p>
                     <i>Figures 2</i>, <i>3</i>, <i>5</i>, and <i>6</i> define creating and accessing identifiers and objects in Python. The paper defines the mathematics and logic behind these operations pretty clearly so we implemented them as is, for the most part. <i>Figure 4</i> defines the primitive operations on a list, but since our focus for this project wasn't on lists, we decided not to implement this.
                 </p>
-                <br/>
+                <br />
                 <p>Here's a quick summary of these figures:</p>
                 <ul className="pl-10 list-disc list-outside">
                     <li>
@@ -107,7 +107,7 @@ class PyRe extends React.Component {
                         <span className="font-semibold">Figure 3:</span> The rules for creating objects. The 3 types of objects described here are objects in general, tuples, and sets. The objects are added into the store as <i>triple</i> values that are initialized with the value, the metavalue assigned to the object, and an empty (for now) dictionary. This is because a Python <i>object</i> value can be represented at it's basics as a Python <i>type</i>. This is the example of this from the paper:
                         <div className="flex-col">
                             <div className="flex justify-center ">
-                                <img src={object} alt="object example" className="w-96"/>
+                                <img src={object} alt="object example" className="w-96" />
                             </div>
                             <p className="flex items-center justify-center font-bold text-sm">Reference 2</p>
                         </div>
@@ -116,16 +116,16 @@ class PyRe extends React.Component {
                         </p>
                     </li>
                     <li>
-                        <span className="font-semibold">Figure 5:</span> The rules for accessing objects. The three functions defined here are <i>fetch</i>, <i>set!</i>, and <i>alloc</i>. These are just basic functions for accessing previously created objects. 
+                        <span className="font-semibold">Figure 5:</span> The rules for accessing objects. The three functions defined here are <i>fetch</i>, <i>set!</i>, and <i>alloc</i>. These are just basic functions for accessing previously created objects.
                         <ul className="pl-10 list-decimal list-outside">
                             <li>
                                 <span className="font-medium italic">fetch</span> passes in a reference value and gets the object located in the store at that reference.
                             </li>
                             <li>
-                            <span className="font-medium italic">set!</span> updates the value of the object at a passed in <i>ref</i> into a new value.
+                                <span className="font-medium italic">set!</span> updates the value of the object at a passed in <i>ref</i> into a new value.
                             </li>
                             <li>
-                            <span className="font-medium italic">alloc</span> creates a new store with the new value added into it at the next value. Sort of like how <i>malloc</i> works in C and C++ but doesn't necessarily allocate the space but simply adds the value to it.
+                                <span className="font-medium italic">alloc</span> creates a new store with the new value added into it at the next value. Sort of like how <i>malloc</i> works in C and C++ but doesn't necessarily allocate the space but simply adds the value to it.
                             </li>
                         </ul>
                     </li>
@@ -135,36 +135,36 @@ class PyRe extends React.Component {
                 </ul>
                 <h1 className="font-semibold text-2xl pb-2 pt-5">Figure 7</h1>
                 <p>Now this is what most of our focus was on. <i>Figure 7</i> was undoubtedly the most interesting and complicated part of this paper. Although it's just one function - and a pretty basic one at that - it took a lot of understanding to determine what it's doing. <i>Figure 7</i> defines the algorithm for field lookups on classes</p>
-                <br/>
+                <br />
                 <div>
-                <div className="grid grid-cols-2">
-                        <img src={figure7} alt="figure 7 redex" className="h-[230px]"/>
-                        <img src={figure7paper} alt="lambda pi expressions" className="h-[230px] "/>
+                    <div className="grid grid-cols-2">
+                        <img src={figure7} alt="figure 7 redex" className="h-[230px]" />
+                        <img src={figure7paper} alt="lambda pi expressions" className="h-[230px] " />
                     </div>
                     <p className="flex items-center justify-center font-bold text-sm">Reference 3</p>
                 </div>
-                <br/>
+                <br />
                 <p>
                     As you see here, our code pretty much matches exactly the description of the <i>GetField-Class</i> method in the paper. There's a lot of helper functions that we created, but they also match the mathematics closely.
                 </p>
-                <br/>
+                <br />
                 <p>
                     When the model looks for a method within an object, it will either find it or it doesn't. If the expression exists, it will simply get you that method. But otherwise, it will use the "<i>__mro__</i>" (method resolution order) field to determine where to find the field. This field isn't ever defined by the programmer and is done automatically. The "<i>__mro__</i>" field is set to be the inheretence graph of the current object - all the parent objects for this current object (e.g. <i>monkey</i> -&gt; <i>mammal</i> -&gt; <i>animal</i>, so the <i>monkey's</i> "<i>__mro__</i>" field will be set to include the class and methods of the <i>mammal</i> class and <i>animal</i> class).
                 </p>
-                <br/>
+                <br />
                 <p>
                     As seen in <span className="font-semibold">Reference 3</span>, the <i>GetField-Class</i> also has helper functions <i>class-lookup</i>, <i>class-lookup-mro</i>, and <i>fetch-pointer</i>.
                 </p>
-                <br/>
+                <br />
                 <p>
                     In order of most to least self-explanitory, these are what the helper functions do:
                 </p>
                 <ul className="pl-10 list-disc list-outside">
                     <li>
-                        <span className="font-semibold italic">fetch-pointer</span>: Just gets the value at a given <i>ref</i>. 
+                        <span className="font-semibold italic">fetch-pointer</span>: Just gets the value at a given <i>ref</i>.
                     </li>
                     <li>
-                        <span className="font-semibold italic">class-lookup</span>: Uses <i>class-lookup-mro</i> to get each parent class for the object. 
+                        <span className="font-semibold italic">class-lookup</span>: Uses <i>class-lookup-mro</i> to get each parent class for the object.
                     </li>
                     <li>
                         <span className="font-semibold italic">class-lookup-mro</span>: Gets the parent methods for the object using the dictionary of the object. If an object exists such that the <i>string</i> we're looking for is in the dictionary for the object at the passed in <i>ref</i>, then we'll return to pointer value that the <i>string</i> points to - otherwise, we'll recursively call <i>class-lookup-mro</i> on the rest of the dictionary.
@@ -184,7 +184,7 @@ class PyRe extends React.Component {
                         Similarly, the paper didn't specify how to link multiple functions together (i.e. one function calls another). So like our attempt at recursion, pretty much all attempts ended in error since the model couldn't handle these complex operations and would only be able to run the first instance of the function.
                     </li>
                     <li>
-                        Our model also wasn't able to link together multiple <i>setting</i> and <i>getting</i> operations together. We came to realize this was partly due to #3, but also because we didn't implement a way to link things together. The paper describes the implementation in depth, but everything is done as a one-off don't really link together - which wasn't too big of an issue but it would have been cool to potentially model a whole program at once rather than single operations. 
+                        Our model also wasn't able to link together multiple <i>setting</i> and <i>getting</i> operations together. We came to realize this was partly due to #3, but also because we didn't implement a way to link things together. The paper describes the implementation in depth, but everything is done as a one-off don't really link together - which wasn't too big of an issue but it would have been cool to potentially model a whole program at once rather than single operations.
                     </li>
                 </ul>
                 <h1 className="font-semibold text-2xl pb-2 pt-5">Examples</h1>
@@ -192,31 +192,30 @@ class PyRe extends React.Component {
                     Here are some examples of the <i>traces</i> (basically <i>Redex</i> breaking down our program to show what's happening) of our model. There are some helpful arrows that show the order the program is running. The most important thing to pay attention to is the top of each box, or the first element of each expression, which shows what function is about to run.
                 </p>
                 <div>
-                    <hr className="mt-10 mb-3"/>
+                    <hr className="mt-10 mb-3" />
                     <h1 className="font-semibold text-md">Update field</h1>
-                    <img src={example1} alt="first example"/>
-                    <hr className="mt-10 mb-3"/>
+                    <img src={example1} alt="first example" />
+                    <hr className="mt-10 mb-3" />
                     <h1 className="font-semibold text-md">Create object then get object</h1>
-                    <img src={example2} alt="second example"/>
-                    <hr className="mt-10 mb-3"/>
+                    <img src={example2} alt="second example" />
+                    <hr className="mt-10 mb-3" />
                     <h1 className="font-semibold text-md">Create variable then get variable (while store is empty)</h1>
-                    <img src={example3} alt="third example"/>
-                    <hr className="mt-10 mb-3"/>
+                    <img src={example3} alt="third example" />
+                    <hr className="mt-10 mb-3" />
                     <h1 className="font-semibold text-md">Create variable then get variable (while store is <span className="italic">not</span> empty)</h1>
-                    <img src={example4} alt="fourth example"/>
-                    <hr className="mt-10 mb-3"/>
+                    <img src={example4} alt="fourth example" />
+                    <hr className="mt-10 mb-3" />
                     <h1 className="font-semibold text-md">Get object</h1>
-                    <img src={example5} alt="fifth example"/>
+                    <img src={example5} alt="fifth example" />
                 </div>
             </div>
         )
     }
-} 
+}
 
-const PythonRedex = {
+export const PythonRedex = {
     name: "Python Redex Model",
     color: "bg-yellow-400",
     text: "hover:text-yellow-600",
-    body: <PyRe/>
+    body: <PyRe />
 }
-export default PythonRedex;

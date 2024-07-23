@@ -1,7 +1,7 @@
-import ProjectCard from "../components/cards/ProjectCard";
-import { projects } from '../utils.js';
+import { ProjectCard } from "../components/cards";
+import { projects } from '../utils';
 
-function Projects() {
+export function Projects() {
 
     return (
         <div className="flex flex-col items-center py-10 min-h-screen">
@@ -13,9 +13,7 @@ function Projects() {
                     <ProjectCard name={item.name} color={item.color}>{item.body}</ProjectCard>
                 ))}
             </div>
-            
+
         </div>
     )
 }
-
-export default Projects;

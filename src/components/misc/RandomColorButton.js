@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { tailwindColors } from '../../utils';
 
-const getRandomColor = (colors) => {  
+const getRandomColor = (colors) => {
   const random_color = Math.floor(Math.random() * colors.length);
   return colors[random_color]
 };
@@ -12,7 +12,7 @@ function checkColor(c) {
   return gradient > 500 ? 'text-[#E6E4DD]' : 'text-[#222019]'
 }
 
-const RandomColorButton = () => {
+export const RandomColorButton = () => {
   const [buttonColor, setButtonColor] = useState('bg-black');
   const [textColor, setTextColor] = useState('text-[#E6E4DD]');
 
@@ -28,5 +28,3 @@ const RandomColorButton = () => {
     </button>
   );
 };
-
-export default RandomColorButton;

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default class Modal extends React.Component {
+export class Modal extends React.Component {
     onClose = e => {
         this.props.onClose && this.props.onClose(e);
     };
@@ -13,8 +13,8 @@ export default class Modal extends React.Component {
         if (this.props.show) {
             var scrollTop = window.scrollY || document.documentElement.scrollTop;
             var scrollLeft = window.scrollX || document.documentElement.scrollLeft;
-         
-            window.onscroll = function() {
+
+            window.onscroll = function () {
                 window.scrollTo(scrollLeft, scrollTop);
             };
         }
@@ -26,7 +26,7 @@ export default class Modal extends React.Component {
                         {this.props.children}
                     </div>
                 </div>
-                <button className="bg-[#282828] py-2 px-8 w-[65vw] text-white rounded-b-xl hover:bg-[#343434] duration-300" onClick={e => {this.onClose(e)}}>Close</button>
+                <button className="bg-[#282828] py-2 px-8 w-[65vw] text-white rounded-b-xl hover:bg-[#343434] duration-300" onClick={e => { this.onClose(e) }}>Close</button>
             </div>
         )
     }
