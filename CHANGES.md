@@ -45,3 +45,7 @@
 **8/3/2024**
 
 - Added Google analytics
+
+**9/7/2024**
+
+- Added skills to projects
