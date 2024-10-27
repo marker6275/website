@@ -11,7 +11,7 @@ export function Navbar() {
         <NavbarButton title="HOME" link="/" />
         <NavbarButton title="CONTACT" link="/contact" />
         <Link to="/">
-          <div className="w-16 h-16 hover:w-18 hover:h-18">
+          <div className="w-14 h-14 m-1">
             <img src={logo} alt="Mark" className="rounded-full" />
           </div>
         </Link>
