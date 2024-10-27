@@ -1,20 +1,31 @@
-import { HomeProjectCard } from '../cards';
-import { projects } from '../../utils';
-import { Link } from 'react-router-dom';
+import { HomeProjectCard } from "../cards";
+import { projects } from "../../utils";
+import { Link } from "react-router-dom";
 
 export function SectionProjects() {
   const featuredProjects = projects.slice(0, 3);
 
   return (
-    <div className="flex-col align-items py-20 bg-[#F1F1F1]">
-      <h1 className="font-medium text-5xl flex justify-center pb-10">Projects</h1>
+    <div className="flex-col align-items py-20">
+      <h1 className="font-medium text-5xl flex justify-center pb-10">
+        Projects
+      </h1>
       <div className="grid grid-cols-3 gap-20 px-36 py-10">
-        {featuredProjects.map((project) => <HomeProjectCard name={project.name} color={project.color} text={project.text}>{project.body}</HomeProjectCard>)}
+        {featuredProjects.map((project) => (
+          <HomeProjectCard
+            name={project.name}
+            color={project.color}
+            text={project.text}
+          >
+            {project.body}
+          </HomeProjectCard>
+        ))}
       </div>
-      <div className='px-36 text-[#495497] font-bold text-lg'>
-        <Link to='/projects'>
+      <div className="px-36 text-[#495497] font-bold text-lg">
+        <Link to="/projects">
           <div>
-            <span className='underline'>All projects</span> {'>'}{'>'}
+            <span className="underline">All projects</span> {">"}
+            {">"}
           </div>
         </Link>
       </div>

@@ -9,6 +9,7 @@ import example2 from "../assets/project_images/PythonRedexModel/examples/example
 import example3 from "../assets/project_images/PythonRedexModel/examples/example3.png";
 import example4 from "../assets/project_images/PythonRedexModel/examples/example4.png";
 import example5 from "../assets/project_images/PythonRedexModel/examples/example5.png";
+import python from "../assets/project_images/PythonRedexModel/python.png";
 
 class PyRe extends React.Component {
   render() {
@@ -22,21 +23,16 @@ class PyRe extends React.Component {
 
         <h1 className="font-semibold text-2xl pb-2">Intro</h1>
         <p>
-          So we made this model as a group for a class,{" "}
-          <i>CS 396: Dynamics of Programming Languages</i> which I took in
-          Spring 2023. Overall, the class was very abstract and featured a lot
-          of math, so I'm very surprised I could actually keep up and most of it
-          still made sense to me, but otherwise the project wasn't too bad. But
-          we were assigned to implement the mathematical model behind a
-          programming language. The programming language we did was Python,
-          which we thought would be very easy since Python was such a popular
-          language and we were pretty familiar with it... I mean we weren't too
-          wrong.
+          The goal behind this project was to implement the mathematical model
+          behind a programming language - our language being Python. We thought
+          this would be very easy since Python was such a popular language and
+          we were pretty familiar with it. But there are are just so many
+          intricacies about the Python language.
         </p>
         <br />
         <p>
-          If you don't want to look at our budget remake of something beautiful,
-          allow me to redirect you directly to the original{" "}
+          If you don't want to look at our Walmart remake of something
+          beautiful, allow me to redirect you directly to the original{" "}
           <a href={paper_url} className="text-blue-500 underline">
             paper
           </a>{" "}
@@ -419,7 +415,9 @@ class PyRe extends React.Component {
 export const PythonRedex = {
   name: "Python Redex Model",
   color: "bg-yellow-400",
-  text: "hover:text-yellow-600",
+  text: "hover:text-yellow-400",
   skills: ["Programming Languages", "Racket", "Redex"],
+  description: "Mathematical model of Python",
+  image: python,
   body: <PyRe />,
 };

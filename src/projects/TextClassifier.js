@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import PythonClient from "../assets/project_images/TextClassifier/PythonClient.png";
 import diagram from "../assets/project_images/TextClassifier/diagram.png";
+import aws from "../assets/project_images/TextClassifier/aws.png";
 
 class TC extends React.Component {
   render() {
@@ -25,16 +26,6 @@ class TC extends React.Component {
             </h1>
           </Link>
         </div>
-        <h1 className="font-semibold text-2xl pb-2 pt-5">Longer TLDR</h1>
-        <p>
-          This was the final project for the class{" "}
-          <i>CS 310: Scalable Software Architectures</i> that I took in Fall
-          2023. I also just recycled one of the previous homeworks I did for{" "}
-          <i>CS 348: Intro to Artificial Intelligence</i>, so I guess this was
-          really two projects in one. The original homework simply used Naive
-          Bayes to classify movie reviews as positive or negative - so I
-          expanded on it and just to have a range from 1 to 5.
-        </p>
 
         <h1 className="font-semibold text-2xl pb-2 pt-5">Client</h1>
         <p>
@@ -181,7 +172,9 @@ class TC extends React.Component {
 export const TextClassifier = {
   name: "Text Classifer",
   color: "bg-white",
-  text: "hover:text-gray-600",
+  text: "hover:text-gray-400",
   skills: ["AWS", "API Design", "Javascript", "Naive Bayes"],
+  description: "Classify text sentiment using Naive Bayes",
+  image: aws,
   body: <TC />,
 };

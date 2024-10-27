@@ -49,3 +49,8 @@
 **9/7/2024**
 
 - Added skills to projects
+
+**10/26/2024**
+
+- Added images to projects
+- Updated color scheme

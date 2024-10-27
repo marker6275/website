@@ -1,4 +1,5 @@
 import React from "react";
+import logo from "../assets/logo.jpg";
 
 class Web extends React.Component {
   render() {
@@ -67,5 +68,7 @@ export const Website = {
   color: "bg-blue-400",
   text: "hover:text-blue-700",
   skills: ["React", "Tailwind"],
+  description: "Where you are right now",
+  image: logo,
   body: <Web />,
 };

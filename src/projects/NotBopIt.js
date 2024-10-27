@@ -4,6 +4,7 @@ import task from "../assets/project_images/NotBopIt/task.png";
 import losingscreen from "../assets/project_images/NotBopIt/losingscreen.png";
 import completedtask from "../assets/project_images/NotBopIt/completedtask.png";
 import notbopit from "../assets/project_images/NotBopIt/notbopit.png";
+import microbitLogo from "../assets/project_images/NotBopIt/microbitLogo.png";
 
 class BopIt extends React.Component {
   render() {
@@ -13,21 +14,14 @@ class BopIt extends React.Component {
         <hr className="mb-5" />
         <h1 className="font-semibold text-2xl pb-2 pt-5">Description</h1>
         <p>
-          This was the final project we made for our microprocessors class. The
-          overall class was just doing different tasks to be done on a single
-          piece of hardware, which overall made it into a programming class even
-          though the class delved a lot into hardware.
-        </p>
-        <h1 className="font-semibold text-2xl pb-2 pt-5">Project Details</h1>
-        <p>
-          A summary of the project description was just to make a thing that
-          took in inputs and produced outputs given to those inputs. All it
-          really needed was an actuator and at least 5 sensors. Originally we
-          thought our idea of Bop-It was simple enough, but turns out at least 2
-          other groups did it as well... So we decided to make it a little
-          different. Rather than the classic Bop-It, we wanted to change up how
-          the game worked, mainly to make it seem more complex than it actually
-          was.
+          A summary of the project description was that we wanted to make a
+          thing that took in inputs and produced outputs given to those inputs.
+          All it really needed was an actuator and at least 5 sensors.
+          Originally we thought our idea of Bop-It was simple enough, but turns
+          out at least 2 other groups did it as well... So we decided to make it
+          a little different. Rather than the classic Bop-It, we wanted to
+          change up how the game worked, mainly to make it seem more complex
+          than it actually was.
         </p>
         <h1 className="font-semibold text-2xl pb-2 pt-5">Hardware</h1>
         <img src={microbit} alt="Microbit" className="w-1/6 mx-auto" />
@@ -148,8 +142,10 @@ class BopIt extends React.Component {
 
 export const NotBopIt = {
   name: "Not Bop-It",
-  color: "bg-red-600",
-  text: "hover:text-red-600",
+  color: "bg-teal-300",
+  text: "hover:text-teal-500",
   skills: ["C", "MicroBit", "Sensors"],
+  description: "Bop It wishes it was this",
+  image: microbitLogo,
   body: <BopIt />,
 };

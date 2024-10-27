@@ -9,7 +9,7 @@ export function SectionAboutMe() {
             Mark Li
           </h1>
         </div>
-        <div className="flex justify-center items-center bg-[#e9e9e9] p-20">
+        <div className="flex justify-center items-center bg-indigo-100 p-20 shadow-lg rounded-lg mr-20">
           <div>
             <div className="flex justify-center items-center">
               <h1 className="font-medium text-2xl mb-4">About Me</h1>
