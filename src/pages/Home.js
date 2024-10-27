@@ -6,7 +6,7 @@ import {
 
 export function Home() {
   return (
-    <div>
+    <div className="bg-gradient-to-b from-blue-200 to-sky-100">
       <SectionAboutMe />
       <SectionProjects />
       <SectionMusic />

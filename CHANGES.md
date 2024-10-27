@@ -54,3 +54,8 @@
 
 - Added images to projects
 - Updated color scheme
+
+**10/27/2024**
+
+- Fixed background gradient
+- Updated colors

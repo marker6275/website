@@ -415,7 +415,7 @@ class PyRe extends React.Component {
 export const PythonRedex = {
   name: "Python Redex Model",
   color: "bg-yellow-400",
-  text: "hover:text-yellow-400",
+  text: "hover:text-amber-500",
   skills: ["Programming Languages", "Racket", "Redex"],
   description: "Mathematical model of Python",
   image: python,

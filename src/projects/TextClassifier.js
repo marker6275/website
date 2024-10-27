@@ -172,7 +172,7 @@ class TC extends React.Component {
 export const TextClassifier = {
   name: "Text Classifer",
   color: "bg-white",
-  text: "hover:text-gray-400",
+  text: "hover:text-gray-500",
   skills: ["AWS", "API Design", "Javascript", "Naive Bayes"],
   description: "Classify text sentiment using Naive Bayes",
   image: aws,
