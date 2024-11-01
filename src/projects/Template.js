@@ -1,4 +1,5 @@
 import React from "react";
+import NotFound from "../assets/not_found.jpg";
 
 class Temp extends React.Component {
   render() {
@@ -17,6 +18,8 @@ export const Template = {
   name: "Template",
   color: "bg-white",
   text: "hover:text-white",
-  skills: [],
+  skills: ["Skill1", "Skill2", "Skill3"],
+  description: "Generic description",
+  image: NotFound,
   body: <Temp />,
 };
