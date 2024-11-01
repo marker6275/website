@@ -63,3 +63,4 @@
 **11/1/2024**
 
 - Added intermittent computing project
+- Added CNAME file
