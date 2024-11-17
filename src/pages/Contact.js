@@ -31,7 +31,7 @@ export function Contact() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col font-inter bg-gradient-to-b from-blue-200 to-sky-100">
+    <div className="min-h-screen flex flex-col font-inter bg-gradient-to-b from-blue-200 via-white to-sky-100">
       <div className="flex justify-center mt-24">
         {/* left */}
         <div className="flex justify-start m-10">

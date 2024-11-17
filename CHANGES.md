@@ -64,3 +64,7 @@
 
 - Added intermittent computing project
 - Added CNAME file
+
+**11/16/2024**
+
+- Fixed coloring

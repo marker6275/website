@@ -18,7 +18,7 @@ const ScrollToTop = () => {
 
 function App() {
   return (
-    <body className="flex flex-col font-inter min-h-screen bg-gradient-to-b from-blue-200 via-white to-sky-100">
+    <body className="flex flex-col font-inter min-h-screen">
       <Navbar />
       <ScrollToTop />
       <Routes>
