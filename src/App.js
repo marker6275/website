@@ -32,6 +32,7 @@ function App() {
     if (!localStorage.getItem("intro")) {
       const timer = setTimeout(() => {
         localStorage.setItem("intro", true);
+        setShowHome(true);
       }, 4000);
       return () => clearTimeout(timer);
     }
