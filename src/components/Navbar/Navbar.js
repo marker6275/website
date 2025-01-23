@@ -9,7 +9,7 @@ export function Navbar() {
     <div className="h-16 flex justify-center duration-500 bg-gradient-to-b from-blue-300 to-blue-200">
       <div className="flex">
         <NavbarButton title="HOME" link="/" />
-        <NavbarButton title="CONTACT" link="/contact" />
+        <NavbarButton title="RESUME" link="/resume" />
         <Link to="/">
           <div className="w-14 h-14 m-1">
             <img src={logo} alt="Mark" className="rounded-full" />

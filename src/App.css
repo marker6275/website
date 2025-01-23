@@ -1,0 +1,56 @@
+.hello {
+  animation: moveAndFade 4s forwards;
+}
+
+.fade-background {
+  animation: fadeOutBackground 5s forwards;
+}
+
+.fade-background-in {
+  animation: fadeInBackground 1s forwards;
+}
+
+@keyframes fadeOutBackground {
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes moveAndFade {
+  0% {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+  }
+  25% {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+  75% {
+    top: 43.5%;
+    left: 25%;
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+  100% {
+    top: 43.5%;
+    left: 25%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+  }
+}
+
+@keyframes fadeInBackground {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

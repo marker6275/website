@@ -6,7 +6,7 @@ export function Music() {
   // conducting?
 
   return (
-    <div className="flex flex-col py-10 items-center min-h-screen bg-gradient-to-b from-blue-200 via-white to-sky-100">
+    <div className="flex flex-col py-10 items-center bg-gradient-to-b from-blue-200 via-white to-sky-100">
       <h1 className="text-6xl font-medium mb-5">Music</h1>
       <div className="flex flex-col items-center p-10 gap-x-20 gap-y-10 grid grid-cols-2">
         {info.map((item) => (

@@ -68,3 +68,10 @@
 **11/16/2024**
 
 - Fixed coloring
+
+**1/22/2025**
+
+- New resume
+- Removed contact page
+- New icons
+- Intro animation
