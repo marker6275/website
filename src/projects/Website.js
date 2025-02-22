@@ -1,19 +1,20 @@
 import React from "react";
+import { T, BL, ST, P, Line } from "../components/text";
 import logo from "../assets/logo.jpg";
 
 class Web extends React.Component {
   render() {
     return (
       <div className="py-5">
-        <h1 className="text-5xl mb-5 font-semibold">Website</h1>
-        <hr className="mb-5" />
-        <h1 className="font-semibold text-2xl pb-2">Details</h1>
-        <p>
+        <T>Website</T>
+        <Line />
+        <ST>Details</ST>
+        <P>
           This was just a simple website I made entirely on my own, which is
           something cool to show.
-        </p>
+        </P>
         <br />
-        <ul className="pl-10 list-disc list-outside">
+        <BL>
           <li>
             <b>ReactJS:</b> The actual website is written in React. It's just
             the framework I'm most comfortable with and it's really easy to work
@@ -33,18 +34,18 @@ class Web extends React.Component {
             contact form works. Not that I'm expecting anyone to use it, but
             it's there.
           </li>
-        </ul>
+        </BL>
         <br />
-        <p>
+        <P>
           This might be the first actual project I spent a lot of time on. I
           don't know what I wanted to come out of this besides just being able
           to have a website and put this on my resume, but otherwise, this was
           pretty fun. It was nice being able to put the skills that I learned
           about web devevelopment and front-end development and put them to use
           on something.
-        </p>
+        </P>
         <br />
-        <p>
+        <P>
           So for now this is all I have, but I think I'm going to keep updating
           this website for a while, especially the projects page whenever I make
           something cool or worth noting, I'll put it up on here. Same with my
@@ -52,12 +53,12 @@ class Web extends React.Component {
           going to keep adding my past projects onto this page when I get around
           to it. Hopefully, things will be a lot more organized and have more
           detail, especially on some technical projects.
-        </p>
+        </P>
         <br />
-        <p>
+        <P>
           Thanks for stopping by, I hope there will be something new for you
           next time.
-        </p>
+        </P>
       </div>
     );
   }

@@ -1,4 +1,5 @@
 import React from "react";
+import { T, C, NL, BL, ST, ST2, P, Line } from "../components/text";
 import define_language from "../assets/project_images/PythonRedexModel/define_language.png";
 import lambdapiexpressions from "../assets/project_images/PythonRedexModel/lambdapiexpressions.png";
 import figure7 from "../assets/project_images/PythonRedexModel/figure7.png";
@@ -18,19 +19,19 @@ class PyRe extends React.Component {
       "https://cs.brown.edu/people/sk/Publications/Papers/Published/pmmwplck-python-full-monty/paper.pdf";
     return (
       <div className="py-5">
-        <h1 className="text-5xl mb-5 font-semibold">Python Redex Model</h1>
-        <hr className="mb-5" />
+        <T>Python Redex Model</T>
+        <Line />
 
-        <h1 className="font-semibold text-2xl pb-2">Intro</h1>
-        <p>
+        <ST>Intro</ST>
+        <P>
           The goal behind this project was to implement the mathematical model
           behind a programming language - our language being Python. We thought
           this would be very easy since Python was such a popular language and
           we were pretty familiar with it. But there are are just so many
           intricacies about the Python language.
-        </p>
+        </P>
         <br />
-        <p>
+        <P>
           If you don't want to look at our Walmart remake of something
           beautiful, allow me to redirect you directly to the original{" "}
           <a href={paper_url} className="text-blue-500 underline">
@@ -45,9 +46,9 @@ class PyRe extends React.Component {
           </a>{" "}
           which is much much much better and complete than what we created.
           Since this page is pretty long, this is your chance to leave.
-        </p>
+        </P>
         <br />
-        <p>
+        <P>
           Now that you've had your chance to leave, allow me to highlight some
           parts in our model.
           <br />
@@ -55,10 +56,10 @@ class PyRe extends React.Component {
           <a href={github_url} className="text-blue-500 underline">
             Github
           </a>
-        </p>
+        </P>
 
-        <h1 className="font-semibold text-2xl pb-2 pt-5">What we did</h1>
-        <p>
+        <ST>What we did</ST>
+        <P>
           Our main takeaways from the paper were regarding scope in Python,
           which is used in a way that's unique to Python and doesn't quite work
           the same in pretty much every other programming langauge. We also
@@ -66,16 +67,16 @@ class PyRe extends React.Component {
           related to Python's weird scoping rules. We also implemented a
           two-register system - which returns the current expression and a
           store.
-        </p>
+        </P>
 
-        <h1 className="font-semibold text-2xl pb-2 pt-5">Model</h1>
-        <p>
+        <ST>Model</ST>
+        <P>
           This model was made using Racket (a super popular language) and using
           Redex, a package that is commonly used to implement models of
           programming languages.
-        </p>
+        </P>
         <br />
-        <p>If we start at the top,</p>
+        <P>If we start at the top,</P>
         <br />
         <div>
           <div className="grid grid-cols-2">
@@ -90,12 +91,10 @@ class PyRe extends React.Component {
               className="h-[700px] "
             />
           </div>
-          <p className="flex items-center justify-center font-bold text-sm">
-            Reference 1
-          </p>
+          <C>Reference 1</C>
         </div>
         <br />
-        <p>
+        <P>
           The <i>define-language</i> section is our creation of this model. Here
           we're defining every possible thing that can be created, such as
           variables, expressions, types, primitive functions. Using these, we
@@ -105,62 +104,59 @@ class PyRe extends React.Component {
             Github
           </a>{" "}
           for examples).
-        </p>
+        </P>
         <br />
-        <p>So this is what's going on:</p>
-        <ul className="pl-10 list-disc list-outside">
+        <P>So this is what's going on:</P>
+        <BL>
           <li>
-            <span className="font-semibold">Line 6</span> refers to a{" "}
-            <i>store</i>, a concept in programming languages that means the
-            storage place for everythings. We can see here that our store is a
-            list, which elements that are created as a pair consisting of a{" "}
-            <i>ref</i> (reference value) and a <i>v+undef</i> (regular value).
+            <b>Line 6</b> refers to a <i>store</i>, a concept in programming
+            languages that means the storage place for everythings. We can see
+            here that our store is a list, which elements that are created as a
+            pair consisting of a <i>ref</i> (reference value) and a{" "}
+            <i>v+undef</i> (regular value).
           </li>
           <li>
-            <span className="font-semibold">Line 12</span> defines a value,
-            which we see here can be a variety of expressions, but the two most
-            notable ones include the two <i>(triple ...)</i> values. These say
-            the same thing, except the former is describing a pure, predefined
-            value, while the latter uses undefined variables. This essentially
-            describes that a value in Python is stored as a combination of the
-            variable name, an assigned metavalue (more on this later), and a
-            dictionary.
+            <b>Line 12</b> defines a value, which we see here can be a variety
+            of expressions, but the two most notable ones include the two{" "}
+            <i>(triple ...)</i> values. These say the same thing, except the
+            former is describing a pure, predefined value, while the latter uses
+            undefined variables. This essentially describes that a value in
+            Python is stored as a combination of the variable name, an assigned
+            metavalue (more on this later), and a dictionary.
           </li>
           <li>
             Our metavalues (which are values that exist in our meta-language,
-            which is Racket in this case) are defined on{" "}
-            <span className="font-semibold">line 24</span>. One of the fewtimes
-            that we really needed these <i>mvals</i> are when we use them inside
-            of the <i>(triple ...)</i> and we use them to define values.
+            which is Racket in this case) are defined on <b>line 24</b>. One of
+            the fewtimes that we really needed these <i>mvals</i> are when we
+            use them inside of the <i>(triple ...)</i> and we use them to define
+            values.
           </li>
           <li>
-            <span className="font-semibold">Line 32-51</span> are all our
-            expression values and is just a comprehensive list of all the
-            possible types of data that may be implemented in Python. These
-            types are most of the ones we'll be referencing throughout most of
-            the model since expressions make up most of the Python language. We
-            don't actually implement or use most of these expressions but they
-            were included in our language for completeness.
+            <b>Line 32-51</b> are all our expression values and is just a
+            comprehensive list of all the possible types of data that may be
+            implemented in Python. These types are most of the ones we'll be
+            referencing throughout most of the model since expressions make up
+            most of the Python language. We don't actually implement or use most
+            of these expressions but they were included in our language for
+            completeness.
           </li>
           <li>
-            <span className="font-semibold">Lines 57</span>,{" "}
-            <span className="font-semibold">58</span>, and{" "}
-            <span className="font-semibold">59</span> are just helper components
+            <b>Lines 57</b>, <b>58</b>, and <b>59</b> are just helper components
             we created to create and access various elements of our program
             since our stores are basically association list dictionaries, we
             needed a way to store different values, so these types are used so
             that our functions which call on these dictionaries only need to
             return one type of value.
           </li>
-        </ul>
+        </BL>
         <br />
-        <p>
+        <P>
           There's some more various parts that aren't really too relevant
           because we either don't implement them or they're not very important,
           but this is our model language called λπ!
-        </p>
-        <h1 className="font-semibold text-2xl pb-2 pt-5">The boring stuff</h1>
-        <p>
+        </P>
+        <ST>The boring stuff</ST>
+        <P>
           There's a lot of stuff covered in the paper that we look over and
           didn't really cover in depth since they were pretty basic. They're all
           implemented in the{" "}
@@ -169,92 +165,86 @@ class PyRe extends React.Component {
           </a>{" "}
           if you want to check it out but otherwise I'm only going to give a
           quick summary.
-        </p>
+        </P>
         <br />
-        <p>
+        <P>
           <i>Figures 2</i>, <i>3</i>, <i>5</i>, and <i>6</i> define creating and
           accessing identifiers and objects in Python. The paper defines the
           mathematics and logic behind these operations pretty clearly so we
           implemented them as is, for the most part. <i>Figure 4</i> defines the
           primitive operations on a list, but since our focus for this project
           wasn't on lists, we decided not to implement this.
-        </p>
+        </P>
         <br />
-        <p>Here's a quick summary of these figures:</p>
-        <ul className="pl-10 list-disc list-outside">
+        <P>Here's a quick summary of these figures:</P>
+        <BL>
           <li>
-            <span className="font-semibold">Figure 2:</span> Creating
-            identifiers with values bound to them and then getting the values
-            bound to these identifiers. Basically, letting us define variables
-            then using these variables.
+            <b>Figure 2:</b> Creating identifiers with values bound to them and
+            then getting the values bound to these identifiers. Basically,
+            letting us define variables then using these variables.
           </li>
           <li>
-            <span className="font-semibold">Figure 3:</span> The rules for
-            creating objects. The 3 types of objects described here are objects
-            in general, tuples, and sets. The objects are added into the store
-            as <i>triple</i> values that are initialized with the value, the
-            metavalue assigned to the object, and an empty (for now) dictionary.
-            This is because a Python <i>object</i> value can be represented at
-            it's basics as a Python <i>type</i>. This is the example of this
-            from the paper:
+            <b>Figure 3:</b> The rules for creating objects. The 3 types of
+            objects described here are objects in general, tuples, and sets. The
+            objects are added into the store as <i>triple</i> values that are
+            initialized with the value, the metavalue assigned to the object,
+            and an empty (for now) dictionary. This is because a Python{" "}
+            <i>object</i> value can be represented at it's basics as a Python{" "}
+            <i>type</i>. This is the example of this from the paper:
             <div className="flex-col">
               <div className="flex justify-center ">
                 <img src={object} alt="object example" className="w-96" />
               </div>
-              <p className="flex items-center justify-center font-bold text-sm">
-                Reference 2
-              </p>
+              <C>Reference 2</C>
             </div>
-            <p>
+            <P>
               So the <i>type</i> implementation we see here defines the object
               using the same three categories as defined in our <i>triple</i>{" "}
-              values from <span className="font-semibold">Reference 1</span>.
-              The first field of the type is the name of the class (in this case{" "}
-              <i>X</i>), the second field is the metavalue (where <i>X</i> is an
-              instance of an <i>object</i>), and finally in the third field is
-              the list of methods that this object holds, so we initialize our
-              object using an empty dictionary since we aren't given what
-              methods the object has.
-            </p>
+              values from <b>Reference 1</b>. The first field of the type is the
+              name of the class (in this case <i>X</i>), the second field is the
+              metavalue (where <i>X</i> is an instance of an <i>object</i>), and
+              finally in the third field is the list of methods that this object
+              holds, so we initialize our object using an empty dictionary since
+              we aren't given what methods the object has.
+            </P>
           </li>
           <li>
-            <span className="font-semibold">Figure 5:</span> The rules for
-            accessing objects. The three functions defined here are <i>fetch</i>
-            , <i>set!</i>, and <i>alloc</i>. These are just basic functions for
-            accessing previously created objects.
-            <ul className="pl-10 list-decimal list-outside">
+            <b>Figure 5:</b> The rules for accessing objects. The three
+            functions defined here are <i>fetch</i>, <i>set!</i>, and{" "}
+            <i>alloc</i>. These are just basic functions for accessing
+            previously created objects.
+            <NL>
               <li>
-                <span className="font-medium italic">fetch</span> passes in a
-                reference value and gets the object located in the store at that
-                reference.
+                <b className="italic">fetch</b> passes in a reference value and
+                gets the object located in the store at that reference.
               </li>
               <li>
-                <span className="font-medium italic">set!</span> updates the
-                value of the object at a passed in <i>ref</i> into a new value.
+                <b className="italic">set!</b> updates the value of the object
+                at a passed in <i>ref</i> into a new value.
               </li>
               <li>
-                <span className="font-medium italic">alloc</span> creates a new
-                store with the new value added into it at the next value. Sort
-                of like how <i>malloc</i> works in C and C++ but doesn't
-                necessarily allocate the space but simply adds the value to it.
+                <b className="italic">alloc</b> creates a new store with the new
+                value added into it at the next value. Sort of like how{" "}
+                <i>malloc</i> works in C and C++ but doesn't necessarily
+                allocate the space but simply adds the value to it.
               </li>
-            </ul>
+            </NL>
           </li>
           <li>
-            <span className="font-semibold">Figure 6:</span> Allows access to
-            fields within the objects. Since we'd want to populate the
-            (probably) empty dictionaries in objects, <i>Figure 6</i> allows us
-            to edit, add, and get the fields within an object.
+            <b>Figure 6:</b> Allows access to fields within the objects. Since
+            we'd want to populate the (probably) empty dictionaries in objects,{" "}
+            <i>Figure 6</i> allows us to edit, add, and get the fields within an
+            object.
           </li>
-        </ul>
-        <h1 className="font-semibold text-2xl pb-2 pt-5">Figure 7</h1>
-        <p>
+        </BL>
+        <ST>Figure 7</ST>
+        <P>
           Now this is what most of our focus was on. <i>Figure 7</i> was
           undoubtedly the most interesting and complicated part of this paper.
           Although it's just one function - and a pretty basic one at that - it
           took a lot of understanding to determine what it's doing.{" "}
           <i>Figure 7</i> defines the algorithm for field lookups on classes
-        </p>
+        </P>
         <br />
         <div>
           <div className="grid grid-cols-2">
@@ -265,19 +255,17 @@ class PyRe extends React.Component {
               className="h-[230px] "
             />
           </div>
-          <p className="flex items-center justify-center font-bold text-sm">
-            Reference 3
-          </p>
+          <C>Reference 3</C>
         </div>
         <br />
-        <p>
+        <P>
           As you see here, our code pretty much matches exactly the description
           of the <i>GetField-Class</i> method in the paper. There's a lot of
           helper functions that we created, but they also match the mathematics
           closely.
-        </p>
+        </P>
         <br />
-        <p>
+        <P>
           When the model looks for a method within an object, it will either
           find it or it doesn't. If the expression exists, it will simply get
           you that method. But otherwise, it will use the "<i>__mro__</i>"
@@ -288,43 +276,43 @@ class PyRe extends React.Component {
           object (e.g. <i>monkey</i> -&gt; <i>mammal</i> -&gt; <i>animal</i>, so
           the <i>monkey's</i> "<i>__mro__</i>" field will be set to include the
           class and methods of the <i>mammal</i> class and <i>animal</i> class).
-        </p>
+        </P>
         <br />
-        <p>
-          As seen in <span className="font-semibold">Reference 3</span>, the{" "}
-          <i>GetField-Class</i> also has helper functions <i>class-lookup</i>,{" "}
-          <i>class-lookup-mro</i>, and <i>fetch-pointer</i>.
-        </p>
+        <P>
+          As seen in <b>Reference 3</b>, the <i>GetField-Class</i> also has
+          helper functions <i>class-lookup</i>, <i>class-lookup-mro</i>, and{" "}
+          <i>fetch-pointer</i>.
+        </P>
         <br />
-        <p>
+        <P>
           In order of most to least self-explanitory, these are what the helper
           functions do:
-        </p>
-        <ul className="pl-10 list-disc list-outside">
+        </P>
+        <BL>
           <li>
-            <span className="font-semibold italic">fetch-pointer</span>: Just
-            gets the value at a given <i>ref</i>.
+            <b className="italic">fetch-pointer</b>: Just gets the value at a
+            given <i>ref</i>.
           </li>
           <li>
-            <span className="font-semibold italic">class-lookup</span>: Uses{" "}
-            <i>class-lookup-mro</i> to get each parent class for the object.
+            <b className="italic">class-lookup</b>: Uses <i>class-lookup-mro</i>{" "}
+            to get each parent class for the object.
           </li>
           <li>
-            <span className="font-semibold italic">class-lookup-mro</span>: Gets
-            the parent methods for the object using the dictionary of the
-            object. If an object exists such that the <i>string</i> we're
-            looking for is in the dictionary for the object at the passed in{" "}
-            <i>ref</i>, then we'll return to pointer value that the{" "}
-            <i>string</i> points to - otherwise, we'll recursively call{" "}
-            <i>class-lookup-mro</i> on the rest of the dictionary.
+            <b className="italic">class-lookup-mro</b>: Gets the parent methods
+            for the object using the dictionary of the object. If an object
+            exists such that the <i>string</i> we're looking for is in the
+            dictionary for the object at the passed in <i>ref</i>, then we'll
+            return to pointer value that the <i>string</i> points to -
+            otherwise, we'll recursively call <i>class-lookup-mro</i> on the
+            rest of the dictionary.
           </li>
-        </ul>
-        <h1 className="font-semibold text-2xl pb-2 pt-5">Undefined values</h1>
-        <p>
+        </BL>
+        <ST>Undefined values</ST>
+        <P>
           As a quick side note, probably the most comedic thing about this paper
           was their description of <i>undefined</i> values. THe actual concept
           itself was pretty bland but the paper continuously referenced this
-          nonexistent value as <i>skull</i> (no literally, this: ☠, was written
+          nonexistent value as <i>skull</i> (no literally: ☠ was written
           everywhere - page 2 of the{" "}
           <a href={paper_url} className="text-blue-500 underline">
             pdf
@@ -334,21 +322,19 @@ class PyRe extends React.Component {
           error due to uninitialized variables). That's about it. There's not
           really much to say about it - I just wanted to highlight this aspect
           of the paper (great writing).
-        </p>
-        <h1 className="font-semibold text-2xl pb-2 pt-5">
-          Other considerations
-        </h1>
-        <ul className="pl-10 list-decimal list-outside">
+        </P>
+        <ST>Other considerations</ST>
+        <NL>
           <li>
             In our implementation of <i>SetFieldUpdate</i> and{" "}
             <i>SetFieldAdd</i>, we implement one restriction for our store by
             forcing the programmer to input the parameters in a certain order.
             This was because these two methods have to account for the scenario
-            where object <i>A</i> could exist before object <i>B</i>{" "}
-            <span className="font-medium">OR</span> <i>B</i> could exist before{" "}
-            <i>A</i>. To account for this, we decided to specify the order that
-            our objects exist in the store so we would need to write two nearly
-            identical functions to account for both possibilities.
+            where object <i>A</i> could exist before object <i>B</i> <b>OR</b>{" "}
+            <i>B</i> could exist before <i>A</i>. To account for this, we
+            decided to specify the order that our objects exist in the store so
+            we would need to write two nearly identical functions to account for
+            both possibilities.
           </li>
           <li>
             The paper doesn't specify regarding recursion in Python. We
@@ -373,38 +359,34 @@ class PyRe extends React.Component {
             potentially model a whole program at once rather than single
             operations.
           </li>
-        </ul>
-        <h1 className="font-semibold text-2xl pb-2 pt-5">Examples</h1>
-        <p>
+        </NL>
+        <ST>Examples</ST>
+        <P>
           Here are some examples of the <i>traces</i> (basically <i>Redex</i>{" "}
           breaking down our program to show what's happening) of our model.
           There are some helpful arrows that show the order the program is
           running. The most important thing to pay attention to is the top of
           each box, or the first element of each expression, which shows what
           function is about to run.
-        </p>
+        </P>
         <div>
-          <hr className="mt-10 mb-3" />
-          <h1 className="font-semibold text-md">Update field</h1>
+          <Line />
+          <ST2>Update field</ST2>
           <img src={example1} alt="first example" />
-          <hr className="mt-10 mb-3" />
-          <h1 className="font-semibold text-md">
-            Create object then get object
-          </h1>
+          <Line />
+          <ST2>Create object then get object</ST2>
           <img src={example2} alt="second example" />
-          <hr className="mt-10 mb-3" />
-          <h1 className="font-semibold text-md">
-            Create variable then get variable (while store is empty)
-          </h1>
+          <Line />
+          <ST2>Create variable then get variable (while store is empty)</ST2>
           <img src={example3} alt="third example" />
-          <hr className="mt-10 mb-3" />
-          <h1 className="font-semibold text-md">
+          <Line />
+          <ST2>
             Create variable then get variable (while store is{" "}
             <span className="italic">not</span> empty)
-          </h1>
+          </ST2>
           <img src={example4} alt="fourth example" />
-          <hr className="mt-10 mb-3" />
-          <h1 className="font-semibold text-md">Get object</h1>
+          <Line />
+          <ST2>Get object</ST2>
           <img src={example5} alt="fifth example" />
         </div>
       </div>

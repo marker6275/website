@@ -6,7 +6,7 @@ export function SectionProjects() {
   const featuredProjects = projects.slice(0, 3);
 
   return (
-    <div className="flex-col align-items py-20">
+    <div className="flex-col align-items py-10">
       <h1 className="font-light text-5xl flex justify-center pb-10">
         Projects
       </h1>
@@ -21,7 +21,7 @@ export function SectionProjects() {
           </HomeProjectCard>
         ))}
       </div>
-      <div className="px-36 text-blue-700 font-bold text-lg">
+      <div className="px-36 text-blue-700 font-light text-lg">
         <Link to="/projects">
           <div>
             <span className="underline">All projects</span> {">"}

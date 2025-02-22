@@ -79,3 +79,4 @@
 **2/22/2025**
 
 - Adjusted font sizes and styling
+- Changed some colors

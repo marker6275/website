@@ -50,7 +50,6 @@ export function SectionAboutMe() {
           </div>
         </div>
         <AboutMe />
-        
       </div>
     </div>
   );

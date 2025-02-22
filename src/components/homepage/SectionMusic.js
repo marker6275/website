@@ -7,7 +7,7 @@ export function SectionMusic() {
   const featuredMusic = info.music[randomIndex];
 
   return (
-    <div className="flex-col align-items py-20">
+    <div className="flex-col align-items pb-10">
       <h1 className="font-light text-5xl flex justify-center pb-10">Music</h1>
       <div className="flex justify-center">
         <MusicCard
@@ -22,7 +22,7 @@ export function SectionMusic() {
           }
         />
       </div>
-      <div className="px-36 font-bold flex justify-center mt-5">
+      <div className="px-36 flex justify-center mt-5">
         <Link to="/music">
           <div>
             <span className="text-md bg-[#444] text-[#eee] p-3 rounded-md hover:bg-[#555] duration-300">

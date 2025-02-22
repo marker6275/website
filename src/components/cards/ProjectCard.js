@@ -28,19 +28,23 @@ export class ProjectCard extends React.Component {
               this.showModal(e);
             }
           }}
-          className={`cursor-pointer ${this.props.color} p-10 w-[40vw] max-w-[750px] min-w-fit h-56 flex items-center gap-10 rounded-xl shadow-md hover:shadow-xl duration-300 hover:cursor`}
+          className={`cursor-pointer ${this.props.color} p-8 w-[38vw] max-w-[750px] min-w-fit h-52 flex items-center gap-10 rounded-xl shadow-md hover:shadow-xl duration-300 hover:cursor`}
         >
           <div className="flex flex-col gap-1">
-            <span className="text-4xl font-medium">{this.props.name}</span>
+            <span className="text-4xl">{this.props.name}</span>
             {this.props.description && (
-              <p className="font-light">
-                <span className="font-medium">Description: </span> {this.props.description}
+              <p>
+                Description:
+                <span className="font-light"> {this.props.description}</span>
               </p>
             )}
             {this.props.skills.length > 0 && (
-              <p className="font-light">
-                <span className="font-medium">Skills: </span>
-                {makeSkillsString(this.props.skills)}
+              <p>
+                Skills:
+                <span className="font-light">
+                  {" "}
+                  {makeSkillsString(this.props.skills)}
+                </span>
               </p>
             )}
           </div>
