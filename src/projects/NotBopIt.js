@@ -142,7 +142,7 @@ class BopIt extends React.Component {
 
 export const NotBopIt = {
   name: "Not Bop-It",
-  color: "bg-teal-300",
+  color: "bg-teal-400",
   text: "hover:text-teal-500",
   skills: ["C", "MicroBit", "Sensors"],
   description: "Bop It wishes it was this",

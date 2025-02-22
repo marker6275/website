@@ -31,10 +31,10 @@ export class ProjectCard extends React.Component {
           className={`cursor-pointer ${this.props.color} p-10 w-[40vw] max-w-[750px] min-w-fit h-56 flex items-center gap-10 rounded-xl shadow-md hover:shadow-xl duration-300 hover:cursor`}
         >
           <div className="flex flex-col gap-1">
-            <span className="text-4xl font-semibold">{this.props.name}</span>
+            <span className="text-4xl font-medium">{this.props.name}</span>
             {this.props.description && (
-              <p>
-                <b>Description: </b> {this.props.description}
+              <p className="font-light">
+                <span className="font-medium">Description: </span> {this.props.description}
               </p>
             )}
             {this.props.skills.length > 0 && (

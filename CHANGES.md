@@ -75,3 +75,7 @@
 - Removed contact page
 - New icons
 - Intro animation
+
+**2/22/2025**
+
+- Adjusted font sizes and styling

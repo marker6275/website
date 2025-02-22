@@ -26,7 +26,7 @@ export class HomeProjectCard extends React.Component {
               }, 100);
             }
           }}
-          className={`bg-zinc-300 h-32 rounded-md flex items-center text-3xl font-medium text-left hover:cursor-pointer ${this.props.text} duration-300 p-5 shadow-md hover:drop-shadow-lg`}
+          className={`bg-[#ccc] h-32 rounded-md flex items-center text-3xl text-left hover:cursor-pointer ${this.props.text} duration-300 p-5 shadow-md hover:drop-shadow-lg`}
         >
           {this.props.name}
         </div>

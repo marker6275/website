@@ -225,10 +225,10 @@ class Intermittent extends React.Component {
 
 export const IntermittentComputing = {
   name: "Intermittent Computing",
-  color: "bg-red-600",
+  color: "bg-red-700",
   text: "hover:text-red-600",
   skills: ["C", "Embedded Programming", "Hashcash"],
-  description: "Battery-free computing on the MSP430",
+  description: "Battery-free computing",
   image: msp430Launchpad,
   body: <Intermittent />,
 };
