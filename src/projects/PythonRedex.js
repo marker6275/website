@@ -12,7 +12,7 @@ import example4 from "../assets/project_images/PythonRedexModel/examples/example
 import example5 from "../assets/project_images/PythonRedexModel/examples/example5.png";
 import python from "../assets/project_images/PythonRedexModel/python.png";
 
-class PyRe extends React.Component {
+class PRM extends React.Component {
   render() {
     const github_url = "https://github.com/marker6275/Python-Redex-Model";
     const paper_url =
@@ -402,5 +402,5 @@ export const PythonRedex = {
   skills: ["Programming Languages", "Racket", "Redex"],
   description: "Mathematical model of Python",
   image: python,
-  body: <PyRe />,
+  body: <PRM />,
 };

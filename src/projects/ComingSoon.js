@@ -1,5 +1,6 @@
 import React from "react";
 import { T, P, Line } from "../components/text";
+
 class Coming extends React.Component {
   render() {
     return (
