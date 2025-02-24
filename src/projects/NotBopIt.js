@@ -1,5 +1,5 @@
 import React from "react";
-import { T, ST, P, Line } from "../components/text";
+import { T, D, ST, P, Line } from "../components/text";
 import microbit from "../assets/project_images/NotBopIt/microbit.png";
 import task from "../assets/project_images/NotBopIt/task.png";
 import losingscreen from "../assets/project_images/NotBopIt/losingscreen.png";
@@ -11,6 +11,7 @@ class BopIt extends React.Component {
   render() {
     return (
       <div className="py-5">
+        <D>MAR 2024</D>
         <T>Not Bop-It</T>
         <Line />
         <ST>Description</ST>

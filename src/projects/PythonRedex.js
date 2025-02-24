@@ -1,5 +1,5 @@
 import React from "react";
-import { T, C, NL, BL, ST, ST2, P, Line } from "../components/text";
+import { T, C, D, NL, BL, ST, ST2, P, Line } from "../components/text";
 import define_language from "../assets/project_images/PythonRedexModel/define_language.png";
 import lambdapiexpressions from "../assets/project_images/PythonRedexModel/lambdapiexpressions.png";
 import figure7 from "../assets/project_images/PythonRedexModel/figure7.png";
@@ -19,6 +19,7 @@ class PyRe extends React.Component {
       "https://cs.brown.edu/people/sk/Publications/Papers/Published/pmmwplck-python-full-monty/paper.pdf";
     return (
       <div className="py-5">
+        <D>NOV 2023</D>
         <T>Python Redex Model</T>
         <Line />
 

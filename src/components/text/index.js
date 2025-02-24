@@ -1,5 +1,6 @@
 export { Title as T } from "./Title";
 export { Caption as C } from "./Caption";
+export { Date as D } from "./Date";
 export { NumberList as NL, BulletList as BL } from "./List";
 export { Line } from "./Line";
 export { Subtitle as ST } from "./Subtitle";

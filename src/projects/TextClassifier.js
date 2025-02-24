@@ -1,5 +1,5 @@
 import React from "react";
-import { T, NL, BL, ST, P, Line } from "../components/text";
+import { T, D, NL, BL, ST, P, Line } from "../components/text";
 import { Link } from "react-router-dom";
 import PythonClient from "../assets/project_images/TextClassifier/PythonClient.png";
 import diagram from "../assets/project_images/TextClassifier/diagram.png";
@@ -9,6 +9,7 @@ class TC extends React.Component {
   render() {
     return (
       <div className="py-5">
+        <D>DEC 2023</D>
         <T>Text Classifier</T>
         <Line />
         <ST>TLDR</ST>

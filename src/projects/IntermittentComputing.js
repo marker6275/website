@@ -1,11 +1,12 @@
 import React from "react";
-import { T, NL, ST, P, Line } from "../components/text";
+import { T, D, NL, ST, P, Line } from "../components/text";
 import msp430Launchpad from "../assets/project_images/IntermittentComputing/msp430launchpad.png";
 
 class Intermittent extends React.Component {
   render() {
     return (
       <div className="py-5">
+        <D>NOV 2024</D>
         <T>Intermittent Computing</T>
         <Line />
         <ST>Description</ST>

@@ -1,11 +1,12 @@
 import React from "react";
-import { T, BL, ST, P, Line } from "../components/text";
+import { T, D, BL, ST, P, Line } from "../components/text";
 import logo from "../assets/logo.jpg";
 
 class Web extends React.Component {
   render() {
     return (
       <div className="py-5">
+        <D>NOV 2023</D>
         <T>Website</T>
         <Line />
         <ST>Details</ST>
@@ -16,23 +17,16 @@ class Web extends React.Component {
         <br />
         <BL>
           <li>
-            <b>ReactJS:</b> The actual website is written in React. It's just
-            the framework I'm most comfortable with and it's really easy to work
+            <b>React:</b> The actual website is written in React. It's just the
+            framework I'm most comfortable with and it's really easy to work
             with.
           </li>
           <li>
-            <b>Tailwind CSS:</b> The styling is done with Tailwind CSS, for the
-            sole reason that it makes styling elements so much easier and makes
-            code organization simple too since I don't have to keep track of
-            individual elements and so many different <em>.css</em> files, but
-            I'm coming to realize the limitations of tailwind.
-          </li>
-          <li>
-            <b>EmailJS:</b> I also used EmailJS to do the emailing backend
-            component. I didn't want to have to manage an entire backend just to
-            send myself emails and EmailJS works well. As far as I know, the
-            contact form works. Not that I'm expecting anyone to use it, but
-            it's there.
+            <b>Tailwind:</b> The styling is mostly done with Tailwind CSS, for
+            the sole reason that it makes styling elements so much easier and
+            makes code organization simple too since I don't have to keep track
+            of individual elements and so many different <em>.css</em> files,
+            but I'm coming to realize the limitations of tailwind.
           </li>
         </BL>
         <br />

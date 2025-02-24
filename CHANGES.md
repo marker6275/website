@@ -7,7 +7,7 @@
 **11/10/2023**
 
 - Projects was added.
-- Music was reformatted to look nicer.
+- Music reformatted to look nicer.
 
 **11/25/2023**
 
@@ -86,3 +86,4 @@
 - Mobile formatting, navbar
 - Adjusted size formatting
 - Updated animation
+- Added dates to projects
