@@ -3,8 +3,12 @@ import instagram from "../../assets/icons/instagram.png";
 import github from "../../assets/icons/github.png";
 import linkedin from "../../assets/icons/linkedin.png";
 import { AboutMe } from "./AboutMeComponent";
+import data from "../../info.json";
 
 export function SectionAboutMe() {
+  const contact = data.contact;
+
+  console.log(contact);
   return (
     <div className="flex flex-col my-36">
       <div className="grid grid-cols-2">
@@ -16,9 +20,7 @@ export function SectionAboutMe() {
             <div className="flex gap-6 justify-center items-center mt-3">
               <div
                 onClick={() => {
-                  navigator.clipboard.writeText(
-                    "markli2025@u.northwestern.edu"
-                  );
+                  navigator.clipboard.writeText(contact.email);
                 }}
                 style={{ cursor: "pointer", position: "relative" }}
                 title="Click to copy email"
@@ -26,21 +28,21 @@ export function SectionAboutMe() {
                 <img src={email} alt="email" className="w-8 h-8" />
               </div>
               <a
-                href="https://www.instagram.com/marker6275"
+                href={contact.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <img src={instagram} alt="instagram" className="w-8 h-8" />
               </a>
               <a
-                href="https://github.com/marker6275"
+                href={contact.github}
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <img src={github} alt="github" className="w-8 h-8" />
               </a>
               <a
-                href="https://www.linkedin.com/in/mkli"
+                href={contact.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
               >
