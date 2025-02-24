@@ -7,9 +7,9 @@ export function SectionMusic() {
   const featuredMusic = info.music[randomIndex];
 
   return (
-    <div>
-      <h1 className="font-light text-5xl flex justify-center my-10">Music</h1>
-      <div className="flex justify-center my-5">
+    <div className="py-4">
+      <h1 className="font-light text-5xl flex justify-center py-10">Music</h1>
+      <div className="flex justify-center py-6">
         <MusicCard
           id={featuredMusic.id}
           title={featuredMusic.title}
