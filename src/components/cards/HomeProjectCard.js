@@ -5,7 +5,7 @@ export class HomeProjectCard extends React.Component {
   state = {
     show: false,
   };
-  showModal = (e) => {
+  showModal = () => {
     this.setState({
       show: !this.state.show,
     });
@@ -26,7 +26,7 @@ export class HomeProjectCard extends React.Component {
               }, 100);
             }
           }}
-          className={`bg-[#bbb] hover:bg-neutral-300 font-extralight h-32 rounded-md flex items-center text-3xl text-left hover:cursor-pointer ${this.props.text} duration-300 p-5 shadow-md`}
+          className={`bg-[#bbb] hover:bg-neutral-300 font-extralight h-24 md:h-32 rounded-md flex items-center text-3xl text-left hover:cursor-pointer ${this.props.text} duration-300 py-5 px-3 shadow-md`}
         >
           {this.props.name}
         </div>

@@ -10,11 +10,11 @@ export function SectionAboutMe() {
 
   console.log(contact);
   return (
-    <div className="flex flex-col my-36">
-      <div className="grid grid-cols-2">
+    <div className="my-5">
+      <div className="md:grid md:grid-cols-2">
         <div className="flex justify-center items-center">
-          <div>
-            <h1 className="cursor-pointer drop-shadow-2xl text-black text-6xl hover:text-[#002a87] transition-all duration-500 w-56 text-center">
+          <div className="mt-10 mb-16 md:my-0">
+            <h1 className="cursor-pointer text-black font-light text-6xl sm:hover:text-blue-900 transition-all duration-500 text-center">
               Mark Li
             </h1>
             <div className="flex gap-6 justify-center items-center mt-3">

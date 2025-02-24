@@ -80,3 +80,9 @@
 
 - Adjusted font sizes and styling
 - Changed some colors
+
+**2/24/2025**
+
+- Mobile formatting, navbar
+- Adjusted size formatting
+- Updated animation

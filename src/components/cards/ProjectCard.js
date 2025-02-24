@@ -21,39 +21,42 @@ export class ProjectCard extends React.Component {
     }
 
     return (
-      <div className="relative">
+      <div className="relative w-full">
         <div
           onClick={(e) => {
             if (!this.state.show) {
               this.showModal(e);
             }
           }}
-          className={`cursor-pointer ${this.props.color} p-8 w-[38vw] max-w-[750px] min-w-fit h-52 flex items-center gap-10 rounded-xl shadow-md hover:shadow-xl duration-300 hover:cursor`}
+          className={`cursor-pointer ${this.props.color} p-8 xl:w-[38vw] lg:w-[30vw] md:[52vw] h-52 flex items-center rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 hover:cursor`}
         >
-          <div className="flex flex-col gap-1">
-            <span className="text-4xl">{this.props.name}</span>
+          <div className="flex flex-col gap-1 w-3/4">
+            <span className="text-3xl xl:text-4xl">{this.props.name}</span>
             {this.props.description && (
-              <p>
+              <p className="text-sm xl:text-base">
                 Description:
-                <span className="font-light"> {this.props.description}</span>
+                <span className="text-sm xl:text-base font-light">
+                  {" "}
+                  {this.props.description}
+                </span>
               </p>
             )}
             {this.props.skills.length > 0 && (
-              <p>
+              <p className="text-sm xl:text-base">
                 Skills:
-                <span className="font-light">
+                <span className="text-sm xl:text-base font-light">
                   {" "}
                   {makeSkillsString(this.props.skills)}
                 </span>
               </p>
             )}
           </div>
-          <div className="absolute right-10">
+          <div className="absolute right-5 top-5 xl:top-auto xl:right-10">
             {this.props.image && (
               <img
                 src={this.props.image}
                 alt={this.props.image}
-                className="h-32 w-32 rounded-full object-contain"
+                className="h-16 w-16 xl:h-32 xl:w-32 rounded-full object-contain"
               />
             )}
           </div>

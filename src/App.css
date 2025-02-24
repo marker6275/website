@@ -1,9 +1,9 @@
-.hello {
-  animation: moveAndFade 4s forwards;
+.intro {
+  animation: fade 4s forwards;
 }
 
 .fade-background {
-  animation: fadeOutBackground 5s forwards;
+  animation: fadeOutBackground 2s forwards;
 }
 
 .fade-background-in {
@@ -19,7 +19,7 @@
   }
 }
 
-@keyframes moveAndFade {
+@keyframes fade {
   0% {
     top: 50%;
     left: 50%;
@@ -32,15 +32,9 @@
     transform: translate(-50%, -50%);
     opacity: 1;
   }
-  75% {
-    top: 43.5%;
-    left: 25%;
-    transform: translate(-50%, -50%);
-    opacity: 1;
-  }
   100% {
-    top: 43.5%;
-    left: 25%;
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
     opacity: 0;
   }

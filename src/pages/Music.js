@@ -5,9 +5,9 @@ export function Music() {
   const info = data.music;
 
   return (
-    <div className="flex flex-col py-10 items-center bg-gradient-to-b from-blue-200 via-white to-sky-100">
-      <h1 className="text-5xl mb-5">Music</h1>
-      <div className="flex flex-col items-center p-10 gap-x-20 gap-y-10 grid grid-cols-2">
+    <div className="flex flex-col py-5 items-center bg-gradient-to-b from-blue-200 via-white to-red-50">
+      <h1 className="text-5xl my-5">Music</h1>
+      <div className="flex flex-col items-center py-10 px-5 gap-x-20 gap-y-10 lg:grid lg:grid-cols-2">
         {info.map((item) => (
           <MusicCard
             id={item.id}

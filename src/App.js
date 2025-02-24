@@ -1,6 +1,7 @@
 import { React, useEffect, useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
-import { Navbar } from "./components/navbar";
+import { Navbar, MobileNavbar } from "./components/navbar";
+import { useMediaQuery } from "react-responsive";
 import {
   Home,
   Music,
@@ -14,7 +15,6 @@ import "./App.css";
 
 // To update:
 // npm run deploy
-// change domain name to custom name on gh-pages
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -27,17 +27,25 @@ const ScrollToTop = () => {
 function App() {
   const [showHome, setShowHome] = useState(false);
   const location = useLocation();
+  const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
 
   useEffect(() => {
     if (!localStorage.getItem("intro")) {
       const timer = setTimeout(() => {
         localStorage.setItem("intro", true);
         setShowHome(true);
-      }, 4000);
+      }, 2300);
       return () => clearTimeout(timer);
     }
     setShowHome(true);
   }, []);
+
+  const renderNavbar = () => {
+    if (location.pathname === "/resume") {
+      return null;
+    }
+    return isMobile ? <MobileNavbar /> : <Navbar />;
+  };
 
   return (
     <div
@@ -46,13 +54,13 @@ function App() {
       }`}
     >
       {!showHome && (
-        <h1 className="hello font-inter font-semibold text-6xl absolute text-[#282828] w-56 text-center drop-shadow-2xl">
+        <h1 className="intro font-inter text-6xl absolute text-[#282828] w-56 text-center drop-shadow-2xl font-light">
           Mark Li
         </h1>
       )}
       {showHome && (
-        <div className="flex flex-col font-inter h-screen fade-background-in bg-gradient-to-b from-blue-200 via-white to-sky-100">
-          {location.pathname !== "/resume" && <Navbar />}
+        <div className="flex flex-col font-inter fade-background-in h-screen">
+          {renderNavbar()}
           <ScrollToTop />
           <Routes>
             <Route path="/" element={<Home />} />

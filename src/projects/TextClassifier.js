@@ -20,11 +20,14 @@ class TC extends React.Component {
         <span className="flex justify-center text-red-600 font-medium py-3">
           **Does not work anymore**
         </span>
-        <div className="bg-purple-200 flex justify-center items-center mt-2">
+        <div className="bg-purple-200 flex justify-center items-center mt-2 py-5">
           <Link to="/analyze">
-            <h1 className="font-medium text-4xl py-5 text-center text-purple-800">
+            <h1 className="font-medium text-4xl text-center text-purple-800">
               CHECK IT OUT HERE (disabled)
             </h1>
+            <p className="text-xs font-light text-center text-purple-800">
+              Only looks good on web
+            </p>
           </Link>
         </div>
 
@@ -158,11 +161,14 @@ class TC extends React.Component {
           upload a file. It might still let you upload files, but they don't go
           anywhere since the S3 bucket and lambda functions were deleted.
         </P>
-        <div className="bg-purple-200 flex justify-center items-center mt-2">
+        <div className="bg-purple-200 flex justify-center items-center mt-2 py-5">
           <Link to="/analyze">
-            <h1 className="font-medium text-4xl py-5 text-center text-purple-800">
+            <h1 className="font-medium text-4xl text-center text-purple-800">
               CHECK IT OUT HERE (disabled)
             </h1>
+            <p className="text-xs font-light text-center text-purple-800">
+              Only looks good on web
+            </p>
           </Link>
         </div>
       </div>

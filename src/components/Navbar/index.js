@@ -1,2 +1,2 @@
-export { NavbarButton } from './NavbarButton';
-export { Navbar } from './Navbar';
+export { Navbar } from "./web";
+export { MobileNavbar } from "./mobile";
