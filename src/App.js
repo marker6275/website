@@ -30,9 +30,9 @@ function App() {
   const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
 
   useEffect(() => {
-    if (!localStorage.getItem("intro")) {
+    if (!sessionStorage.getItem("intro")) {
       const timer = setTimeout(() => {
-        localStorage.setItem("intro", true);
+        sessionStorage.setItem("intro", true);
         setShowHome(true);
       }, 2300);
       return () => clearTimeout(timer);

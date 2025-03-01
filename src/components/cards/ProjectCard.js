@@ -9,7 +9,7 @@ export class ProjectCard extends React.Component {
   state = {
     show: false,
   };
-  showModal = (e) => {
+  showModal = (_) => {
     this.setState({
       show: !this.state.show,
     });
