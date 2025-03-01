@@ -24,7 +24,7 @@ export function SectionProjects() {
       </div>
 
       <div className="flex justify-center my-10">
-        <Link to="/music">
+        <Link to="/projects">
           <div>
             <span className="text-md bg-neutral-800 text-white p-3 rounded-md hover:bg-neutral-600 duration-300">
               All Projects
