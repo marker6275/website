@@ -87,3 +87,9 @@
 - Adjusted size formatting
 - Updated animation
 - Added dates to projects
+
+**3/1/2025**
+
+- Updated navbar, colors
+- Added profile pic
+- Updated homepage

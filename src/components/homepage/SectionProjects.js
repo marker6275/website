@@ -13,6 +13,7 @@ export function SectionProjects() {
       <div className="lg:grid lg:grid-cols-3 flex flex-col lg:flex-col gap-6 lg:gap-20 px-6 lg:px-12 py-6 lg:py-10">
         {featuredProjects.map((project) => (
           <HomeProjectCard
+            key={project.name}
             name={project.name}
             color={project.color}
             text={project.text}
@@ -21,12 +22,14 @@ export function SectionProjects() {
           </HomeProjectCard>
         ))}
       </div>
-      <div className="px-6 lg:px-12 text-blue-700 font-light text-md">
-        <Link to="/projects">
-          <h1>
-            <span className="underline">All projects</span> {">"}
-            {">"}
-          </h1>
+
+      <div className="flex justify-center my-10">
+        <Link to="/music">
+          <div>
+            <span className="text-md bg-neutral-800 text-white p-3 rounded-md hover:bg-neutral-600 duration-300">
+              All Projects
+            </span>
+          </div>
         </Link>
       </div>
     </div>

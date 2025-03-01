@@ -25,7 +25,7 @@ export function SectionMusic() {
       <div className="flex justify-center mt-10">
         <Link to="/music">
           <div>
-            <span className="text-md bg-[#444] text-white p-3 rounded-md hover:bg-[#555] duration-300">
+            <span className="text-md bg-neutral-800 text-white p-3 rounded-md hover:bg-neutral-600 duration-300">
               All Music
             </span>
           </div>

@@ -26,7 +26,7 @@ export class HomeProjectCard extends React.Component {
               }, 100);
             }
           }}
-          className={`bg-[#bbb] hover:bg-[#bfbfbf] font-extralight h-24 lg:h-32 rounded-md flex items-center text-3xl text-left hover:cursor-pointer ${this.props.text} transition-colors duration-300 p-10`}
+          className={`bg-[#ccc] hover:bg-[#bfbfbf] font-extralight h-24 lg:h-32 rounded-md flex items-center text-3xl text-left hover:cursor-pointer ${this.props.text} transition-colors transition-all duration-300 p-10 hover:shadow-md`}
         >
           {this.props.name}
         </div>

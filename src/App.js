@@ -27,7 +27,7 @@ const ScrollToTop = () => {
 function App() {
   const [showHome, setShowHome] = useState(false);
   const location = useLocation();
-  const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
+  const isMobile = useMediaQuery({ query: "(max-width: 639px)" });
 
   useEffect(() => {
     if (!sessionStorage.getItem("intro")) {
