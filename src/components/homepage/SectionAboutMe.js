@@ -2,20 +2,42 @@ import email from "../../assets/icons/email.png";
 import instagram from "../../assets/icons/instagram.png";
 import github from "../../assets/icons/github.png";
 import linkedin from "../../assets/icons/linkedin.png";
-import { AboutMe } from "./AboutMeComponent";
+import { ShellComponent } from "./ShellComponent";
 import data from "../../info.json";
+import { useState, useEffect } from "react";
 
 export function SectionAboutMe() {
   const contact = data.contact;
 
-  console.log(contact);
+  const name = "Mark Li";
+  const [typedText, setTypedText] = useState("");
+
+  useEffect(() => {
+    const typed = sessionStorage.getItem("typed");
+    if (typed) {
+      setTypedText(name);
+    } else {
+      let index = 0;
+      const type = () => {
+        if (index <= name.length) {
+          setTypedText(name.substring(0, index));
+          index++;
+          setTimeout(type, 400);
+        } else {
+          sessionStorage.setItem("typed", "true");
+        }
+      };
+      type();
+    }
+  }, []);
+
   return (
     <div className="my-5">
       <div className="md:grid md:grid-cols-2">
         <div className="flex justify-center items-center">
           <div className="mt-10 mb-16 md:my-0">
-            <h1 className="cursor-pointer text-black font-light text-6xl sm:hover:text-blue-900 transition-all duration-500 text-center">
-              Mark Li
+            <h1 className="cursor-pointer text-black font-light text-6xl text-center">
+              {typedText || <span className="invisible">Mark Li</span>}
             </h1>
             <div className="flex gap-6 justify-center items-center mt-3">
               <div
@@ -51,7 +73,7 @@ export function SectionAboutMe() {
             </div>
           </div>
         </div>
-        <AboutMe />
+        <ShellComponent />
       </div>
     </div>
   );
