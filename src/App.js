@@ -10,6 +10,7 @@ import {
   Future,
   Analyze,
   Resume,
+  InteractiveResume,
 } from "./pages";
 import "./App.css";
 
@@ -70,6 +71,7 @@ function App() {
             <Route path="/future" element={<Future />} />
             <Route path="/analyze" element={<Analyze />} />
             <Route path="/resume" element={<Resume />} />
+            <Route path="/res" element={<InteractiveResume />} />
           </Routes>
         </div>
       )}
