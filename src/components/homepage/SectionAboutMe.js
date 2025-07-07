@@ -5,12 +5,15 @@ import linkedin from "../../assets/icons/linkedin.png";
 import data from "../../info.json";
 import { useState, useEffect } from "react";
 import ProfilePic from "../../assets/profile_pic.jpg";
+import { Toast } from "../misc";
 
 export function SectionAboutMe() {
   const contact = data.contact;
 
   const name = "Mark Li";
   const [typedText, setTypedText] = useState("");
+  const [showToast, setShowToast] = useState(false);
+  const [isFadingOut, setIsFadingOut] = useState(false);
 
   useEffect(() => {
     const typed = sessionStorage.getItem("typed");
@@ -52,7 +55,14 @@ export function SectionAboutMe() {
             <div
               onClick={() => {
                 navigator.clipboard.writeText(contact.email);
-              }}
+                if (!showToast) {
+                  setShowToast(true);
+                  setIsFadingOut(false);
+                  setTimeout(() => {
+                    setIsFadingOut(true);
+                    setTimeout(() => setShowToast(false), 300);
+                  }, 2200);
+                }}}
               style={{ cursor: "pointer", position: "relative" }}
               title="Click to copy email"
             >
@@ -78,7 +88,7 @@ export function SectionAboutMe() {
           </div>
         </div>
       </div>
-      {/* <AboutMe /> */}
+      {showToast && <Toast message="Email copied to clipboard!" isFadingOut={isFadingOut} />}
     </div>
   );
 }
