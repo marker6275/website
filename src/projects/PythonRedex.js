@@ -41,6 +41,8 @@ class PRM extends React.Component {
           and{" "}
           <a
             href="https://cs.brown.edu/research/plt/dl/lambda-py/ae/"
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-blue-500 underline"
           >
             model
@@ -54,7 +56,7 @@ class PRM extends React.Component {
           parts in our model.
           <br />
           All of the code is in this{" "}
-          <a href={github_url} className="text-blue-500 underline">
+          <a href={github_url} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
             Github
           </a>
         </P>

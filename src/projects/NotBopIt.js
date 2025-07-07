@@ -9,6 +9,7 @@ import microbitLogo from "../assets/project_images/NotBopIt/microbitLogo.png";
 
 class BopIt extends React.Component {
   render() {
+    const github_url = "https://github.com/marker6275/Bop-It";
     return (
       <div className="py-5">
         <D>MAR 2024</D>
@@ -112,6 +113,16 @@ class BopIt extends React.Component {
           </i>
         </div>
         <ST>Software</ST>
+        <P>
+          All the software for our project is located in this{" "}
+          <a href={github_url} 
+                                              target="_blank"
+                                              rel="noopener noreferrer"
+                                              className="text-blue-500 underline">
+          Github repo
+          </a>
+        </P>
+        <br />
         <P>
           After the game logic, we needed a way to read sensor inputs. The
           Microbit communicated with the sensors through I2C, and we used the

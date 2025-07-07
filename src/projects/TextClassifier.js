@@ -14,9 +14,27 @@ class TC extends React.Component {
         <Line />
         <ST>TLDR</ST>
         <P>
-          A Naive Bayes algorithm that analyzes text and uses previous data to
+          A simple Naive Bayes algorithm that analyzes text and uses previous data to
           create a prediction of the sentiment of the text from 1 (strongly
           negative) to 5 (strongly positive).
+        </P>
+        <br />
+        <P>
+          <span className="font-medium">Project code: <a href="https://github.com/marker6275/Text-Classifier" 
+                                                        target="_blank"
+                                                        rel="noopener noreferrer" 
+                                                        className="text-blue-500 underline">
+          https://github.com/marker6275/Text-Classifier
+          </a>
+          </span>
+        </P>
+        <br />
+        <P>
+          I took all the functions off AWS since AWS kept charging me for some reason 
+          (please fix). I had to delete my entire AWS account so the functionality doesn't 
+          work anymore. The page still exists but nothing will happen if you try to
+          upload a file. It might still let you upload files, but they don't go
+          anywhere since the S3 bucket and lambda functions were deleted.
         </P>
         <span className="flex justify-center text-red-600 font-medium py-3">
           **Does not work anymore**
@@ -34,7 +52,7 @@ class TC extends React.Component {
 
         <ST>Client</ST>
         <P>
-          When I first submitted this project, it was run on a Python file that
+          Initially, it was run on a Python file that
           prompts the user for their action and performs the inputted action.
           <div className="flex justify-center my-5">
             <img src={PythonClient} alt="Python Client" />
@@ -90,9 +108,9 @@ class TC extends React.Component {
         <br />
         <P>
           Using the trained data, the classifier will then analyze the text from
-          the passed in file and run a Naive Bayes Algorithm to determine the
-          sentiment of this text. The algorithm also uses Laplace Smoothing and
-          removal of stop words for more accurate analysis.
+          the passed in file and run a custom, simplier Naive Bayes Algorithm to 
+          determine the sentiment of this text. The algorithm also uses Laplace 
+          Smoothing and removal of stop words for more accurate analysis.
         </P>
         <br />
         <P>
@@ -156,12 +174,6 @@ class TC extends React.Component {
           </li>
         </NL>
         <ST>Disabled</ST>
-        <P>
-          I took all the functions off AWS so the functionality doesn't work
-          anymore. The page still exists but nothing will happen if you try to
-          upload a file. It might still let you upload files, but they don't go
-          anywhere since the S3 bucket and lambda functions were deleted.
-        </P>
         <div className="bg-purple-200 flex justify-center items-center mt-2 py-5">
           <Link to="/analyze">
             <h1 className="font-medium text-4xl text-center text-purple-800">
