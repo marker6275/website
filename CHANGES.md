@@ -93,3 +93,7 @@
 - Updated navbar, colors
 - Added profile pic
 - Updated homepage
+
+**7/9/2025**
+
+- Added Toast bar for copying email
