@@ -1,5 +1,5 @@
 import React from "react";
-import { T, D, ST, P, Line } from "../components/text";
+import { T, D, ST, P, Line, C } from "../components/text";
 import microbit from "../assets/project_images/NotBopIt/microbit.png";
 import task from "../assets/project_images/NotBopIt/task.png";
 import losingscreen from "../assets/project_images/NotBopIt/losingscreen.png";
@@ -87,22 +87,22 @@ class BopIt extends React.Component {
         </P>
         <div className="grid grid-cols-3 p-10 gap-10">
           <div>
-            <img src={task} alt="Task" />
-            <P className="flex items-center justify-center font-bold text-sm">
+            <img src={task} alt="Task" className="mb-2" />
+            <C>
               New Task Screen
-            </P>
+            </C>
           </div>
           <div>
-            <img src={completedtask} alt="Completed Task" />
-            <P className="flex items-center justify-center font-bold text-sm">
+            <img src={completedtask} alt="Completed Task" className="mb-2" />
+            <C>
               Repeat Task Screen
-            </P>
+            </C>
           </div>
           <div>
-            <img src={losingscreen} alt="Losing Screen" />
-            <P className="flex items-center justify-center font-bold text-sm">
+            <img src={losingscreen} alt="Losing Screen" className="mb-2"  />
+            <C>
               Losing Screen
-            </P>
+            </C>
           </div>
         </div>
         <div>
@@ -143,11 +143,11 @@ class BopIt extends React.Component {
           across two breadboards and intended it to be a two-player game, with
           each player holding one breadboard with different sensors on each one.
         </P>
-        <img src={notbopit} alt="Not Bop-It" className="w-1/2 mx-auto pt-5" />
-        <P className="flex items-center justify-center font-bold text-sm">
+        <img src={notbopit} alt="Not Bop-It" className="w-1/2 mx-auto pt-5 mb-2" />
+        <C>
           Sensors in order as you see them from left to right: touch, button,
           flip, light, twist, water
-        </P>
+        </C>
       </div>
     );
   }

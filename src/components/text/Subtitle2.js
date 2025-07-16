@@ -1,3 +1,3 @@
 export const Subtitle2 = ({ children }) => {
-  return <h1 className="font-semibold text-md">{children}</h1>;
+  return <h1 className="font-semibold text-md underline">{children}</h1>;
 };
