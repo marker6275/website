@@ -8,8 +8,9 @@ import notbopit from "../assets/project_images/NotBopIt/notbopit.png";
 import microbitLogo from "../assets/project_images/NotBopIt/microbitLogo.png";
 
 class BopIt extends React.Component {
+  
+  githubURL = "https://github.com/marker6275/Bop-It";
   render() {
-    const github_url = "https://github.com/marker6275/Bop-It";
     return (
       <div className="py-5">
         <D>MAR 2024</D>
@@ -115,10 +116,7 @@ class BopIt extends React.Component {
         <ST>Software</ST>
         <P>
           All the software for our project is located in this{" "}
-          <a href={github_url} 
-                                              target="_blank"
-                                              rel="noopener noreferrer"
-                                              className="text-blue-500 underline">
+          <a href={this.githubURL} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
           Github repo
           </a>
         </P>

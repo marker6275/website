@@ -13,10 +13,12 @@ import example5 from "../assets/project_images/PythonRedexModel/examples/example
 import python from "../assets/project_images/PythonRedexModel/python.png";
 
 class PRM extends React.Component {
+
+  githubURL = "https://github.com/marker6275/Python-Redex-Model";
+  paperURL = "https://cs.brown.edu/people/sk/Publications/Papers/Published/pmmwplck-python-full-monty/paper.pdf";
+  implementationURL = "https://cs.brown.edu/research/plt/dl/lambda-py/ae/";
+
   render() {
-    const github_url = "https://github.com/marker6275/Python-Redex-Model";
-    const paper_url =
-      "https://cs.brown.edu/people/sk/Publications/Papers/Published/pmmwplck-python-full-monty/paper.pdf";
     return (
       <div className="py-5">
         <D>NOV 2023</D>
@@ -35,12 +37,12 @@ class PRM extends React.Component {
         <P>
           If you don't want to look at our Walmart remake of something
           beautiful, allow me to redirect you directly to the original{" "}
-          <a href={paper_url} className="text-blue-500 underline">
+          <a href={this.paperURL} className="text-blue-500 underline">
             paper
           </a>{" "}
           and{" "}
           <a
-            href="https://cs.brown.edu/research/plt/dl/lambda-py/ae/"
+            href={this.implementationURL}
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-500 underline"
@@ -56,7 +58,7 @@ class PRM extends React.Component {
           parts in our model.
           <br />
           All of the code is in this{" "}
-          <a href={github_url} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
+          <a href={this.githubURL} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
             Github
           </a>
         </P>
@@ -103,7 +105,7 @@ class PRM extends React.Component {
           variables, expressions, types, primitive functions. Using these, we
           want to define the behavior of Python using this language base when we
           see certain keywords (see{" "}
-          <a href={github_url} className="text-blue-500 underline">
+          <a href={this.githubURL} className="text-blue-500 underline">
             Github
           </a>{" "}
           for examples).
@@ -163,7 +165,7 @@ class PRM extends React.Component {
           There's a lot of stuff covered in the paper that we look over and
           didn't really cover in depth since they were pretty basic. They're all
           implemented in the{" "}
-          <a href={github_url} className="text-blue-500 underline">
+          <a href={this.githubURL} className="text-blue-500 underline">
             model
           </a>{" "}
           if you want to check it out but otherwise I'm only going to give a
@@ -317,7 +319,7 @@ class PRM extends React.Component {
           itself was pretty bland but the paper continuously referenced this
           nonexistent value as <i>skull</i> (no literally: ☠ was written
           everywhere - page 2 of the{" "}
-          <a href={paper_url} className="text-blue-500 underline">
+          <a href={this.paperURL} className="text-blue-500 underline">
             pdf
           </a>
           ). It's really humorous to consider that <i>undefined</i> values are

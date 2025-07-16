@@ -5,9 +5,11 @@ import {
   TextClassifier,
   Website,
   IntermittentComputing,
+  SustainabilityWorkshop,
 } from "./projects";
 
 const projects = [
+  SustainabilityWorkshop,
   IntermittentComputing,
   NotBopIt,
   TextClassifier,

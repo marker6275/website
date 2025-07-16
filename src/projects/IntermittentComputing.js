@@ -3,6 +3,9 @@ import { T, D, NL, ST, P, Line } from "../components/text";
 import msp430Launchpad from "../assets/project_images/IntermittentComputing/msp430launchpad.png";
 
 class Intermittent extends React.Component {
+
+  hashcashLink = "https://en.wikipedia.org/wiki/Hashcash";
+  WARioPaperLink = "https://dl.acm.org/doi/10.1145/3519939.3523454";
   render() {
     return (
       <div className="py-5">
@@ -91,7 +94,7 @@ class Intermittent extends React.Component {
         <P>
           <b>Long</b>: Just go to{" "}
           <a
-            href="https://en.wikipedia.org/wiki/Hashcash"
+            href={this.hashcashLink}
             className="underline text-blue-500"
           >
             Wikipedia
@@ -111,7 +114,7 @@ class Intermittent extends React.Component {
             a system that will remain consistent through power failures? We were
             really inspired by{" "}
             <a
-              href="https://dl.acm.org/doi/10.1145/3519939.3523454"
+              href={this.WARioPaperLink}
               className="underline text-blue-500"
             >
               WARio

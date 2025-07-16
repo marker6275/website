@@ -6,6 +6,8 @@ import diagram from "../assets/project_images/TextClassifier/diagram.png";
 import aws from "../assets/project_images/TextClassifier/aws.png";
 
 class TC extends React.Component {
+
+  githubURL = "https://github.com/marker6275/Text-Classifier";
   render() {
     return (
       <div className="py-5">
@@ -20,11 +22,9 @@ class TC extends React.Component {
         </P>
         <br />
         <P>
-          <span className="font-medium">Project code: <a href="https://github.com/marker6275/Text-Classifier" 
-                                                        target="_blank"
-                                                        rel="noopener noreferrer" 
-                                                        className="text-blue-500 underline">
-          https://github.com/marker6275/Text-Classifier
+          <span className="font-medium">Project code: <a href={this.githubURL} target="_blank" rel="noopener noreferrer" 
+          className="text-blue-500 underline">
+          {this.githubURL}
           </a>
           </span>
         </P>
