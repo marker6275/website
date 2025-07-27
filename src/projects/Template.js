@@ -1,5 +1,5 @@
 import React from "react";
-import { T, ST, P, Line } from "../components/text";
+import { T, D, ST, P, Line } from "../components/text";
 // Images now served from public directory
 
 class Temp extends React.Component {
