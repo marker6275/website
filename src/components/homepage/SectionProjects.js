@@ -1,6 +1,6 @@
 import { HomeProjectCard } from "../cards";
 import { projects } from "../../utils";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 export function SectionProjects() {
   const featuredProjects = projects.slice(0, 3);
@@ -24,7 +24,7 @@ export function SectionProjects() {
       </div>
 
       <div className="flex justify-center my-10">
-        <Link to="/projects">
+        <Link href="/projects">
           <div>
             <span className="text-md bg-neutral-800 text-white p-3 rounded-md hover:bg-neutral-600 duration-300">
               All Projects

@@ -1,39 +1,37 @@
-import React from "react";
+'use client'
+import React, { useState, useEffect } from "react";
 import { Modal } from "../misc";
 
-export class HomeProjectCard extends React.Component {
-  state = {
-    show: false,
-  };
-  showModal = () => {
-    this.setState({
-      show: !this.state.show,
-    });
+export function HomeProjectCard({ name, text, children }) {
+  const [show, setShow] = useState(false);
+
+  const showModal = () => {
+    setShow(!show);
   };
 
-  render() {
-    if (!this.state.show) {
+  useEffect(() => {
+    if (!show) {
       window.onscroll = function () {};
     }
+  }, [show]);
 
-    return (
-      <div>
-        <div
-          onClick={(e) => {
-            if (!this.state.show) {
-              setTimeout(() => {
-                this.showModal(e);
-              }, 100);
-            }
-          }}
-          className={`bg-neutral-300 hover:bg-stone-200 font-extralight h-24 lg:h-32 rounded-md flex items-center text-3xl text-left hover:cursor-pointer ${this.props.text} transition-colors transition-all duration-300 p-10 hover:shadow-md`}
-        >
-          {this.props.name}
-        </div>
-        <Modal show={this.state.show} onClose={this.showModal}>
-          {this.props.children}
-        </Modal>
+  return (
+    <div>
+      <div
+        onClick={() => {
+          if (!show) {
+            setTimeout(() => {
+              showModal();
+            }, 100);
+          }
+        }}
+        className={`bg-neutral-300 hover:bg-stone-200 font-extralight h-24 lg:h-32 rounded-md flex items-center text-3xl text-left hover:cursor-pointer ${text} transition-colors transition-all duration-300 p-10 hover:shadow-md`}
+      >
+        {name}
       </div>
-    );
-  }
+      <Modal show={show} onClose={showModal}>
+        {children}
+      </Modal>
+    </div>
+  );
 }

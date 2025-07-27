@@ -1,3 +1,4 @@
+'use client'
 import { colors, months } from "../../utils";
 import { useMediaQuery } from "react-responsive";
 

@@ -1,3 +1,4 @@
+'use client'
 import { MusicCard } from "../components/cards";
 import data from "../info.json";
 

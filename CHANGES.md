@@ -97,3 +97,12 @@
 **7/9/2025**
 
 - Added Toast bar for copying email
+
+**7/16/2025**
+
+- Added Sustainable Electronics Workshop to projects
+
+**7/27/2025**
+
+- Restructured to Next.js
+- Upgraded to tailwindcss V4

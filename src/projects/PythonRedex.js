@@ -1,24 +1,13 @@
 import React from "react";
 import { T, C, D, NL, BL, ST, ST2, P, Line } from "../components/text";
-import define_language from "../assets/project_images/PythonRedexModel/define_language.png";
-import lambdapiexpressions from "../assets/project_images/PythonRedexModel/lambdapiexpressions.png";
-import figure7 from "../assets/project_images/PythonRedexModel/figure7.png";
-import figure7paper from "../assets/project_images/PythonRedexModel/figure7paper.png";
-import object from "../assets/project_images/PythonRedexModel/object.png";
-import example1 from "../assets/project_images/PythonRedexModel/examples/example1.png";
-import example2 from "../assets/project_images/PythonRedexModel/examples/example2.png";
-import example3 from "../assets/project_images/PythonRedexModel/examples/example3.png";
-import example4 from "../assets/project_images/PythonRedexModel/examples/example4.png";
-import example5 from "../assets/project_images/PythonRedexModel/examples/example5.png";
-import python from "../assets/project_images/PythonRedexModel/python.png";
+// Images now served from public directory
 
-class PRM extends React.Component {
+export function PRM() {
 
-  githubURL = "https://github.com/marker6275/Python-Redex-Model";
-  paperURL = "https://cs.brown.edu/people/sk/Publications/Papers/Published/pmmwplck-python-full-monty/paper.pdf";
-  implementationURL = "https://cs.brown.edu/research/plt/dl/lambda-py/ae/";
+  const githubURL = "https://github.com/marker6275/Python-Redex-Model";
+  const paperURL = "https://cs.brown.edu/people/sk/Publications/Papers/Published/pmmwplck-python-full-monty/paper.pdf";
+  const implementationURL = "https://cs.brown.edu/research/plt/dl/lambda-py/ae/";
 
-  render() {
     return (
       <div className="py-5">
         <D>NOV 2023</D>
@@ -37,12 +26,12 @@ class PRM extends React.Component {
         <P>
           If you don't want to look at our Walmart remake of something
           beautiful, allow me to redirect you directly to the original{" "}
-          <a href={this.paperURL} className="text-blue-500 underline">
+          <a href={paperURL} className="text-blue-500 underline">
             paper
           </a>{" "}
           and{" "}
           <a
-            href={this.implementationURL}
+            href={implementationURL}
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-500 underline"
@@ -58,7 +47,7 @@ class PRM extends React.Component {
           parts in our model.
           <br />
           All of the code is in this{" "}
-          <a href={this.githubURL} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
+          <a href={githubURL} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
             Github
           </a>
         </P>
@@ -86,12 +75,12 @@ class PRM extends React.Component {
         <div>
           <div className="grid grid-cols-2">
             <img
-              src={define_language}
+              src="/assets/project_images/PythonRedexModel/define_language.png"
               alt="define language function"
               className="h-[700px]"
             />
             <img
-              src={lambdapiexpressions}
+              src="/assets/project_images/PythonRedexModel/lambdapiexpressions.png"
               alt="lambda pi expressions"
               className="h-[700px] "
             />
@@ -105,7 +94,7 @@ class PRM extends React.Component {
           variables, expressions, types, primitive functions. Using these, we
           want to define the behavior of Python using this language base when we
           see certain keywords (see{" "}
-          <a href={this.githubURL} className="text-blue-500 underline">
+          <a href={githubURL} className="text-blue-500 underline">
             Github
           </a>{" "}
           for examples).
@@ -165,7 +154,7 @@ class PRM extends React.Component {
           There's a lot of stuff covered in the paper that we look over and
           didn't really cover in depth since they were pretty basic. They're all
           implemented in the{" "}
-          <a href={this.githubURL} className="text-blue-500 underline">
+          <a href={githubURL} className="text-blue-500 underline">
             model
           </a>{" "}
           if you want to check it out but otherwise I'm only going to give a
@@ -198,7 +187,7 @@ class PRM extends React.Component {
             <i>type</i>. This is the example of this from the paper:
             <div className="flex-col">
               <div className="flex justify-center ">
-                <img src={object} alt="object example" className="w-96" />
+                <img src="/assets/project_images/PythonRedexModel/object.png" alt="object example" className="w-96" />
               </div>
               <C>Reference 2</C>
             </div>
@@ -253,9 +242,9 @@ class PRM extends React.Component {
         <br />
         <div>
           <div className="grid grid-cols-2">
-            <img src={figure7} alt="figure 7 redex" className="h-[230px]" />
+            <img src="/assets/project_images/PythonRedexModel/figure7.png" alt="figure 7 redex" className="h-[230px]" />
             <img
-              src={figure7paper}
+              src="/assets/project_images/PythonRedexModel/figure7paper.png"
               alt="lambda pi expressions"
               className="h-[230px] "
             />
@@ -319,7 +308,7 @@ class PRM extends React.Component {
           itself was pretty bland but the paper continuously referenced this
           nonexistent value as <i>skull</i> (no literally: ☠ was written
           everywhere - page 2 of the{" "}
-          <a href={this.paperURL} className="text-blue-500 underline">
+          <a href={paperURL} className="text-blue-500 underline">
             pdf
           </a>
           ). It's really humorous to consider that <i>undefined</i> values are
@@ -377,26 +366,25 @@ class PRM extends React.Component {
         <div>
           <Line />
           <ST2>Update field</ST2>
-          <img src={example1} alt="first example" />
+          <img src="/assets/project_images/PythonRedexModel/examples/example1.png" alt="first example" />
           <Line />
           <ST2>Create object then get object</ST2>
-          <img src={example2} alt="second example" />
+          <img src="/assets/project_images/PythonRedexModel/examples/example2.png" alt="second example" />
           <Line />
           <ST2>Create variable then get variable (while store is empty)</ST2>
-          <img src={example3} alt="third example" />
+          <img src="/assets/project_images/PythonRedexModel/examples/example3.png" alt="third example" />
           <Line />
           <ST2>
             Create variable then get variable (while store is{" "}
             <span className="italic">not</span> empty)
           </ST2>
-          <img src={example4} alt="fourth example" />
+          <img src="/assets/project_images/PythonRedexModel/examples/example4.png" alt="fourth example" />
           <Line />
           <ST2>Get object</ST2>
-          <img src={example5} alt="fifth example" />
+          <img src="/assets/project_images/PythonRedexModel/examples/example5.png" alt="fifth example" />
         </div>
       </div>
     );
-  }
 }
 
 export const PythonRedex = {
@@ -405,6 +393,6 @@ export const PythonRedex = {
   text: "hover:text-amber-500",
   skills: ["Programming Languages", "Racket", "Redex"],
   description: "Mathematical model of Python",
-  image: python,
+  image: "/assets/project_images/PythonRedexModel/python.png",
   body: <PRM />,
 };

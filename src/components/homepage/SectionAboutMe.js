@@ -1,10 +1,7 @@
-import email from "../../assets/icons/email.png";
-import instagram from "../../assets/icons/instagram.png";
-import github from "../../assets/icons/github.png";
-import linkedin from "../../assets/icons/linkedin.png";
-import data from "../../info.json";
+'use client'
 import { useState, useEffect } from "react";
-import ProfilePic from "../../assets/profile_pic.jpg";
+import Image from "next/image";
+import data from "../../info.json";
 import { Toast } from "../misc";
 
 export function SectionAboutMe() {
@@ -37,9 +34,11 @@ export function SectionAboutMe() {
   return (
     <div className="my-20 mx-4">
       <div className="flex justify-center items-center duration-300">
-        <img
-          src={ProfilePic}
+        <Image
+          src="../../assets/profile_pic.jpg"
           alt="profile"
+          width={256}
+          height={256}
           className="sm:w-64 sm:h-64 w-40 h-40 duration-300 sm:mr-8 mr-4 rounded-full object-cover"
         />
         <div>
@@ -66,24 +65,24 @@ export function SectionAboutMe() {
               style={{ cursor: "pointer", position: "relative" }}
               title="Click to copy email"
             >
-              <img src={email} alt="email" className="w-8 h-8" />
+              <Image src="/assets/icons/email.png" alt="email" width={32} height={32} className="w-8 h-8" />
             </div>
             <a
               href={contact.instagram}
               target="_blank"
               rel="noopener noreferrer"
             >
-              <img src={instagram} alt="instagram" className="w-8 h-8" />
+              <Image src="/assets/icons/instagram.png" alt="instagram" width={32} height={32} className="w-8 h-8" />
             </a>
             <a href={contact.github} target="_blank" rel="noopener noreferrer">
-              <img src={github} alt="github" className="w-8 h-8" />
+              <Image src="/assets/icons/github.png" alt="github" width={32} height={32} className="w-8 h-8" />
             </a>
             <a
               href={contact.linkedin}
               target="_blank"
               rel="noopener noreferrer"
             >
-              <img src={linkedin} alt="linkedin" className="w-8 h-8" />
+              <Image src="/assets/icons/linkedin.png" alt="linkedin" width={32} height={32} className="w-8 h-8" />
             </a>
           </div>
         </div>

@@ -1,12 +1,10 @@
 import React from "react";
 import { T, D, NL, ST, P, Line } from "../components/text";
-import msp430Launchpad from "../assets/project_images/IntermittentComputing/msp430launchpad.png";
+// Images now served from public directory
 
-class Intermittent extends React.Component {
-
-  hashcashLink = "https://en.wikipedia.org/wiki/Hashcash";
-  WARioPaperLink = "https://dl.acm.org/doi/10.1145/3519939.3523454";
-  render() {
+function Intermittent() {
+  const hashcashLink = "https://en.wikipedia.org/wiki/Hashcash";
+  const WARioPaperLink = "https://dl.acm.org/doi/10.1145/3519939.3523454";
     return (
       <div className="py-5">
         <D>NOV 2024</D>
@@ -94,7 +92,7 @@ class Intermittent extends React.Component {
         <P>
           <b>Long</b>: Just go to{" "}
           <a
-            href={this.hashcashLink}
+            href={hashcashLink}
             className="underline text-blue-500"
           >
             Wikipedia
@@ -114,7 +112,7 @@ class Intermittent extends React.Component {
             a system that will remain consistent through power failures? We were
             really inspired by{" "}
             <a
-              href={this.WARioPaperLink}
+              href={WARioPaperLink}
               className="underline text-blue-500"
             >
               WARio
@@ -219,7 +217,6 @@ class Intermittent extends React.Component {
         </P>
       </div>
     );
-  }
 }
 
 export const IntermittentComputing = {
@@ -228,6 +225,6 @@ export const IntermittentComputing = {
   text: "hover:text-red-600",
   skills: ["C", "Embedded Programming", "Hashcash"],
   description: "Battery-free computing",
-  image: msp430Launchpad,
+  image: "/assets/project_images/IntermittentComputing/msp430launchpad.png",
   body: <Intermittent />,
 };

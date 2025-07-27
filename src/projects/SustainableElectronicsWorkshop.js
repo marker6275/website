@@ -1,13 +1,10 @@
 import React from "react";
 import { T, ST, P, Line, D, NL } from "../components/text";
-import Fern from "../assets/project_images/SustainableElectronicsWorkshop/fern.png";
+// Images now served from public directory
 
-class SEW extends React.Component {
-
-  projectReport = "https://github.com/marker6275/Sustainable-Electronics-Workshop/blob/main/Project_Report.pdf"
-  githubURL = "https://github.com/marker6275/Sustainable-Electronics-Workshop"
-
-  render() {
+function SEW() {
+  const projectReport = "https://github.com/marker6275/Sustainable-Electronics-Workshop/blob/main/Project_Report.pdf";
+  const githubURL = "https://github.com/marker6275/Sustainable-Electronics-Workshop";
     return (
       <div className="py-5">
         <D>JUN 2025</D>
@@ -31,10 +28,10 @@ class SEW extends React.Component {
           this idea in the future.</P>
 
         <ST>Workshop Materials</ST>
-        <P><span className="font-semibold">All workshop materials are available on this Github repo:</span> <a href={this.githubURL} className="underline text-blue-500" 
-        target="_blank" rel="noopener noreferrer">{this.githubURL}</a></P>
+        <P><span className="font-semibold">All workshop materials are available on this Github repo:</span> <a href={githubURL} className="underline text-blue-500" 
+        target="_blank" rel="noopener noreferrer">{githubURL}</a></P>
         <br/>
-        <P>Also in this repo is a <a href={this.projectReport} className="underline text-blue-500" target="_blank" 
+        <P>Also in this repo is a <a href={projectReport} className="underline text-blue-500" target="_blank" 
         rel="noopener noreferrer">full project report</a>. Everything following this is a rough summary of the project.</P>
 
         <ST>Course Design</ST>
@@ -82,7 +79,6 @@ class SEW extends React.Component {
           to engineering students, so I would love to see this truly taught in a college setting.</P>
       </div>
     );
-  }
 }
 
 export const SustainabilityWorkshop = {
@@ -91,6 +87,6 @@ export const SustainabilityWorkshop = {
   text: "hover:text-green-600",
   skills: ["Course Design", "Life-Cycle Assessment"],
   description: "How to make electronics sustainable",
-  image: Fern,
+  image: "/assets/project_images/SustainableElectronicsWorkshop/fern.png",
   body: <SEW />,
 };

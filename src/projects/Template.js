@@ -1,6 +1,6 @@
 import React from "react";
 import { T, ST, P, Line } from "../components/text";
-import NotFound from "../assets/not_found.jpg";
+// Images now served from public directory
 
 class Temp extends React.Component {
   render() {
@@ -22,6 +22,6 @@ export const Template = {
   text: "hover:text-white",
   skills: ["Skill1", "Skill2", "Skill3"],
   description: "Generic description",
-  image: NotFound,
+  image: "/assets/not_found.jpg",
   body: <Temp />,
 };

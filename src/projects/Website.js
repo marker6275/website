@@ -1,9 +1,8 @@
 import React from "react";
 import { T, D, BL, ST, P, Line } from "../components/text";
-import logo from "../assets/logo.jpg";
+// Images now served from public directory
 
-class Web extends React.Component {
-  render() {
+function Web() {
     return (
       <div className="py-5">
         <D>NOV 2023</D>
@@ -55,7 +54,6 @@ class Web extends React.Component {
         </P>
       </div>
     );
-  }
 }
 
 export const Website = {
@@ -64,6 +62,6 @@ export const Website = {
   text: "hover:text-blue-700",
   skills: ["React", "Tailwind"],
   description: "Where you are right now",
-  image: logo,
+  image: "/assets/logo.jpg",
   body: <Web />,
 };
