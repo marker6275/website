@@ -1,6 +1,6 @@
 import { MusicCard } from "../cards";
 import info from "../../info.json";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 export function SectionMusic() {
   const randomIndex = Math.floor(Math.random() * info.music.length);
@@ -23,7 +23,7 @@ export function SectionMusic() {
         />
       </div>
       <div className="flex justify-center mt-10">
-        <Link to="/music">
+        <Link href="/music">
           <div>
             <span className="text-md bg-neutral-800 text-white p-3 rounded-md hover:bg-neutral-600 duration-300">
               All Music

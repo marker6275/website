@@ -1,14 +1,10 @@
 import React from "react";
 import { T, D, NL, BL, ST, P, Line } from "../components/text";
-import { Link } from "react-router-dom";
-import PythonClient from "../assets/project_images/TextClassifier/PythonClient.png";
-import diagram from "../assets/project_images/TextClassifier/diagram.png";
-import aws from "../assets/project_images/TextClassifier/aws.png";
+import Link from "next/link";
+// Images now served from public directory
 
-class TC extends React.Component {
-
-  githubURL = "https://github.com/marker6275/Text-Classifier";
-  render() {
+function TC() {
+  const githubURL = "https://github.com/marker6275/Text-Classifier";
     return (
       <div className="py-5">
         <D>DEC 2023</D>
@@ -22,9 +18,9 @@ class TC extends React.Component {
         </P>
         <br />
         <P>
-          <span className="font-medium">Project code: <a href={this.githubURL} target="_blank" rel="noopener noreferrer" 
+          <span className="font-medium">Project code: <a href={githubURL} target="_blank" rel="noopener noreferrer" 
           className="text-blue-500 underline">
-          {this.githubURL}
+          {githubURL}
           </a>
           </span>
         </P>
@@ -40,7 +36,7 @@ class TC extends React.Component {
           **Does not work anymore**
         </span>
         <div className="bg-purple-200 flex justify-center items-center mt-2 py-5">
-          <Link to="/analyze">
+          <Link href="/analyze">
             <h1 className="font-medium text-4xl text-center text-purple-800">
               CHECK IT OUT HERE (disabled)
             </h1>
@@ -55,7 +51,7 @@ class TC extends React.Component {
           Initially, it was run on a Python file that
           prompts the user for their action and performs the inputted action.
           <div className="flex justify-center my-5">
-            <img src={PythonClient} alt="Python Client" />
+            <img src="/assets/project_images/TextClassifier/PythonClient.png" alt="Python Client" />
           </div>
           Very basic.
         </P>
@@ -121,14 +117,14 @@ class TC extends React.Component {
 
         <ST>Diagram</ST>
         <div className="flex justify-center">
-          <img src={diagram} alt="diagram" className="w-1/2 h-1/2" />
+          <img src="/assets/project_images/TextClassifier/diagram.png" alt="diagram" className="w-1/2 h-1/2" />
         </div>
 
         <ST>API</ST>
         <P>
           There are 4 API functions that the (original) client calls. All four
           of these are implemented{" "}
-          <Link to="/analyze" className="text-blue-500 underline">
+          <Link href="/analyze" className="text-blue-500 underline">
             here
           </Link>
           .
@@ -175,7 +171,7 @@ class TC extends React.Component {
         </NL>
         <ST>Disabled</ST>
         <div className="bg-purple-200 flex justify-center items-center mt-2 py-5">
-          <Link to="/analyze">
+          <Link href="/analyze">
             <h1 className="font-medium text-4xl text-center text-purple-800">
               CHECK IT OUT HERE (disabled)
             </h1>
@@ -186,7 +182,6 @@ class TC extends React.Component {
         </div>
       </div>
     );
-  }
 }
 
 export const TextClassifier = {
@@ -195,6 +190,6 @@ export const TextClassifier = {
   text: "hover:text-gray-500",
   skills: ["AWS", "API Design", "Javascript", "Naive Bayes"],
   description: "Classify text sentiment using Naive Bayes",
-  image: aws,
+  image: "/assets/project_images/TextClassifier/aws.png",
   body: <TC />,
 };

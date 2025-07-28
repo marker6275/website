@@ -1,0 +1,75 @@
+@import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap");
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Intro animation styles */
+.intro {
+  animation: fade 4s forwards;
+}
+
+.fade-background {
+  height: 100vh !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  background: linear-gradient(0deg, #ffffff 0%, #ffffff 100%);
+  animation: fadeOutBackground 2s forwards;
+}
+
+.fade-background-in {
+  animation: fadeInBackground 1s forwards;
+}
+
+@keyframes fadeOutBackground {
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fade {
+  0% {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+  }
+  25% {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+  100% {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+  }
+}
+
+@keyframes fadeInBackground {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+} 

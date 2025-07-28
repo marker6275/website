@@ -1,7 +1,8 @@
+'use client'
 import React, { useState } from "react";
-import logo from "../../../assets/logo.jpg";
+import Image from "next/image";
+import Link from "next/link";
 import { MobileNavbarButton } from "./MobileNavbarButton";
-import { Link } from "react-router-dom";
 
 export function MobileNavbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,9 +12,9 @@ export function MobileNavbar() {
   return (
     <div className="bg-blue-200 p-4">
       <div className="flex items-center justify-between">
-        <Link to="/">
+        <Link href="/">
           <div className="flex items-center w-28 justify-between">
-            <img src={logo} alt="Mark" className="rounded-md w-8 h-8" />
+            <Image src="/assets/logo.jpg" alt="Mark" width={32} height={32} className="rounded-md" />
             <h1 className="text-xl font-light">Mark Li</h1>
           </div>
         </Link>

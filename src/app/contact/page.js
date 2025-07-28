@@ -1,13 +1,5 @@
-import data from "../info.json";
-import React, { useRef } from "react";
-import emailjs from "@emailjs/browser";
-
-function copyClipboard(text) {
-  navigator.clipboard.writeText(text);
-}
-
-export function Contact() {
-  const info = data[1];
+export default function ContactPage() {
+  const info = data.contact
   const form = useRef();
 
   const sendEmail = (e) => {
@@ -125,4 +117,4 @@ export function Contact() {
       </div>
     </div>
   );
-}
+} 

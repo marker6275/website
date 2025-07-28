@@ -1,7 +1,12 @@
-import { MusicCard } from "../components/cards";
-import data from "../info.json";
+import { MusicCard } from "../../components/cards";
+import data from "../../info.json";
 
-export function Music() {
+export const metadata = {
+  title: 'Music - Mark Li',
+  description: 'Musical compositions and projects by Mark Li',
+}
+
+export default function MusicPage() {
   const info = data.music;
 
   return (
@@ -10,6 +15,7 @@ export function Music() {
       <div className="flex flex-col items-center py-10 px-5 gap-x-20 gap-y-10 lg:grid lg:grid-cols-2">
         {info.map((item) => (
           <MusicCard
+            key={item.id}
             id={item.id}
             title={item.title}
             link={item.link}
@@ -22,4 +28,4 @@ export function Music() {
       </div>
     </div>
   );
-}
+} 

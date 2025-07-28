@@ -1,12 +1,13 @@
+'use client'
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Buffer } from 'buffer';
 
-const config = require('./config.js');
+const config = require('../../config/analyze.js');
 
 const baseurl = config.baseurl;
 
-export function Analyze() {
+export function AnalyzePage() {
     const [file, setFile] = useState(null);
     const [output, setOutput] = useState('Upload to see result');
     const [numFiles, setNumFiles] = useState('loading...');
@@ -89,11 +90,9 @@ export function Analyze() {
         })
     }
 
-    window.onload = async function statsCaller() {
-        let res = stats();
-
-        Promise.resolve(res);
-    }
+    useEffect(() => {
+        stats();
+    }, []);
 
     async function stats() {
         const api = '/stats';
@@ -154,3 +153,5 @@ export function Analyze() {
         </div>
     )
 }
+
+export default Analyze;
