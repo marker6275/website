@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import data from "../../info.json";
@@ -32,7 +32,7 @@ export function SectionAboutMe() {
   }, []);
 
   return (
-    <div className="my-20 mx-4">
+    <div className="my-15 mx-4">
       <div className="flex justify-center items-center duration-300">
         <Image
           src="../../assets/profile_pic.jpg"
@@ -61,33 +61,60 @@ export function SectionAboutMe() {
                     setIsFadingOut(true);
                     setTimeout(() => setShowToast(false), 300);
                   }, 2200);
-                }}}
+                }
+              }}
               style={{ cursor: "pointer", position: "relative" }}
               title="Click to copy email"
             >
-              <Image src="/assets/icons/email.png" alt="email" width={32} height={32} className="w-8 h-8" />
+              <Image
+                src="/assets/icons/email.png"
+                alt="email"
+                width={32}
+                height={32}
+                className="w-8 h-8 hover:opacity-60 transition-all duration-250"
+              />
             </div>
             <a
               href={contact.instagram}
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Image src="/assets/icons/instagram.png" alt="instagram" width={32} height={32} className="w-8 h-8" />
+              <Image
+                src="/assets/icons/instagram.png"
+                alt="instagram"
+                width={32}
+                height={32}
+                className="w-8 h-8 hover:opacity-60 transition-all duration-250"
+              />
             </a>
             <a href={contact.github} target="_blank" rel="noopener noreferrer">
-              <Image src="/assets/icons/github.png" alt="github" width={32} height={32} className="w-8 h-8" />
+              <Image
+                src="/assets/icons/github.png"
+                alt="github"
+                width={32}
+                height={32}
+                className="w-8 h-8 hover:opacity-60 transition-all duration-250"
+              />
             </a>
             <a
               href={contact.linkedin}
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Image src="/assets/icons/linkedin.png" alt="linkedin" width={32} height={32} className="w-8 h-8" />
+              <Image
+                src="/assets/icons/linkedin.png"
+                alt="linkedin"
+                width={32}
+                height={32}
+                className="w-8 h-8 hover:opacity-60 transition-all duration-250"
+              />
             </a>
           </div>
         </div>
       </div>
-      {showToast && <Toast message="Email copied to clipboard!" isFadingOut={isFadingOut} />}
+      {showToast && (
+        <Toast message="Email copied to clipboard!" isFadingOut={isFadingOut} />
+      )}
     </div>
   );
 }

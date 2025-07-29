@@ -9,7 +9,7 @@ export function MusicCard({ id, title, link, month, year, composer, channel }) {
   return (
     <a href={channel} target="_blank" rel="noreferrer">
       <div
-        className={`bg-[#fefefe] w-[360px] md:w[360px] lg:w-[472px] xl:w-[600px] drop-shadow-xl flex flex-col items-center justify-center rounded-xl border-4 ${colors[id][0]} ${colors[id][1]} ${colors[id][2]} transition duration-500`}
+        className={`bg-white/50 w-[360px] md:w[360px] lg:w-[472px] xl:w-[600px] shadow-md flex flex-col items-center justify-center rounded-xl border-4 ${colors[id][0]} ${colors[id][1]} ${colors[id][2]} transition duration-400`}
       >
         <h1 className="text-2xl px-2 pt-2">{title}</h1>
         <p className="text-sm pb-2">

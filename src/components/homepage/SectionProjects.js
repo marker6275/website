@@ -10,7 +10,7 @@ export function SectionProjects() {
       <h1 className="font-light text-5xl flex justify-center py-10">
         Projects
       </h1>
-      <div className="lg:grid lg:grid-cols-3 flex flex-col lg:flex-col gap-6 lg:gap-20 px-6 lg:px-12 py-6 lg:py-10">
+      <div className="lg:grid lg:grid-cols-3 flex flex-col lg:flex-col gap-8 lg:gap-20 px-6 lg:px-12 py-6 lg:py-10">
         {featuredProjects.map((project) => (
           <HomeProjectCard
             key={project.name}

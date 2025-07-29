@@ -38,8 +38,8 @@ function Coming() {
 
 export const ComingSoon = {
   name: "Coming Soon",
-  color: "bg-gray-400",
+  color: "border-gray-500",
   text: "text-gray-400",
-  skills: [],
+  github: "https://github.com/marker6275",
   body: <Coming />,
 };

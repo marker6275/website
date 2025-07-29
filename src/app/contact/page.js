@@ -1,5 +1,11 @@
+"use client";
+
+import { useRef } from "react";
+import emailjs from "@emailjs/browser";
+import data from "../../info.json";
+
 export default function ContactPage() {
-  const info = data.contact
+  const info = data.contact;
   const form = useRef();
 
   const sendEmail = (e) => {
@@ -117,4 +123,4 @@ export default function ContactPage() {
       </div>
     </div>
   );
-} 
+}

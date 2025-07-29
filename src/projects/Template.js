@@ -20,7 +20,7 @@ export const Template = {
   name: "Template",
   color: "bg-white",
   text: "hover:text-white",
-  skills: ["Skill1", "Skill2", "Skill3"],
+  github: null,
   description: "Generic description",
   image: "/assets/not_found.jpg",
   body: <Temp />,

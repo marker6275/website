@@ -82,10 +82,10 @@ function SEW() {
 }
 
 export const SustainabilityWorkshop = {
-  name: "Sustainable Electronics Workshop",
-  color: "bg-green-600",
+  name: "Green Electronics Workshop",
+  color: "border-green-600",
   text: "hover:text-green-600",
-  skills: ["Course Design", "Life-Cycle Assessment"],
+  github: "https://github.com/marker6275/Sustainable-Electronics-Workshop",
   description: "How to make electronics sustainable",
   image: "/assets/project_images/SustainableElectronicsWorkshop/fern.png",
   body: <SEW />,

@@ -389,9 +389,9 @@ export function PRM() {
 
 export const PythonRedex = {
   name: "Python Redex Model",
-  color: "bg-yellow-400",
+  color: "border-yellow-400",
   text: "hover:text-amber-500",
-  skills: ["Programming Languages", "Racket", "Redex"],
+  github: "https://github.com/marker6275/Python-Redex-Model",
   description: "Mathematical model of Python",
   image: "/assets/project_images/PythonRedexModel/python.png",
   body: <PRM />,

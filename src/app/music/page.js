@@ -1,11 +1,6 @@
 import { MusicCard } from "../../components/cards";
 import data from "../../info.json";
 
-export const metadata = {
-  title: 'Music - Mark Li',
-  description: 'Musical compositions and projects by Mark Li',
-}
-
 export default function MusicPage() {
   const info = data.music;
 
@@ -28,4 +23,4 @@ export default function MusicPage() {
       </div>
     </div>
   );
-} 
+}

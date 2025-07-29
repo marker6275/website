@@ -1,11 +1,6 @@
 import { ProjectCard } from "../../components/cards";
 import { projects } from "../../utils";
 
-export const metadata = {
-  title: 'Projects - Mark Li',
-  description: 'Software development projects by Mark Li',
-}
-
 export default function ProjectsPage() {
   return (
     <div className="flex flex-col items-center py-5 bg-gradient-to-b from-blue-200 via-white to-red-50">
@@ -16,7 +11,7 @@ export default function ProjectsPage() {
             key={item.name}
             name={item.name}
             color={item.color}
-            skills={item.skills}
+            github={item.github}
             description={item.description}
             image={item.image}
           >
@@ -26,4 +21,4 @@ export default function ProjectsPage() {
       </div>
     </div>
   );
-} 
+}

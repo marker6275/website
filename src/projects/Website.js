@@ -58,9 +58,9 @@ function Web() {
 
 export const Website = {
   name: "Website",
-  color: "bg-blue-400",
+  color: "border-blue-400",
   text: "hover:text-blue-700",
-  skills: ["React", "Tailwind"],
+  github: "https://github.com/marker6275/website",
   description: "Where you are right now",
   image: "/assets/logo.jpg",
   body: <Web />,

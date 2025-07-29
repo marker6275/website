@@ -145,9 +145,9 @@ export function BopIt() {
 
 export const NotBopIt = {
   name: "Not Bop-It",
-  color: "bg-teal-400",
+  color: "border-teal-400",
   text: "hover:text-teal-500",
-  skills: ["C", "MicroBit", "Sensors"],
+  github: "https://github.com/marker6275/Bop-It",
   description: "Bop It wishes it was this",
   image: "/assets/project_images/NotBopIt/microbitLogo.png",
   body: <BopIt />,

@@ -221,9 +221,9 @@ function Intermittent() {
 
 export const IntermittentComputing = {
   name: "Intermittent Computing",
-  color: "bg-red-700",
+  color: "border-red-700",
   text: "hover:text-red-600",
-  skills: ["C", "Embedded Programming", "Hashcash"],
+  github: null,
   description: "Battery-free computing",
   image: "/assets/project_images/IntermittentComputing/msp430launchpad.png",
   body: <Intermittent />,
