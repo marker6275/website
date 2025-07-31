@@ -6,9 +6,9 @@ export function ProjectCard({
   name,
   color,
   description,
-  github,
   image,
   children,
+  link,
 }) {
   const [show, setShow] = useState(false);
 
@@ -26,7 +26,9 @@ export function ProjectCard({
     <div className="relative w-full">
       <div
         onClick={() => {
-          if (!show) {
+          if (link) {
+            window.open(link, "_blank");
+          } else if (!show) {
             showModal();
           }
         }}

@@ -6,9 +6,11 @@ import {
   Website,
   IntermittentComputing,
   SustainabilityWorkshop,
+  Verdra,
 } from "./projects";
 
 const projects = [
+  Verdra,
   SustainabilityWorkshop,
   IntermittentComputing,
   NotBopIt,

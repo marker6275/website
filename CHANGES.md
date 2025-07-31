@@ -106,3 +106,7 @@
 
 - Restructured to Next.js
 - Upgraded to tailwindcss V4
+
+**7/30/2025**
+
+- Added Verdra to projects

@@ -17,6 +17,7 @@ export function SectionProjects() {
             name={project.name}
             color={project.color}
             text={project.text}
+            link={project.link}
           >
             {project.body}
           </HomeProjectCard>

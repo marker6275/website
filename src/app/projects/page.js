@@ -11,9 +11,9 @@ export default function ProjectsPage() {
             key={item.name}
             name={item.name}
             color={item.color}
-            github={item.github}
             description={item.description}
             image={item.image}
+            link={item.link}
           >
             {item.body}
           </ProjectCard>

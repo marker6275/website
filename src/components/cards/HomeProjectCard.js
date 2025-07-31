@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Modal } from "../misc";
 
-export function HomeProjectCard({ name, text, children }) {
+export function HomeProjectCard({ name, text, children, link }) {
   const [show, setShow] = useState(false);
 
   const showModal = () => {
@@ -19,7 +19,9 @@ export function HomeProjectCard({ name, text, children }) {
     <div>
       <div
         onClick={() => {
-          if (!show) {
+          if (link) {
+            window.open(link, "_blank");
+          } else if (!show) {
             setTimeout(() => {
               showModal();
             }, 100);

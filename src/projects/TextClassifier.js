@@ -201,7 +201,6 @@ export const TextClassifier = {
   name: "Text Classifier",
   color: "border-white",
   text: "hover:text-gray-500",
-  github: "https://github.com/marker6275/Text-Classifier",
   description: "Classify how words feel",
   image: "/assets/project_images/TextClassifier/aws.png",
   body: <TC />,
