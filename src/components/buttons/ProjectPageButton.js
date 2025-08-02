@@ -1,8 +1,4 @@
-export default function ProjectPageButton({
-  pageNumber,
-  isActive,
-  setPageNumber,
-}) {
+export function ProjectPageButton({ pageNumber, isActive, setPageNumber }) {
   return (
     <button
       onClick={() => setPageNumber(pageNumber)}

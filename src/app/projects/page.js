@@ -3,7 +3,7 @@
 import { ProjectCard } from "../../components/cards";
 import { projects } from "../../utils";
 import { useState } from "react";
-import ProjectPageButton from "../../components/misc/ProjectPageButton";
+import { ProjectPageButton } from "../../components/buttons";
 
 export default function ProjectsPage() {
   const [pageNumber, setPageNumber] = useState(0);

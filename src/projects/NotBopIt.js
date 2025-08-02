@@ -1,6 +1,6 @@
 import React from "react";
 import { T, D, ST, P, Line, C } from "../components/text";
-// Images now served from public directory
+import Image from "next/image";
 
 export function BopIt() {
   const githubURL = "https://github.com/marker6275/Bop-It";
@@ -21,10 +21,12 @@ export function BopIt() {
         was.
       </P>
       <ST>Hardware</ST>
-      <img
+      <Image
         src="/assets/project_images/NotBopIt/microbit.png"
         alt="Microbit"
-        className="w-1/6 mx-auto"
+        width={256}
+        height={256}
+        className="mx-auto"
       />
       <P>
         The hardware we used was the nRF52833 on the Microbit. The device itself
@@ -81,27 +83,33 @@ export function BopIt() {
         pre-recorded instructions, but we weren't able to implement clean audio.
         So we just got our terminal to display text text:
       </P>
-      <div className="grid grid-cols-3 p-10 gap-10">
+      <div className="grid grid-cols-3 p-10 gap-10 justify-items-center items-center">
         <div>
-          <img
+          <Image
             src="/assets/project_images/NotBopIt/task.png"
             alt="Task"
+            width={256}
+            height={256}
             className="mb-2"
           />
           <C>New Task Screen</C>
         </div>
         <div>
-          <img
+          <Image
             src="/assets/project_images/NotBopIt/completedtask.png"
             alt="Completed Task"
+            width={256}
+            height={256}
             className="mb-2"
           />
           <C>Repeat Task Screen</C>
         </div>
         <div>
-          <img
+          <Image
             src="/assets/project_images/NotBopIt/losingscreen.png"
             alt="Losing Screen"
+            width={256}
+            height={256}
             className="mb-2"
           />
           <C>Losing Screen</C>
@@ -147,9 +155,11 @@ export function BopIt() {
         across two breadboards and intended it to be a two-player game, with
         each player holding one breadboard with different sensors on each one.
       </P>
-      <img
+      <Image
         src="/assets/project_images/NotBopIt/notbopit.png"
         alt="Not Bop-It"
+        width={128}
+        height={128}
         className="w-1/2 mx-auto pt-5 mb-2"
       />
       <C>

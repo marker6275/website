@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { Modal } from "../misc";
+import { Modal } from "../popups";
 
 export function HomeProjectCard({ name, text, children, link }) {
   const [show, setShow] = useState(false);

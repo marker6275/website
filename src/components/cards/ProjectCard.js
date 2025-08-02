@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { Modal } from "../misc";
+import { Modal } from "../popups";
+import Image from "next/image";
 
 export function ProjectCard({
   name,
@@ -48,9 +49,11 @@ export function ProjectCard({
         </div>
         <div className="absolute right-5 top-5 xl:relative xl:flex xl:top-0 xl:items-center overflow-visible">
           {image && (
-            <img
+            <Image
               src={image}
               alt={image}
+              width={64}
+              height={64}
               className="size-16 xl:size-32 rounded-full object-contain"
             />
           )}

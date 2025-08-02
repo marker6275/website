@@ -2,7 +2,8 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import data from "../../info.json";
-import { Toast } from "../misc";
+import { Toast } from "../popups";
+import { HomeIcon, HomeIconButton } from "../buttons";
 
 export function SectionAboutMe() {
   const contact = data.contact;
@@ -37,9 +38,9 @@ export function SectionAboutMe() {
         <Image
           src="../../assets/profile_pic.jpg"
           alt="profile"
-          width={256}
-          height={256}
-          className="sm:w-64 sm:h-64 w-40 h-40 duration-300 sm:mr-8 mr-4 rounded-full object-cover"
+          width={160}
+          height={160}
+          className="size-40 md:size-64 duration-300 sm:mr-8 mr-4 rounded-full object-cover"
         />
         <div>
           <h1 className="text-black font-light text-5xl sm:text-6xl duration-300">
@@ -66,49 +67,23 @@ export function SectionAboutMe() {
               style={{ cursor: "pointer", position: "relative" }}
               title="Click to copy email"
             >
-              <Image
-                src="/assets/icons/email.png"
-                alt="email"
-                width={32}
-                height={32}
-                className="w-8 h-8 hover:opacity-60 transition-all duration-250"
-              />
+              <HomeIcon src="/assets/icons/email.png" alt="email" />
             </div>
-            <a
-              href={contact.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Image
-                src="/assets/icons/instagram.png"
-                alt="instagram"
-                width={32}
-                height={32}
-                className="w-8 h-8 hover:opacity-60 transition-all duration-250"
-              />
-            </a>
-            <a href={contact.github} target="_blank" rel="noopener noreferrer">
-              <Image
-                src="/assets/icons/github.png"
-                alt="github"
-                width={32}
-                height={32}
-                className="w-8 h-8 hover:opacity-60 transition-all duration-250"
-              />
-            </a>
-            <a
-              href={contact.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Image
-                src="/assets/icons/linkedin.png"
-                alt="linkedin"
-                width={32}
-                height={32}
-                className="w-8 h-8 hover:opacity-60 transition-all duration-250"
-              />
-            </a>
+            <HomeIconButton
+              src="/assets/icons/instagram.png"
+              alt="instagram"
+              link={contact.instagram}
+            />
+            <HomeIconButton
+              src="/assets/icons/github.png"
+              alt="github"
+              link={contact.github}
+            />
+            <HomeIconButton
+              src="/assets/icons/linkedin.png"
+              alt="linkedin"
+              link={contact.linkedin}
+            />
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
 import React from "react";
 import { T, D, NL, BL, ST, P, Line } from "../components/text";
 import Link from "next/link";
-// Images now served from public directory
+import Image from "next/image";
 
 function TC() {
   const githubURL = "https://github.com/marker6275/Text-Classifier";
@@ -59,9 +59,11 @@ function TC() {
         action and performs the inputted action.
       </P>
       <div className="flex justify-center my-5">
-        <img
+        <Image
           src="/assets/project_images/TextClassifier/PythonClient.png"
           alt="Python Client"
+          width={256}
+          height={256}
         />
       </div>
       <P>Very basic.</P>
@@ -126,10 +128,12 @@ function TC() {
 
       <ST>Diagram</ST>
       <div className="flex justify-center">
-        <img
+        <Image
           src="/assets/project_images/TextClassifier/diagram.png"
           alt="diagram"
-          className="w-1/2 h-1/2"
+          width={256}
+          height={256}
+          className="size-1/2"
         />
       </div>
 

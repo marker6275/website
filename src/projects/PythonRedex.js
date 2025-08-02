@@ -1,6 +1,6 @@
 import React from "react";
 import { T, C, D, NL, BL, ST, ST2, P, Line } from "../components/text";
-// Images now served from public directory
+import Image from "next/image";
 
 export function PRM() {
   const githubURL = "https://github.com/marker6275/Python-Redex-Model";
@@ -79,15 +79,17 @@ export function PRM() {
       <br />
       <div>
         <div className="grid grid-cols-2">
-          <img
+          <Image
             src="/assets/project_images/PythonRedexModel/define_language.png"
             alt="define language function"
-            className="h-[700px]"
+            width={500}
+            height={700}
           />
-          <img
+          <Image
             src="/assets/project_images/PythonRedexModel/lambdapiexpressions.png"
             alt="lambda pi expressions"
-            className="h-[700px] "
+            width={500}
+            height={700}
           />
         </div>
         <C>Reference 1</C>
@@ -192,10 +194,11 @@ export function PRM() {
           is the example of this from the paper:
           <div className="flex-col">
             <div className="flex justify-center ">
-              <img
+              <Image
                 src="/assets/project_images/PythonRedexModel/object.png"
                 alt="object example"
-                className="w-96"
+                width={384}
+                height={384}
               />
             </div>
             <C>Reference 2</C>
@@ -250,15 +253,17 @@ export function PRM() {
       <br />
       <div>
         <div className="grid grid-cols-2">
-          <img
+          <Image
             src="/assets/project_images/PythonRedexModel/figure7.png"
             alt="figure 7 redex"
-            className="h-[230px]"
+            width={500}
+            height={230}
           />
-          <img
+          <Image
             src="/assets/project_images/PythonRedexModel/figure7paper.png"
             alt="lambda pi expressions"
-            className="h-[230px] "
+            width={500}
+            height={230}
           />
         </div>
         <C>Reference 3</C>
@@ -374,36 +379,51 @@ export function PRM() {
       <div>
         <Line />
         <ST2>Update field</ST2>
-        <img
+        <Image
           src="/assets/project_images/PythonRedexModel/examples/example1.png"
           alt="first example"
+          width={800}
+          height={500}
+          className="w-full"
         />
         <Line />
         <ST2>Create object then get object</ST2>
-        <img
+        <Image
           src="/assets/project_images/PythonRedexModel/examples/example2.png"
           alt="second example"
+          width={800}
+          height={500}
+          className="w-full"
         />
         <Line />
         <ST2>Create variable then get variable (while store is empty)</ST2>
-        <img
+        <Image
           src="/assets/project_images/PythonRedexModel/examples/example3.png"
           alt="third example"
+          width={800}
+          height={500}
+          className="w-full"
         />
         <Line />
         <ST2>
           Create variable then get variable (while store is{" "}
           <span className="italic">not</span> empty)
         </ST2>
-        <img
+        <Image
           src="/assets/project_images/PythonRedexModel/examples/example4.png"
           alt="fourth example"
+          width={800}
+          height={500}
+          className="w-full"
         />
         <Line />
         <ST2>Get object</ST2>
-        <img
+        <Image
           src="/assets/project_images/PythonRedexModel/examples/example5.png"
           alt="fifth example"
+          width={800}
+          height={500}
+          className="w-full"
         />
       </div>
     </div>
