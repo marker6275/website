@@ -27,7 +27,7 @@ export function SectionProjects() {
       <div className="flex justify-center my-10">
         <Link href="/projects">
           <div>
-            <span className="text-md bg-neutral-800 text-white p-3 rounded-md hover:bg-neutral-600 duration-300">
+            <span className="text-md bg-neutral-800 text-white p-3 rounded-md hover:bg-neutral-800/80 duration-250">
               All Projects
             </span>
           </div>

@@ -110,3 +110,7 @@
 **7/30/2025**
 
 - Added Verdra to projects
+
+**8/2/2025**
+
+- Paginate projects

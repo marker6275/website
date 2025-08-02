@@ -32,12 +32,12 @@ export function ProjectCard({
             showModal();
           }
         }}
-        className={`cursor-pointer border-4 ${color} bg-gray-300/10 p-8 pb-12 lg:w-[36vw] h-52 flex rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:cursor hover:-translate-y-1 gap-2 hover:border-b-5`}
+        className={`cursor-pointer border-4 ${color} bg-gray-300/10 p-5 lg:p-8 pb-6 lg:w-[36vw] h-52 flex rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:cursor hover:-translate-y-1 gap-2 hover:border-b-5 overflow-hidden`}
       >
-        <div className="flex flex-col gap-5 w-3/4 h-full justify-between">
-          <div className="text-2xl xl:text-3xl">{name}</div>
+        <div className="flex flex-col gap-3 md:gap-5 w-3/4 justify-between">
+          <div className="text-3xl xl:text-4xl">{name}</div>
           {description && (
-            <p className="text-sm md:text-base xl:text-lg line-clamp-1">
+            <p className="text-sm md:text-base xl:text-lg line-clamp-2 overflow-visible">
               Description:
               <span className="text-sm md:text-base xl:text-lg font-light">
                 {" "}
