@@ -1,14 +1,14 @@
-'use client'
-import { useEffect, useState } from 'react'
-import { usePathname } from 'next/navigation'
-import { useMediaQuery } from 'react-responsive'
-import { Navbar, MobileNavbar } from '../components/navbar'
-import './globals.css'
+"use client";
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import { useMediaQuery } from "react-responsive";
+import { Navbar, MobileNavbar } from "../components/navbar";
+import "./globals.css";
 
 export default function RootLayout({ children }) {
-  const [showHome, setShowHome] = useState(false)
-  const pathname = usePathname()
-  const isMobile = useMediaQuery({ query: "(max-width: 639px)" })
+  const [showHome, setShowHome] = useState(false);
+  const pathname = usePathname();
+  const isMobile = useMediaQuery({ query: "(max-width: 639px)" });
 
   useEffect(() => {
     if (!sessionStorage.getItem("intro")) {
@@ -26,7 +26,7 @@ export default function RootLayout({ children }) {
   }, [pathname]);
 
   const renderNavbar = () => {
-    if (pathname === "/resume") {
+    if (pathname === "/resume" || pathname === "/bets") {
       return null;
     }
     return isMobile ? <MobileNavbar /> : <Navbar />;
@@ -34,9 +34,11 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
-      <body className={`justify-center items-center ${
-        !showHome ? "fade-background justify-center items-center" : ""
-      }`}>
+      <body
+        className={`justify-center items-center ${
+          !showHome ? "fade-background justify-center items-center" : ""
+        }`}
+      >
         {!showHome && (
           <h1 className="intro font-inter text-6xl absolute text-[#282828] w-56 text-center drop-shadow-2xl font-light">
             Mark Li
@@ -50,5 +52,5 @@ export default function RootLayout({ children }) {
         )}
       </body>
     </html>
-  )
-} 
+  );
+}
