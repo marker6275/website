@@ -1,4 +1,4 @@
-import { BetResults } from "./BetTypes";
+import { BetResults } from "./BetUtils";
 
 export function BetCardBySport({ bets, sport, netProfit, totalSpent, profit }) {
   return (
