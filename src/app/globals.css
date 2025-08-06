@@ -22,27 +22,43 @@
   animation: fade 4s forwards;
 }
 
-.fade-background {
+/* .fade-background {
   height: 100vh !important;
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
   background: linear-gradient(0deg, #ffffff 0%, #ffffff 100%);
   animation: fadeOutBackground 2s forwards;
-}
+} */
 
 .fade-background-in {
   animation: fadeInBackground 1s forwards;
 }
 
-@keyframes fadeOutBackground {
-  80% {
+.fade-background {
+  animation: fadeBackground 2400ms forwards;
+}
+
+@keyframes fadeBackground {
+  0% {
+    opacity: 1;
+  }
+  90% {
     opacity: 1;
   }
   100% {
     opacity: 0;
   }
 }
+
+/* @keyframes fadeOutBackground {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+} */
 
 @keyframes fade {
   0% {
@@ -72,4 +88,4 @@
   100% {
     opacity: 1;
   }
-} 
+}

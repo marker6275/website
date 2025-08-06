@@ -27,7 +27,7 @@ export function HomeProjectCard({ name, text, children, link }) {
             }, 100);
           }
         }}
-        className={`border-2 border-black bg-gray-300/10 font-extralight h-24 lg:h-32 rounded-lg flex items-center text-3xl hover:cursor-pointer ${text} transition-all duration-300 p-10 hover:-translate-y-1 hover:shadow-md hover:border-b-3 flex justify-center`}
+        className={`border-2 border-black bg-gray-300/10 hover:bg-gray-300/30 font-extralight h-24 lg:h-32 rounded-lg flex items-center text-2xl sm:text-3xl hover:cursor-pointer ${text} transition-all duration-300 p-10 hover:-translate-y-1 hover:shadow-md hover:border-b-3 flex justify-start sm:justify-center`}
       >
         {name}
       </div>

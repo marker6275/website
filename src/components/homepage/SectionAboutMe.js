@@ -1,95 +1,68 @@
 "use client";
-import { useState, useEffect } from "react";
-import Image from "next/image";
-import data from "../../info.json";
-import { Toast } from "../popups";
-import { HomeIcon, HomeIconButton } from "../buttons";
+
+import { AnimatedContent } from "../reactbits";
 
 export function SectionAboutMe() {
-  const contact = data.contact;
-
-  const name = "Mark Li";
-  const [typedText, setTypedText] = useState("");
-  const [showToast, setShowToast] = useState(false);
-  const [isFadingOut, setIsFadingOut] = useState(false);
-
-  useEffect(() => {
-    const typed = sessionStorage.getItem("typed");
-    if (typed) {
-      setTypedText(name);
-    } else {
-      let index = 0;
-      const type = () => {
-        if (index <= name.length) {
-          setTypedText(name.substring(0, index));
-          index++;
-          setTimeout(type, 400);
-        } else {
-          sessionStorage.setItem("typed", "true");
-        }
-      };
-      type();
-    }
-  }, []);
-
   return (
-    <div className="my-15 mx-4">
-      <div className="flex justify-center items-center duration-300">
-        <Image
-          src="../../assets/profile_pic.jpg"
-          alt="profile"
-          width={160}
-          height={160}
-          className="size-40 md:size-64 duration-300 sm:mr-8 mr-4 rounded-full object-cover"
-        />
-        <div>
-          <h1 className="text-black font-light text-5xl sm:text-6xl duration-300">
-            {typedText || <span className="invisible">Mark Li</span>}
-          </h1>
-          <h2 className="ml-1 font-light text-md sm:text-lg mt-1">
-            <span className="text-gray-500">Software Developer</span>
-            <br />
-            <span className="text-gray-500">Amateur Musician</span>
-          </h2>
-          <div className="flex gap-4 sm:gap-6 space-between mt-2 ml-1 duration-300">
-            <div
-              onClick={() => {
-                navigator.clipboard.writeText(contact.email);
-                if (!showToast) {
-                  setShowToast(true);
-                  setIsFadingOut(false);
-                  setTimeout(() => {
-                    setIsFadingOut(true);
-                    setTimeout(() => setShowToast(false), 300);
-                  }, 2200);
-                }
-              }}
-              style={{ cursor: "pointer", position: "relative" }}
-              title="Click to copy email"
-            >
-              <HomeIcon src="/assets/icons/email.png" alt="email" />
-            </div>
-            <HomeIconButton
-              src="/assets/icons/instagram.png"
-              alt="instagram"
-              link={contact.instagram}
-            />
-            <HomeIconButton
-              src="/assets/icons/github.png"
-              alt="github"
-              link={contact.github}
-            />
-            <HomeIconButton
-              src="/assets/icons/linkedin.png"
-              alt="linkedin"
-              link={contact.linkedin}
-            />
-          </div>
+    <div className="py-5 w-full sm:w-1/2">
+      <AnimatedContent
+        distance={450}
+        direction="horizontal"
+        reverse={true}
+        duration={1.5}
+        ease="bounce3.out"
+        initialOpacity={0}
+        animateOpacity
+        scale={1}
+        threshold={0.2}
+        delay={0.1}
+      >
+        <h1 className="text-center sm:text-start font-light text-3xl sm:text-5xl mx-2 sm:mx-10 py-2 sm:py-5 px-5">
+          About Me
+        </h1>
+      </AnimatedContent>
+      <AnimatedContent
+        distance={450}
+        direction="horizontal"
+        reverse={true}
+        duration={1}
+        ease="bounce3.out"
+        initialOpacity={0}
+        animateOpacity
+        scale={1}
+        threshold={0.2}
+        delay={0.1}
+      >
+        <hr className="mx-10 sm:mx-15" />
+      </AnimatedContent>
+      <AnimatedContent
+        distance={450}
+        direction="horizontal"
+        reverse={false}
+        duration={1.5}
+        ease="bounce3.out"
+        initialOpacity={0}
+        animateOpacity
+        scale={1}
+        threshold={0.2}
+      >
+        <div className="font-extralight text-xl sm:text-2xl py-5 px-10 sm:px-15">
+          <p>
+            Hi! My name is Mark Li. I'm a recent graduate from{" "}
+            <span className="text-purple-700">Northwestern University</span>{" "}
+            with a BS/MS in Computer Science and a BA in Music.
+          </p>
+          <br />
+          <p>
+            I'm interested in sustainable computing, web design, and embedded
+            systems, but I'm always willing to learn something new. Outside of
+            programming, I enjoy making music, playing ultimate frisbee, and
+            trying new foods.
+          </p>
+          <br />
+          <p>If you want to chat, feel free to reach out!</p>
         </div>
-      </div>
-      {showToast && (
-        <Toast message="Email copied to clipboard!" isFadingOut={isFadingOut} />
-      )}
+      </AnimatedContent>
     </div>
   );
 }
