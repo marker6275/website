@@ -171,8 +171,11 @@ export default function BetsPage() {
             >
               Add Bet
             </div>
-            <div className="text-xl font-semibold bg-green-200 flex items-center p-2 rounded-md cursor-pointer border-1 border-green-400 hover:bg-green-300 hover:shadow-sm">
-              Update Bets
+            <div
+              className="text-xl font-semibold bg-green-200 flex items-center p-2 rounded-md cursor-pointer border-1 border-green-400 hover:bg-green-300 hover:shadow-sm"
+              onClick={() => setEditMode(!editMode)}
+            >
+              {editMode ? "Save" : "Edit"}
             </div>
           </div>
         </div>
@@ -201,6 +204,7 @@ export default function BetsPage() {
                     payout={value[4]}
                     league={value[5]}
                     line={value[6]}
+                    editable={editMode}
                   />
                 ))
               ) : (
@@ -227,6 +231,7 @@ export default function BetsPage() {
                     payout={value[4]}
                     league={value[5]}
                     line={value[6]}
+                    editable={editMode}
                   />
                 ))
               ) : (

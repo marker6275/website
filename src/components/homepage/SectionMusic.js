@@ -31,7 +31,7 @@ export function SectionMusic() {
           <Link href="/music">
             <div className="flex sm:justify-between justify-center items-center px-5 py-2 sm:py-5 sm:border-1 border-gray-800 sm:border-r-0 sm:border-t-0 cursor-pointer">
               <span
-                className="absolute inset-0 bg-gradient-to-r from-blue-400/50 z-0 to-white/0 origin-left transform scale-x-0 w-2/5
+                className="absolute inset-0 bg-gradient-to-r from-blue-4000 sm:from-blue-400/50 z-0 to-white/0 origin-left transform scale-x-0 w-2/5
            group-hover:scale-x-100 transition-transform duration-500 ease-out"
               ></span>
               <h1 className="font-light text-3xl sm:text-5xl z-1 text-black">
