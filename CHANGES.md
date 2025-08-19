@@ -114,3 +114,9 @@
 **8/2/2025**
 
 - Paginate projects
+
+**8/18/2025**
+
+- Bets page
+- Animated everything
+- New home screen
