@@ -3,11 +3,12 @@
 import { useState, useEffect } from "react";
 import {
   BetCard,
-  BetCardBySport,
+  SportDataCard,
   BetResults,
   AddBetModal,
 } from "../../components/bets";
 import config from "../../config/bets.js";
+import Image from "next/image";
 
 const spreadsheetId = config.spreadsheetId;
 const apikey = config.apikey;
@@ -18,7 +19,17 @@ export default function BetsPage() {
   const [showDropdown, setShowDropdown] = useState(false);
   const [uniqueSports, setUniqueSports] = useState([]);
   const [showAddBetModal, setShowAddBetModal] = useState(false);
-  const [editMode, setEditMode] = useState(false);
+  const [mode, setMode] = useState("Edit");
+  const [editedBets, setEditedBets] = useState([]);
+  const [authorized, setAuthorized] = useState(false);
+  const [password, setPassword] = useState("");
+  const [showInfoModal, setShowInfoModal] = useState(false);
+
+  useEffect(() => {
+    if (sessionStorage.getItem("password_input")) {
+      setAuthorized(true);
+    }
+  }, []);
 
   useEffect(() => {
     const endpoint = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${encodeURIComponent(
@@ -34,8 +45,9 @@ export default function BetsPage() {
 
         const betsData =
           values.length > 0 && isNaN(parseFloat(values[0][1]))
-            ? values.slice(1)
+            ? values.slice(1).map((value, index) => [...value, index + 2])
             : values;
+
         setData({ values: betsData, loading: false, error: null });
         setLast10Bets(betsData.slice(-10).reverse());
         getUniqueSports(betsData);
@@ -55,7 +67,9 @@ export default function BetsPage() {
   };
 
   const getOpenBets = () => {
-    return data.values.filter((bet) => bet[3] === BetResults.Open);
+    return data.values
+      .filter((bet) => bet[3] === BetResults.Open)
+      .sort((a, b) => b[7] - a[7]);
   };
 
   const getCompletedBets = (bets) => {
@@ -136,6 +150,48 @@ export default function BetsPage() {
     );
   };
 
+  async function handleSave() {
+    if (editedBets.length === 0) {
+      return;
+    }
+
+    try {
+      await fetch("/bets/api", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          values: editedBets,
+          update: true,
+          password: sessionStorage.getItem("password_input"),
+        }),
+      });
+    } catch (error) {
+      console.log("Network Error:", error);
+      alert(`Network Error: ${error.message}`);
+    }
+
+    setEditedBets([]);
+    if (typeof window !== "undefined") {
+      window.location.reload();
+    }
+  }
+
+  function handleEditSave() {
+    if (mode === "Save") {
+      handleSave();
+    }
+    setMode(mode === "Edit" ? "Save" : "Edit");
+  }
+
+  function handlePasswordSubmit(e) {
+    if (password === "") {
+      return;
+    }
+
+    sessionStorage.setItem("password_input", password);
+    setAuthorized(true);
+  }
+
   const openBets = getOpenBets();
   const profits = calculateProfits();
 
@@ -163,7 +219,30 @@ export default function BetsPage() {
         }`}
       >
         <div className="flex items-center justify-between gap-5 w-full px-10 pt-10">
-          <div className="text-4xl font-semibold">Bets Dashboard</div>
+          <div className="flex items-center gap-4">
+            <div
+              className="text-4xl font-semibold cursor-pointer"
+              onClick={() => setAuthorized(false)}
+            >
+              Bets Dashboard
+            </div>
+            <div className="flex items-center relative">
+              <Image
+                src="/assets/icons/information.png"
+                alt="Bets"
+                width={15}
+                height={15}
+                className="cursor-pointer"
+                onClick={() => setShowInfoModal(!showInfoModal)}
+              />
+              {showInfoModal && (
+                <div className="w-60 h-25 bg-blue-50 flex items-center justify-center absolute z-50 ml-10 mt-4 border-1 border-blue-200 rounded-md text-sm font-light p-4">
+                  If you found this, welcome to my journey to lose money in the
+                  worst way possible. Enjoy!
+                </div>
+              )}
+            </div>
+          </div>
           <div className="flex gap-4">
             <div
               className="text-xl font-semibold bg-green-200 flex items-center p-2 rounded-md cursor-pointer border-1 border-green-400 hover:bg-green-300 hover:shadow-sm"
@@ -173,9 +252,9 @@ export default function BetsPage() {
             </div>
             <div
               className="text-xl font-semibold bg-green-200 flex items-center p-2 rounded-md cursor-pointer border-1 border-green-400 hover:bg-green-300 hover:shadow-sm"
-              onClick={() => setEditMode(!editMode)}
+              onClick={() => handleEditSave()}
             >
-              {editMode ? "Save" : "Edit"}
+              {mode}
             </div>
           </div>
         </div>
@@ -204,7 +283,10 @@ export default function BetsPage() {
                     payout={value[4]}
                     league={value[5]}
                     line={value[6]}
-                    editable={editMode}
+                    index={value[7]}
+                    editable={mode === "Save"}
+                    editedBets={editedBets}
+                    setEditedBets={setEditedBets}
                   />
                 ))
               ) : (
@@ -231,7 +313,10 @@ export default function BetsPage() {
                     payout={value[4]}
                     league={value[5]}
                     line={value[6]}
-                    editable={editMode}
+                    editable={mode === "Save"}
+                    index={value[7]}
+                    editedBets={editedBets}
+                    setEditedBets={setEditedBets}
                   />
                 ))
               ) : (
@@ -324,7 +409,7 @@ export default function BetsPage() {
                         getNetProfit(getBetsBySport(a))
                     )
                     .map((sport) => (
-                      <BetCardBySport
+                      <SportDataCard
                         key={sport}
                         bets={getBetsBySport(sport)}
                         sport={sport}
@@ -343,6 +428,30 @@ export default function BetsPage() {
         isOpen={showAddBetModal}
         onClose={() => setShowAddBetModal(false)}
       />
+      {!authorized && (
+        <div className="absolute top-0 left-0 w-full h-full bg-gray-50 flex items-center justify-center">
+          <div className="flex justify-center items-center bg-white p-4 rounded-lg shadow-md gap-4">
+            <input
+              type="text"
+              className="w-full p-2 border border-gray-300 rounded-md"
+              placeholder="Enter Password"
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handlePasswordSubmit(e);
+                }
+              }}
+            />
+            <button
+              className="bg-blue-500 text-white p-2 rounded-md cursor-pointer"
+              onClick={(e) => handlePasswordSubmit(e)}
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

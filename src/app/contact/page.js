@@ -16,7 +16,9 @@ export default function ContactPage() {
       .then(
         (result) => {
           alert("Message sent!", result.status);
-          window.location.reload(false);
+          if (typeof window !== "undefined") {
+            window.location.reload(false);
+          }
         },
         (error) => {
           alert(

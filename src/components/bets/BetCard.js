@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BetResults } from "./BetUtils";
+import { m } from "framer-motion";
 
 export function BetCard({
   date,
@@ -11,7 +12,10 @@ export function BetCard({
   payout,
   league,
   line,
+  index,
   editable,
+  editedBets,
+  setEditedBets,
 }) {
   const results = [
     BetResults.Lost,
@@ -19,19 +23,16 @@ export function BetCard({
     BetResults.Cashed,
     BetResults.Open,
   ];
+
   const [editResult, setEditResult] = useState({
     result: result,
     index: results.indexOf(result),
     payout: payout,
   });
 
-  const formatCurrency = (value) => {
+  const formatCurrency = (value, result, lostOrCashed) => {
     const num = parseFloat(value);
-    if (editResult.result === BetResults.Lost) {
-      return "$0.00";
-    }
-
-    if (editResult.result === BetResults.Cashed) {
+    if (result && lostOrCashed) {
       return "$0.00";
     }
 
@@ -57,13 +58,47 @@ export function BetCard({
 
   function handleEdit() {
     if (editable) {
+      const res =
+        results[
+          editResult.index + 1 === results.length ? 0 : editResult.index + 1
+        ];
       setEditResult({
-        result:
-          results[
-            editResult.index + 1 === results.length ? 0 : editResult.index + 1
-          ],
+        result: res,
         index:
           editResult.index + 1 === results.length ? 0 : editResult.index + 1,
+      });
+
+      const updateEditedBets = [
+        date,
+        amount,
+        odds,
+        res,
+        formatCurrency(
+          payout,
+          true,
+          res === BetResults.Lost || res === BetResults.Cashed
+        ),
+        league,
+        line,
+        index,
+      ];
+
+      setEditedBets((prev) => {
+        const copy = [...prev];
+        const betIndex = copy.findIndex((item) => item[7] === index);
+        if (betIndex !== -1) {
+          copy[betIndex] = updateEditedBets;
+        } else {
+          copy.push(updateEditedBets);
+        }
+        if (updateEditedBets[3] === result) {
+          if (betIndex === -1) {
+            return prev;
+          }
+          return copy.filter((item) => item[7] !== index);
+        } else {
+          return copy;
+        }
       });
     }
   }
@@ -94,12 +129,17 @@ export function BetCard({
           {editResult.result || result}
         </div>
       </div>
-
       <div className="flex justify-between my-1">
-        <span className="font-medium">{formatCurrency(amount)}</span>
+        <span className="font-medium">
+          {formatCurrency(
+            amount,
+            false,
+            editResult.result === BetResults.Lost ||
+              editResult.result === BetResults.Cashed
+          )}
+        </span>
         <span className="font-medium">{formatOdds(odds)}</span>
       </div>
-
       <div className="text-md">
         <div className="flex justify-end">
           <span
@@ -115,7 +155,10 @@ export function BetCard({
                 editResult.result === BetResults.Open ||
                   editResult.result === BetResults.Won
                   ? payout
-                  : editResult.payout
+                  : editResult.payout,
+                true,
+                editResult.result === BetResults.Lost ||
+                  editResult.result === BetResults.Cashed
               ),
             }}
           ></span>

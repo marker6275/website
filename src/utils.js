@@ -20,6 +20,20 @@ const projects = [
   ComingSoon,
 ];
 
+const searches = ["projects", "music", "resume", "bets"];
+
+function getSearchLink(search) {
+  if (search === "home") {
+    return "/";
+  }
+
+  if (searches.includes(search)) {
+    return `/${search}`;
+  }
+
+  return null;
+}
+
 // TO UPDATE COLORS
 // update index 0
 // [color, hover, border]
@@ -51,4 +65,4 @@ const months = [
   "December",
 ];
 
-export { projects, colors, months };
+export { projects, colors, months, getSearchLink };

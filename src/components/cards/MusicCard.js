@@ -1,11 +1,11 @@
-'use client'
+"use client";
 import { colors, months } from "../../utils";
-import { useMediaQuery } from "react-responsive";
+import { useSafeMediaQuery } from "../../hooks/useSafeMediaQuery";
 
 export function MusicCard({ id, title, link, month, year, composer, channel }) {
-  const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
-  const medium = useMediaQuery({ query: "(max-width: 1023px)" });
-  const large = useMediaQuery({ query: "(max-width: 1279px)" });
+  const isMobile = useSafeMediaQuery("(max-width: 767px)");
+  const medium = useSafeMediaQuery("(max-width: 1023px)");
+  const large = useSafeMediaQuery("(max-width: 1279px)");
   return (
     <a href={channel} target="_blank" rel="noreferrer">
       <div

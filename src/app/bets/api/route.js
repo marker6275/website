@@ -44,34 +44,32 @@ function parsePayout(betAmount, odds, result) {
 }
 
 function parseValues(values) {
-  const dataValues = values[0];
+  const date = getDate(values[0].slice(-5));
 
-  const date = getDate(dataValues[0].slice(-5));
-
-  const betAmountAsNumber = parseFloat(dataValues[1]);
+  const betAmountAsNumber = parseFloat(values[1]);
   const betAmount = parseBetAmount(betAmountAsNumber);
 
-  const oddsAsNumber = parseFloat(dataValues[2]);
+  const oddsAsNumber = parseFloat(values[2]);
   const odds = parseOdds(oddsAsNumber);
 
-  const result = dataValues[3];
+  const result = values[3];
 
   const payout = parsePayout(betAmountAsNumber, oddsAsNumber, result);
 
-  const leagues = dataValues[5];
+  const leagues = values[5];
 
-  const line = dataValues[6];
+  const line = values[6];
 
   return [[date, betAmount, odds, result, payout, leagues, line]];
 }
 
 export async function POST(request) {
   try {
-    const { values } = await request.json();
+    const { values, update, password } = await request.json();
 
-    const parsedValues = parseValues(values);
-    console.log(values);
-    console.log(parsedValues);
+    if (password !== process.env.PASSWORD) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
 
     let privateKey = process.env.GOOGLE_PRIVATE_KEY;
     const spreadsheetId = process.env.SPREADSHEET_ID;
@@ -91,16 +89,43 @@ export async function POST(request) {
     await auth.authorize();
 
     const sheets = google.sheets({ version: "v4", auth });
-    const result = await sheets.spreadsheets.values.append({
-      spreadsheetId: spreadsheetId,
-      range: "Bets!A:G",
-      valueInputOption: "RAW",
-      insertDataOption: "INSERT_ROWS",
-      requestBody: { values: parsedValues },
-    });
 
-    const updatedRows = result.data.updates?.updatedRows ?? 0;
-    return NextResponse.json({ updatedRows });
+    if (!update) {
+      const parsedValues = parseValues(values);
+
+      await sheets.spreadsheets.values.append({
+        spreadsheetId: spreadsheetId,
+        range: "Bets!A:G",
+        valueInputOption: "RAW",
+        insertDataOption: "INSERT_ROWS",
+        requestBody: { values: parsedValues },
+      });
+    } else {
+      const data = [];
+      for (const value of values) {
+        console.log(value);
+
+        const rowNum = value[7];
+
+        data.push({
+          range: `Bets!A${rowNum}:G${rowNum}`,
+          majorDimension: "ROWS",
+          values: [value.slice(0, 7)],
+        });
+      }
+
+      const batchUpdate = await sheets.spreadsheets.values.batchUpdate({
+        spreadsheetId: spreadsheetId,
+        requestBody: { valueInputOption: "RAW", data },
+      });
+
+      return NextResponse.json({
+        updated: batchUpdate.data.totalUpdatedRows ?? data.length,
+        responses: batchUpdate.data.responses,
+      });
+    }
+
+    return NextResponse.json({ success: true });
   } catch (err) {
     return NextResponse.json({ error: err.message }, { status: 500 });
   }

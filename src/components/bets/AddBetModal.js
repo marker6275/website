@@ -53,22 +53,20 @@ export function AddBetModal({ isOpen, onClose }) {
     }
 
     const values = [
-      [
-        formData.date,
-        formData.amount === "" ? "" : parseFloat(formData.amount),
-        formData.odds,
-        formData.result,
-        `$0.00`,
-        formData.league.join(","),
-        formData.line,
-      ],
+      formData.date,
+      formData.amount === "" ? "" : parseFloat(formData.amount),
+      formData.odds,
+      formData.result,
+      `$0.00`,
+      formData.league.join(","),
+      formData.line,
     ];
 
     try {
       const response = await fetch("/bets/api", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ values }),
+        body: JSON.stringify({ values, update: false }),
       });
 
       if (!response.ok) {
@@ -299,9 +297,24 @@ export function AddBetModal({ isOpen, onClose }) {
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Status
             </label>
-            <p className="w-full px-3 py-2 border border-gray-300 rounded-md active:bg-gray-300/50 cursor-pointer">
-              Open
-            </p>
+            <div className="grid grid-cols-2 gap-2">
+              {["Open", "Won", "Lost", "Cashed"].map((status) => (
+                <button
+                  key={status}
+                  type="button"
+                  onClick={() =>
+                    setFormData((prev) => ({ ...prev, result: status }))
+                  }
+                  className={`px-3 py-2 border rounded-md transition-colors cursor-pointer ${
+                    formData.result === status
+                      ? "border-green-500 bg-green-100 text-green-800"
+                      : "border-gray-300 hover:border-gray-400 hover:bg-gray-50"
+                  }`}
+                >
+                  {status}
+                </button>
+              ))}
+            </div>
           </div>
 
           <div className="pt-4">

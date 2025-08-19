@@ -1,6 +1,6 @@
 import { BetResults } from "./BetUtils";
 
-export function BetCardBySport({ bets, sport, netProfit, totalSpent, profit }) {
+export function SportDataCard({ bets, sport, netProfit, totalSpent, profit }) {
   return (
     <div
       className={`bg-gray-100/50 rounded-lg py-2 px-4 flex justify-between hover:bg-gray-200/60 transition-all duration-300 ${
@@ -21,7 +21,9 @@ export function BetCardBySport({ bets, sport, netProfit, totalSpent, profit }) {
         </div>
       </div>
       <div>
-        <div>Net Profit: ${netProfit}</div>
+        <div>
+          Net Profit: {netProfit < 0 ? `-$${netProfit * -1}` : `+$${netProfit}`}
+        </div>
         <div>Total Spent: ${totalSpent}</div>
       </div>
     </div>

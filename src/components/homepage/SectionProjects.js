@@ -3,7 +3,7 @@
 import { HomeProjectCard } from "../cards";
 import { projects } from "../../utils";
 import Link from "next/link";
-import { AnimatedContent, FadeContent } from "../reactbits";
+import { AnimatedContent } from "../reactbits";
 import Image from "next/image";
 
 export function SectionProjects() {
@@ -58,7 +58,7 @@ export function SectionProjects() {
       >
         <hr className="sm:hidden mx-10 sm:mx-15" />
       </AnimatedContent>
-      <div className="lg:grid lg:grid-cols-3 flex flex-col lg:flex-col gap-8 lg:gap-20 px-6 lg:px-15 py-6 lg:py-12 overflow-x-hidden">
+      <div className="lg:grid lg:grid-cols-3 flex flex-col lg:flex-col gap-8 lg:gap-20 px-6 lg:px-15 py-6 lg:py-12">
         {featuredProjects.map((project, index) => (
           <AnimatedContent
             key={index}
@@ -72,6 +72,7 @@ export function SectionProjects() {
             scale={1}
             threshold={0.2}
             delay={0.2 * (index + 1)}
+            className="overflow-y-visible"
           >
             <HomeProjectCard
               key={index}

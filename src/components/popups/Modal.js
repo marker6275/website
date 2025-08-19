@@ -1,30 +1,31 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 
 export function Modal({ show, onClose, children }) {
+  const [mounted, setMounted] = useState(false);
   useEffect(() => {
-    if (show) {
-      const scrollTop = window.scrollY || document.documentElement.scrollTop;
-      const scrollLeft = window.scrollX || document.documentElement.scrollLeft;
+    setMounted(true);
+  }, []);
 
-      const preventScroll = () => {
-        window.scrollTo(scrollLeft, scrollTop);
-      };
-
-      window.onscroll = preventScroll;
-
-      // Cleanup function to restore scrolling when modal closes
-      return () => {
-        window.onscroll = null;
-      };
+  useEffect(() => {
+    if (!mounted || !show) {
+      return;
     }
-  }, [show]);
 
-  if (!show) {
+    const prev = document.documentElement.style.overflow;
+    document.documentElement.style.overflow = "hidden";
+
+    return () => {
+      document.documentElement.style.overflow = prev;
+    };
+  }, [mounted, show]);
+
+  if (!mounted || !show) {
     return null;
   }
 
-  return (
+  const markup = (
     <div
       className="bg-slate-600/70 fixed top-0 left-0 h-full w-full flex flex-col items-center justify-center z-50"
       onClick={onClose}
@@ -42,4 +43,5 @@ export function Modal({ show, onClose, children }) {
       </button>
     </div>
   );
+  return createPortal(markup, document.body);
 }

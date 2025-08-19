@@ -8,12 +8,15 @@ import Image from "next/image";
 
 export default function MusicPage() {
   const info = data.music;
-  const [showArrow, setShowArrow] = useState({
-    load: true,
-    reachedBottom: false,
-  });
+
+  const [mounted, setMounted] = useState(false);
+  const [reachedBottom, setReachedBottom] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+
+    if (typeof window === "undefined") return;
+
     const handleScroll = () => {
       const scrollTop =
         window.pageYOffset || document.documentElement.scrollTop;
@@ -22,18 +25,18 @@ export default function MusicPage() {
 
       const isNearBottom = scrollTop + clientHeight >= scrollHeight - 100;
       if (isNearBottom) {
-        setShowArrow({ load: false, reachedBottom: true });
+        setReachedBottom(true);
       }
     };
 
-    if (!showArrow.reachedBottom) {
-      window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
-      handleScroll();
+    handleScroll();
 
-      return () => window.removeEventListener("scroll", handleScroll);
-    }
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const showArrow = mounted && !reachedBottom;
 
   return (
     <div className="flex flex-col py-5 items-center bg-gradient-to-b from-blue-200 via-white to-red-50">
@@ -60,7 +63,7 @@ export default function MusicPage() {
           </AnimatedContent>
         ))}
       </div>
-      {showArrow.load && (
+      {showArrow && (
         <div className="fixed bottom-10 bg-emerald-600/45 rounded-full animate-bounce flex items-center justify-center p-1">
           <Image
             src="/assets/icons/down_arrow.png"

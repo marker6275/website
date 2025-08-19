@@ -4,11 +4,11 @@ import data from "../../info.json";
 import { Toast } from "../popups";
 import { HomeIcon, HomeIconButton } from "../buttons";
 import { TiltedCard, AnimatedContent } from "../reactbits";
-import { useMediaQuery } from "react-responsive";
+import { useSafeMediaQuery } from "../../hooks/useSafeMediaQuery";
 
 export function SectionHeader() {
   const contact = data.contact;
-  const smallScreen = useMediaQuery({ query: "(max-width: 767px)" });
+  const smallScreen = useSafeMediaQuery("(max-width: 767px)");
 
   const [showToast, setShowToast] = useState(false);
   const [isFadingOut, setIsFadingOut] = useState(false);
