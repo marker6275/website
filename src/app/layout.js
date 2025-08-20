@@ -32,9 +32,9 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <FadeContent
-          duration={600}
+          duration={100}
           easing="ease-in"
-          threshold={1}
+          threshold={0}
           initialOpacity={0}
         >
           <div className="flex flex-col font-inter h-screen w-screen">

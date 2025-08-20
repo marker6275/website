@@ -2,13 +2,14 @@
 
 import { useState, useEffect } from "react";
 import {
-  BetCard,
-  SportDataCard,
   BetResults,
   AddBetModal,
+  BetsHeader,
+  Last10BetsSection,
+  OpenBetsSection,
+  ProfitsAndStatisticsSection,
 } from "../../components/bets";
 import config from "../../config/bets.js";
-import Image from "next/image";
 
 const spreadsheetId = config.spreadsheetId;
 const apikey = config.apikey;
@@ -16,14 +17,13 @@ const apikey = config.apikey;
 export default function BetsPage() {
   const [data, setData] = useState({ values: [], loading: true, error: null });
   const [last10Bets, setLast10Bets] = useState([]);
-  const [showDropdown, setShowDropdown] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(true);
   const [uniqueSports, setUniqueSports] = useState([]);
   const [showAddBetModal, setShowAddBetModal] = useState(false);
   const [mode, setMode] = useState("Edit");
   const [editedBets, setEditedBets] = useState([]);
   const [authorized, setAuthorized] = useState(false);
   const [password, setPassword] = useState("");
-  const [showInfoModal, setShowInfoModal] = useState(false);
 
   useEffect(() => {
     if (sessionStorage.getItem("password_input")) {
@@ -76,10 +76,6 @@ export default function BetsPage() {
     return bets.filter((bet) => bet[3] !== BetResults.Open);
   };
 
-  const getWonBets = (bets) => {
-    return bets.filter((bet) => bet[3] === BetResults.Won).length;
-  };
-
   const calculateProfits = () => {
     const completed = getCompletedBets(data.values);
     const totalWagered = completed.reduce(
@@ -121,35 +117,6 @@ export default function BetsPage() {
     };
   };
 
-  const getNetProfit = (bets) => {
-    const completedBets = bets.filter((bet) => bet[3] !== BetResults.Open);
-    const amountSpent = completedBets.reduce(
-      (acc, bet) => acc + parseFloat(bet[1].replace(/^\$/, "")),
-      0
-    );
-    const amountReturned = completedBets.reduce(
-      (acc, bet) => acc + parseFloat(bet[4].replace(/^\$/, "")),
-      0
-    );
-    return (amountReturned - amountSpent).toFixed(2);
-  };
-
-  const getTotalSpent = (bets) => {
-    return bets
-      .reduce((acc, bet) => acc + parseFloat(bet[1].replace(/^\$/, "")), 0)
-      .toFixed(2);
-  };
-
-  const getBetsBySport = (sport) => {
-    return data.values.filter(
-      (bet) =>
-        bet[5]
-          .split(",")
-          .map((s) => s.trim())
-          .includes(sport) && bet[3]
-    );
-  };
-
   async function handleSave() {
     if (editedBets.length === 0) {
       return;
@@ -183,7 +150,7 @@ export default function BetsPage() {
     setMode(mode === "Edit" ? "Save" : "Edit");
   }
 
-  function handlePasswordSubmit(e) {
+  function handlePasswordSubmit() {
     if (password === "") {
       return;
     }
@@ -212,216 +179,42 @@ export default function BetsPage() {
   }
 
   return (
-    <div className="relative min-h-screen bg-gray-50 overflow-hidden">
+    <div className="relative min-h-screen bg-gray-50 lg:overflow-hidden">
       <div
         className={`flex flex-col gap-6 items-center min-h-screen transition-all duration-300 ease-in-out ${
           showAddBetModal ? "w-[78vw]" : "w-screen"
         }`}
       >
-        <div className="flex items-center justify-between gap-5 w-full px-10 pt-10">
-          <div className="flex items-center gap-4">
-            <div
-              className="text-4xl font-semibold cursor-pointer"
-              onClick={() => setAuthorized(false)}
-            >
-              Bets Dashboard
-            </div>
-            <div className="flex items-center relative">
-              <Image
-                src="/assets/icons/information.png"
-                alt="Bets"
-                width={15}
-                height={15}
-                className="cursor-pointer"
-                onClick={() => setShowInfoModal(!showInfoModal)}
-              />
-              {showInfoModal && (
-                <div className="w-60 h-25 bg-blue-50 flex items-center justify-center absolute z-50 ml-10 mt-4 border-1 border-blue-200 rounded-md text-sm font-light p-4">
-                  If you found this, welcome to my journey to lose money in the
-                  worst way possible. Enjoy!
-                </div>
-              )}
-            </div>
-          </div>
-          <div className="flex gap-4">
-            <div
-              className="text-xl font-semibold bg-green-200 flex items-center p-2 rounded-md cursor-pointer border-1 border-green-400 hover:bg-green-300 hover:shadow-sm"
-              onClick={() => setShowAddBetModal(!showAddBetModal)}
-            >
-              Add Bet
-            </div>
-            <div
-              className="text-xl font-semibold bg-green-200 flex items-center p-2 rounded-md cursor-pointer border-1 border-green-400 hover:bg-green-300 hover:shadow-sm"
-              onClick={() => handleEditSave()}
-            >
-              {mode}
-            </div>
-          </div>
-        </div>
+        <BetsHeader
+          titleOnClick={() => setAuthorized(false)}
+          addOnClick={() => setShowAddBetModal(!showAddBetModal)}
+          editOnClick={() => handleEditSave()}
+          mode={mode}
+        />
 
-        <div className="grid grid-cols-3 gap-6 w-full p-6">
-          <div className="flex flex-col gap-4">
-            <span className="text-center py-2 rounded-lg font-semibold text-lg border-3 border-blue-400 bg-blue-100">
-              Last 10 Bets ({getWonBets(last10Bets)} /{" "}
-              {getCompletedBets(last10Bets).length})
-              {getCompletedBets(last10Bets).length < 10 && (
-                <span>
-                  {" "}
-                  - [{10 - getCompletedBets(last10Bets).length} open]
-                </span>
-              )}
-            </span>
-            <div className="space-y-3 max-h-[75vh] overflow-y-auto">
-              {last10Bets.length > 0 ? (
-                last10Bets.map((value, index) => (
-                  <BetCard
-                    key={index}
-                    date={value[0]}
-                    amount={value[1]}
-                    odds={value[2]}
-                    result={value[3]}
-                    payout={value[4]}
-                    league={value[5]}
-                    line={value[6]}
-                    index={value[7]}
-                    editable={mode === "Save"}
-                    editedBets={editedBets}
-                    setEditedBets={setEditedBets}
-                  />
-                ))
-              ) : (
-                <div className="text-gray-500 text-center py-8">
-                  No bets found
-                </div>
-              )}
-            </div>
-          </div>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full p-6">
+          <Last10BetsSection
+            getCompletedBets={getCompletedBets}
+            last10Bets={last10Bets}
+            editable={mode === "Save"}
+            editedBets={editedBets}
+            setEditedBets={setEditedBets}
+          />
 
-          <div className="flex flex-col gap-4">
-            <span className="text-center py-2 rounded-lg font-semibold text-lg border-3 border-yellow-400 bg-yellow-100">
-              Open Bets ({openBets.length})
-            </span>
-            <div className="space-y-3 max-h-[75vh] overflow-y-scroll">
-              {openBets.length > 0 ? (
-                openBets.map((value, index) => (
-                  <BetCard
-                    key={index}
-                    date={value[0]}
-                    amount={value[1]}
-                    odds={value[2]}
-                    result={value[3]}
-                    payout={value[4]}
-                    league={value[5]}
-                    line={value[6]}
-                    editable={mode === "Save"}
-                    index={value[7]}
-                    editedBets={editedBets}
-                    setEditedBets={setEditedBets}
-                  />
-                ))
-              ) : (
-                <div className="text-gray-500 text-center py-8">
-                  No open bets
-                </div>
-              )}
-            </div>
-          </div>
+          <OpenBetsSection
+            openBets={openBets}
+            editable={mode === "Save"}
+            editedBets={editedBets}
+            setEditedBets={setEditedBets}
+          />
 
-          <div className="flex flex-col gap-4">
-            <span className="text-center py-2 rounded-lg font-semibold text-lg border-3 border-green-400 bg-green-100">
-              Profits & Statistics
-            </span>
-
-            <div className="bg-white rounded-lg shadow-sm border p-6 space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-gray-800">
-                    ${profits.totalWagered.toFixed(2)}
-                  </div>
-                  <div className="text-sm text-gray-600">Total Wagered</div>
-                </div>
-
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-gray-800">
-                    ${profits.totalReturn.toFixed(2)}
-                  </div>
-                  <div className="text-sm text-gray-600">Total Return</div>
-                </div>
-              </div>
-
-              <div className="border-t pt-4 flex justify-center gap-20">
-                <div className="text-center">
-                  <div
-                    className={`text-3xl font-bold ${
-                      profits.profit >= 0 ? "text-green-600" : "text-red-600"
-                    }`}
-                  >
-                    {profits.profit >= 0 ? "+" : ""}${profits.profit.toFixed(2)}
-                  </div>
-                  <div className="text-sm text-gray-600">Net Profit/Loss</div>
-                </div>
-                <div className="text-center">
-                  <div
-                    className={`text-3xl font-bold ${
-                      profits.lastDayProfit >= 0
-                        ? "text-green-600"
-                        : "text-red-600"
-                    }`}
-                  >
-                    {profits.lastDayProfit >= 0 ? "+" : ""}$
-                    {profits.lastDayProfit.toFixed(2)}
-                  </div>
-                  <div className="text-sm text-gray-600">
-                    <span className="font-semibold">{profits.lastDay}</span>{" "}
-                    Profit/Loss
-                  </div>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4 pt-4 border-t">
-                <div className="text-center">
-                  <div className="text-xl font-semibold text-gray-800">
-                    {profits.winRate}%
-                  </div>
-                  <div className="text-sm text-gray-600">Win Rate</div>
-                </div>
-
-                <div className="text-center">
-                  <div className="text-xl font-semibold text-gray-800">
-                    {profits.totalBets}
-                  </div>
-                  <div className="text-sm text-gray-600">Total Bets</div>
-                </div>
-              </div>
-            </div>
-
-            <div
-              className="bg-white rounded-lg py-2 px-4 shadow-sm border cursor-pointer"
-              onClick={() => setShowDropdown(!showDropdown)}
-            >
-              <div className="text-center py-1">Data by Sport</div>
-              {showDropdown && (
-                <div className="flex flex-col gap-2 mt-2 max-h-[36vh] overflow-y-scroll">
-                  {uniqueSports
-                    .sort(
-                      (a, b) =>
-                        getNetProfit(getBetsBySport(b)) -
-                        getNetProfit(getBetsBySport(a))
-                    )
-                    .map((sport) => (
-                      <SportDataCard
-                        key={sport}
-                        bets={getBetsBySport(sport)}
-                        sport={sport}
-                        netProfit={getNetProfit(getBetsBySport(sport))}
-                        totalSpent={getTotalSpent(getBetsBySport(sport))}
-                        profit={getNetProfit(getBetsBySport(sport)) >= 0}
-                      />
-                    ))}
-                </div>
-              )}
-            </div>
-          </div>
+          <ProfitsAndStatisticsSection
+            profits={profits}
+            dropdownClick={() => setShowDropdown(!showDropdown)}
+            showDropdown={showDropdown}
+            uniqueSports={uniqueSports}
+            data={data.values}
+          />
         </div>
       </div>
       <AddBetModal
@@ -439,13 +232,13 @@ export default function BetsPage() {
               value={password}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
-                  handlePasswordSubmit(e);
+                  handlePasswordSubmit();
                 }
               }}
             />
             <button
               className="bg-blue-500 text-white p-2 rounded-md cursor-pointer"
-              onClick={(e) => handlePasswordSubmit(e)}
+              onClick={() => handlePasswordSubmit()}
             >
               Submit
             </button>

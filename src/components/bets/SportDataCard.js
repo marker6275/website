@@ -8,8 +8,8 @@ export function SportDataCard({ bets, sport, netProfit, totalSpent, profit }) {
       }`}
     >
       <div>
-        <div className="text-lg font-semibold">{sport}</div>
-        <div className="flex flex-col gap-2">
+        <div className="text-md lg:text-lg font-semibold">{sport}</div>
+        <div className="text-sm lg:text-lg flex flex-col gap-2">
           {bets.filter((bet) => bet[3] === BetResults.Won).length} /{" "}
           {bets.length} Won (
           {(
@@ -20,11 +20,11 @@ export function SportDataCard({ bets, sport, netProfit, totalSpent, profit }) {
           %)
         </div>
       </div>
-      <div>
-        <div>
+      <div className="flex flex-col justify-between items-center">
+        <div className="text-sm lg:text-lg">
           Net Profit: {netProfit < 0 ? `-$${netProfit * -1}` : `+$${netProfit}`}
         </div>
-        <div>Total Spent: ${totalSpent}</div>
+        <div className="text-sm lg:text-lg">Total Spent: ${totalSpent}</div>
       </div>
     </div>
   );

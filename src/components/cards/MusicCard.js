@@ -22,6 +22,8 @@ export function MusicCard({ id, title, link, month, year, composer, channel }) {
           allowFullScreen
           src={link}
           loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerPolicy="strict-origin-when-cross-origin"
         />
         <p className="text-md self-end px-5 font-light">
           {months[month]} {year}

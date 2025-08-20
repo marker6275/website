@@ -107,7 +107,7 @@ export function BetCard({
     <div
       className={`w-full p-2 rounded-lg border-4 ${getResultColor(
         editResult.result
-      )} cursor-pointer hover:shadow-sm transition-all duration-300`}
+      )} hover:shadow-sm transition-all duration-300`}
     >
       <div className="flex justify-between items-start">
         <div className="flex gap-2 items-center">

@@ -5,12 +5,15 @@ import { MusicCard } from "../../components/cards";
 import data from "../../info.json";
 import { AnimatedContent } from "../../components/reactbits";
 import Image from "next/image";
+import { useSafeMediaQuery } from "../../hooks/useSafeMediaQuery";
 
 export default function MusicPage() {
   const info = data.music;
 
   const [mounted, setMounted] = useState(false);
   const [reachedBottom, setReachedBottom] = useState(false);
+
+  const isMobile = useSafeMediaQuery("(max-width: 767px)");
 
   useEffect(() => {
     setMounted(true);
@@ -49,6 +52,7 @@ export default function MusicPage() {
             animateOpacity
             scale={1}
             threshold={0.2}
+            duration={isMobile ? 0 : 0.3}
           >
             <MusicCard
               key={item.id}
@@ -63,7 +67,7 @@ export default function MusicPage() {
           </AnimatedContent>
         ))}
       </div>
-      {showArrow && (
+      {showArrow && !isMobile && (
         <div className="fixed bottom-10 bg-emerald-600/45 rounded-full animate-bounce flex items-center justify-center p-1">
           <Image
             src="/assets/icons/down_arrow.png"
