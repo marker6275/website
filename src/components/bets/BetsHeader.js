@@ -6,7 +6,7 @@ export function BetsHeader({ titleOnClick, addOnClick, editOnClick, mode }) {
 
   return (
     <div className="flex items-center lg:justify-between flex-col lg:flex-row gap-5 w-full px-10 pt-10">
-      <div className="flex items-center gap-4 justify-center bg-red-400">
+      <div className="flex items-center gap-4 justify-center">
         <div
           className="text-3xl lg:text-4xl font-semibold cursor-pointer"
           onClick={titleOnClick}

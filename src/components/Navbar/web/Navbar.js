@@ -67,7 +67,7 @@ export function Navbar() {
                 type="text"
                 className="focus:outline-none bg-gray-100/50 rounded-md p-2 ml-1"
                 onKeyDown={handleKeyDown}
-                placeholder="Search"
+                placeholder="How did you find this?"
                 value={searchQuery}
                 onInput={(e) => setSearchQuery(e.target.value)}
               />
