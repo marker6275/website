@@ -20,7 +20,7 @@ export function SectionHeader() {
     <div className="my-4 sm:my-8 mx-4">
       <div className="flex justify-center items-center duration-300">
         <HeaderProfilePicture />
-        <div className="sm:ml-8">
+        <div className="ml-4 sm:ml-8">
           <HeaderName />
           <HeaderSubtitle />
           <div className="flex gap-4 sm:gap-6 space-between mt-2 ml-1 duration-300">

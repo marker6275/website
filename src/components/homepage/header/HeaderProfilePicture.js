@@ -1,5 +1,6 @@
 import { TiltedCard, AnimatedContent } from "../../reactbits";
 import { useSafeMediaQuery } from "../../../hooks/useSafeMediaQuery";
+import Image from "next/image";
 
 export function HeaderProfilePicture() {
   const smallScreen = useSafeMediaQuery("(max-width: 767px)");
@@ -13,17 +14,15 @@ export function HeaderProfilePicture() {
       delay={0.2}
       ease="bounce3.out"
     >
-      <TiltedCard
-        imageSrc="../../assets/profile_pic.jpg"
-        altText="Mark Li"
-        containerHeight="220px"
-        containerWidth="220px"
-        imageHeight={smallScreen ? "190px" : "220px"}
-        imageWidth={smallScreen ? "190px" : "220px"}
-        rotateAmplitude={20}
-        scaleOnHover={1}
-        showMobileWarning={false}
-        showTooltip={false}
+      <Image
+        src="assets/profile_pic.jpg"
+        alt="Profile Picture"
+        width={220}
+        height={220}
+        className={`rounded-full ${
+          smallScreen ? "size-36" : "size-56"
+        } object-cover`}
+        priority
       />
     </AnimatedContent>
   );

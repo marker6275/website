@@ -1,5 +1,6 @@
 import { AnimatedContent } from "../../reactbits";
 import Link from "next/link";
+import { HomepageButton } from "../shared";
 
 export function ProjectsText() {
   return (
@@ -27,24 +28,11 @@ export function ProjectsText() {
         </p>
       </AnimatedContent>
       <br />
-      <AnimatedContent
-        distance={50}
-        direction="horizontal"
+      <HomepageButton
+        text="Check out all my projects"
+        href="/projects"
         reverse={false}
-        duration={1}
-        ease="bounce3.out"
-        initialOpacity={0}
-        animateOpacity
-        scale={1}
-        threshold={0.2}
-        delay={0.2}
-      >
-        <Link href="/projects">
-          <button className=" px-8 py-4 rounded-md duration-300 transition-all hover:-translate-y-1 border-2 border-blue-500/75  bg-white hover:bg-blue-300/20 cursor-pointer">
-            Check out all my projects
-          </button>
-        </Link>
-      </AnimatedContent>
+      />
     </div>
   );
 }

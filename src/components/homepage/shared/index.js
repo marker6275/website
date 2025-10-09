@@ -1,1 +1,2 @@
-export { HomepageDivider } from "./Divider";
+export { HomepageDivider } from "./HomepageDivider";
+export { HomepageButton } from "./HomepageButton";
