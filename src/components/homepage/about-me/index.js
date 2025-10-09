@@ -1,0 +1,1 @@
+export { SectionAboutMe } from "./SectionAboutMe";

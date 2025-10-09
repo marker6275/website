@@ -120,3 +120,7 @@
 - Bets page
 - Animated everything
 - New home screen
+
+**10/9/2025**
+
+- Improved homescreen UI
