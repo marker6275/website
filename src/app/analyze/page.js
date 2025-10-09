@@ -189,4 +189,4 @@ export function AnalyzePage() {
   );
 }
 
-export default Analyze;
+export default AnalyzePage;

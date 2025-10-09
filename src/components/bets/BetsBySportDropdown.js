@@ -1,3 +1,5 @@
+"use client";
+
 import { SportDataCard } from ".";
 import { useState } from "react";
 

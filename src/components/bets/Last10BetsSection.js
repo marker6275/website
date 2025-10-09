@@ -1,3 +1,5 @@
+"use client";
+
 import { BetCard, BetResults } from ".";
 import { useSafeMediaQuery } from "../../hooks/useSafeMediaQuery";
 import { useState } from "react";

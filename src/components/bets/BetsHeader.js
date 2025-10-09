@@ -1,3 +1,5 @@
+"use client";
+
 import { BetsInfoModal, BetsButton } from ".";
 import { useState } from "react";
 
