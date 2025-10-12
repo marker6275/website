@@ -17,7 +17,12 @@ export default function RootLayout({ children }) {
   }, [pathname]);
 
   const renderNavbar = () => {
-    if (pathname === "/resume" || pathname === "/bets") {
+    const ignoredPathnames = ["/resume", "/bets"];
+
+    if (
+      ignoredPathnames.includes(pathname) ||
+      ignoredPathnames.map((path) => path + "/").includes(pathname)
+    ) {
       return null;
     }
 
@@ -31,17 +36,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <FadeContent
-          duration={100}
-          easing="ease-in"
-          threshold={0}
-          initialOpacity={0}
-        >
-          <div className="flex flex-col font-inter h-screen w-screen">
-            {renderNavbar()}
-            {children}
-          </div>
-        </FadeContent>
+        <div className="flex flex-col font-inter h-screen w-screen">
+          {renderNavbar()}
+          {children}
+        </div>
       </body>
     </html>
   );
