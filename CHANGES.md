@@ -124,3 +124,7 @@
 **10/9/2025**
 
 - Improved homescreen UI
+
+**10/12/2025**
+
+- Made tic tac toe game

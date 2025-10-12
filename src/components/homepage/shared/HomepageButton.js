@@ -18,7 +18,7 @@ export function HomepageButton({ text, href, reverse }) {
       delay={0.2}
     >
       <Link href={href}>
-        <button className="px-8 py-4 rounded-md duration-300 transition-all hover:-translate-y-1 border-2 border-blue-500/75  bg-white hover:bg-blue-300/20 cursor-pointer font-normal">
+        <button className="px-8 py-4 rounded-md duration-300 transition-all hover:-translate-y-1 border-1 hover:shadow-md bg-[#FCF5E5] hover:bg-blue-300/20 cursor-pointer font-normal">
           {text}
         </button>
       </Link>

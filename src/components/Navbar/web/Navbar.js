@@ -33,7 +33,7 @@ export function Navbar() {
 
       const searchLink = getSearchLink(searchQuery);
       if (searchLink) {
-        router.push(`/${searchQuery}`);
+        router.push(`${searchLink}`);
       }
       setShowSearch(false);
       setSearchQuery("");

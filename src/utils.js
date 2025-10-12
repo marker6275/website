@@ -20,15 +20,26 @@ const projects = [
   ComingSoon,
 ];
 
-const searches = ["projects", "music", "resume", "bets"];
+const validSearches = ["projects", "music", "resume", "bets", "misc"];
+
+const validMiscSearches = ["tic tac toe"];
+
+const miscSearchesMap = {
+  "tic tac toe": "tic-tac-toe",
+};
 
 function getSearchLink(search) {
   if (search === "home") {
     return "/";
   }
 
-  if (searches.includes(search)) {
-    return `/${search}`;
+  if (validSearches.includes(search.toLowerCase())) {
+    return `/${search.toLowerCase()}`;
+  }
+
+  if (validMiscSearches.includes(search.toLowerCase())) {
+    const endpoint = miscSearchesMap[search.toLowerCase()];
+    return `/misc/${endpoint}`;
   }
 
   return null;
