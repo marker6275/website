@@ -128,3 +128,7 @@
 **10/12/2025**
 
 - Made tic tac toe game
+
+**10/15/2025**
+
+- Made calculator
