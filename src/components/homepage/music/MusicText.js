@@ -1,10 +1,9 @@
 import { AnimatedContent } from "../../reactbits";
-import Link from "next/link";
 import { HomepageButton } from "../shared";
 
 export function MusicText() {
   return (
-    <div className="px-10 sm:px-24 sm:py-16 font-light text-xl sm:text-2xl font-light flex flex-col items-center sm:block">
+    <div className="px-10 py-6 sm:px-24 sm:py-16 font-light text-xl sm:text-2xl font-light flex flex-col items-center sm:block">
       <AnimatedContent
         distance={50}
         direction="horizontal"

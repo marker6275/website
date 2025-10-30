@@ -1,5 +1,4 @@
 import { AnimatedContent } from "../../reactbits";
-import Link from "next/link";
 import { HomepageButton } from "../shared";
 
 export function ProjectsText() {

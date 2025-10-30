@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,11 +10,17 @@ export function MobileNavbar() {
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
-    <div className="bg-blue-200 p-4">
+    <div className="bg-gradient-to-b from-blue-300 to-blue-200 p-4">
       <div className="flex items-center justify-between">
         <Link href="/">
           <div className="flex items-center w-28 justify-between">
-            <Image src="/assets/logo.jpg" alt="Mark" width={32} height={32} className="rounded-md" />
+            <Image
+              src="/assets/logo.jpg"
+              alt="Mark"
+              width={32}
+              height={32}
+              className="rounded-md"
+            />
             <h1 className="text-xl font-light">Mark Li</h1>
           </div>
         </Link>
@@ -22,7 +28,7 @@ export function MobileNavbar() {
         <button onClick={toggleMenu} className="text-black focus:outline-none">
           {isOpen ? (
             <svg
-              className="w-6 h-6"
+              className="size-7 transition-transform duration-300 ease-in transform rotate-90"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -36,7 +42,7 @@ export function MobileNavbar() {
             </svg>
           ) : (
             <svg
-              className="w-6 h-6"
+              className="size-7 transition-transform duration-300 ease-out transform"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -51,30 +57,32 @@ export function MobileNavbar() {
           )}
         </button>
       </div>
-      {isOpen && (
-        <div className="mt-2">
-          <ul>
-            <li>
-              <MobileNavbarButton toggle={toggleMenu} title="HOME" link="/" />
-            </li>
-            <MobileNavbarButton
-              toggle={toggleMenu}
-              title="MUSIC"
-              link="/music"
-            />
-            <MobileNavbarButton
-              toggle={toggleMenu}
-              title="PROJECTS"
-              link="/projects"
-            />
-            <MobileNavbarButton
-              toggle={toggleMenu}
-              title="RESUME"
-              link="/resume"
-            />
-          </ul>
-        </div>
-      )}
+      <div
+        className={`overflow-hidden transition-all duration-300 ease-in-out ${
+          isOpen
+            ? "opacity-100 max-h-96 translate-y-0 mt-4"
+            : "opacity-0 max-h-0 -translate-y-2"
+        }`}
+        aria-hidden={!isOpen}
+        aria-expanded={isOpen}
+      >
+        <ul>
+          <li>
+            <MobileNavbarButton toggle={toggleMenu} title="HOME" link="/" />
+          </li>
+          <MobileNavbarButton toggle={toggleMenu} title="MUSIC" link="/music" />
+          <MobileNavbarButton
+            toggle={toggleMenu}
+            title="PROJECTS"
+            link="/projects"
+          />
+          <MobileNavbarButton
+            toggle={toggleMenu}
+            title="RESUME"
+            link="/resume"
+          />
+        </ul>
+      </div>
     </div>
   );
 }
