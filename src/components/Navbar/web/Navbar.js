@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { NavbarButton } from "./NavbarButton";
@@ -42,7 +42,7 @@ export function Navbar() {
 
   return (
     // sticky top-0 z-10 to keep at top
-    <div className="flex duration-500 bg-gradient-to-b from-blue-300 to-blue-200 justify-between pr-5">
+    <div className="flex justify-between pr-5 bg-slate-50">
       <div className="flex items-center">
         <Link href="/">
           <Image
@@ -52,9 +52,7 @@ export function Navbar() {
             height={40}
             className="rounded-full size-12 m-3 hover:animate-pulse"
             onClick={() => {
-              if (typeof window !== "undefined") {
-                window.location.href = "/";
-              }
+              window.location.href = "/";
             }}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}

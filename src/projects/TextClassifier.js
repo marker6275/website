@@ -1,5 +1,5 @@
 import React from "react";
-import { T, D, NL, BL, ST, P, Line } from "../components/text";
+import { T, ST, NL, BL, P, Line } from "../components/text";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -7,7 +7,6 @@ function TC() {
   const githubURL = "https://github.com/marker6275/Text-Classifier";
   return (
     <div className="py-5">
-      <D>DEC 2023</D>
       <T>Text Classifier</T>
       <Line />
       <ST>TLDR</ST>

@@ -10,9 +10,7 @@ export function HeaderName() {
       delay={0.2}
       ease="bounce3.out"
     >
-      <h1 className="text-black font-light text-4xl sm:text-6xl duration-300">
-        Mark Li
-      </h1>
+      <h1 className="text-slate-800 sm:text-6xl duration-300">Mark Li</h1>
     </AnimatedContent>
   );
 }

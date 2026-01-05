@@ -133,7 +133,7 @@ export default function BetsPage() {
         }),
       });
     } catch (error) {
-      console.log("Network Error:", error);
+      console.error("Network Error:", error);
       alert(`Network Error: ${error.message}`);
     }
 

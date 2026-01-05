@@ -1,11 +1,9 @@
 import React from "react";
-import { T, D, BL, ST, P, Line } from "../components/text";
-// Images now served from public directory
+import { T, BL, ST, P, Line } from "../components/text";
 
 function Web() {
   return (
     <div className="py-5">
-      <D>NOV 2023</D>
       <T>Website</T>
       <Line />
       <ST>Details</ST>

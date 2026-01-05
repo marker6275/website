@@ -1,4 +1,4 @@
-import { TiltedCard, AnimatedContent } from "../../reactbits";
+import { AnimatedContent } from "../../reactbits";
 import { useSafeMediaQuery } from "../../../hooks/useSafeMediaQuery";
 import Image from "next/image";
 
@@ -21,8 +21,7 @@ export function HeaderProfilePicture() {
         height={220}
         className={`rounded-full ${
           smallScreen ? "size-36" : "size-56"
-        } object-cover`}
-        priority
+        } object-cover ring-1 ring-slate-200 shadow-sm saturate-85 contrast-95 brightness-95`}
       />
     </AnimatedContent>
   );

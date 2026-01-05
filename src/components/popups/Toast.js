@@ -1,6 +1,3 @@
-"use client";
-import React from "react";
-
 export function Toast({ isFadingOut, message = "message" }) {
   return (
     <div

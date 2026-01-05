@@ -1,12 +1,10 @@
-import React from "react";
-import { T, D, ST, P, Line, C } from "../components/text";
+import { T, ST, P, Line, C } from "../components/text";
 import Image from "next/image";
 
 export function BopIt() {
   const githubURL = "https://github.com/marker6275/Bop-It";
   return (
     <div className="py-5">
-      <D>MAR 2024</D>
       <T>Not Bop-It</T>
       <Line />
       <ST>Description</ST>

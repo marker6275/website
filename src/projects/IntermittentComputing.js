@@ -1,13 +1,10 @@
-import React from "react";
-import { T, D, NL, ST, P, Line } from "../components/text";
-// Images now served from public directory
+import { T, NL, ST, P, Line } from "../components/text";
 
 function Intermittent() {
   const hashcashLink = "https://en.wikipedia.org/wiki/Hashcash";
   const WARioPaperLink = "https://dl.acm.org/doi/10.1145/3519939.3523454";
   return (
     <div className="py-5">
-      <D>NOV 2024</D>
       <T>Intermittent Computing</T>
       <Line />
       <ST>Description</ST>

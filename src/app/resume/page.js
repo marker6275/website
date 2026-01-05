@@ -1,3 +1,7 @@
+export const metadata = {
+  title: "Resume | Mark Li",
+};
+
 export default function ResumePage() {
   return (
     <div className="sm:h-screen flex justify-center">

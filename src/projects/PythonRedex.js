@@ -1,5 +1,4 @@
-import React from "react";
-import { T, C, D, NL, BL, ST, ST2, P, Line } from "../components/text";
+import { T, C, NL, BL, ST, ST2, P, Line } from "../components/text";
 import Image from "next/image";
 
 export function PRM() {
@@ -11,7 +10,6 @@ export function PRM() {
 
   return (
     <div className="py-5">
-      <D>NOV 2023</D>
       <T>Python Redex Model</T>
       <Line />
 

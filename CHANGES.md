@@ -133,4 +133,11 @@
 
 - Made calculator
 
-**10/29/2025**
+**FILL IN DATE HERE**
+
+- Updated background color
+- Updated cards formatting
+- Removed dates from projects
+- Changed font to Open Sans
+- Cleaned up unused imports
+- Updated navbar styling

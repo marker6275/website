@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { BetResults } from "./BetUtils";
-import { m } from "framer-motion";
 
 export function BetCard({
   date,

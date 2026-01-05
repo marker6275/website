@@ -18,7 +18,7 @@ export const metadata = {
 
 export default function HomePage() {
   return (
-    <div className="bg-gradient-to-b from-blue-200 via-white to-red-50 py-5 sm:py-10">
+    <div className="bg-[#FAFAF9] py-5 sm:py-10">
       <SectionHeader />
       <SectionAboutMe />
       <SectionProjects />

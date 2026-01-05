@@ -71,7 +71,7 @@ export function AddBetModal({ isOpen, onClose }) {
 
       if (!response.ok) {
         const errorData = await response.json();
-        console.log("API Error:", errorData);
+        console.error("API Error:", errorData);
         alert(`Error: ${errorData.error || "Failed to add bet"}`);
         setIsLoading(false);
         setSubmit({ success: false, error: true });
@@ -80,7 +80,7 @@ export function AddBetModal({ isOpen, onClose }) {
 
       await response.json();
     } catch (error) {
-      console.log("Network Error:", error);
+      console.error("Network Error:", error);
       alert(`Network Error: ${error.message}`);
       setIsLoading(false);
       setSubmit({ success: false, error: true });

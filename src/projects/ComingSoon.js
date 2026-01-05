@@ -1,4 +1,3 @@
-import React from "react";
 import { T, P, Line } from "../components/text";
 
 function Coming() {

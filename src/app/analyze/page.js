@@ -14,7 +14,6 @@ export function AnalyzePage() {
   const [fileSubmitted, setFileSubmitted] = useState(false);
 
   function handleChange(event) {
-    console.log("handling file");
     setFile(event.target.files[0]);
   }
 
@@ -30,17 +29,16 @@ export function AnalyzePage() {
       },
     };
     if (!file) {
-      console.log("no file detected");
+      console.error("no file detected");
       return;
     }
 
     const fileReader = new FileReader();
 
     fileReader.onload = () => {
-      console.log("reading text...");
       const text = fileReader.result;
       if (text === "") {
-        console.log("empty file");
+        console.error("empty file");
         return;
       }
 
@@ -53,18 +51,16 @@ export function AnalyzePage() {
         })
       );
 
-      console.log("calling /upload...");
       axios
         .post(url, data, config)
         .then((response) => {
-          console.log(response);
           setFileSubmitted(true);
 
           let output = getOutput();
           Promise.resolve(output);
         })
         .catch((err) => {
-          console.log(err);
+          console.error(err);
           return;
         });
     };
@@ -86,14 +82,13 @@ export function AnalyzePage() {
     await axios
       .get(url, config)
       .then((response) => {
-        console.log(response);
         const fileBytes = Buffer.from(response.data, "base64").toString();
         let resArray = fileBytes.split("\n");
         var output = resArray[resArray.length - 2];
         setOutput(output.substring(6));
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
         setOutput("Error, try again.");
       });
   }
@@ -109,11 +104,10 @@ export function AnalyzePage() {
     await axios
       .get(url)
       .then((response) => {
-        console.log(response);
         setNumFiles(response.data);
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
         return;
       });
   }
@@ -122,15 +116,10 @@ export function AnalyzePage() {
     const api = "/clear";
     const url = baseurl + api;
 
-    await axios
-      .delete(url)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((err) => {
-        console.log(err);
-        return;
-      });
+    await axios.delete(url).catch((err) => {
+      console.error(err);
+      return;
+    });
   }
 
   return (

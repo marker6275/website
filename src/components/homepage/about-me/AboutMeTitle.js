@@ -14,7 +14,7 @@ export function AboutMeTitle() {
       threshold={0.2}
       delay={0.1}
     >
-      <h1 className="text-center sm:text-start font-light text-3xl sm:text-5xl mx-2 sm:mx-10 py-2 sm:py-5 px-5">
+      <h1 className="text-center sm:text-start text-3xl sm:text-5xl mx-2 sm:mx-10 py-2 sm:py-5 px-5">
         About Me
       </h1>
     </AnimatedContent>

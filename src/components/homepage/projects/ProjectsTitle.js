@@ -14,9 +14,7 @@ export function ProjectsTitle() {
       threshold={0.1}
     >
       <div className="flex justify-center items-center px-5 py-2 sm:pt-4 sm:pb-8">
-        <h1 className="text-start font-light text-3xl sm:text-5xl text-black">
-          Projects
-        </h1>
+        <h1 className="text-start text-3xl sm:text-5xl text-black">Projects</h1>
       </div>
     </AnimatedContent>
   );

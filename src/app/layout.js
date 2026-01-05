@@ -3,8 +3,16 @@ import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { useSafeMediaQuery } from "../hooks/useSafeMediaQuery";
 import { Navbar, MobileNavbar } from "../components/navbar";
-import { FadeContent } from "../components/reactbits";
+import { Open_Sans } from "next/font/google";
+
 import "./globals.css";
+
+const font = Open_Sans({
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  display: "swap",
+  variable: "--font-sans",
+});
 
 export default function RootLayout({ children }) {
   const pathname = usePathname();
@@ -34,12 +42,10 @@ export default function RootLayout({ children }) {
   };
 
   return (
-    <html lang="en">
+    <html lang="en" className={font.className}>
       <body>
-        <div className="flex flex-col font-inter h-screen w-screen">
-          {renderNavbar()}
-          {children}
-        </div>
+        {renderNavbar()}
+        {children}
       </body>
     </html>
   );

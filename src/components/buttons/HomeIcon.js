@@ -7,7 +7,7 @@ export function HomeIcon({ src, alt }) {
       alt={alt}
       width={32}
       height={32}
-      className="hover:opacity-60 transition-all duration-250"
+      className="hover:opacity-60 transition-all duration-200"
     />
   );
 }

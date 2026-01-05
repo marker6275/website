@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Modal } from "../popups";
 import Image from "next/image";
 
@@ -39,17 +39,15 @@ export function ProjectCard({
             showModal();
           }
         }}
-        className={`cursor-pointer border-4 ${color} bg-gray-300/10 p-5 lg:p-8 pb-6 md:w-[36vw] h-52 flex rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:cursor hover:-translate-y-1 gap-2 hover:border-b-5 overflow-hidden`}
+        className={`cursor-pointer border-2 ${color} bg-white p-5 lg:p-8 pb-6 md:w-[32vw] h-40 flex rounded-xl shadow-sm hover:shadow-md transition-all duration-300 hover:cursor hover:-translate-y-0.5 gap-2 overflow-hidden`}
       >
-        <div className="flex flex-col gap-3 md:gap-5 w-3/4 justify-between">
-          <div className="text-3xl xl:text-4xl">{name}</div>
+        <div className="flex flex-col gap-3 md:gap-5 w-3/4 justify-between overflow-hidden">
+          <div className="text-2xl xl:text-3xl line-clamp-1 overflow-hidden">
+            {name}
+          </div>
           {description && (
-            <p className="text-sm md:text-base xl:text-lg line-clamp-2 overflow-visible">
-              Description:
-              <span className="text-sm md:text-base xl:text-lg font-light">
-                {" "}
-                {description}
-              </span>
+            <p className="text-lg line-clamp-2 overflow-visible">
+              {description}
             </p>
           )}
         </div>
@@ -60,7 +58,7 @@ export function ProjectCard({
               alt={image}
               width={64}
               height={64}
-              className="size-16 xl:size-32 rounded-full object-contain"
+              className="size-16 xl:size-24 rounded-full object-contain"
             />
           )}
         </div>

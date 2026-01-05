@@ -1,6 +1,4 @@
-import React from "react";
-import { T, ST, P, Line, D, NL } from "../components/text";
-// Images now served from public directory
+import { T, ST, P, Line, NL } from "../components/text";
 
 function SEW() {
   const projectReport =
@@ -9,7 +7,6 @@ function SEW() {
     "https://github.com/marker6275/Sustainable-Electronics-Workshop";
   return (
     <div className="py-5">
-      <D>JUN 2025</D>
       <T>Sustainable Electronics Workshop</T>
       <Line />
       <ST>Background</ST>

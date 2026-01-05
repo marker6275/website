@@ -1,6 +1,5 @@
 "use client";
 
-import { AnimatedContent } from "../../reactbits";
 import { AboutMeTitle } from "./AboutMeTitle";
 import { AboutMeText } from "./AboutMeText";
 import { HomepageDivider } from "../shared";

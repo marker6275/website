@@ -34,7 +34,6 @@ function parsePayout(betAmount, odds, result) {
     (result === BetResults.Won || result === BetResults.Open) &&
     odds < 0
   ) {
-    console.log(odds, typeof odds, odds < 0, odds * -1);
     return `$${(betAmount + betAmount * (100 / (odds * -1))).toFixed(2)}`;
   } else if (result === BetResults.Lost || result === BetResults.Cashed) {
     return "$0.00";
@@ -103,8 +102,6 @@ export async function POST(request) {
     } else {
       const data = [];
       for (const value of values) {
-        console.log(value);
-
         const rowNum = value[7];
 
         data.push({
