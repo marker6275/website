@@ -9,7 +9,7 @@ export default function ProjectsPage() {
   return (
     <div className="flex flex-col items-center py-5 bg-slate-50">
       <h1 className="text-5xl my-5">Projects</h1>
-      <div className="flex flex-col items-center md:grid md:grid-cols-2 gap-10 p-10">
+      <div className="flex flex-col items-center grid md:grid-cols-2 lg:grid-cols-3 gap-16 p-10">
         {projects.map((item) => (
           <ProjectCard
             key={item.name}

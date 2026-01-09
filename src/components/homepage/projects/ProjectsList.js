@@ -1,10 +1,8 @@
 import { AnimatedContent } from "../../reactbits";
 import { HomeProjectCard } from "../../cards";
-import { projects } from "../../../utils";
+import { featuredProjects } from "../../../utils";
 
 export function ProjectsList() {
-  const featuredProjects = projects.slice(0, 3);
-
   return (
     <div className="flex flex-col lg:flex-col gap-8 px-6 lg:px-15 py-6">
       {featuredProjects.map((project, index) => (
@@ -26,7 +24,6 @@ export function ProjectsList() {
             key={index}
             name={project.name}
             color={project.color}
-            text={project.text}
             link={project.link}
           >
             {project.body}

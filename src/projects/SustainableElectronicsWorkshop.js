@@ -146,8 +146,13 @@ function SEW() {
 
 export const SustainabilityWorkshop = {
   name: "Green Electronics Workshop",
-  color: "border-green-600",
-  text: "hover:text-green-600",
+  color: {
+    border: {
+      solid: "border-green-600",
+      hover: "hover:border-green-600",
+    },
+    text: "hover:text-green-700",
+  },
   description: "How to make electronics sustainable",
   image: "/assets/project_images/SustainableElectronicsWorkshop/fern.png",
   body: <SEW />,

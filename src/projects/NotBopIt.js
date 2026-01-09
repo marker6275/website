@@ -170,8 +170,13 @@ export function BopIt() {
 
 export const NotBopIt = {
   name: "Not Bop-It",
-  color: "border-teal-400",
-  text: "hover:text-teal-500",
+  color: {
+    border: {
+      solid: "border-teal-400",
+      hover: "hover:border-teal-400",
+    },
+    text: "hover:text-teal-500",
+  },
   description: "Bop It wishes it was this",
   image: "/assets/project_images/NotBopIt/microbitLogo.png",
   body: <BopIt />,

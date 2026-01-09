@@ -55,8 +55,13 @@ function Web() {
 
 export const Website = {
   name: "Website",
-  color: "border-blue-400",
-  text: "hover:text-blue-700",
+  color: {
+    border: {
+      solid: "border-blue-400",
+      hover: "hover:border-blue-400",
+    },
+    text: "hover:text-blue-600",
+  },
   description: "Where you are right now",
   image: "/assets/logo.jpg",
   body: <Web />,

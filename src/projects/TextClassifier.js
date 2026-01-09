@@ -202,8 +202,13 @@ function TC() {
 
 export const TextClassifier = {
   name: "Text Classifier",
-  color: "border-white",
-  text: "hover:text-gray-500",
+  color: {
+    border: {
+      solid: "border-gray-200",
+      hover: "hover:border-gray-200",
+    },
+    text: "hover:text-gray-500",
+  },
   description: "Classify how words feel",
   image: "/assets/project_images/TextClassifier/aws.png",
   body: <TC />,

@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { Modal } from "../popups";
 
-export function HomeProjectCard({ name, text, children, link }) {
+export function HomeProjectCard({ name, color, children, link }) {
   const [show, setShow] = useState(false);
 
   const showModal = () => {
@@ -27,7 +27,7 @@ export function HomeProjectCard({ name, text, children, link }) {
             }, 100);
           }
         }}
-        className={`border-2 border-slate-800 bg-white font-extralight h-24 lg:h-32 rounded-lg flex items-center text-2xl sm:text-3xl hover:cursor-pointer ${text} transition-all duration-300 p-10 hover:-translate-y-0.5 hover:shadow-md flex justify-start sm:justify-center`}
+        className={`border-2 border-slate-800/70 bg-white font-extralight h-24 lg:h-32 rounded-lg flex items-center text-2xl sm:text-3xl hover:cursor-pointer ${color.text} transition-all duration-300 p-10 hover:-translate-y-0.5 hover:shadow-md flex justify-start sm:justify-center`}
       >
         {name}
       </div>

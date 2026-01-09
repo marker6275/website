@@ -209,8 +209,13 @@ function Intermittent() {
 
 export const IntermittentComputing = {
   name: "Intermittent Computing",
-  color: "border-red-700",
-  text: "hover:text-red-600",
+  color: {
+    border: {
+      solid: "border-red-700",
+      hover: "hover:border-red-700",
+    },
+    text: "hover:text-red-700",
+  },
   description: "Battery-free computing",
   image: "/assets/project_images/IntermittentComputing/msp430launchpad.png",
   body: <Intermittent />,

@@ -16,8 +16,13 @@ class Temp extends React.Component {
 
 export const Template = {
   name: "Template",
-  color: "bg-white",
-  text: "hover:text-white",
+  color: {
+    border: {
+      solid: "border-white",
+      hover: "hover:border-white",
+    },
+    text: "hover:text-white",
+  },
   description: "Generic description",
   image: "/assets/not_found.jpg",
   body: <Temp />,

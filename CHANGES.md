@@ -133,7 +133,7 @@
 
 - Made calculator
 
-**FILL IN DATE HERE**
+**1/8/2026**
 
 - Updated background color
 - Updated cards formatting

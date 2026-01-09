@@ -36,7 +36,12 @@ function Coming() {
 
 export const ComingSoon = {
   name: "Coming Soon",
-  color: "border-gray-500",
-  text: "text-gray-400",
+  color: {
+    border: {
+      solid: "border-gray-500",
+      hover: "hover:border-gray-500",
+    },
+    text: "text-gray-400",
+  },
   body: <Coming />,
 };
