@@ -27,5 +27,4 @@ yarn-error.log*
 bun-debug.log*
 bun.lockb
 
-info.json
 google-key.json
