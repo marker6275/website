@@ -1,2 +1,2 @@
-export { Board } from "./board";
+export { Board } from "./Board";
 export { GridSquare } from "./GridSquare";
