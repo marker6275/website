@@ -146,3 +146,4 @@
 - Updated to use bun
 - Updated resume
 - Newly hosted on Vercel
+- Added Vercel analytics

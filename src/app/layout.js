@@ -1,5 +1,6 @@
 import { NavbarWrapper } from "../components/navbar";
 import { Open_Sans } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
 
 import "./globals.css";
 
@@ -16,6 +17,7 @@ export default function RootLayout({ children }) {
       <body>
         <NavbarWrapper />
         {children}
+        <Analytics />
       </body>
     </html>
   );
