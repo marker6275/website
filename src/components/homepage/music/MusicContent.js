@@ -8,7 +8,7 @@ export function MusicContent() {
   useEffect(() => {
     const randomIndex = Math.floor(Math.random() * info.music.length);
     setFeaturedMusic(info.music[randomIndex]);
-  }, [info.music]);
+  }, []);
 
   return (
     <AnimatedContent

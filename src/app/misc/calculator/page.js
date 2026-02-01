@@ -109,109 +109,109 @@ export default function Calculator() {
     }
   }
 
-  const textToNumber = (text) => {
-    const numbers = {
-      one: 1,
-      two: 2,
-      three: 3,
-      four: 4,
-      five: 5,
-      six: 6,
-      seven: 7,
-      eight: 8,
-      nine: 9,
-      zero: 0,
-      ten: 10,
-      eleven: 11,
-      twelve: 12,
-      thirteen: 13,
-      fourteen: 14,
-      fifteen: 15,
-      sixteen: 16,
-      seventeen: 17,
-      eighteen: 18,
-      nineteen: 19,
-      twenty: 20,
-      thirty: 30,
-      forty: 40,
-      fifty: 50,
-      sixty: 60,
-      seventy: 70,
-      eighty: 80,
-      ninety: 90,
-    };
-
-    const multipliers = {
-      hundred: 100,
-      thousand: 1000,
-      million: 1000000,
-      billion: 1000000000,
-      trillion: 1000000000000,
-      quadrillion: 1000000000000000,
-      quintillion: 1000000000000000000,
-      sextillion: 1000000000000000000000,
-      septillion: 1000000000000000000000000,
-      octillion: 1000000000000000000000000000,
-    };
-
-    const operations = ["plus", "minus", "times", "divided by"];
-
-    let total = 0;
-    let group = 0;
-    let hasOperation = false;
-    let currentOperation = "";
-    let A = 0;
-    let B = 0;
-
-    const stringList = text.split(" ");
-    for (let i = 0; i < stringList.length; i++) {
-      const word = stringList[i];
-
-      if (word in numbers) {
-        group += numbers[word];
-      } else if (word === "hundred") {
-        group *= 100;
-      } else if (word in multipliers) {
-        group *= multipliers[word];
-        total += group;
-        group = 0;
-      } else if (operations.includes(word)) {
-        if (!hasOperation) {
-          A = total + group;
-          hasOperation = true;
-          currentOperation = word;
-        }
-        total = 0;
-        group = 0;
-      } else if (
-        word === "divided" &&
-        i + 1 < stringList.length &&
-        stringList[i + 1] === "by"
-      ) {
-        if (!hasOperation) {
-          A = total + group;
-          hasOperation = true;
-          currentOperation = "divided by";
-        }
-        total = 0;
-        group = 0;
-        i++;
-      }
-    }
-
-    if (hasOperation) {
-      B = total + group;
-    } else {
-      return total + group;
-    }
-
-    return calculateText(A, B, currentOperation);
-  };
-
   useEffect(() => {
     if (textDisplay === "") {
       return;
     }
+
+    const textToNumber = (text) => {
+      const numbers = {
+        one: 1,
+        two: 2,
+        three: 3,
+        four: 4,
+        five: 5,
+        six: 6,
+        seven: 7,
+        eight: 8,
+        nine: 9,
+        zero: 0,
+        ten: 10,
+        eleven: 11,
+        twelve: 12,
+        thirteen: 13,
+        fourteen: 14,
+        fifteen: 15,
+        sixteen: 16,
+        seventeen: 17,
+        eighteen: 18,
+        nineteen: 19,
+        twenty: 20,
+        thirty: 30,
+        forty: 40,
+        fifty: 50,
+        sixty: 60,
+        seventy: 70,
+        eighty: 80,
+        ninety: 90,
+      };
+
+      const multipliers = {
+        hundred: 100,
+        thousand: 1000,
+        million: 1000000,
+        billion: 1000000000,
+        trillion: 1000000000000,
+        quadrillion: 1000000000000000,
+        quintillion: 1000000000000000000,
+        sextillion: 1000000000000000000000,
+        septillion: 1000000000000000000000000,
+        octillion: 1000000000000000000000000000,
+      };
+
+      const operations = ["plus", "minus", "times", "divided by"];
+
+      let total = 0;
+      let group = 0;
+      let hasOperation = false;
+      let currentOperation = "";
+      let A = 0;
+      let B = 0;
+
+      const stringList = text.split(" ");
+      for (let i = 0; i < stringList.length; i++) {
+        const word = stringList[i];
+
+        if (word in numbers) {
+          group += numbers[word];
+        } else if (word === "hundred") {
+          group *= 100;
+        } else if (word in multipliers) {
+          group *= multipliers[word];
+          total += group;
+          group = 0;
+        } else if (operations.includes(word)) {
+          if (!hasOperation) {
+            A = total + group;
+            hasOperation = true;
+            currentOperation = word;
+          }
+          total = 0;
+          group = 0;
+        } else if (
+          word === "divided" &&
+          i + 1 < stringList.length &&
+          stringList[i + 1] === "by"
+        ) {
+          if (!hasOperation) {
+            A = total + group;
+            hasOperation = true;
+            currentOperation = "divided by";
+          }
+          total = 0;
+          group = 0;
+          i++;
+        }
+      }
+
+      if (hasOperation) {
+        B = total + group;
+      } else {
+        return total + group;
+      }
+
+      return calculateText(A, B, currentOperation);
+    };
 
     setTextNumber(textToNumber(textDisplay));
   }, [textDisplay]);
