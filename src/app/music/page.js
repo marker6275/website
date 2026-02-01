@@ -1,5 +1,5 @@
 import { MusicCard } from "../../components/cards";
-import data from "@/info.json";
+import data from "../../info.json";
 
 export const metadata = {
   title: "Music | Mark Li",
