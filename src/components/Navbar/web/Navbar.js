@@ -40,6 +40,22 @@ export function Navbar() {
     }
   };
 
+  // Helper function to check if a path is active
+  const isActive = (link) => {
+    if (link === "/") {
+      return pathname === "/" || pathname === "";
+    }
+    // Normalize paths by removing trailing slashes for comparison
+    const normalizedPathname = pathname.replace(/\/$/, "") || "/";
+    const normalizedLink = link.replace(/\/$/, "") || "/";
+    
+    // Check exact match or if pathname is a sub-path of the link
+    return (
+      normalizedPathname === normalizedLink ||
+      (normalizedPathname.startsWith(normalizedLink + "/") && normalizedLink !== "/")
+    );
+  };
+
   return (
     // sticky top-0 z-10 to keep at top
     <div className="flex justify-between pr-5 bg-slate-50">
@@ -74,21 +90,21 @@ export function Navbar() {
         </div>
       </div>
       <div className="flex">
-        <NavbarButton title="HOME" link="/" selected={pathname === "/"} />
+        <NavbarButton title="HOME" link="/" selected={isActive("/")} />
         <NavbarButton
           title="PROJECTS"
           link="/projects"
-          selected={pathname === "/projects"}
+          selected={isActive("/projects")}
         />
         <NavbarButton
           title="MUSIC"
           link="/music"
-          selected={pathname === "/music"}
+          selected={isActive("/music")}
         />
         <NavbarButton
           title="RESUME"
           link="/resume"
-          selected={pathname === "/resume"}
+          selected={isActive("/resume")}
         />
       </div>
     </div>
