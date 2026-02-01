@@ -3,7 +3,8 @@
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { useSafeMediaQuery } from "../../hooks/useSafeMediaQuery";
-import { Navbar, MobileNavbar } from "./index";
+import { MobileNavbar } from "./mobile";
+import { Navbar } from "./web";
 
 export function NavbarWrapper() {
   const pathname = usePathname();
