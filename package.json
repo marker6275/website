@@ -1,6 +1,6 @@
 {
   "name": "website",
-  "version": "3.2.0",
+  "version": "3.3.0",
   "homepage": "https://www.mark-li.com",
   "private": true,
   "scripts": {
@@ -8,11 +8,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "predeploy": "npm run build",
+    "predeploy": "bun run build",
     "deploy": "gh-pages -d out --dotfiles"
   },
   "dependencies": {
-    "@emailjs/browser": "^4.4.1",
     "axios": "^1.11.0",
     "framer-motion": "^12.23.12",
     "googleapis": "^154.1.0",

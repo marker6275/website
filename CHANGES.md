@@ -141,3 +141,8 @@
 - Changed font to Open Sans
 - Cleaned up unused imports
 - Updated navbar styling
+
+**1/31/2026**
+- Updated to use bun
+- Updated resume
+- Newly hosted on Vercel
