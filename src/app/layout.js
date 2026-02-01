@@ -1,4 +1,4 @@
-import { NavbarWrapper } from "../components/navbar/NavbarWrapper";
+import { NavbarWrapper } from "../components/navbar";
 import { Open_Sans } from "next/font/google";
 
 import "./globals.css";
