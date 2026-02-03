@@ -1,12 +1,77 @@
 #!/bin/bash
 
 if [ -z "$1" ]; then
-    echo "Usage: merge [feature-branch]"
+    echo "Usage: merge [feature-branch] [major|minor|bug]"
+    echo "  feature-branch: The branch to merge"
+    echo "  major|minor|bug: Version bump type (optional)"
     exit 1
 fi
 
 FEATURE_BRANCH="$1"
+VERSION_BUMP="$2"
 CURRENT_BRANCH=$(git branch --show-current)
+
+# Function to bump version
+bump_version() {
+    local bump_type="$1"
+    local package_json="package.json"
+    
+    if [ ! -f "$package_json" ]; then
+        echo "Warning: package.json not found. Skipping version bump."
+        return
+    fi
+    
+    # Read current version
+    local current_version=$(grep -o '"version": "[^"]*"' "$package_json" | cut -d'"' -f4)
+    
+    if [ -z "$current_version" ]; then
+        echo "Warning: Could not find version in package.json. Skipping version bump."
+        return
+    fi
+    
+    # Parse version components
+    IFS='.' read -r major minor patch <<< "$current_version"
+    
+    # Bump version based on type
+    case "$bump_type" in
+        major)
+            major=$((major + 1))
+            minor=0
+            patch=0
+            ;;
+        minor)
+            minor=$((minor + 1))
+            patch=0
+            ;;
+        bug|patch)
+            patch=$((patch + 1))
+            ;;
+        *)
+            echo "Warning: Invalid version bump type '$bump_type'. Use 'major', 'minor', or 'bug'. Skipping version bump."
+            return
+            ;;
+    esac
+    
+    local new_version="$major.$minor.$patch"
+    
+    # Update package.json
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        # macOS
+        sed -i '' "s/\"version\": \"$current_version\"/\"version\": \"$new_version\"/" "$package_json"
+    else
+        # Linux
+        sed -i "s/\"version\": \"$current_version\"/\"version\": \"$new_version\"/" "$package_json"
+    fi
+    
+    echo "Version bumped from $current_version to $new_version ($bump_type)"
+}
+
+# Bump version if parameter provided
+if [ -n "$VERSION_BUMP" ]; then
+    echo "Bumping version ($VERSION_BUMP)..."
+    bump_version "$VERSION_BUMP"
+    echo ""
+fi
 
 if [ "$CURRENT_BRANCH" != "main" ]; then
     echo "Error: You must be on the main branch to merge."
