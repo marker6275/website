@@ -1,29 +1,28 @@
 ## Updates
 
-**9/10/2023**
+**1.0.0**
 
 - Page created and custom domain is set.
 
-**11/10/2023**
-
+**1.1.0**
 - Projects was added.
 - Music reformatted to look nicer.
 
-**11/25/2023**
+**1.2.0**
 
 - Added Python Redex Model to projects.
 - Updated fonts.
 
-**12/14/2023**
+**1.3.0**
 
 - Added Text Classifier to projects.
 
-**6/26/2024**
+**1.4.0**
 
 - Updated navbar formatting
 - Updated homepage view
 
-**6/30/2024**
+**2.0.0**
 
 - Revamped homepage
 - Lots of refactoring
@@ -32,108 +31,108 @@
 - Updated UI
 - Added Not Bop-It to projects
 
-**7/5/2024/**
+**2.1.0**
 
 - Added Audi Famam Illius to music
 
-**7/22/2024**
+**2.2.0**
 
 - Removed Analyze page
 - Updated file folders
 - Added music to homepage
 
-**8/3/2024**
+**2.3.0**
 
 - Added Google analytics
 
-**9/7/2024**
+**2.4.0**
 
 - Added skills to projects
 
-**10/26/2024**
+**2.5.0**
 
 - Added images to projects
 - Updated color scheme
 
-**10/27/2024**
+**2.5.1**
 
 - Fixed background gradient
 - Updated colors
 
-**11/1/2024**
+**2.6.0**
 
 - Added intermittent computing project
 - Added CNAME file
 
-**11/16/2024**
+**2.6.1**
 
 - Fixed coloring
 
-**1/22/2025**
+**2.7.0**
 
 - New resume
 - Removed contact page
 - New icons
 - Intro animation
 
-**2/22/2025**
+**2.7.1**
 
 - Adjusted font sizes and styling
 - Changed some colors
 
-**2/24/2025**
+**2.8.0**
 
 - Mobile formatting, navbar
 - Adjusted size formatting
 - Updated animation
 - Added dates to projects
 
-**3/1/2025**
+**2.9.0**
 
 - Updated navbar, colors
 - Added profile pic
 - Updated homepage
 
-**7/9/2025**
+**2.9.1**
 
 - Added Toast bar for copying email
 
-**7/16/2025**
+**2.10.0**
 
 - Added Sustainable Electronics Workshop to projects
 
-**7/27/2025**
+**2.10.1**
 
 - Restructured to Next.js
 - Upgraded to tailwindcss V4
 
-**7/30/2025**
+**2.11.0**
 
 - Added Verdra to projects
 
-**8/2/2025**
+**2.12.0**
 
 - Paginate projects
 
-**8/18/2025**
+**2.13.0**
 
 - Bets page
 - Animated everything
 - New home screen
 
-**10/9/2025**
+**3.0.0**
 
 - Improved homescreen UI
 
-**10/12/2025**
+**3.1.0**
 
 - Made tic tac toe game
 
-**10/15/2025**
+**3.2.0**
 
 - Made calculator
 
-**1/8/2026**
+**3.3.0**
 
 - Updated background color
 - Updated cards formatting
@@ -142,7 +141,7 @@
 - Cleaned up unused imports
 - Updated navbar styling
 
-**1/31/2026**
+**3.3.1**
 - Updated to use bun
 - Updated resume
 - Newly hosted on Vercel
