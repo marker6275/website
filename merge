@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Check if branch name is provided
 if [ -z "$1" ]; then
     echo "Usage: merge [feature-branch]"
     exit 1
@@ -9,22 +8,20 @@ fi
 FEATURE_BRANCH="$1"
 CURRENT_BRANCH=$(git branch --show-current)
 
-# Check if we're on main branch
 if [ "$CURRENT_BRANCH" != "main" ]; then
     echo "Error: You must be on the main branch to merge."
     echo "Current branch: $CURRENT_BRANCH"
     exit 1
 fi
 
-# Check if feature branch exists locally
 if ! git show-ref --verify --quiet refs/heads/"$FEATURE_BRANCH"; then
     echo "Error: Branch '$FEATURE_BRANCH' does not exist locally."
     exit 1
 fi
 
 echo "Merging branch: $FEATURE_BRANCH into main..."
+echo ""
 
-# Merge the feature branch
 if ! git merge "$FEATURE_BRANCH"; then
     echo "Error: Merge failed. Please resolve conflicts and try again."
     exit 1
@@ -34,24 +31,25 @@ echo ""
 echo "Merge successful!"
 echo ""
 
-# Prompt for push
 read -p "Push to remote? (Press Enter to push, or any other key to skip): " -n 1 -r
 echo ""
 
 if [[ $REPLY = "" ]]; then
+    echo ""
     echo "Pushing to remote..."
     if git push; then
+        echo ""
         echo "Push successful!"
+        echo ""
         
-        # Delete local branch
         echo "Deleting local branch: $FEATURE_BRANCH"
         if git branch -d "$FEATURE_BRANCH"; then
             echo "Local branch deleted successfully."
         else
             echo "Warning: Could not delete local branch (may not be fully merged)."
         fi
+        echo ""
         
-        # Check if remote branch exists and delete it
         if git show-ref --verify --quiet refs/remotes/origin/"$FEATURE_BRANCH"; then
             echo "Deleting remote branch: origin/$FEATURE_BRANCH"
             if git push origin --delete "$FEATURE_BRANCH"; then
@@ -63,10 +61,12 @@ if [[ $REPLY = "" ]]; then
             echo "Remote branch 'origin/$FEATURE_BRANCH' does not exist, skipping deletion."
         fi
     else
+        echo ""
         echo "Error: Push failed. Branch not deleted."
         exit 1
     fi
 else
+    echo ""
     echo "Skipping push. Branch not deleted."
     echo "You can push manually later with: git push"
 fi
