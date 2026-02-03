@@ -32,7 +32,6 @@ export default function BetsPage() {
   }, []);
 
   useEffect(() => {
-    // Validate environment variables
     if (!spreadsheetId || !apikey) {
       setData({
         values: [],
