@@ -3,7 +3,7 @@
 if [ -z "$1" ]; then
     echo "Usage: merge [feature-branch] [major|minor|bug]"
     echo "  feature-branch: The branch to merge"
-    echo "  major|minor|bug: Version bump type (optional)"
+    echo "  major|minor|patch: Version bump type (optional)"
     exit 1
 fi
 
