@@ -63,10 +63,17 @@ export function AddBetModal({ isOpen, onClose }) {
     ];
 
     try {
+      const password = sessionStorage.getItem("password_input");
+      if (!password) {
+        alert("Please enter your password first");
+        setIsLoading(false);
+        return;
+      }
+
       const response = await fetch("/bets/api", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ values, update: false }),
+        body: JSON.stringify({ values, update: false, password }),
       });
 
       if (!response.ok) {

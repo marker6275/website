@@ -32,12 +32,28 @@ export default function BetsPage() {
   }, []);
 
   useEffect(() => {
+    // Validate environment variables
+    if (!spreadsheetId || !apikey) {
+      setData({
+        values: [],
+        loading: false,
+        error: `Missing environment variables: ${!spreadsheetId ? 'NEXT_PUBLIC_SPREADSHEET_ID' : ''} ${!apikey ? 'NEXT_PUBLIC_GOOGLE_SHEETS_API_KEY' : ''}`.trim(),
+      });
+      return;
+    }
+
     const endpoint = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${encodeURIComponent(
       "Bets!A:G"
     )}?key=${apikey}`;
     fetch(endpoint)
       .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        if (!res.ok) {
+          return res.json().then((json) => {
+            throw new Error(`HTTP ${res.status}: ${json.error?.message || res.statusText}`);
+          }).catch(() => {
+            throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+          });
+        }
         return res.json();
       })
       .then((json) => {
