@@ -34,13 +34,14 @@ export default async function ProjectPage({ params }) {
   return (
     <div className="flex flex-col items-center py-5 bg-slate-50 min-h-screen">
       <div className="w-full max-w-6xl px-5">
-        <Link
-          href="/projects"
-          className="text-blue-600 hover:text-blue-800 underline mb-5 inline-block"
-        >
-          ← Back to Projects
-        </Link>
-        <div className="bg-white border-2 border-gray-600 rounded-xl shadow-md p-5 text-lg text-left text-pretty">
+        <div className="bg-blue-500 p-2 text-white w-40 my-4 rounded-xl text-center hover:bg-blue-600 hover:cursor-pointer duration-300 hover:shadow-md hover:-translate-y-0.5">
+          <Link
+            href="/projects"
+          >
+            &larr; Back to Projects
+          </Link>
+        </div>
+        <div className="bg-white border-2 border-gray-600 rounded-xl shadow-md p-5 text-lg text-left">
           {project.body}
         </div>
       </div>
