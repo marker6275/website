@@ -82,4 +82,19 @@ const months = [
   "December",
 ];
 
-export { projects, featuredProjects, colors, months, getSearchLink };
+function generateSlug(name) {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function getProjectBySlug(slug) {
+  return projects.find((project) => generateSlug(project.name) === slug);
+}
+
+function getProjectSlug(project) {
+  return generateSlug(project.name);
+}
+
+export { projects, featuredProjects, colors, months, getSearchLink, generateSlug, getProjectBySlug, getProjectSlug };
