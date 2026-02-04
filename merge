@@ -70,6 +70,19 @@ bump_version() {
 if [ -n "$VERSION_BUMP" ]; then
     echo "Bumping version ($VERSION_BUMP)..."
     bump_version "$VERSION_BUMP"
+    
+    # Stage and commit package.json if it was modified
+    if git diff --quiet package.json; then
+        echo "No changes to package.json detected."
+    else
+        echo "Staging package.json..."
+        git add package.json
+        
+        local new_version=$(grep -o '"version": "[^"]*"' package.json | cut -d'"' -f4)
+        echo "Committing version bump to $new_version..."
+        git commit -m "Bump version to $new_version ($VERSION_BUMP)"
+        echo "Version bump committed."
+    fi
     echo ""
 fi
 
