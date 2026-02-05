@@ -1,17 +1,15 @@
 import React from "react";
 import { T, ST, P, Line } from "../components/text";
 
-class Temp extends React.Component {
-  render() {
-    return (
-      <div className="py-5">
-        <T>Title</T>
-        <Line />
-        <ST>Subtitle</ST>
-        <P>Paragraph</P>
-      </div>
-    );
-  }
+function Temp() {
+  return (
+    <div className="py-5">
+      <T>Title</T>
+      <Line />
+      <ST>Subtitle</ST>
+      <P>Paragraph</P>
+    </div>
+  );
 }
 
 export const Template = {

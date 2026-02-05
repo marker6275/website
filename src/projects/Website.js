@@ -57,10 +57,10 @@ export const Website = {
   name: "Website",
   color: {
     border: {
-      solid: "border-blue-400",
-      hover: "hover:border-blue-400",
+      solid: "border-blue-500",
+      hover: "hover:border-blue-500",
     },
-    text: "hover:text-blue-600",
+    text: "hover:text-blue-500",
   },
   description: "Where you are right now",
   image: "/assets/logo.jpg",
