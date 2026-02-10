@@ -146,3 +146,6 @@
 - Updated resume
 - Newly hosted on Vercel
 - Added Vercel analytics
+
+**3.5.0**
+- Added sport classifier project

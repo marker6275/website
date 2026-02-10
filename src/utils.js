@@ -7,9 +7,11 @@ import {
   IntermittentComputing,
   SustainabilityWorkshop,
   Verdra,
+  SportClassifier,
 } from "./projects";
 
 const projects = [
+  SportClassifier,
   Verdra,
   SustainabilityWorkshop,
   IntermittentComputing,
