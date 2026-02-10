@@ -147,5 +147,5 @@
 - Newly hosted on Vercel
 - Added Vercel analytics
 
-**3.4.1**
+**3.5.0**
 - Added sport classifier project
