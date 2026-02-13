@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export async function generateStaticParams() {
   return projects
-    .filter((project) => project.body && !project.link)
+    .filter((project) => !!project.body && !project.link)
     .map((project) => ({
       slug: generateSlug(project.name),
     }));
@@ -13,7 +13,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const project = getProjectBySlug(slug);
-  if (!project || !project.body) {
+  if (!project?.body) {
     return {
       title: "Project Not Found | Mark Li",
     };
@@ -27,7 +27,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   const { slug } = await params;
   const project = getProjectBySlug(slug);
 
-  if (!project || !project.body) {
+  if (!project?.body) {
     notFound();
   }
 

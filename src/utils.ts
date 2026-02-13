@@ -9,8 +9,9 @@ import {
   Verdra,
   SportClassifier,
 } from "./projects";
+import type { Project } from "./types/projects";
 
-const projects = [
+const projects: Project[] = [
   SportClassifier,
   Verdra,
   SustainabilityWorkshop,
