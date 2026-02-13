@@ -114,13 +114,13 @@
 - Cleaned up unused imports
 - Updated navbar styling
 
-**3.3.1**
+**3.4.0**
 - Updated to use bun
 - Updated resume
 - Newly hosted on Vercel
 - Added Vercel analytics
 
-**3.4.0**
+**3.5.0**
 - Added sport classifier project
 
 **4.0.0**
