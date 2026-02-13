@@ -125,3 +125,6 @@
 
 **4.0.0**
 - Converted to typescript
+
+**4.1.0**
+- Added speed reader project

@@ -172,8 +172,8 @@ export const NotBopIt = {
   name: "Not Bop-It",
   color: {
     border: {
-      solid: "border-teal-400",
-      hover: "hover:border-teal-400",
+      image: "border-teal-400",
+      outer: "hover:border-teal-400",
     },
     text: "hover:text-teal-500",
   },

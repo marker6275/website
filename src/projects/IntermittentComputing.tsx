@@ -211,8 +211,8 @@ export const IntermittentComputing = {
   name: "Intermittent Computing",
   color: {
     border: {
-      solid: "border-red-700",
-      hover: "hover:border-red-700",
+      image: "border-red-700",
+      outer: "hover:border-red-700",
     },
     text: "hover:text-red-700",
   },

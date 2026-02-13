@@ -2,8 +2,8 @@ export const Verdra = {
   name: "Verdra",
   color: {
     border: {
-      solid: "border-green-700",
-      hover: "hover:border-green-700",
+      image: "border-green-700",
+      outer: "hover:border-green-700",
     },
     text: "hover:text-green-800",
   },

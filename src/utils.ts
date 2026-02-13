@@ -8,10 +8,12 @@ import {
   SustainabilityWorkshop,
   Verdra,
   SportClassifier,
+  SpeedReader,
 } from "./projects";
 import type { Project } from "./types/projects";
 
 const projects: Project[] = [
+  SpeedReader,
   SportClassifier,
   Verdra,
   SustainabilityWorkshop,
@@ -25,7 +27,7 @@ const projects: Project[] = [
 
 const featuredProjects: Project[] = [
   Verdra,
-  SustainabilityWorkshop,
+  SpeedReader,
   IntermittentComputing,
 ];
 

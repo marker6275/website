@@ -172,8 +172,8 @@ export const SportClassifier = {
   name: "Sport Classifier",
   color: {
     border: {
-      solid: "border-blue-700",
-      hover: "hover:border-blue-700",
+      image: "border-blue-700",
+      outer: "hover:border-blue-700",
     },
     text: "hover:text-blue-700",
   },

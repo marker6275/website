@@ -38,8 +38,8 @@ export const ComingSoon = {
   name: "Coming Soon",
   color: {
     border: {
-      solid: "border-gray-500",
-      hover: "hover:border-gray-500",
+      image: "border-gray-500",
+      outer: "hover:border-gray-500",
     },
     text: "text-gray-400",
   },

@@ -432,8 +432,8 @@ export const PythonRedex = {
   name: "Python Redex Model",
   color: {
     border: {
-      solid: "border-amber-500",
-      hover: "hover:border-amber-500",
+      image: "border-amber-500",
+      outer: "hover:border-amber-500",
     },
     text: "hover:text-amber-500",
   },

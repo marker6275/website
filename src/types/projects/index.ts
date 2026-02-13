@@ -4,8 +4,8 @@ export interface Project {
   name: string;
   color: {
     border: {
-      solid: string;
-      hover: string;
+      image: string;
+      outer: string;
     };
     text: string;
   };

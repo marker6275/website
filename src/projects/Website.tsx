@@ -57,8 +57,8 @@ export const Website = {
   name: "Website",
   color: {
     border: {
-      solid: "border-blue-500",
-      hover: "hover:border-blue-500",
+      image: "border-blue-500",
+      outer: "hover:border-blue-500",
     },
     text: "hover:text-blue-500",
   },

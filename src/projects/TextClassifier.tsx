@@ -204,8 +204,8 @@ export const TextClassifier = {
   name: "Text Classifier",
   color: {
     border: {
-      solid: "border-gray-200",
-      hover: "hover:border-gray-200",
+      image: "border-gray-200",
+      outer: "hover:border-gray-200",
     },
     text: "hover:text-gray-500",
   },

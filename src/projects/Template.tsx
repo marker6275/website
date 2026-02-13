@@ -16,13 +16,14 @@ export const Template = {
   name: "Template",
   color: {
     border: {
-      solid: "border-white",
-      hover: "hover:border-white",
+      image: "border-white",
+      outer: "hover:border-white",
     },
     text: "hover:text-white",
   },
   description: "Generic description",
   image: "/assets/not_found.jpg",
   body: <Temp />,
+  // link: "https://www.example.com/"
 };
 

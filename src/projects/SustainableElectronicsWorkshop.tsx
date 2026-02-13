@@ -148,8 +148,8 @@ export const SustainabilityWorkshop = {
   name: "Green Electronics Workshop",
   color: {
     border: {
-      solid: "border-green-600",
-      hover: "hover:border-green-600",
+      image: "border-green-600",
+      outer: "hover:border-green-600",
     },
     text: "hover:text-green-700",
   },
