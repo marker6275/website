@@ -1,5 +1,9 @@
 #!/bin/bash
 
+### 
+### DO NOT UPDATE THE VERSION IN PACKAGE.JSON IN THE NEW BRANCH. THIS FILE WILL ### UPDATE IT AUTOMATICALLY DURING THE MERGE AND PUSH
+###
+
 if [ -z "$1" ]; then
     echo "Usage: merge [feature-branch] [major|minor|bug]"
     echo "  feature-branch: The branch to merge"
