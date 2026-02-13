@@ -70,26 +70,6 @@ bump_version() {
     echo "Version bumped from $current_version to $new_version ($bump_type)"
 }
 
-# Bump version if parameter provided
-if [ -n "$VERSION_BUMP" ]; then
-    echo "Bumping version ($VERSION_BUMP)..."
-    bump_version "$VERSION_BUMP"
-    
-    # Stage and commit package.json if it was modified
-    if git diff --quiet package.json; then
-        echo "No changes to package.json detected."
-    else
-        echo "Staging package.json..."
-        git add package.json
-        
-        local new_version=$(grep -o '"version": "[^"]*"' package.json | cut -d'"' -f4)
-        echo "Committing version bump to $new_version..."
-        git commit -m "Bump version to $new_version ($VERSION_BUMP)"
-        echo "Version bump committed."
-    fi
-    echo ""
-fi
-
 if [ "$CURRENT_BRANCH" != "main" ]; then
     echo "Error: You must be on the main branch to merge."
     echo "Current branch: $CURRENT_BRANCH"
@@ -104,9 +84,33 @@ fi
 echo "Merging branch: $FEATURE_BRANCH into main..."
 echo ""
 
-if ! git merge "$FEATURE_BRANCH"; then
+# Merge with --no-commit so we can combine with version bump if needed
+if ! git merge --no-commit "$FEATURE_BRANCH"; then
     echo "Error: Merge failed. Please resolve conflicts and try again."
     exit 1
+fi
+
+# Bump version if parameter provided (after merge, before commit)
+if [ -n "$VERSION_BUMP" ]; then
+    echo "Bumping version ($VERSION_BUMP)..."
+    bump_version "$VERSION_BUMP"
+    
+    # Stage package.json if it was modified
+    if ! git diff --quiet package.json; then
+        echo "Staging package.json..."
+        git add package.json
+    fi
+    echo ""
+fi
+
+# Commit everything together (merge + version bump if applicable)
+if [ -n "$VERSION_BUMP" ]; then
+    new_version=$(grep -o '"version": "[^"]*"' package.json | cut -d'"' -f4)
+    echo "Committing merge with version bump to $new_version..."
+    git commit -m "Merge $FEATURE_BRANCH into main (bump version to $new_version)"
+else
+    echo "Committing merge..."
+    git commit -m "Merge $FEATURE_BRANCH into main"
 fi
 
 echo ""
