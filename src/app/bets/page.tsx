@@ -226,7 +226,6 @@ export default function BetsPage() {
 
           <ProfitsAndStatisticsSection
             profits={profits}
-            dropdownClick={() => setShowDropdown(!showDropdown)}
             showDropdown={showDropdown}
             uniqueSports={uniqueSports}
             data={data.values}
