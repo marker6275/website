@@ -83,14 +83,11 @@ export async function POST(request: NextRequest) {
 
     privateKey = privateKey.replace(/^["']|["']$/g, "").replace(/\\n/g, "\n");
 
-    const credentials = {
-      type: "service_account",
-      client_email: clientEmail,
-      private_key: privateKey,
-    };
-
-    const auth = google.auth.fromJSON(credentials);
-    auth.scopes = ["https://www.googleapis.com/auth/spreadsheets"];
+    const auth = new google.auth.JWT({
+      email: clientEmail,
+      key: privateKey,
+      scopes: ["https://www.googleapis.com/auth/spreadsheets"],
+    });
 
     await auth.authorize();
 
