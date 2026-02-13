@@ -17,7 +17,7 @@ export function BetCard({
   editedBets,
   setEditedBets,
 }: BetCardProps) {
-  const results = [
+  const results: string[] = [
     BetResults.Lost,
     BetResults.Won,
     BetResults.Cashed,
@@ -70,6 +70,7 @@ export function BetCard({
         result: res,
         index:
           editResult.index + 1 === results.length ? 0 : editResult.index + 1,
+        payout: editResult.payout,
       });
 
       const updateEditedBets = [
