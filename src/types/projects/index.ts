@@ -9,7 +9,7 @@ export interface Project {
     };
     text: string;
   };
-  description: string;
+  description?: string;
   image?: string;
   body?: ReactNode;
   link?: string;

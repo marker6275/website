@@ -23,7 +23,7 @@ const projects: Project[] = [
   ComingSoon,
 ];
 
-const featuredProjects = [
+const featuredProjects: Project[] = [
   Verdra,
   SustainabilityWorkshop,
   IntermittentComputing,

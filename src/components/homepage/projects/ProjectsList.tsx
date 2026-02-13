@@ -1,11 +1,13 @@
 import { AnimatedContent } from "../../reactbits";
 import { HomeProjectCard } from "../../cards";
 import { featuredProjects } from "../../../utils";
+import type { Project } from "../../../types/projects";
 
 export function ProjectsList() {
   return (
     <div className="flex flex-col lg:flex-col gap-8 px-6 lg:px-15 py-6">
-      {featuredProjects.map((project, index) => (
+      {featuredProjects.map((project: Project, index: number) => {
+        return (
         <AnimatedContent
           key={index}
           distance={100}
@@ -29,7 +31,8 @@ export function ProjectsList() {
             {project.body}
           </HomeProjectCard>
         </AnimatedContent>
-      ))}
+      );
+      })}
     </div>
   );
 }
