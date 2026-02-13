@@ -7,7 +7,7 @@ import config from "../../config/analyze";
 
 const baseurl = config.baseurl;
 
-export function AnalyzePage() {
+function AnalyzePage() {
   const [file, setFile] = useState<File | null>(null);
   const [output, setOutput] = useState<string>("Upload to see result");
   const [numFiles, setNumFiles] = useState<string>("loading...");
