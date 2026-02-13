@@ -27,7 +27,7 @@ export function ProjectCard({
 
   const cardContent = (
     <div
-      className={`group border-slate-800/70 cursor-pointer border-2 py-8 px-4 size-88 flex flex-col items-center rounded-xl shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5 gap-2 overflow-hidden text-center ${color.text} ${color.border.hover}`}
+      className={`group border-slate-800/70 cursor-pointer border-2 py-8 px-4 size-88 flex flex-col items-center rounded-xl shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5 gap-2 overflow-hidden text-center ${color.text} ${color.border.outer}`}
       onClick={link ? handleClick : undefined}
     >
       {image && (
@@ -36,7 +36,7 @@ export function ProjectCard({
           alt={name}
           width={64}
           height={64}
-          className={`size-32 rounded-full object-cover border-2 ${color.border.solid} mb-4 group-hover:scale-105 duration-300`}
+          className={`size-32 rounded-full object-cover border-2 ${color.border.image} mb-4 group-hover:scale-105 duration-300`}
         />
       )}
       <div className="text-2xl font-semibold">{name}</div>

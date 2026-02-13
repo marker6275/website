@@ -5,8 +5,8 @@ export interface ProjectCardProps {
   color: {
     text: string;
     border: {
-      hover: string;
-      solid: string;
+      image: string;
+      outer: string;
     };
   };
   description: string;

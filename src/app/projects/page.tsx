@@ -11,16 +11,16 @@ export default function ProjectsPage() {
     <div className="flex flex-col items-center py-5 bg-slate-50">
       <h1 className="text-5xl my-5">Projects</h1>
       <div className="flex flex-col items-center grid md:grid-cols-2 lg:grid-cols-3 gap-16 p-10">
-        {projects.map((item: Project) => (
+        {projects.map((project: Project) => (
           <ProjectCard
-            key={item.name}
-            name={item.name}
-            color={item.color}
-            description={item.description ?? ""}
-            image={item.image}
-            link={item.link}
+            key={project.name}
+            name={project.name}
+            color={project.color}
+            description={project.description ?? ""}
+            image={project.image}
+            link={project.link}
           >
-            {item.body}
+            {project.body}
           </ProjectCard>
         ))}
       </div>
