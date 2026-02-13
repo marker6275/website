@@ -5,7 +5,7 @@ function Coming() {
     <div className="py-5">
       <T>Coming Soon...</T>
       <Line />
-      <P>So that's it for now :(</P>
+      <P>So that's it for now :&#40;</P>
       <br />
       <P>
         If you're reading this then it probably means you think my projects are
