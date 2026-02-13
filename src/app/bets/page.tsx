@@ -110,7 +110,7 @@ export default function BetsPage() {
               completed.length) *
             100
           ).toFixed(1)
-        : 0;
+        : "0.0";
     const lastDay =
       completed.length > 0 ? completed[completed.length - 1][0] : null;
     const lastDayProfit = completed
