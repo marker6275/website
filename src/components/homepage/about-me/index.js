@@ -1,1 +1,0 @@
-export { SectionAboutMe } from "./SectionAboutMe";
