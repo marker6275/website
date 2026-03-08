@@ -16,7 +16,11 @@ const spreadsheetId = config.spreadsheetId;
 const apikey = config.apikey;
 
 export default function BetsPage() {
-  const [data, setData] = useState<BetData>({ values: [], loading: true, error: null });
+  const [data, setData] = useState<BetData>({
+    values: [],
+    loading: true,
+    error: null,
+  });
   const [last10Bets, setLast10Bets] = useState<any[]>([]);
   const [showDropdown, setShowDropdown] = useState<boolean>(true);
   const [uniqueSports, setUniqueSports] = useState<string[]>([]);
@@ -37,22 +41,28 @@ export default function BetsPage() {
       setData({
         values: [],
         loading: false,
-        error: `Missing environment variables: ${!spreadsheetId ? 'NEXT_PUBLIC_SPREADSHEET_ID' : ''} ${!apikey ? 'NEXT_PUBLIC_GOOGLE_SHEETS_API_KEY' : ''}`.trim(),
+        error:
+          `Missing environment variables: ${!spreadsheetId ? "SPREADSHEET_ID" : ""} ${!apikey ? "GOOGLE_SHEETS_API_KEY" : ""}`.trim(),
       });
       return;
     }
 
     const endpoint = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${encodeURIComponent(
-      "Bets!A:G"
+      "Bets!A:G",
     )}?key=${apikey}`;
     fetch(endpoint)
       .then((res) => {
         if (!res.ok) {
-          return res.json().then((json) => {
-            throw new Error(`HTTP ${res.status}: ${json.error?.message || res.statusText}`);
-          }).catch(() => {
-            throw new Error(`HTTP ${res.status}: ${res.statusText}`);
-          });
+          return res
+            .json()
+            .then((json) => {
+              throw new Error(
+                `HTTP ${res.status}: ${json.error?.message || res.statusText}`,
+              );
+            })
+            .catch(() => {
+              throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+            });
         }
         return res.json();
       })
@@ -61,7 +71,9 @@ export default function BetsPage() {
 
         const betsData =
           values.length > 0 && isNaN(parseFloat(values[0][1]))
-            ? values.slice(1).map((value: any[], index: number) => [...value, index + 2])
+            ? values
+                .slice(1)
+                .map((value: any[], index: number) => [...value, index + 2])
             : values;
 
         setData({ values: betsData, loading: false, error: null });
@@ -69,7 +81,7 @@ export default function BetsPage() {
         getUniqueSports(betsData);
       })
       .catch((err: Error) =>
-        setData({ values: [], loading: false, error: err.message })
+        setData({ values: [], loading: false, error: err.message }),
       );
   }, []);
 
@@ -96,11 +108,11 @@ export default function BetsPage() {
     const completed = getCompletedBets(data.values);
     const totalWagered = completed.reduce(
       (sum, bet) => sum + parseFloat(bet[1].replace(/^\$/, "")),
-      0
+      0,
     );
     const totalReturn = completed.reduce(
       (sum, bet) => sum + parseFloat(bet[4].replace(/^\$/, "")),
-      0
+      0,
     );
     const profit = totalReturn - totalWagered;
     const winRate =
@@ -120,7 +132,7 @@ export default function BetsPage() {
           sum +
           (parseFloat(bet[4].replace(/^\$/, "")) -
             parseFloat(bet[1].replace(/^\$/, ""))),
-        0
+        0,
       );
     return {
       totalWagered,
@@ -263,4 +275,3 @@ export default function BetsPage() {
     </div>
   );
 }
-
