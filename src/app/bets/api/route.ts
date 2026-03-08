@@ -62,6 +62,52 @@ function parseValues(values: any[]): string[][] {
   return [[date, betAmount, odds, result, payout, leagues, line]];
 }
 
+async function getSheetsClient() {
+  let privateKey = process.env.GOOGLE_PRIVATE_KEY;
+  const spreadsheetId = process.env.SPREADSHEET_ID;
+  const clientEmail = process.env.GOOGLE_CLIENT_EMAIL;
+
+  if (!privateKey || !spreadsheetId || !clientEmail) {
+    return null;
+  }
+
+  privateKey = privateKey.replace(/^["']|["']$/g, "").replace(/\\n/g, "\n");
+
+  const auth = new google.auth.JWT({
+    email: clientEmail,
+    key: privateKey,
+    scopes: ["https://www.googleapis.com/auth/spreadsheets"],
+  });
+
+  await auth.authorize();
+  const sheets = google.sheets({ version: "v4", auth });
+  return { sheets, spreadsheetId };
+}
+
+export async function GET() {
+  try {
+    const client = await getSheetsClient();
+    if (!client) {
+      return NextResponse.json(
+        { error: "Missing environment variables" },
+        { status: 500 }
+      );
+    }
+
+    const { sheets, spreadsheetId } = client;
+
+    const result = await sheets.spreadsheets.values.get({
+      spreadsheetId,
+      range: "Bets!A:G",
+    });
+
+    const values = result.data.values || [];
+    return NextResponse.json({ values });
+  } catch (err: any) {
+    return NextResponse.json({ error: err.message }, { status: 500 });
+  }
+}
+
 export async function POST(request: NextRequest) {
   try {
     const { values, update, password } = await request.json();
@@ -70,28 +116,15 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    let privateKey = process.env.GOOGLE_PRIVATE_KEY;
-    const spreadsheetId = process.env.SPREADSHEET_ID;
-    const clientEmail = process.env.GOOGLE_CLIENT_EMAIL;
-
-    if (!privateKey || !spreadsheetId || !clientEmail) {
+    const client = await getSheetsClient();
+    if (!client) {
       return NextResponse.json(
         { error: "Missing environment variables" },
         { status: 500 }
       );
     }
 
-    privateKey = privateKey.replace(/^["']|["']$/g, "").replace(/\\n/g, "\n");
-
-    const auth = new google.auth.JWT({
-      email: clientEmail,
-      key: privateKey,
-      scopes: ["https://www.googleapis.com/auth/spreadsheets"],
-    });
-
-    await auth.authorize();
-
-    const sheets = google.sheets({ version: "v4", auth });
+    const { sheets, spreadsheetId } = client;
 
     if (!update) {
       const parsedValues = parseValues(values);

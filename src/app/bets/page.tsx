@@ -9,11 +9,7 @@ import {
   OpenBetsSection,
   ProfitsAndStatisticsSection,
 } from "../../components/bets";
-import config from "../../config/bets";
 import type { BetData } from "../../types/app/bets";
-
-const spreadsheetId = config.spreadsheetId;
-const apikey = config.apikey;
 
 export default function BetsPage() {
   const [data, setData] = useState<BetData>({
@@ -37,27 +33,14 @@ export default function BetsPage() {
   }, []);
 
   useEffect(() => {
-    if (!spreadsheetId || !apikey) {
-      setData({
-        values: [],
-        loading: false,
-        error:
-          `Missing environment variables: ${!spreadsheetId ? "SPREADSHEET_ID" : ""} ${!apikey ? "GOOGLE_SHEETS_API_KEY" : ""}`.trim(),
-      });
-      return;
-    }
-
-    const endpoint = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${encodeURIComponent(
-      "Bets!A:G",
-    )}?key=${apikey}`;
-    fetch(endpoint)
+    fetch("/bets/api")
       .then((res) => {
         if (!res.ok) {
           return res
             .json()
             .then((json) => {
               throw new Error(
-                `HTTP ${res.status}: ${json.error?.message || res.statusText}`,
+                json.error || `HTTP ${res.status}: ${res.statusText}`,
               );
             })
             .catch(() => {
