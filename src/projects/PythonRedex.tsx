@@ -439,6 +439,6 @@ export const PythonRedex = {
   },
   description: "Mathematical model of Python",
   image: "/assets/project_images/PythonRedexModel/python.png",
-  tags: ["Semantics", "Modeling", "Racket"],
+  tags: ["Racket", "Python", "Programming Languages"],
   body: <PRM />,
 };

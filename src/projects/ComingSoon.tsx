@@ -45,5 +45,5 @@ export const ComingSoon = {
   },
   description: "More write-ups and builds on the way.",
   body: <Coming />,
-  tags: ["Writing", "Building", "Updates"],
+  tags: [],
 };

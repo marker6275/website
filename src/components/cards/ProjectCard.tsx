@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { getProjectSlug } from "../../utils";
 import type { ProjectCardProps } from "../../types/components/cards";
 
@@ -19,59 +20,56 @@ export function ProjectCard({
   const hasBody = !!children && !link;
   const tagsToRender = (tags ?? []).slice(0, 3);
 
+  const primary = image?.trim() ?? "";
+  const [broken, setBroken] = useState(false);
+
+  useEffect(() => {
+    setBroken(false);
+  }, [image]);
+
+  const showImage = Boolean(primary) && !broken;
+
   const cardBody = (
     <div
       className={`
-        flex min-w-0 w-full max-w-full flex-row gap-0 overflow-hidden rounded-lg border-2 border-slate-200/80 bg-white sm:flex-col
+        flex min-w-0 w-full max-w-full flex-row gap-0 overflow-hidden rounded-lg border-2 border-slate-400/80 bg-white sm:flex-col
         shadow-sm transition-all duration-200
         hover:-translate-y-0.5 hover:shadow-md
         ${color.text} ${color.border.outer}
       `}
     >
-      <div className="flex h-24 w-24 min-w-0 shrink-0 items-center justify-center bg-white leading-none sm:h-auto sm:w-full sm:justify-start">
-        {image ? (
-          <>
-            <div className="relative h-24 w-24 overflow-hidden rounded-full sm:hidden">
-              <Image
-                src={image}
-                alt={name}
-                width={96}
-                height={96}
-                sizes="96px"
-                className="h-full w-full object-cover transition-transform duration-300"
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
+      {showImage ? (
+        <div className="flex h-28 w-28 min-w-0 shrink-0 items-center justify-center bg-white leading-none sm:h-auto sm:w-full sm:justify-start">
+          <div className="relative h-28 w-28 overflow-hidden rounded-full sm:hidden">
+            <Image
+              src={primary}
+              alt={name}
+              width={112}
+              height={112}
+              sizes="112px"
+              className="h-full w-full object-cover transition-transform duration-300"
+              loading="lazy"
+              decoding="async"
+              onError={() => setBroken(true)}
+            />
+          </div>
 
-            <div className="relative isolate hidden w-full min-w-0 max-w-full overflow-hidden sm:block">
-              <Image
-                src={image}
-                alt={name}
-                width={800}
-                height={800}
-                sizes="(max-width: 640px) 92vw, (max-width: 1024px) 44vw, 28vw"
-                className="h-auto w-full min-w-0 max-w-full object-contain transition-transform duration-300"
-                style={{ width: "100%", height: "auto", maxWidth: "100%" }}
-              />
-            </div>
-          </>
-        ) : (
-          <>
-            <div className="flex h-24 w-24 items-center justify-center rounded-full bg-white text-sm font-medium text-slate-400 sm:hidden">
-              {name.slice(0, 1)}
-            </div>
-
-            <div className="hidden sm:block">
-              <div className="flex aspect-square w-full items-center justify-center bg-white text-sm font-medium text-slate-400">
-                {name.slice(0, 1)}
-              </div>
-            </div>
-          </>
-        )}
-      </div>
-      <div className="flex min-w-0 flex-1 flex-col gap-1 px-2.5 py-2.5 text-left justify-center sm:flex-none sm:px-3 sm:py-2.5 sm:justify-start">
-        <h2 className="text-sm font-semibold leading-tight text-slate-900 sm:text-base">
+          <div className="relative isolate hidden w-full min-w-0 max-w-full min-h-[10.5rem] overflow-hidden sm:flex sm:items-center sm:justify-center">
+            <Image
+              src={primary}
+              alt={name}
+              width={800}
+              height={800}
+              sizes="(max-width: 640px) 92vw, (max-width: 1024px) 44vw, 28vw"
+              className="h-auto w-full min-w-0 max-w-full object-contain transition-transform duration-300"
+              style={{ width: "100%", height: "auto", maxWidth: "100%" }}
+              onError={() => setBroken(true)}
+            />
+          </div>
+        </div>
+      ) : null}
+      <div className="flex min-w-0 flex-1 flex-col gap-1 px-3 py-3 text-left justify-center sm:flex-none sm:px-3.5 sm:py-3 sm:justify-start">
+        <h2 className="text-sm font-semibold leading-tight text-slate-900 sm:text-lg">
           {name}
         </h2>
         {description ? (

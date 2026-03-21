@@ -211,7 +211,6 @@ export const TextClassifier = {
   },
   description: "Classify how words feel",
   image: "/assets/project_images/TextClassifier/aws.png",
-  tags: ["NLP", "Naive Bayes", "AWS"],
+  tags: ["Python", "Naive Bayes", "AWS Lambda"],
   body: <TC />,
 };
-

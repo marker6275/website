@@ -218,7 +218,6 @@ export const IntermittentComputing = {
   },
   description: "Battery-free computing",
   image: "/assets/project_images/IntermittentComputing/msp430launchpad.png",
-  tags: ["Embedded", "Low Power", "Systems"],
+  tags: ["C++", "Embedded Systems", "MSP430"],
   body: <Intermittent />,
 };
-

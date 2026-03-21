@@ -24,6 +24,6 @@ export const Template = {
   description: "Generic description",
   image: "/assets/not_found.jpg",
   body: <Temp />,
-  // link: "https://www.example.com/"
+  tags: ["Tag1", "Tag2", "Tag3"],
+  link: "https://www.mark-li.com/",
 };
-

@@ -16,22 +16,22 @@ export function ProjectsMasonry({ projects }: ProjectsMasonryProps) {
   const columns = usePartitionedProjects(projects, columnCount ?? 1);
 
   if (columnCount === null) {
-    return <div className="mt-10 h-1 w-full" aria-hidden="true" />;
+    return <div className="mt-6 h-1 w-full" aria-hidden="true" />;
   }
 
   return (
     <div
       className="
-        mt-10 flex w-full min-w-0 max-w-full flex-row items-start gap-6
-        sm:gap-7
-        lg:gap-8
+        mt-6 flex w-full min-w-0 max-w-full flex-row items-start gap-4
+        sm:gap-5
+        lg:gap-5
       "
       aria-label="Projects"
     >
       {columns.map((column, colIndex) => (
         <div
           key={colIndex}
-          className="flex min-w-0 flex-1 flex-col items-start gap-6 sm:gap-7 lg:gap-8"
+          className="flex min-w-0 flex-1 flex-col items-start gap-4 sm:gap-5 lg:gap-5"
         >
           {column.map((project) => (
             <div key={project.name} className="min-w-0 w-full">
