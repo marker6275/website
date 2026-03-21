@@ -64,6 +64,7 @@ export const Website = {
   },
   description: "Where you are right now",
   image: "/assets/logo.jpg",
+  tags: ["React", "Next.js", "Tailwind"],
   body: <Web />,
 };
 

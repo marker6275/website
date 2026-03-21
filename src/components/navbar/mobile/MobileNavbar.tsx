@@ -10,7 +10,7 @@ export function MobileNavbar() {
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
-    <div className="bg-gradient-to-b from-blue-300 to-blue-200 p-4">
+    <div className="bg-slate-50 p-4">
       <div className="flex items-center justify-between">
         <Link href="/">
           <div className="flex items-center w-28 justify-between">
@@ -25,7 +25,10 @@ export function MobileNavbar() {
           </div>
         </Link>
 
-        <button onClick={toggleMenu} className="text-black focus:outline-none">
+        <button
+          onClick={toggleMenu}
+          className="text-slate-800 transition-colors hover:text-sky-600 focus:outline-none"
+        >
           {isOpen ? (
             <svg
               className="size-7 transition-transform duration-300 ease-in transform rotate-90"
@@ -67,15 +70,13 @@ export function MobileNavbar() {
         aria-expanded={isOpen}
       >
         <ul>
-          <li>
-            <MobileNavbarButton toggle={toggleMenu} title="HOME" link="/" />
-          </li>
-          <MobileNavbarButton toggle={toggleMenu} title="MUSIC" link="/music" />
+          <MobileNavbarButton toggle={toggleMenu} title="HOME" link="/" />
           <MobileNavbarButton
             toggle={toggleMenu}
             title="PROJECTS"
             link="/projects"
           />
+          <MobileNavbarButton toggle={toggleMenu} title="MUSIC" link="/music" />
           <MobileNavbarButton
             toggle={toggleMenu}
             title="RESUME"
@@ -86,4 +87,3 @@ export function MobileNavbar() {
     </div>
   );
 }
-

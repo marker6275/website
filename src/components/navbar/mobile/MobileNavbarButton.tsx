@@ -25,13 +25,15 @@ export function MobileNavbarButton({ title, link, toggle }: MobileNavbarButtonPr
     <Link
       href={link}
       onClick={toggle}
-      className={`flex items-center justify-center py-2 font-light rounded-md transition-colors ${
-        isActive() ? "bg-slate-800" : ""
+      className={`relative flex items-center justify-center py-2 font-light rounded-md transition-all duration-200 ${
+        isActive()
+          ? "bg-sky-500/10"
+          : "hover:bg-sky-500/5"
       }`}
     >
       <div
         className={`${
-          isActive() ? "text-white" : "text-black"
+          isActive() ? "text-slate-800" : "text-slate-800 hover:text-sky-600"
         } w-full text-center`}
       >
         {title}

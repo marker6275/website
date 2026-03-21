@@ -155,6 +155,7 @@ export const SustainabilityWorkshop = {
   },
   description: "How to make electronics sustainable",
   image: "/assets/project_images/SustainableElectronicsWorkshop/fern.png",
+  tags: ["Sustainability", "Electronics", "Education"],
   body: <SEW />,
 };
 

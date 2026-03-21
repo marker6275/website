@@ -13,7 +13,7 @@ export function NavbarButton({ title, link, selected }: NavbarButtonProps) {
           ${
             selected
               ? `
-                bg-gradient-to-b from-sky-500/10 to-slate-50
+                bg-sky-500/10
                 after:bg-sky-500 after:scale-x-100
               `
               : `

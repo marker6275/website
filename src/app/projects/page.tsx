@@ -1,6 +1,5 @@
-import { Project } from "@/types/projects";
-import { ProjectCard } from "../../components/cards";
-import { projects } from "../../utils";
+import { ProjectsMasonry } from "@/components/projects";
+import { projects } from "@/utils";
 
 export const metadata = {
   title: "Projects | Mark Li",
@@ -8,23 +7,13 @@ export const metadata = {
 
 export default function ProjectsPage() {
   return (
-    <div className="flex flex-col items-center py-5 bg-slate-50">
-      <h1 className="text-5xl my-5">Projects</h1>
-      <div className="flex flex-col items-center grid md:grid-cols-2 lg:grid-cols-3 gap-16 p-10">
-        {projects.map((project: Project) => (
-          <ProjectCard
-            key={project.name}
-            name={project.name}
-            color={project.color}
-            description={project.description ?? ""}
-            image={project.image}
-            link={project.link}
-          >
-            {project.body}
-          </ProjectCard>
-        ))}
-      </div>
+    <div className="min-h-screen bg-slate-50">
+      <main className="mx-auto w-full min-w-0 max-w-6xl overflow-x-clip px-4 pb-16 pt-12 sm:px-6 lg:px-8">
+        <h1 className="text-4xl font-semibold tracking-tight text-slate-900 sm:text-5xl">
+          Projects
+        </h1>
+        <ProjectsMasonry projects={projects} />
+      </main>
     </div>
   );
 }
-

@@ -9,6 +9,7 @@ export const Verdra = {
   },
   description: "Optimize your cloud computing",
   image: "/assets/project_images/Verdra/verdra.png",
+  tags: ["Cloud", "Optimization", "Web"],
   link: "https://verdratech.github.io/Verdra-Site/",
 };
 

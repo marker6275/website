@@ -9,6 +9,7 @@ export const SpeedReader = {
   },
   description: "Read 3x faster",
   image: "/assets/project_images/SpeedReader/sr.png",
+  tags: ["OCR", "React", "Web"],
   link: "https://www.speedread.dev/"
 };
 

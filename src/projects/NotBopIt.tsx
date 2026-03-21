@@ -179,6 +179,7 @@ export const NotBopIt = {
   },
   description: "Bop It wishes it was this",
   image: "/assets/project_images/NotBopIt/microbitLogo.png",
+  tags: ["Sensors", "Embedded", "Micro:bit"],
   body: <BopIt />,
 };
 

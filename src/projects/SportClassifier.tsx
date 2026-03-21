@@ -179,6 +179,7 @@ export const SportClassifier = {
   },
   description: "Which sport is on TV?",
   image: "/assets/project_images/SportClassifier/sports.png",
+  tags: ["Computer Vision", "PyTorch", "Electron"],
   body: <Sports />,
 };
 

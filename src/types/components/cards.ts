@@ -13,6 +13,7 @@ export interface ProjectCardProps {
   image?: string;
   children?: ReactNode;
   link?: string;
+  tags?: string[];
 }
 
 export interface HomeProjectCardProps {

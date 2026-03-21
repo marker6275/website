@@ -13,5 +13,10 @@ export interface Project {
   image?: string;
   body?: ReactNode;
   link?: string;
+  /**
+   * Skill tags shown as “chips” on the Projects grid.
+   * Keep these short and consistent so cards stay balanced.
+   */
+  tags?: string[];
 }
 
