@@ -190,7 +190,7 @@ export default function BetsPage() {
   }
 
   return (
-    <div className="relative min-h-screen bg-gray-50 lg:overflow-hidden">
+    <div className="relative min-h-screen bg-gray-50 overflow-x-hidden">
       <div
         className={`flex flex-col gap-6 items-center min-h-screen transition-all duration-300 ease-in-out ${
           showAddBetModal ? "w-[78vw]" : "w-screen"

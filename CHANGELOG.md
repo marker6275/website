@@ -163,4 +163,5 @@
 
 **4.2.0**
 
-- Redesigned projects page
+- Redesigned projects and music page
+- Redesigned projects and music cards

@@ -21,4 +21,3 @@ export function HomepageDivider({ hide }: HomepageDividerProps) {
     </AnimatedContent>
   );
 }
-

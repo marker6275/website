@@ -1,4 +1,4 @@
-import { useMemo, useSyncExternalStore } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 /** Matches Tailwind `sm` / `lg` defaults (640px / 1024px). */
 export function partitionIntoColumns<T>(
@@ -12,7 +12,6 @@ export function partitionIntoColumns<T>(
 }
 
 function readColumnCount(): 1 | 2 | 3 {
-  if (typeof window === "undefined") return 1;
   if (window.matchMedia("(min-width: 1024px)").matches) return 3;
   if (window.matchMedia("(min-width: 640px)").matches) return 2;
   return 1;
@@ -27,12 +26,16 @@ function subscribeToColumnCount(onChange: () => void): () => void {
     queries.forEach((mq) => mq.removeEventListener("change", onChange));
 }
 
-/**
- * 1 / 2 / 3 columns aligned with `sm:` / `lg:`.
- * Server snapshot uses 3 so the first paint isn’t a single full-width column (huge thumbnails on /projects).
- */
-export function useMasonryColumnCount(): 1 | 2 | 3 {
-  return useSyncExternalStore(subscribeToColumnCount, readColumnCount, () => 3);
+export function useMasonryColumnCount(): 1 | 2 | 3 | null {
+  const [columnCount, setColumnCount] = useState<1 | 2 | 3 | null>(null);
+
+  useEffect(() => {
+    const update = () => setColumnCount(readColumnCount());
+    update();
+    return subscribeToColumnCount(update);
+  }, []);
+
+  return columnCount;
 }
 
 export function usePartitionedProjects<T>(

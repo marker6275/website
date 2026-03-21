@@ -3,7 +3,12 @@ import Link from "next/link";
 import { getProjectSlug } from "../../utils";
 import type { HomeProjectCardProps } from "../../types/components/cards";
 
-export function HomeProjectCard({ name, color, children, link }: HomeProjectCardProps) {
+export function HomeProjectCard({
+  name,
+  color,
+  children,
+  link,
+}: HomeProjectCardProps) {
   const handleClick = (e: React.MouseEvent) => {
     if (link) {
       e.preventDefault();
@@ -30,4 +35,3 @@ export function HomeProjectCard({ name, color, children, link }: HomeProjectCard
 
   return <div>{cardContent}</div>;
 }
-

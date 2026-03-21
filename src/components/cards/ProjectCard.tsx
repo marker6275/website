@@ -32,11 +32,13 @@ export function ProjectCard({
         {image ? (
           <>
             <div className="relative h-24 w-24 overflow-hidden rounded-full sm:hidden">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={image}
                 alt={name}
-                className="block h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                width={96}
+                height={96}
+                sizes="96px"
+                className="h-full w-full object-cover transition-transform duration-300"
                 loading="lazy"
                 decoding="async"
               />
@@ -49,7 +51,7 @@ export function ProjectCard({
                 width={800}
                 height={800}
                 sizes="(max-width: 640px) 92vw, (max-width: 1024px) 44vw, 28vw"
-                className="h-auto w-full min-w-0 max-w-full object-contain transition-transform duration-300 group-hover:scale-[1.02]"
+                className="h-auto w-full min-w-0 max-w-full object-contain transition-transform duration-300"
                 style={{ width: "100%", height: "auto", maxWidth: "100%" }}
               />
             </div>
@@ -97,7 +99,7 @@ export function ProjectCard({
     return (
       <Link
         href={projectPath}
-        className="group block min-w-0 w-full max-w-full overflow-hidden outline-offset-4"
+        className="block min-w-0 w-full max-w-full outline-offset-4"
       >
         {cardBody}
       </Link>
@@ -110,14 +112,12 @@ export function ProjectCard({
         href={link}
         target="_blank"
         rel="noopener noreferrer"
-        className="group block min-w-0 w-full max-w-full overflow-hidden outline-offset-4"
+        className="block min-w-0 w-full max-w-full outline-offset-4"
       >
         {cardBody}
       </a>
     );
   }
 
-  return (
-    <div className="min-w-0 w-full max-w-full overflow-hidden">{cardBody}</div>
-  );
+  return <div className="min-w-0 w-full max-w-full">{cardBody}</div>;
 }

@@ -20,4 +20,3 @@ export function AboutMeTitle() {
     </AnimatedContent>
   );
 }
-
