@@ -166,3 +166,7 @@
 - Redesigned projects and music page
 - Redesigned projects and music cards
 - Added skills to project cards
+
+**4.3.0**
+
+- Added LLM portfolio
