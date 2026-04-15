@@ -1,59 +1,69 @@
 [
   {
     "month": "03-2026",
-    "chatGPT_return": -0.46,
-    "claude_return": 2.34,
-    "grok_return": -3.44,
-    "deepseek_return": -12.59,
-    "spy_return": -4.12,
-    "chatGPT_stocks": [
-      "NVDA",
-      "AVGO",
-      "MSFT",
-      "PLTR",
-      "VRT",
-      "LITE",
-      "COHR",
-      "TMUS",
-      "LNG",
-      "VKTX"
-    ],
-    "claude_stocks": [
-      "XOM",
-      "COP",
-      "CAT",
-      "GEV",
-      "FCX",
-      "NEM",
-      "LLY",
-      "ISRG",
-      "GOOGL",
-      "BRK.B"
-    ],
-    "grok_stocks": [
-      "NVDA",
-      "MU",
-      "AVGO",
-      "ANET",
-      "TSM",
-      "VRT",
-      "FIX",
-      "WDC",
-      "PLTR",
-      "TTD"
-    ],
-    "deepseek_stocks": [
-      "AKON",
-      "VRT",
-      "FICO",
-      "INTC",
-      "TPL",
-      "OUST",
-      "INTU",
-      "CELH",
-      "AVAV",
-      "MDB"
-    ],
-    "spy_stocks": ["SPY"]
+    "chatGPT": {
+      "return": -0.46,
+      "stocks": [
+        "NVDA",
+        "AVGO",
+        "MSFT",
+        "PLTR",
+        "VRT",
+        "LITE",
+        "COHR",
+        "TMUS",
+        "LNG",
+        "VKTX"
+      ]
+    },
+    "claude": {
+      "return": 2.34,
+      "stocks": [
+        "XOM",
+        "COP",
+        "CAT",
+        "GEV",
+        "FCX",
+        "NEM",
+        "LLY",
+        "ISRG",
+        "GOOGL",
+        "BRK.B"
+      ]
+    },
+    "grok": {
+      "return": -3.44,
+      "stocks": [
+        "NVDA",
+        "MU",
+        "AVGO",
+        "ANET",
+        "TSM",
+        "VRT",
+        "FIX",
+        "WDC",
+        "PLTR",
+        "TTD"
+      ]
+    },
+    "deepseek": {
+      "return": -12.59,
+      "stocks": [
+        "AKON",
+        "VRT",
+        "FICO",
+        "INTC",
+        "TPL",
+        "OUST",
+        "INTU",
+        "CELH",
+        "AVAV",
+        "MDB"
+      ]
+    },
+    "spy": {
+      "return": -4.12,
+      "stocks": ["SPY"]
+    }
   }
 ]

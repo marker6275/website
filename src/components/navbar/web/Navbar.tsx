@@ -42,19 +42,18 @@ export function Navbar() {
     }
   };
 
-  // Helper function to check if a path is active
   const isActive = (link: string) => {
     if (link === "/") {
       return pathname === "/" || pathname === "";
     }
-    // Normalize paths by removing trailing slashes for comparison
+
     const normalizedPathname = pathname.replace(/\/$/, "") || "/";
     const normalizedLink = link.replace(/\/$/, "") || "/";
-    
-    // Check exact match or if pathname is a sub-path of the link
+
     return (
       normalizedPathname === normalizedLink ||
-      (normalizedPathname.startsWith(normalizedLink + "/") && normalizedLink !== "/")
+      (normalizedPathname.startsWith(normalizedLink + "/") &&
+        normalizedLink !== "/")
     );
   };
 
@@ -85,7 +84,9 @@ export function Navbar() {
                 onKeyDown={handleKeyDown}
                 placeholder="How did you find this?"
                 value={searchQuery}
-                onInput={(e: React.FormEvent<HTMLInputElement>) => setSearchQuery(e.currentTarget.value)}
+                onInput={(e: React.FormEvent<HTMLInputElement>) =>
+                  setSearchQuery(e.currentTarget.value)
+                }
               />
             </form>
           )}
@@ -112,4 +113,3 @@ export function Navbar() {
     </div>
   );
 }
-

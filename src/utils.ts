@@ -44,6 +44,10 @@ function getSearchLink(search: string): string | null {
     return "/";
   }
 
+  if (search === "llm") {
+    return "/llm-portfolio";
+  }
+
   if (validSearches.includes(search.toLowerCase())) {
     return `/${search.toLowerCase()}`;
   }
@@ -102,5 +106,13 @@ function getProjectSlug(project: { name: string }): string {
   return generateSlug(project.name);
 }
 
-export { projects, featuredProjects, colors, months, getSearchLink, generateSlug, getProjectBySlug, getProjectSlug };
-
+export {
+  projects,
+  featuredProjects,
+  colors,
+  months,
+  getSearchLink,
+  generateSlug,
+  getProjectBySlug,
+  getProjectSlug,
+};

@@ -8,3 +8,4 @@ export { SustainabilityWorkshop } from "./SustainableElectronicsWorkshop";
 export { Verdra } from "./Verdra";
 export { SportClassifier } from "./SportClassifier";
 export { SpeedReader } from "./SpeedReader";
+export { LLMPortfolio } from "./LLMPortfolio";
