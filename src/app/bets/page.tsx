@@ -8,6 +8,7 @@ import {
   Last10BetsSection,
   OpenBetsSection,
   ProfitsAndStatisticsSection,
+  SportAllocationChartSection,
 } from "../../components/bets";
 import type { BetData } from "../../types/app/bets";
 
@@ -219,12 +220,16 @@ export default function BetsPage() {
             setEditedBets={setEditedBets}
           />
 
-          <ProfitsAndStatisticsSection
-            profits={profits}
-            showDropdown={showDropdown}
-            uniqueSports={uniqueSports}
-            data={data.values}
-          />
+          <div className="flex flex-col gap-6">
+            <ProfitsAndStatisticsSection
+              profits={profits}
+              showDropdown={showDropdown}
+              uniqueSports={uniqueSports}
+              data={data.values}
+            />
+
+            <SportAllocationChartSection data={data.values} />
+          </div>
         </div>
       </div>
       <AddBetModal

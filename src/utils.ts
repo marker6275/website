@@ -108,6 +108,26 @@ function getProjectSlug(project: { name: string }): string {
   return generateSlug(project.name);
 }
 
+const betChartColors: Record<string, string> = {
+  NFL: "#6aaef0",
+  NBA: "#ff8a80",
+  CBB: "#7ecb78",
+  UFC: "#77aebb",
+  CFB: "#e9a06f",
+  NHL: "#e9c65d",
+  Tennis: "#b78ae6",
+  MLB: "#8b5c63",
+  WNBA: "#ff8fbc",
+  F1: "#3f3f3f",
+  Won: "#16a34a",
+  Lost: "#b91c1c",
+  Cashed: "#2563eb",
+};
+
+function getBetChartColor(label: string): string {
+  return betChartColors[label] ?? "#475569";
+}
+
 export {
   projects,
   featuredProjects,
@@ -117,4 +137,5 @@ export {
   generateSlug,
   getProjectBySlug,
   getProjectSlug,
+  getBetChartColor,
 };

@@ -170,3 +170,4 @@
 **4.3.0**
 
 - Added LLM portfolio
+- Add sports betting charts
