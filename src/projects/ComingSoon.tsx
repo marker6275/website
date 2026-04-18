@@ -43,7 +43,7 @@ export const ComingSoon = {
     },
     text: "text-gray-400",
   },
-  description: "More write-ups and builds on the way.",
+  description: "More things on the way",
   body: <Coming />,
   tags: [],
 };

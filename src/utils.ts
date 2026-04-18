@@ -9,10 +9,12 @@ import {
   Verdra,
   SportClassifier,
   SpeedReader,
+  LLMPortfolioProject,
 } from "./projects";
 import type { Project } from "./types/projects";
 
 const projects: Project[] = [
+  LLMPortfolioProject,
   SpeedReader,
   SportClassifier,
   Verdra,
@@ -26,8 +28,8 @@ const projects: Project[] = [
 ];
 
 const featuredProjects: Project[] = [
+  LLMPortfolioProject,
   Verdra,
-  SpeedReader,
   IntermittentComputing,
 ];
 

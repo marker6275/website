@@ -18,4 +18,6 @@ export interface Project {
    * Keep these short and consistent so cards stay balanced.
    */
   tags?: string[];
+  /** When true, shows an “In Progress” pill on the top-right of the projects grid card. */
+  inProgress?: boolean;
 }

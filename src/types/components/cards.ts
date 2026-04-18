@@ -14,6 +14,7 @@ export interface ProjectCardProps {
   children?: ReactNode;
   link?: string;
   tags?: string[];
+  inProgress?: boolean;
 }
 
 export interface HomeProjectCardProps {

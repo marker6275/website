@@ -10,7 +10,7 @@ export function HomeProjectCard({
   link,
 }: HomeProjectCardProps) {
   const handleClick = (e: React.MouseEvent) => {
-    if (link) {
+    if (link && !link.startsWith("/")) {
       e.preventDefault();
       window.open(link, "_blank");
     }
@@ -22,7 +22,7 @@ export function HomeProjectCard({
 
   const cardContent = (
     <div
-      onClick={link ? handleClick : undefined}
+      onClick={link && !link.startsWith("/") ? handleClick : undefined}
       className={`border-2 border-slate-800/70 bg-white font-extralight h-24 lg:h-32 rounded-lg flex items-center text-2xl sm:text-3xl hover:cursor-pointer ${color.text} transition-all duration-300 p-10 hover:-translate-y-0.5 hover:shadow-md flex justify-start sm:justify-center`}
     >
       {name}
@@ -31,6 +31,10 @@ export function HomeProjectCard({
 
   if (hasBody) {
     return <Link href={projectPath}>{cardContent}</Link>;
+  }
+
+  if (link?.startsWith("/")) {
+    return <Link href={link}>{cardContent}</Link>;
   }
 
   return <div>{cardContent}</div>;

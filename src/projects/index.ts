@@ -9,3 +9,4 @@ export { Verdra } from "./Verdra";
 export { SportClassifier } from "./SportClassifier";
 export { SpeedReader } from "./SpeedReader";
 export { LLMPortfolio } from "./LLMPortfolio";
+export { LLMPortfolioProject } from "./LLMPortfolioProject";

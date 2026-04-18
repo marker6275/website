@@ -42,6 +42,7 @@ export function ProjectsMasonry({ projects }: ProjectsMasonryProps) {
                 image={project.image}
                 link={project.link}
                 tags={project.tags}
+                inProgress={project.inProgress}
               >
                 {project.body}
               </ProjectCard>

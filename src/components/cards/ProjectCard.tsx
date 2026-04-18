@@ -14,6 +14,7 @@ export function ProjectCard({
   children,
   link,
   tags,
+  inProgress,
 }: ProjectCardProps) {
   const projectSlug = getProjectSlug({ name });
   const projectPath = `/projects/${projectSlug}`;
@@ -32,12 +33,20 @@ export function ProjectCard({
   const cardBody = (
     <div
       className={`
-        flex min-w-0 w-full max-w-full flex-row gap-0 overflow-hidden rounded-lg border-2 border-slate-400/80 bg-white sm:flex-col
+        relative flex min-w-0 w-full max-w-full flex-row gap-0 overflow-hidden rounded-lg border-2 border-slate-400/80 bg-white sm:flex-col
         shadow-sm transition-all duration-200
         hover:-translate-y-0.5 hover:shadow-md
         ${color.text} ${color.border.outer}
       `}
     >
+      {inProgress ? (
+        <span
+          className="pointer-events-none absolute right-2 top-2 z-10 rounded-full border border-green-700/90 bg-green-50 px-2 py-0.5 text-[10px] font-semibold text-black sm:right-2.5 sm:top-2.5 sm:px-2.5 sm:py-1 sm:text-xs"
+          aria-label="In progress"
+        >
+          In Progress
+        </span>
+      ) : null}
       {showImage ? (
         <div className="flex h-28 w-28 min-w-0 shrink-0 items-center justify-center bg-white leading-none sm:h-auto sm:w-full sm:justify-start">
           <div className="relative h-28 w-28 overflow-hidden rounded-full sm:hidden">
@@ -97,6 +106,17 @@ export function ProjectCard({
     return (
       <Link
         href={projectPath}
+        className="block min-w-0 w-full max-w-full outline-offset-4"
+      >
+        {cardBody}
+      </Link>
+    );
+  }
+
+  if (link?.startsWith("/")) {
+    return (
+      <Link
+        href={link}
         className="block min-w-0 w-full max-w-full outline-offset-4"
       >
         {cardBody}

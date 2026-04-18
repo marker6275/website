@@ -25,5 +25,6 @@ export const Template = {
   image: "/assets/not_found.jpg",
   body: <Temp />,
   tags: ["Tag1", "Tag2", "Tag3"],
-  link: "https://www.mark-li.com/",
+  link: "/",
+  inProgress: false,
 };
