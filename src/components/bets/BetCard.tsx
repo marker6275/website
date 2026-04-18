@@ -34,9 +34,9 @@ export function BetCard({
     payout: payout,
   });
 
-  const formatCurrency = (value: string, result: boolean, lostOrCashed: boolean): string => {
-    const num = parseFloat(value);
-    if (result && lostOrCashed) {
+  const formatCurrency = (value: string, forceZeroPayout: boolean, isLost: boolean): string => {
+    const num = parseFloat(value.replace(/^\$/, ""));
+    if (forceZeroPayout && isLost) {
       return "$0.00";
     }
 
@@ -70,7 +70,7 @@ export function BetCard({
         result: res,
         index:
           editResult.index + 1 === results.length ? 0 : editResult.index + 1,
-        payout: editResult.payout,
+        payout: res === BetResults.Cashed ? payout : editResult.payout,
       });
 
       const updateEditedBets = [
@@ -78,11 +78,7 @@ export function BetCard({
         amount,
         odds,
         res,
-        formatCurrency(
-          payout,
-          true,
-          res === BetResults.Lost || res === BetResults.Cashed
-        ),
+        formatCurrency(payout, true, res === BetResults.Lost),
         league,
         line,
         index,
@@ -136,12 +132,7 @@ export function BetCard({
       </div>
       <div className="flex justify-between my-1">
         <span className="font-medium">
-          {formatCurrency(
-            amount,
-            false,
-            editResult.result === BetResults.Lost ||
-              editResult.result === BetResults.Cashed
-          )}
+          {formatCurrency(amount, false, editResult.result === BetResults.Lost)}
         </span>
         <span className="font-medium">{formatOdds(odds)}</span>
       </div>
@@ -162,8 +153,7 @@ export function BetCard({
                   ? payout
                   : editResult.payout,
                 true,
-                editResult.result === BetResults.Lost ||
-                  editResult.result === BetResults.Cashed
+                editResult.result === BetResults.Lost
               ),
             }}
           ></span>

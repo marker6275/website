@@ -42,6 +42,16 @@ function parsePayout(betAmount: number, odds: number, result: string): string {
   return "$0.00";
 }
 
+/** Column E from the sheet / client when appending; only used for Cashed bets. */
+function payoutFromSheetCell(raw: unknown): string | null {
+  if (raw == null) return null;
+  const s = String(raw).trim();
+  if (s === "") return null;
+  const n = parseFloat(s.replace(/^\$/, ""));
+  if (!Number.isFinite(n)) return null;
+  return `$${n.toFixed(2)}`;
+}
+
 function parseValues(values: any[]): string[][] {
   const date = getDate(values[0].slice(-5));
 
@@ -53,7 +63,11 @@ function parseValues(values: any[]): string[][] {
 
   const result = values[3];
 
-  const payout = parsePayout(betAmountAsNumber, oddsAsNumber, result);
+  const explicitPayout = payoutFromSheetCell(values[4]);
+  const payout =
+    result === BetResults.Cashed
+      ? (explicitPayout ?? "$0.00")
+      : parsePayout(betAmountAsNumber, oddsAsNumber, result);
 
   const leagues = values[5];
 

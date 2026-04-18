@@ -12,6 +12,8 @@ export function AddBetModal({ isOpen, onClose }: AddBetModalProps) {
     league: [] as string[],
     line: "",
     result: "Open",
+    /** Cash-out amount written to sheet column E when status is Cashed */
+    payout: "",
   });
 
   const [isLoading, setIsLoading] = useState(false);
@@ -53,12 +55,29 @@ export function AddBetModal({ isOpen, onClose }: AddBetModalProps) {
       return;
     }
 
+    if (formData.result === "Cashed") {
+      const raw = formData.payout.trim();
+      if (raw === "") {
+        alert("Enter the cash-out payout (amount returned — column E in the sheet)");
+        setIsLoading(false);
+        return;
+      }
+      if (!Number.isFinite(parseFloat(raw))) {
+        alert("Enter a valid number for cash-out payout");
+        setIsLoading(false);
+        return;
+      }
+    }
+
+    const payoutCell =
+      formData.result === "Cashed" ? parseFloat(formData.payout) : `$0.00`;
+
     const values = [
       formData.date,
       formData.amount === "" ? "" : parseFloat(formData.amount),
       formData.odds,
       formData.result,
-      `$0.00`,
+      payoutCell,
       formData.league.join(","),
       formData.line,
     ];
@@ -102,6 +121,7 @@ export function AddBetModal({ isOpen, onClose }: AddBetModalProps) {
       league: [],
       line: "",
       result: "Open",
+      payout: "",
     });
 
     setIsLoading(false);
@@ -311,7 +331,11 @@ export function AddBetModal({ isOpen, onClose }: AddBetModalProps) {
                   key={status}
                   type="button"
                   onClick={() =>
-                    setFormData((prev) => ({ ...prev, result: status }))
+                    setFormData((prev) => ({
+                      ...prev,
+                      result: status,
+                      ...(status !== "Cashed" ? { payout: "" } : {}),
+                    }))
                   }
                   className={`px-3 py-2 border rounded-md transition-colors cursor-pointer ${
                     formData.result === status
@@ -324,6 +348,25 @@ export function AddBetModal({ isOpen, onClose }: AddBetModalProps) {
               ))}
             </div>
           </div>
+
+          {formData.result === "Cashed" && (
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Cash-out payout (sheet column E)
+              </label>
+              <input
+                type="number"
+                name="payout"
+                step="0.01"
+                min="0"
+                value={formData.payout}
+                onChange={handleInputChange}
+                placeholder="Amount you received"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                required
+              />
+            </div>
+          )}
 
           <div className="pt-4">
             <button
