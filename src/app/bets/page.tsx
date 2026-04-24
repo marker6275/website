@@ -25,6 +25,8 @@ export default function BetsPage() {
   const [mode, setMode] = useState<"Edit" | "Save">("Edit");
   const [editedBets, setEditedBets] = useState<any[]>([]);
   const [authorized, setAuthorized] = useState<boolean>(false);
+  const [showPasswordDialog, setShowPasswordDialog] = useState<boolean>(false);
+  const [pendingAction, setPendingAction] = useState<"edit" | "add" | null>(null);
   const [password, setPassword] = useState<string>("");
 
   useEffect(() => {
@@ -158,8 +160,17 @@ export default function BetsPage() {
   function handleEditSave() {
     if (mode === "Save") {
       handleSave();
+      setMode("Edit");
+      return;
     }
-    setMode(mode === "Edit" ? "Save" : "Edit");
+
+    if (authorized) {
+      setMode("Save");
+      return;
+    }
+
+    setPendingAction("edit");
+    setShowPasswordDialog(true);
   }
 
   function handlePasswordSubmit() {
@@ -169,6 +180,37 @@ export default function BetsPage() {
 
     sessionStorage.setItem("password_input", password);
     setAuthorized(true);
+    setShowPasswordDialog(false);
+    if (pendingAction === "edit") {
+      setMode("Save");
+    } else if (pendingAction === "add") {
+      setShowAddBetModal(true);
+    }
+    setPendingAction(null);
+  }
+
+  function handleTitleClick() {
+    sessionStorage.removeItem("password_input");
+    setAuthorized(false);
+    setShowPasswordDialog(false);
+    setPendingAction(null);
+    setPassword("");
+    setMode("Edit");
+  }
+
+  function handleAddClick() {
+    if (showAddBetModal) {
+      setShowAddBetModal(false);
+      return;
+    }
+
+    if (authorized) {
+      setShowAddBetModal(true);
+      return;
+    }
+
+    setPendingAction("add");
+    setShowPasswordDialog(true);
   }
 
   const openBets = getOpenBets();
@@ -198,8 +240,8 @@ export default function BetsPage() {
         }`}
       >
         <BetsHeader
-          titleOnClick={() => setAuthorized(false)}
-          addOnClick={() => setShowAddBetModal(!showAddBetModal)}
+          titleOnClick={handleTitleClick}
+          addOnClick={handleAddClick}
           editOnClick={() => handleEditSave()}
           mode={mode}
         />
@@ -236,12 +278,12 @@ export default function BetsPage() {
         isOpen={showAddBetModal}
         onClose={() => setShowAddBetModal(false)}
       />
-      {!authorized && (
-        <div className="absolute top-0 left-0 w-full h-full bg-gray-50 flex items-center justify-center">
-          <div className="flex justify-center items-center bg-white p-4 rounded-lg shadow-md gap-4">
+      {showPasswordDialog && (
+        <div className="fixed top-0 left-0 w-full h-full bg-black/40 z-50 flex items-center justify-center px-4">
+          <div className="flex justify-center items-center bg-white p-6 rounded-lg shadow-md gap-4 max-w-xl w-full">
             <input
-              type="text"
-              className="w-full p-2 border border-gray-300 rounded-md"
+              type="password"
+              className="w-full p-3 border border-gray-300 rounded-md"
               placeholder="Enter Password"
               onChange={(e) => setPassword(e.target.value)}
               value={password}
@@ -252,10 +294,19 @@ export default function BetsPage() {
               }}
             />
             <button
-              className="bg-blue-500 text-white p-2 rounded-md cursor-pointer"
+              className="bg-blue-500 text-white px-4 py-3 rounded-md cursor-pointer"
               onClick={() => handlePasswordSubmit()}
             >
               Submit
+            </button>
+            <button
+              className="bg-gray-200 text-gray-800 px-4 py-3 rounded-md cursor-pointer"
+              onClick={() => {
+                setShowPasswordDialog(false);
+                setPendingAction(null);
+              }}
+            >
+              Cancel
             </button>
           </div>
         </div>
