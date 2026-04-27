@@ -101,6 +101,9 @@ const POSITIVE_FILL = "rgba(22, 163, 74, 0.35)";
 const NEGATIVE_COLOR = "#DC2626";
 const NEGATIVE_FILL = "rgba(220, 38, 38, 0.35)";
 
+/** X-axis category prepended so total (summed) bars sit left of monthly data. */
+const CUMULATIVE_MONTH_KEY = "__cumulative__";
+
 interface LLMPerformanceChartProps {
   data: LLMPortfolioMonth[];
 }
@@ -118,6 +121,10 @@ const monthFormatter = new Intl.DateTimeFormat("en-US", {
 });
 
 function formatMonth(monthKey: string): string {
+  if (monthKey === CUMULATIVE_MONTH_KEY) {
+    return "Total";
+  }
+
   const [first, second] = monthKey.split("-").map(Number);
 
   // Support both "YYYY-MM" and "MM-YYYY" month keys.
@@ -133,11 +140,16 @@ function formatMonth(monthKey: string): string {
 }
 
 function formatPercent(value: number): string {
-  return `${value >= 0 ? "+" : ""}${value.toFixed(1)}%`;
+  return `${value >= 0 ? "+" : ""}${value.toFixed(2)}%`;
 }
 
 function getReturnFill(value: number) {
   return value >= 0 ? POSITIVE_FILL : NEGATIVE_FILL;
+}
+
+/** Cumulative return (%) as the sum of each month’s % (capital resets monthly). */
+function sumCumulativePercent(monthlyPercents: number[]): number {
+  return monthlyPercents.reduce((total, pct) => total + pct, 0);
 }
 
 function toLabel(key: string): string {
@@ -256,6 +268,32 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
     });
   }, [chartData]);
 
+  const displayChartData = useMemo<PortfolioRow[]>(() => {
+    if (chartData.length === 0 || strategies.length === 0) {
+      return chartData;
+    }
+
+    const cumulativeReturns = strategies.reduce<Record<string, number>>(
+      (acc, strategy) => {
+        const monthly = chartData.map((row) =>
+          Number(row[`${strategy.key}_return`]),
+        );
+        acc[`${strategy.key}_return`] = sumCumulativePercent(monthly);
+        return acc;
+      },
+      {},
+    );
+
+    const lastRow = chartData[chartData.length - 1];
+    const cumulativeRow: PortfolioRow = {
+      month: CUMULATIVE_MONTH_KEY,
+      strategyData: { ...lastRow.strategyData },
+      ...cumulativeReturns,
+    };
+
+    return [cumulativeRow, ...chartData];
+  }, [chartData, strategies]);
+
   const [visibleStrategies, setVisibleStrategies] = useState<
     Record<StrategyKey, boolean>
   >({});
@@ -292,7 +330,7 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
       return 12;
     }
 
-    const maxVisible = chartData.reduce((max, row) => {
+    const maxVisible = displayChartData.reduce((max, row) => {
       const rowMax = activeStrategies.reduce((innerMax, strategy) => {
         return Math.max(
           innerMax,
@@ -303,7 +341,7 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
     }, 0);
 
     return Math.max(4, Math.ceil(maxVisible + 1));
-  }, [activeStrategies, chartData]);
+  }, [activeStrategies, displayChartData]);
 
   const handleStrategyToggle = (key: StrategyKey) => {
     setVisibleStrategies((previous) => ({
@@ -316,8 +354,8 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
     if (!selectedMonth) {
       return null;
     }
-    return chartData.find((row) => row.month === selectedMonth) ?? null;
-  }, [chartData, selectedMonth]);
+    return displayChartData.find((row) => row.month === selectedMonth) ?? null;
+  }, [displayChartData, selectedMonth]);
 
   return (
     <section className="w-full rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
@@ -376,7 +414,7 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
         >
           <ResponsiveContainer width="100%" height="100%">
             <ComposedChart
-              data={chartData}
+              data={displayChartData}
               margin={{ top: 10, right: 20, left: 8, bottom: 8 }}
               accessibilityLayer={false}
               tabIndex={-1}
@@ -398,7 +436,7 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
                 yAxisId="returns"
                 orientation="left"
                 domain={[-maxAbsoluteReturn, maxAbsoluteReturn]}
-                tickFormatter={(value) => `${value}%`}
+                tickFormatter={(value) => `${Number(value).toFixed(2)}%`}
                 tickLine={false}
                 axisLine={{
                   stroke: "#64748B",
@@ -437,7 +475,7 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
                   radius={[4, 4, 0, 0]}
                   barSize={12}
                 >
-                  {chartData.map((row, index) => {
+                  {displayChartData.map((row, index) => {
                     const value = Number(row[`${strategy.key}_return`]);
                     return (
                       <Cell

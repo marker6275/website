@@ -6,5 +6,6 @@
 .env
 /.next
 .DS_Store
+tsconfig.tsbuildinfo
 
 google-key.json

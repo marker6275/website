@@ -171,3 +171,4 @@
 
 - Added LLM portfolio
 - Add sports betting charts
+- LLM portfolio cumulative returns chart
