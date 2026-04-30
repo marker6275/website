@@ -57,6 +57,7 @@ const PREFERRED_ORDER = [
   "deepseek",
   "spy",
 ] as const;
+const EXPECTED_HOLDINGS_COUNT = 10;
 
 const TICKER_FULL_NAMES: Record<string, string> = {
   NVDA: "NVIDIA",
@@ -225,6 +226,13 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
         const strategyData = strategyEntries.reduce<
           Record<string, LLMPortfolioStrategy>
         >((acc, [strategyKey, strategyValue]) => {
+          if (process.env.NODE_ENV !== "production" && strategyKey !== "spy") {
+            if (strategyValue.stocks.length !== EXPECTED_HOLDINGS_COUNT) {
+              throw new Error(
+                `Invalid holdings count for ${strategyKey} in ${row.month}: expected ${EXPECTED_HOLDINGS_COUNT}, got ${strategyValue.stocks.length}.`,
+              );
+            }
+          }
           acc[strategyKey] = strategyValue;
           return acc;
         }, {});
@@ -293,6 +301,21 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
 
     return [cumulativeRow, ...chartData];
   }, [chartData, strategies]);
+
+  const cumulativeHoldingsByStrategy = useMemo<Record<string, string[]>>(() => {
+    return chartData.reduce<Record<string, string[]>>((acc, row) => {
+      Object.entries(row.strategyData).forEach(([strategyKey, strategyValue]) => {
+        const existing = new Set(acc[strategyKey] ?? []);
+        strategyValue.stocks.forEach((ticker) => {
+          if (typeof ticker === "string") {
+            existing.add(ticker);
+          }
+        });
+        acc[strategyKey] = Array.from(existing);
+      });
+      return acc;
+    }, {});
+  }, [chartData]);
 
   const [visibleStrategies, setVisibleStrategies] = useState<
     Record<StrategyKey, boolean>
@@ -512,7 +535,9 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
               .filter((strategy) => strategy.key !== "spy")
               .map((strategy) => {
                 const stocks =
-                  selectedRow.strategyData[strategy.key]?.stocks ?? [];
+                  selectedRow.month === CUMULATIVE_MONTH_KEY
+                    ? cumulativeHoldingsByStrategy[strategy.key] ?? []
+                    : selectedRow.strategyData[strategy.key]?.stocks ?? [];
                 const tickers = Array.isArray(stocks)
                   ? stocks.filter(
                       (value): value is string => typeof value === "string",
