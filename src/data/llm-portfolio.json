@@ -132,5 +132,72 @@
       "return": 9.65,
       "stocks": ["SPY"]
     }
+  },
+  {
+    "month": "05-2026",
+    "chatGPT": {
+      "return": 9.03,
+      "stocks": [
+        "NVDA",
+        "AMZN",
+        "GOOGL",
+        "QCOM",
+        "PLTR",
+        "SHOP",
+        "TTD",
+        "ALGM",
+        "LLY",
+        "ALNY"
+      ]
+    },
+    "claude": {
+      "return": 5.95,
+      "stocks": [
+        "LLY",
+        "NVDA",
+        "PLTR",
+        "MSFT",
+        "META",
+        "VRT",
+        "AAPL",
+        "NOW",
+        "ON",
+        "GEV"
+      ]
+    },
+    "grok": {
+      "return": 5.65,
+      "stocks": [
+        "XOM",
+        "CAT",
+        "GEV",
+        "WMT",
+        "CNC",
+        "AMD",
+        "PLTR",
+        "NVDA",
+        "META",
+        "LLY"
+      ]
+    },
+    "deepseek": {
+      "return": 2.27,
+      "stocks": [
+        "NIO",
+        "AAPL",
+        "CAT",
+        "GOOGL",
+        "LLY",
+        "CPRX",
+        "META",
+        "AMZN",
+        "MSFT",
+        "PEP"
+      ]
+    },
+    "spy": {
+      "return": 4.62,
+      "stocks": ["SPY"]
+    }
   }
 ]

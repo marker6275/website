@@ -95,6 +95,22 @@ const TICKER_FULL_NAMES: Record<string, string> = {
   CELH: "Celsius Holdings",
   AVAV: "AeroVironment",
   MDB: "MongoDB",
+  NIO: "Nio",
+  AAPL: "Apple",
+  CPRX: "Catalyst Pharmaceuticals",
+  META: "Meta",
+  AMZN: "Amazon",
+  PEP: "PepsiCo",
+  NOW: "ServiceNow",
+  ON: "ON Semiconductor",
+  WMT: "Walmart",
+  CNC: "Centene",
+  AMD: "Advanced Micro Devices",
+  QCOM: "Qualcomm",
+  ALGM: "Allegion",
+  ALNY: "Alnylam Pharmaceuticals",
+  SHOP: "Shopify",
+  SW: "Smurfit WestRock",
 };
 
 const POSITIVE_COLOR = "#16A34A";
@@ -148,7 +164,6 @@ function getReturnFill(value: number) {
   return value >= 0 ? POSITIVE_FILL : NEGATIVE_FILL;
 }
 
-/** Cumulative return (%) as the sum of each month’s % (capital resets monthly). */
 function sumCumulativePercent(monthlyPercents: number[]): number {
   return monthlyPercents.reduce((total, pct) => total + pct, 0);
 }
@@ -304,15 +319,17 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
 
   const cumulativeHoldingsByStrategy = useMemo<Record<string, string[]>>(() => {
     return chartData.reduce<Record<string, string[]>>((acc, row) => {
-      Object.entries(row.strategyData).forEach(([strategyKey, strategyValue]) => {
-        const existing = new Set(acc[strategyKey] ?? []);
-        strategyValue.stocks.forEach((ticker) => {
-          if (typeof ticker === "string") {
-            existing.add(ticker);
-          }
-        });
-        acc[strategyKey] = Array.from(existing);
-      });
+      Object.entries(row.strategyData).forEach(
+        ([strategyKey, strategyValue]) => {
+          const existing = new Set(acc[strategyKey] ?? []);
+          strategyValue.stocks.forEach((ticker) => {
+            if (typeof ticker === "string") {
+              existing.add(ticker);
+            }
+          });
+          acc[strategyKey] = Array.from(existing);
+        },
+      );
       return acc;
     }, {});
   }, [chartData]);
@@ -536,8 +553,8 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
               .map((strategy) => {
                 const stocks =
                   selectedRow.month === CUMULATIVE_MONTH_KEY
-                    ? cumulativeHoldingsByStrategy[strategy.key] ?? []
-                    : selectedRow.strategyData[strategy.key]?.stocks ?? [];
+                    ? (cumulativeHoldingsByStrategy[strategy.key] ?? [])
+                    : (selectedRow.strategyData[strategy.key]?.stocks ?? []);
                 const tickers = Array.isArray(stocks)
                   ? stocks.filter(
                       (value): value is string => typeof value === "string",
