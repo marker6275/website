@@ -1,6 +1,6 @@
 "use client";
 
-import type { Project } from "@/types/projects";
+import type { Project } from "@/types/components";
 import { ProjectCard } from "@/components/cards";
 import {
   useMasonryColumnCount,

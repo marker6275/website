@@ -10,8 +10,8 @@ import {
   SportClassifier,
   SpeedReader,
   LLMPortfolioProject,
-} from "./projects";
-import type { Project } from "./types/projects";
+} from "@/projects";
+import type { Project } from "@/types/components";
 
 const projects: Project[] = [
   LLMPortfolioProject,
