@@ -1,4 +1,4 @@
-import { T, NL, ST, P, Line } from "../components/text";
+import { T, NL, ST, P, Line } from "@/components/text";
 
 function Intermittent() {
   const hashcashLink = "https://en.wikipedia.org/wiki/Hashcash";

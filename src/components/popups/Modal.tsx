@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
-import type { ModalProps } from "../../types/components/popups";
+import type { ModalProps } from "@/types/components";
 
 export function Modal({ show, onClose, children }: ModalProps) {
   const [mounted, setMounted] = useState(false);
@@ -46,4 +46,3 @@ export function Modal({ show, onClose, children }: ModalProps) {
   );
   return createPortal(markup, document.body);
 }
-

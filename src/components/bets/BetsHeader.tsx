@@ -2,13 +2,18 @@
 
 import { BetsInfoModal, BetsButton } from ".";
 import { useState } from "react";
-import type { BetsHeaderProps } from "../../types/components/bets";
+import type { BetsHeaderProps } from "@/types/components";
 
-export function BetsHeader({ titleOnClick, addOnClick, editOnClick, mode }: BetsHeaderProps) {
+export function BetsHeader({
+  titleOnClick,
+  addOnClick,
+  editOnClick,
+  mode,
+}: BetsHeaderProps) {
   const [showInfoModal, setShowInfoModal] = useState(false);
 
   return (
-    <div className="flex items-center lg:justify-between flex-col lg:flex-row gap-5 w-full px-10 pt-10">
+    <div className="flex w-full shrink-0 flex-col items-center gap-5 px-10 pt-10 lg:flex-row lg:justify-between">
       <div className="flex items-center gap-4 justify-center">
         <div
           className="text-3xl lg:text-4xl font-semibold cursor-pointer"
@@ -28,4 +33,3 @@ export function BetsHeader({ titleOnClick, addOnClick, editOnClick, mode }: Bets
     </div>
   );
 }
-

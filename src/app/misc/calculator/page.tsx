@@ -1,10 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import {
-  NumberButton,
-  OperatorButton,
-} from "../../../components/misc/calculator";
+import { NumberButton, OperatorButton } from "@/components/misc/calculator";
 
 export default function Calculator() {
   const [display, setDisplay] = useState<string>("0");
@@ -84,7 +81,11 @@ export default function Calculator() {
     setNewValue(true);
   }
 
-  function calculateText(A: number, B: number | undefined, operation: string): number {
+  function calculateText(
+    A: number,
+    B: number | undefined,
+    operation: string,
+  ): number {
     const first = parseFloat(String(A));
 
     if (B === undefined) {
@@ -300,4 +301,3 @@ export default function Calculator() {
     </div>
   );
 }
-

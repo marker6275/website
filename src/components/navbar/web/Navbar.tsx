@@ -4,7 +4,7 @@ import { useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { NavbarButton } from "./NavbarButton";
-import { getSearchLink } from "../../../utils";
+import { getSearchLink } from "@/utils";
 import { useRouter, usePathname } from "next/navigation";
 
 export function Navbar() {

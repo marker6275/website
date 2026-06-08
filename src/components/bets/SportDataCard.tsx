@@ -1,7 +1,13 @@
 import { BetResults } from "./BetUtils";
-import type { SportDataCardProps } from "../../types/components/bets";
+import type { SportDataCardProps } from "@/types/components";
 
-export function SportDataCard({ bets, sport, netProfit, totalSpent, profit }: SportDataCardProps) {
+export function SportDataCard({
+  bets,
+  sport,
+  netProfit,
+  totalSpent,
+  profit,
+}: SportDataCardProps) {
   return (
     <div
       className={`bg-gray-100/50 rounded-lg py-2 px-4 flex justify-between hover:bg-gray-200/60 transition-all duration-300 ${
@@ -30,4 +36,3 @@ export function SportDataCard({ bets, sport, netProfit, totalSpent, profit }: Sp
     </div>
   );
 }
-

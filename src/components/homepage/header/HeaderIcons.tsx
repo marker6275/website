@@ -1,11 +1,15 @@
-import { AnimatedContent } from "../../reactbits";
-import { HomeIcon, HomeIconButton } from "../../buttons";
-import data from "../../../info.json";
-import type { HeaderEmailIconProps } from "../../../types/components/homepage";
+import { AnimatedContent } from "@/components/reactbits";
+import { HomeIcon, HomeIconButton } from "@/components/buttons";
+import data from "@/info.json";
+import type { HeaderEmailIconProps } from "@/types/components";
 
 const contact = data.contact;
 
-export function HeaderEmailIcon({ showToast, setShowToast, setIsFadingOut }: HeaderEmailIconProps) {
+export function HeaderEmailIcon({
+  showToast,
+  setShowToast,
+  setIsFadingOut,
+}: HeaderEmailIconProps) {
   return (
     <AnimatedContent
       distance={50}
@@ -92,4 +96,3 @@ export function HeaderLinkedinIcon() {
     </AnimatedContent>
   );
 }
-

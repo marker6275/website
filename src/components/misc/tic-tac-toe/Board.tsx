@@ -1,5 +1,5 @@
 import { GridSquare } from "./GridSquare";
-import type { BoardProps } from "../../../types/components/misc";
+import type { BoardProps } from "@/types/components";
 
 export function Board({ handleClick, gameState, disabled }: BoardProps) {
   return (
@@ -15,4 +15,3 @@ export function Board({ handleClick, gameState, disabled }: BoardProps) {
     </div>
   );
 }
-

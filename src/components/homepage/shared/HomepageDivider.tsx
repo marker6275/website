@@ -1,7 +1,7 @@
 "use client";
 
-import { AnimatedContent } from "../../reactbits";
-import type { HomepageDividerProps } from "../../../types/components/homepage";
+import { AnimatedContent } from "@/components/reactbits";
+import type { HomepageDividerProps } from "@/types/components";
 
 export function HomepageDivider({ hide }: HomepageDividerProps) {
   return (

@@ -1,5 +1,5 @@
 import { HomeIcon } from ".";
-import type { HomeIconButtonProps } from "../../types/components/buttons";
+import type { HomeIconButtonProps } from "@/types/components";
 
 export function HomeIconButton({ src, alt, link }: HomeIconButtonProps) {
   return (
@@ -8,4 +8,3 @@ export function HomeIconButton({ src, alt, link }: HomeIconButtonProps) {
     </a>
   );
 }
-

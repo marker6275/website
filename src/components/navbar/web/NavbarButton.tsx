@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { NavbarButtonProps } from "../../../types/components/navbar";
+import type { NavbarButtonProps } from "@/types/components";
 
 export function NavbarButton({ title, link, selected }: NavbarButtonProps) {
   return (
@@ -28,4 +28,3 @@ export function NavbarButton({ title, link, selected }: NavbarButtonProps) {
     </div>
   );
 }
-

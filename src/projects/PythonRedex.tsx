@@ -1,4 +1,4 @@
-import { T, C, NL, BL, ST, ST2, P, Line } from "../components/text";
+import { T, C, NL, BL, ST, ST2, P, Line } from "@/components/text";
 import Image from "next/image";
 
 export function PRM() {

@@ -1,4 +1,4 @@
-import { AnimatedContent } from "../../reactbits";
+import { AnimatedContent } from "@/components/reactbits";
 import { HomepageButton } from "../shared";
 
 export function MusicText() {

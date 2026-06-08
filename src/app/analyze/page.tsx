@@ -3,7 +3,7 @@ import axios from "axios";
 import { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import { Buffer } from "buffer";
 
-import config from "../../config/analyze";
+import config from "@/config/analyze";
 
 const baseurl = config.baseurl;
 
@@ -50,7 +50,7 @@ function AnalyzePage() {
         JSON.stringify({
           filename: file.name,
           data: fileBytes.toString("base64"),
-        })
+        }),
       );
 
       axios
@@ -185,4 +185,3 @@ function AnalyzePage() {
 }
 
 export default AnalyzePage;
-

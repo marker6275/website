@@ -3,8 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { getProjectSlug } from "../../utils";
-import type { ProjectCardProps } from "../../types/components/cards";
+import { getProjectSlug } from "@/utils";
+import type { ProjectCardProps } from "@/types/components";
 
 export function ProjectCard({
   name,

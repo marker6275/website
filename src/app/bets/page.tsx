@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useProfitsSyncedColumnHeight } from "@/hooks";
 import {
   BetResults,
   AddBetModal,
@@ -9,8 +10,8 @@ import {
   OpenBetsSection,
   ProfitsAndStatisticsSection,
   SportAllocationChartSection,
-} from "../../components/bets";
-import type { BetData } from "../../types/app/bets";
+} from "@/components/bets";
+import type { BetData } from "@/types/app";
 
 export default function BetsPage() {
   const [data, setData] = useState<BetData>({
@@ -19,21 +20,31 @@ export default function BetsPage() {
     error: null,
   });
   const [last10Bets, setLast10Bets] = useState<any[]>([]);
-  const [showDropdown, setShowDropdown] = useState<boolean>(true);
   const [uniqueSports, setUniqueSports] = useState<string[]>([]);
   const [showAddBetModal, setShowAddBetModal] = useState<boolean>(false);
   const [mode, setMode] = useState<"Edit" | "Save">("Edit");
   const [editedBets, setEditedBets] = useState<any[]>([]);
   const [authorized, setAuthorized] = useState<boolean>(false);
   const [showPasswordDialog, setShowPasswordDialog] = useState<boolean>(false);
-  const [pendingAction, setPendingAction] = useState<"edit" | "add" | null>(null);
+  const [pendingAction, setPendingAction] = useState<"edit" | "add" | null>(
+    null,
+  );
   const [password, setPassword] = useState<string>("");
+  const headerRef = useRef<HTMLDivElement>(null);
+  const { layoutRef, sideColumnHeight, scheduleMeasure } =
+    useProfitsSyncedColumnHeight(headerRef);
 
   useEffect(() => {
     if (sessionStorage.getItem("password_input")) {
       setAuthorized(true);
     }
   }, []);
+
+  useEffect(() => {
+    if (!data.loading) {
+      scheduleMeasure();
+    }
+  }, [data.loading, scheduleMeasure]);
 
   useEffect(() => {
     fetch("/bets/api")
@@ -233,44 +244,72 @@ export default function BetsPage() {
   }
 
   return (
-    <div className="relative min-h-screen bg-gray-50 overflow-x-hidden">
+    <div className="relative min-h-screen overflow-x-hidden bg-gray-50">
       <div
-        className={`flex flex-col gap-6 items-center min-h-screen transition-all duration-300 ease-in-out ${
+        className={`flex min-h-screen flex-col items-center gap-6 transition-all duration-300 ease-in-out ${
           showAddBetModal ? "w-[78vw]" : "w-screen"
         }`}
       >
-        <BetsHeader
-          titleOnClick={handleTitleClick}
-          addOnClick={handleAddClick}
-          editOnClick={() => handleEditSave()}
-          mode={mode}
-        />
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full p-6">
-          <Last10BetsSection
-            getCompletedBets={getCompletedBets}
-            last10Bets={last10Bets}
-            editable={mode === "Save"}
-            editedBets={editedBets}
-            setEditedBets={setEditedBets}
+        <div ref={headerRef} className="w-full shrink-0">
+          <BetsHeader
+            titleOnClick={handleTitleClick}
+            addOnClick={handleAddClick}
+            editOnClick={() => handleEditSave()}
+            mode={mode}
           />
+        </div>
 
-          <OpenBetsSection
-            openBets={openBets}
-            editable={mode === "Save"}
-            editedBets={editedBets}
-            setEditedBets={setEditedBets}
-          />
+        <div
+          className="grid w-full grid-cols-1 gap-6 p-6 lg:grid-cols-3 lg:items-start"
+          style={
+            sideColumnHeight !== null
+              ? { minHeight: sideColumnHeight }
+              : undefined
+          }
+        >
+          <div
+            className="flex min-h-0 flex-col overflow-hidden"
+            style={
+              sideColumnHeight !== null
+                ? { height: sideColumnHeight, maxHeight: sideColumnHeight }
+                : undefined
+            }
+          >
+            <Last10BetsSection
+              getCompletedBets={getCompletedBets}
+              last10Bets={last10Bets}
+              editable={mode === "Save"}
+              setEditedBets={setEditedBets}
+            />
+          </div>
 
-          <div className="flex flex-col gap-6">
+          <div
+            className="flex min-h-0 flex-col overflow-hidden"
+            style={
+              sideColumnHeight !== null
+                ? { height: sideColumnHeight, maxHeight: sideColumnHeight }
+                : undefined
+            }
+          >
+            <OpenBetsSection
+              openBets={openBets}
+              editable={mode === "Save"}
+              setEditedBets={setEditedBets}
+            />
+          </div>
+
+          <div ref={layoutRef} className="flex flex-col gap-6">
             <ProfitsAndStatisticsSection
               profits={profits}
-              showDropdown={showDropdown}
               uniqueSports={uniqueSports}
               data={data.values}
+              onLayoutChange={scheduleMeasure}
             />
 
-            <SportAllocationChartSection data={data.values} />
+            <SportAllocationChartSection
+              data={data.values}
+              onLayoutChange={scheduleMeasure}
+            />
           </div>
         </div>
       </div>

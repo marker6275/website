@@ -3,7 +3,7 @@
 import { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import type { AnimatedContentProps } from "../../types/components/reactbits";
+import type { AnimatedContentProps } from "@/types/components";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -72,8 +72,11 @@ const AnimatedContent = ({
     onComplete,
   ]);
 
-  return <div ref={ref} className={className}>{children}</div>;
+  return (
+    <div ref={ref} className={className}>
+      {children}
+    </div>
+  );
 };
 
 export default AnimatedContent;
-

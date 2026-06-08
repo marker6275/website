@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
-import { getProjectSlug } from "../../utils";
-import type { HomeProjectCardProps } from "../../types/components/cards";
+import { getProjectSlug } from "@/utils";
+import type { HomeProjectCardProps } from "@/types/components";
 
 export function HomeProjectCard({
   name,

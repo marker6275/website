@@ -1,5 +1,5 @@
 import React from "react";
-import { T, ST, NL, BL, P, Line } from "../components/text";
+import { T, ST, NL, BL, P, Line } from "@/components/text";
 import Link from "next/link";
 import Image from "next/image";
 

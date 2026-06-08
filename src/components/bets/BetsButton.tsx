@@ -1,5 +1,4 @@
-import type { ReactNode } from "react";
-import type { BetsButtonProps } from "../../types/components/bets";
+import type { BetsButtonProps } from "@/types/components";
 
 export function BetsButton({ children, onClick }: BetsButtonProps) {
   return (
@@ -11,4 +10,3 @@ export function BetsButton({ children, onClick }: BetsButtonProps) {
     </span>
   );
 }
-

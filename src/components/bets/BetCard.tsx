@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { BetResults } from "./BetUtils";
-import type { BetCardProps } from "../../types/components/bets";
+import type { BetCardProps } from "@/types/components";
 
 export function BetCard({
   date,
@@ -14,7 +14,6 @@ export function BetCard({
   line,
   index,
   editable,
-  editedBets,
   setEditedBets,
 }: BetCardProps) {
   const results: string[] = [
@@ -34,7 +33,11 @@ export function BetCard({
     payout: payout,
   });
 
-  const formatCurrency = (value: string, forceZeroPayout: boolean, isLost: boolean): string => {
+  const formatCurrency = (
+    value: string,
+    forceZeroPayout: boolean,
+    isLost: boolean,
+  ): string => {
     const num = parseFloat(value.replace(/^\$/, ""));
     if (forceZeroPayout && isLost) {
       return "$0.00";
@@ -107,7 +110,7 @@ export function BetCard({
   return (
     <div
       className={`w-full p-2 rounded-lg border-4 ${getResultColor(
-        editResult.result
+        editResult.result,
       )} hover:shadow-sm transition-all duration-300`}
     >
       <div className="flex justify-between items-start">
@@ -120,10 +123,10 @@ export function BetCard({
             editResult.result === BetResults.Won
               ? "bg-green-200"
               : editResult.result === BetResults.Lost
-              ? "bg-red-200"
-              : editResult.result === BetResults.Cashed
-              ? "bg-blue-200"
-              : "bg-yellow-200"
+                ? "bg-red-200"
+                : editResult.result === BetResults.Cashed
+                  ? "bg-blue-200"
+                  : "bg-yellow-200"
           }`}
           onClick={() => handleEdit()}
         >
@@ -144,7 +147,10 @@ export function BetCard({
               editResult.result === BetResults.Cashed && editable
             }
             onInput={(e: React.FormEvent<HTMLSpanElement>) => {
-              setEditResult({ ...editResult, payout: e.currentTarget.textContent || "" });
+              setEditResult({
+                ...editResult,
+                payout: e.currentTarget.textContent || "",
+              });
             }}
             dangerouslySetInnerHTML={{
               __html: formatCurrency(
@@ -153,7 +159,7 @@ export function BetCard({
                   ? payout
                   : editResult.payout,
                 true,
-                editResult.result === BetResults.Lost
+                editResult.result === BetResults.Lost,
               ),
             }}
           ></span>
@@ -170,4 +176,3 @@ export function BetCard({
     </div>
   );
 }
-

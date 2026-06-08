@@ -2,13 +2,10 @@
 
 import { BetResults } from "./BetUtils";
 import { PieChartCard } from "./PieChartCard";
-import { getBetChartColor } from "../../utils";
+import { getBetChartColor } from "@/utils";
+import { BetChartProps } from "@/types/components";
 
-interface BetResultsChartProps {
-  data: any[];
-}
-
-export function BetResultsChart({ data }: BetResultsChartProps) {
+export function BetResultsChart({ data }: BetChartProps) {
   const completedBets = data.filter((bet) => bet[3] !== BetResults.Open);
 
   const items = [BetResults.Won, BetResults.Lost, BetResults.Cashed]
@@ -29,7 +26,9 @@ export function BetResultsChart({ data }: BetResultsChartProps) {
       title="Completed Bet Results"
       totalLabel="Results"
       emptyMessage="Add completed bets to see the win, loss, and cashed breakdown."
-      totalDisplayValue={String(items.reduce((sum, item) => sum + item.value, 0))}
+      totalDisplayValue={String(
+        items.reduce((sum, item) => sum + item.value, 0),
+      )}
       items={items}
     />
   );

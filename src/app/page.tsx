@@ -3,7 +3,7 @@ import {
   SectionAboutMe,
   SectionMusic,
   SectionProjects,
-} from "../components/homepage";
+} from "@/components/homepage";
 
 export const metadata = {
   title: "Mark Li",

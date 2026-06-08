@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Board } from "../../../components/misc/tic-tac-toe";
+import { Board } from "@/components/misc/tic-tac-toe";
 
 const winningCombinations = [
   [0, 1, 2],
@@ -102,4 +102,3 @@ export default function Game() {
     </div>
   );
 }
-

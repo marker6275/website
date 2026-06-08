@@ -1,8 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
-import { MusicCard } from "../../cards";
-import info from "../../../info.json";
-import { AnimatedContent } from "../../reactbits";
+import { MusicCard } from "@/components/cards";
+import info from "@/info.json";
+import { AnimatedContent } from "@/components/reactbits";
 
 export function MusicContent() {
   const [featuredMusic, setFeaturedMusic] = useState<any>(null);

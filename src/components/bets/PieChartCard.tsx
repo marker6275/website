@@ -1,19 +1,6 @@
 "use client";
 
-interface PieChartItem {
-  label: string;
-  value: number;
-  color: string;
-  displayValue: string;
-}
-
-interface PieChartCardProps {
-  title: string;
-  totalLabel: string;
-  emptyMessage: string;
-  totalDisplayValue: string;
-  items: PieChartItem[];
-}
+import { PieChartCardProps } from "@/types/components";
 
 export function PieChartCard({
   title,
@@ -56,7 +43,9 @@ export function PieChartCard({
                     const dash = (item.value / totalValue) * circumference;
                     const currentOffset = offset;
                     offset += dash;
-                    const percent = ((item.value / totalValue) * 100).toFixed(1);
+                    const percent = ((item.value / totalValue) * 100).toFixed(
+                      1,
+                    );
 
                     return (
                       <circle
@@ -81,7 +70,9 @@ export function PieChartCard({
                 <div className="text-xs font-medium uppercase tracking-[0.2em] text-gray-500">
                   {totalLabel}
                 </div>
-                <div className="text-2xl font-bold text-gray-800">{totalDisplayValue}</div>
+                <div className="text-2xl font-bold text-gray-800">
+                  {totalDisplayValue}
+                </div>
               </div>
             </div>
           </div>

@@ -1,4 +1,4 @@
-import { AnimatedContent } from "../../reactbits";
+import { AnimatedContent } from "@/components/reactbits";
 
 export function HeaderSubtitle() {
   return (
@@ -16,4 +16,3 @@ export function HeaderSubtitle() {
     </h2>
   );
 }
-

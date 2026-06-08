@@ -1,7 +1,7 @@
-import { AnimatedContent } from "../../reactbits";
-import { HomeProjectCard } from "../../cards";
-import { featuredProjects } from "../../../utils";
-import type { Project } from "../../../types/projects";
+import { AnimatedContent } from "@/components/reactbits";
+import { HomeProjectCard } from "@/components/cards";
+import { featuredProjects } from "@/utils";
+import { Project } from "@/types/components";
 
 export function ProjectsList() {
   return (

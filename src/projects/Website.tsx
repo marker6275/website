@@ -1,5 +1,5 @@
 import React from "react";
-import { T, BL, ST, P, Line } from "../components/text";
+import { T, BL, ST, P, Line } from "@/components/text";
 
 function Web() {
   return (
@@ -67,4 +67,3 @@ export const Website = {
   tags: ["React", "Next.js", "Tailwind"],
   body: <Web />,
 };
-

@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { AnimatedContent } from "../../reactbits";
-import type { HomepageButtonProps } from "../../../types/components/homepage";
+import { AnimatedContent } from "@/components/reactbits";
+import type { HomepageButtonProps } from "@/types/components";
 
 export function HomepageButton({ text, href, reverse }: HomepageButtonProps) {
   return (
@@ -26,4 +26,3 @@ export function HomepageButton({ text, href, reverse }: HomepageButtonProps) {
     </AnimatedContent>
   );
 }
-

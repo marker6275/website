@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { google } from "googleapis";
-import { BetResults } from "../../../components/bets";
+import betsConfig from "@/config/bets";
+import { BetResults } from "@/components/bets";
 
 export const runtime = "nodejs";
 
@@ -78,7 +79,7 @@ function parseValues(values: any[]): string[][] {
 
 async function getSheetsClient() {
   let privateKey = process.env.GOOGLE_PRIVATE_KEY;
-  const spreadsheetId = process.env.SPREADSHEET_ID;
+  const spreadsheetId = betsConfig.spreadsheetId;
   const clientEmail = process.env.GOOGLE_CLIENT_EMAIL;
 
   if (!privateKey || !spreadsheetId || !clientEmail) {
@@ -104,7 +105,7 @@ export async function GET() {
     if (!client) {
       return NextResponse.json(
         { error: "Missing environment variables" },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
@@ -134,7 +135,7 @@ export async function POST(request: NextRequest) {
     if (!client) {
       return NextResponse.json(
         { error: "Missing environment variables" },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
@@ -178,4 +179,3 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: err.message }, { status: 500 });
   }
 }
-

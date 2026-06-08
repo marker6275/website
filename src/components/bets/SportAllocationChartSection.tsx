@@ -1,25 +1,33 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BetCountBySportChart } from "./BetCountBySportChart";
 import { MoneyBySportChart } from "./MoneyBySportChart";
 import { BetResultsChart } from "./BetResultsChart";
-
-interface SportAllocationChartSectionProps {
-  data: any[];
-}
+import { SportAllocationChartSectionProps } from "@/types/components";
 
 export function SportAllocationChartSection({
   data,
+  onLayoutChange,
 }: SportAllocationChartSectionProps) {
   const [showSection, setShowSection] = useState(false);
   const [chartMode, setChartMode] = useState<"bets" | "money" | "results">(
-    "bets"
+    "bets",
   );
+
+  useEffect(() => {
+    onLayoutChange?.();
+
+    const timeoutId = window.setTimeout(() => {
+      onLayoutChange?.();
+    }, 100);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [onLayoutChange, showSection, chartMode]);
 
   return (
     <div
-      className="bg-white rounded-lg py-4 px-4 shadow-sm border cursor-pointer"
+      className="cursor-pointer rounded-lg border bg-white px-4 py-4 shadow-sm transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-gray-100 hover:shadow-md"
       onClick={() => setShowSection(!showSection)}
     >
       <div className="text-center font-semibold text-lg">Charts</div>

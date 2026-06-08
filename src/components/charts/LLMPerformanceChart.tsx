@@ -1,6 +1,12 @@
 "use client";
 
-import { useEffect, useMemo, useState, type CSSProperties } from "react";
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type CSSProperties,
+} from "react";
 import {
   ResponsiveContainer,
   ComposedChart,
@@ -13,24 +19,14 @@ import {
   Tooltip,
 } from "recharts";
 import type {
-  LLMPortfolioMonth,
   LLMPortfolioStrategy,
-} from "@/types/llmPortfolio";
-
-type StrategyKey = string;
-
-interface StrategyConfig {
-  key: StrategyKey;
-  label: string;
-  color: string;
-  barColor: string;
-}
-
-type PortfolioRow = {
-  month: string;
-  strategyData: Record<string, LLMPortfolioStrategy>;
-  [key: string]: string | number | Record<string, LLMPortfolioStrategy>;
-};
+  StrategyKey,
+  StrategyConfig,
+  PortfolioRow,
+  LLMPerformanceChartProps,
+  CustomTooltipProps,
+} from "@/types/components";
+import { getTickerFullName } from "@/utils";
 
 const STRATEGY_COLORS: Record<string, { color: string; barColor: string }> = {
   gpt: { color: "#2563EB", barColor: "rgba(37, 99, 235, 0.40)" },
@@ -58,79 +54,32 @@ const PREFERRED_ORDER = [
   "spy",
 ] as const;
 const EXPECTED_HOLDINGS_COUNT = 10;
+const BAR_ANIMATION_DURATION = 200;
 
-const TICKER_FULL_NAMES: Record<string, string> = {
-  NVDA: "NVIDIA",
-  AVGO: "Broadcom",
-  MSFT: "Microsoft",
-  PLTR: "Palantir Technologies",
-  VRT: "Vertiv Holdings",
-  LITE: "Lumentum Holdings",
-  COHR: "Coherent",
-  TMUS: "T-Mobile",
-  LNG: "Cheniere Energy",
-  VKTX: "Viking Therapeutics",
-  XOM: "Exxon Mobil",
-  COP: "ConocoPhillips",
-  CAT: "Caterpillar",
-  GEV: "GE Vernova",
-  FCX: "Freeport-McMoRan",
-  NEM: "Newmont",
-  LLY: "Eli Lilly",
-  ISRG: "Intuitive Surgical",
-  GOOGL: "Alphabet",
-  "BRK.B": "Berkshire Hathaway",
-  MU: "Micron Technology",
-  ANET: "Arista Networks",
-  TSM: "Taiwan Semiconductor Manufacturing",
-  FIX: "Comfort Systems",
-  WDC: "Western Digital",
-  TTD: "The Trade Desk",
-  AKON: "Axon Enterprise",
-  FICO: "Fair Isaac Corporation",
-  INTC: "Intel",
-  TPL: "Texas Pacific Land",
-  OUST: "Ouster",
-  INTU: "Intuit",
-  CELH: "Celsius Holdings",
-  AVAV: "AeroVironment",
-  MDB: "MongoDB",
-  NIO: "Nio",
-  AAPL: "Apple",
-  CPRX: "Catalyst Pharmaceuticals",
-  META: "Meta",
-  AMZN: "Amazon",
-  PEP: "PepsiCo",
-  NOW: "ServiceNow",
-  ON: "ON Semiconductor",
-  WMT: "Walmart",
-  CNC: "Centene",
-  AMD: "Advanced Micro Devices",
-  QCOM: "Qualcomm",
-  ALGM: "Allegion",
-  ALNY: "Alnylam Pharmaceuticals",
-  SHOP: "Shopify",
-  SW: "Smurfit WestRock",
-};
+function getOrderedStrategyKeys(rows: PortfolioRow[]): string[] {
+  const availableKeys = new Set<string>();
+
+  for (const row of rows) {
+    Object.keys(row.strategyData).forEach((key) => availableKeys.add(key));
+  }
+
+  const preferredKeys = PREFERRED_ORDER.filter((key) => availableKeys.has(key));
+  const remainingKeys = [...availableKeys]
+    .filter(
+      (key) =>
+        !PREFERRED_ORDER.includes(key as (typeof PREFERRED_ORDER)[number]),
+    )
+    .sort();
+
+  return [...preferredKeys, ...remainingKeys];
+}
 
 const POSITIVE_COLOR = "#16A34A";
 const POSITIVE_FILL = "rgba(22, 163, 74, 0.35)";
 const NEGATIVE_COLOR = "#DC2626";
 const NEGATIVE_FILL = "rgba(220, 38, 38, 0.35)";
 
-/** X-axis category prepended so total (summed) bars sit left of monthly data. */
 const CUMULATIVE_MONTH_KEY = "__cumulative__";
-
-interface LLMPerformanceChartProps {
-  data: LLMPortfolioMonth[];
-}
-
-interface CustomTooltipProps {
-  active?: boolean;
-  payload?: Array<{ payload: PortfolioRow }>;
-  label?: string;
-  activeStrategies: StrategyConfig[];
-}
 
 const monthFormatter = new Intl.DateTimeFormat("en-US", {
   month: "short",
@@ -170,10 +119,6 @@ function sumCumulativePercent(monthlyPercents: number[]): number {
 
 function toLabel(key: string): string {
   return key === "spy" ? "S&P 500" : key.charAt(0).toUpperCase() + key.slice(1);
-}
-
-function getTickerFullName(ticker: string): string {
-  return TICKER_FULL_NAMES[ticker] ?? ticker;
 }
 
 function CustomTooltip({
@@ -262,22 +207,10 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
   );
 
   const strategies = useMemo<StrategyConfig[]>(() => {
-    const firstRow = chartData[0];
-    if (!firstRow) {
+    const orderedReturnKeys = getOrderedStrategyKeys(chartData);
+    if (orderedReturnKeys.length === 0) {
       return [];
     }
-
-    const datasetOrderKeys = Object.entries(firstRow)
-      .filter(([key]) => key.endsWith("_return"))
-      .map(([key]) => key.replace("_return", ""));
-
-    const preferredKeys = PREFERRED_ORDER.filter((key) =>
-      datasetOrderKeys.includes(key),
-    );
-    const remainingKeys = datasetOrderKeys.filter(
-      (key) => !preferredKeys.includes(key as (typeof PREFERRED_ORDER)[number]),
-    );
-    const orderedReturnKeys = [...preferredKeys, ...remainingKeys];
 
     return orderedReturnKeys.map((key, index) => {
       const colors =
@@ -338,6 +271,7 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
     Record<StrategyKey, boolean>
   >({});
   const [selectedMonth, setSelectedMonth] = useState<string | null>(null);
+  const chartHasRendered = useRef(false);
 
   const allVisibleMap = useMemo(
     () =>
@@ -364,6 +298,17 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
     () => strategies.filter((strategy) => visibleStrategies[strategy.key]),
     [strategies, visibleStrategies],
   );
+
+  const visibleStrategyKey = useMemo(
+    () => activeStrategies.map((strategy) => strategy.key).join(","),
+    [activeStrategies],
+  );
+
+  const shouldAnimateBars = !chartHasRendered.current;
+
+  useEffect(() => {
+    chartHasRendered.current = true;
+  }, [visibleStrategyKey]);
 
   const maxAbsoluteReturn = useMemo(() => {
     if (activeStrategies.length === 0) {
@@ -454,6 +399,7 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
         >
           <ResponsiveContainer width="100%" height="100%">
             <ComposedChart
+              key={visibleStrategyKey}
               data={displayChartData}
               margin={{ top: 10, right: 20, left: 8, bottom: 8 }}
               accessibilityLayer={false}
@@ -496,13 +442,16 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
                 content={<CustomTooltip activeStrategies={activeStrategies} />}
                 cursor={false}
               />
-              {strategies.map((strategy) => (
+              {activeStrategies.map((strategy) => (
                 <Bar
                   key={`${strategy.key}-bar`}
                   yAxisId="returns"
                   dataKey={`${strategy.key}_return`}
                   name={`${strategy.label} Return`}
                   activeBar={false}
+                  isAnimationActive={shouldAnimateBars}
+                  animationDuration={BAR_ANIMATION_DURATION}
+                  animationEasing="ease-out"
                   onClick={(state) =>
                     setSelectedMonth(
                       String(state?.payload?.month ?? selectedMonth),
@@ -510,8 +459,7 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
                   }
                   fill={POSITIVE_FILL}
                   stroke={strategy.color}
-                  fillOpacity={visibleStrategies[strategy.key] ? 1 : 0}
-                  strokeOpacity={visibleStrategies[strategy.key] ? 0.35 : 0}
+                  strokeOpacity={0.35}
                   radius={[4, 4, 0, 0]}
                   barSize={12}
                 >
@@ -522,10 +470,7 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
                         key={`${strategy.key}-${index}`}
                         fill={getReturnFill(value)}
                         stroke={strategy.color}
-                        fillOpacity={visibleStrategies[strategy.key] ? 1 : 0}
-                        strokeOpacity={
-                          visibleStrategies[strategy.key] ? 0.9 : 0
-                        }
+                        strokeOpacity={0.9}
                       />
                     );
                   })}

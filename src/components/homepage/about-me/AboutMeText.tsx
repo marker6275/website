@@ -1,4 +1,4 @@
-import { AnimatedContent } from "../../reactbits";
+import { AnimatedContent } from "@/components/reactbits";
 
 export function AboutMeText() {
   return (

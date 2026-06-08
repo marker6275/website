@@ -1,4 +1,4 @@
-import { T, ST, P, Line, C } from "../components/text";
+import { T, ST, P, Line, C } from "@/components/text";
 import Image from "next/image";
 
 export function BopIt() {

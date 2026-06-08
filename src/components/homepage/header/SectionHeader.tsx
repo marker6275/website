@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Toast } from "../../popups";
+import { Toast } from "@/components/popups";
 import { HeaderProfilePicture } from "./HeaderProfilePicture";
 import { HeaderName } from "./HeaderName";
 import { HeaderSubtitle } from "./HeaderSubtitle";

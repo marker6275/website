@@ -1,4 +1,4 @@
-import type { OperatorButtonProps } from "../../../types/components/misc";
+import type { OperatorButtonProps } from "@/types/components";
 
 export function OperatorButton({ children, onClick }: OperatorButtonProps) {
   return (
@@ -10,4 +10,3 @@ export function OperatorButton({ children, onClick }: OperatorButtonProps) {
     </div>
   );
 }
-

@@ -1,4 +1,4 @@
-import { NavbarWrapper } from "../components/navbar";
+import { NavbarWrapper } from "@/components/navbar";
 import { Open_Sans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import type { ReactNode } from "react";

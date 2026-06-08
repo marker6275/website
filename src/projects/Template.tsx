@@ -1,5 +1,5 @@
 import React from "react";
-import { T, ST, P, Line } from "../components/text";
+import { T, ST, P, Line } from "@/components/text";
 
 function Temp() {
   return (

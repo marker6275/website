@@ -1,5 +1,5 @@
 import React from "react";
-import { T, ST, P, Line, BL, NL, ST2 } from "../components/text";
+import { T, ST, P, Line, BL, NL, ST2 } from "@/components/text";
 
 function Sports() {
   const githubURL = "https://github.com/marker6275/sports-classifier";

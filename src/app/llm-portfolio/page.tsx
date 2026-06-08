@@ -1,11 +1,19 @@
 import { LLMPerformanceChart } from "@/components/charts/LLMPerformanceChart";
-import llmPortfolioData from "@/data/llm-portfolio.json";
+import { fetchLLMPortfolioData } from "@/lib/llmPortfolio/fetchPortfolioData";
+import { LLMPortfolioMonth } from "@/types/app";
 
-export const metadata = {
-  title: "LLM Portfolio Experiment | Mark Li",
-};
+export const revalidate = 300;
 
-export default function LLMPortfolioPage() {
+export default async function LLMPortfolioPage() {
+  let error: string | null = null;
+  let data: LLMPortfolioMonth[] = [];
+
+  try {
+    data = await fetchLLMPortfolioData();
+  } catch (err: unknown) {
+    error = err instanceof Error ? err.message : "Unknown error";
+  }
+
   return (
     <div className="min-h-screen bg-slate-50">
       <main className="mx-auto w-full max-w-7xl px-4 pb-14 pt-10 sm:px-6 lg:px-8">
@@ -19,7 +27,15 @@ export default function LLMPortfolioPage() {
           </p>
         </section>
 
-        <LLMPerformanceChart data={llmPortfolioData} />
+        {error ? (
+          <p className="text-sm text-red-600">
+            Failed to load portfolio data: {error}
+          </p>
+        ) : data.length === 0 ? (
+          <p className="text-sm text-slate-600">No portfolio data found.</p>
+        ) : (
+          <LLMPerformanceChart data={data} />
+        )}
       </main>
     </div>
   );

@@ -1,6 +1,10 @@
-import type { ProjectPageButtonProps } from "../../types/components/buttons";
+import type { ProjectPageButtonProps } from "@/types/components";
 
-export function ProjectPageButton({ pageNumber, isActive, setPageNumber }: ProjectPageButtonProps) {
+export function ProjectPageButton({
+  pageNumber,
+  isActive,
+  setPageNumber,
+}: ProjectPageButtonProps) {
   return (
     <button
       onClick={() => setPageNumber(pageNumber)}
@@ -12,4 +16,3 @@ export function ProjectPageButton({ pageNumber, isActive, setPageNumber }: Proje
     </button>
   );
 }
-

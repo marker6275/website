@@ -1,5 +1,5 @@
-import { AnimatedContent } from "../../reactbits";
-import { useSafeMediaQuery } from "../../../hooks/useSafeMediaQuery";
+import { AnimatedContent } from "@/components/reactbits";
+import { useSafeMediaQuery } from "@/hooks";
 import Image from "next/image";
 
 export function HeaderProfilePicture() {
@@ -26,4 +26,3 @@ export function HeaderProfilePicture() {
     </AnimatedContent>
   );
 }
-

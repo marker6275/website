@@ -1,4 +1,4 @@
-import type { GridSquareProps } from "../../../types/components/misc";
+import type { GridSquareProps } from "@/types/components";
 
 export function GridSquare({ symbol, onClick, disabled }: GridSquareProps) {
   return (
@@ -12,4 +12,3 @@ export function GridSquare({ symbol, onClick, disabled }: GridSquareProps) {
     </div>
   );
 }
-

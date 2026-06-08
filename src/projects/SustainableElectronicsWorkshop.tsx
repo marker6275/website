@@ -1,4 +1,4 @@
-import { T, ST, P, Line, NL } from "../components/text";
+import { T, ST, P, Line, NL } from "@/components/text";
 
 function SEW() {
   const projectReport =
@@ -158,4 +158,3 @@ export const SustainabilityWorkshop = {
   tags: ["Sustainability", "Electronics", "Education"],
   body: <SEW />,
 };
-

@@ -1,4 +1,4 @@
-import { T, P, Line } from "../components/text";
+import { T, P, Line } from "@/components/text";
 
 function Coming() {
   return (

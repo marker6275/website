@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { NumberButtonProps } from "../../../types/components/misc";
+import type { NumberButtonProps } from "@/types/components";
 
 export function NumberButton({ children, onClick }: NumberButtonProps) {
   return (
@@ -11,4 +11,3 @@ export function NumberButton({ children, onClick }: NumberButtonProps) {
     </div>
   );
 }
-

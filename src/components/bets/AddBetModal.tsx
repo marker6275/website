@@ -2,7 +2,7 @@
 
 import { useState, FormEvent, ChangeEvent } from "react";
 import { leagueOptions } from "./BetUtils";
-import type { AddBetModalProps } from "../../types/components/bets";
+import type { AddBetModalProps } from "@/types/components";
 
 export function AddBetModal({ isOpen, onClose }: AddBetModalProps) {
   const [formData, setFormData] = useState({
@@ -12,14 +12,15 @@ export function AddBetModal({ isOpen, onClose }: AddBetModalProps) {
     league: [] as string[],
     line: "",
     result: "Open",
-    /** Cash-out amount written to sheet column E when status is Cashed */
     payout: "",
   });
 
   const [isLoading, setIsLoading] = useState(false);
   const [submit, setSubmit] = useState({ success: false, error: false });
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -58,7 +59,9 @@ export function AddBetModal({ isOpen, onClose }: AddBetModalProps) {
     if (formData.result === "Cashed") {
       const raw = formData.payout.trim();
       if (raw === "") {
-        alert("Enter the cash-out payout (amount returned — column E in the sheet)");
+        alert(
+          "Enter the cash-out payout (amount returned — column E in the sheet)",
+        );
         setIsLoading(false);
         return;
       }
@@ -386,4 +389,3 @@ export function AddBetModal({ isOpen, onClose }: AddBetModalProps) {
     </div>
   );
 }
-

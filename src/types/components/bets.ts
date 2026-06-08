@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 
+export type BetRow = Array<string | number>;
 export interface AddBetModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -15,15 +16,13 @@ export interface BetCardProps {
   line: string;
   index: number;
   editable: boolean;
-  editedBets: any[];
-  setEditedBets: (bets: any[] | ((prev: any[]) => any[])) => void;
+  setEditedBets: (bets: BetRow[] | ((prev: BetRow[]) => BetRow[])) => void;
 }
 
 export interface OpenBetsSectionProps {
-  openBets: any[];
+  openBets: BetRow[];
   editable: boolean;
-  editedBets: any[];
-  setEditedBets: (bets: any[] | ((prev: any[]) => any[])) => void;
+  setEditedBets: (bets: BetRow[] | ((prev: BetRow[]) => BetRow[])) => void;
 }
 
 export interface ProfitsAndStatisticsSectionProps {
@@ -36,28 +35,28 @@ export interface ProfitsAndStatisticsSectionProps {
     lastDay: string | null;
     lastDayProfit: number;
   };
-  showDropdown: boolean;
   uniqueSports: string[];
-  data: any[];
+  data: BetRow[];
+  onLayoutChange?: () => void;
 }
 
 export interface Last10BetsSectionProps {
-  getCompletedBets: (bets: any[]) => any[];
-  last10Bets: any[];
+  getCompletedBets: (bets: BetRow[]) => BetRow[];
+  last10Bets: BetRow[];
   editable: boolean;
-  editedBets: any[];
   setEditedBets: (bets: any[] | ((prev: any[]) => any[])) => void;
 }
 
 export interface BetsBySportDropdownProps {
   uniqueSports: string[];
-  data: any[];
+  data: BetRow[];
   getNetProfit: (bets: any[]) => number;
   getBetsBySport: (data: any[], sport: string) => any[];
+  onLayoutChange?: () => void;
 }
 
 export interface SportDataCardProps {
-  bets: any[];
+  bets: BetRow[];
   sport: string;
   netProfit: number;
   totalSpent: string;
@@ -79,4 +78,27 @@ export interface BetsInfoModalProps {
 export interface BetsButtonProps {
   onClick: () => void;
   children: ReactNode;
+}
+export interface BetChartProps {
+  data: BetRow[];
+}
+
+interface PieChartItem {
+  label: string;
+  value: number;
+  color: string;
+  displayValue: string;
+}
+
+export interface PieChartCardProps {
+  title: string;
+  totalLabel: string;
+  emptyMessage: string;
+  totalDisplayValue: string;
+  items: PieChartItem[];
+}
+
+export interface SportAllocationChartSectionProps {
+  data: BetRow[];
+  onLayoutChange?: () => void;
 }

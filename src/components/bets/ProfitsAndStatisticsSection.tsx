@@ -1,18 +1,22 @@
 "use client";
 
-import { useState } from "react";
-import { useSafeMediaQuery } from "../../hooks/useSafeMediaQuery";
+import { useEffect, useState } from "react";
+import { useSafeMediaQuery } from "@/hooks";
 import { BetsBySportDropdown, BetResults } from ".";
-import type { ProfitsAndStatisticsSectionProps } from "../../types/components/bets";
+import type { ProfitsAndStatisticsSectionProps } from "@/types/components";
 
 export function ProfitsAndStatisticsSection({
   profits,
-  showDropdown,
   uniqueSports,
   data,
+  onLayoutChange,
 }: ProfitsAndStatisticsSectionProps) {
   const isMobile = useSafeMediaQuery("(max-width: 1023px)");
   const [showSection, setShowSection] = useState(true);
+
+  useEffect(() => {
+    onLayoutChange?.();
+  }, [onLayoutChange, showSection]);
 
   function handleMobileCheck() {
     return isMobile ? setShowSection(!showSection) : null;
@@ -22,11 +26,11 @@ export function ProfitsAndStatisticsSection({
     const completedBets = bets.filter((bet) => bet[3] !== BetResults.Open);
     const amountSpent = completedBets.reduce(
       (acc, bet) => acc + parseFloat(bet[1].replace(/^\$/, "")),
-      0
+      0,
     );
     const amountReturned = completedBets.reduce(
       (acc, bet) => acc + parseFloat(bet[4].replace(/^\$/, "")),
-      0
+      0,
     );
     return parseFloat((amountReturned - amountSpent).toFixed(2));
   };
@@ -37,7 +41,7 @@ export function ProfitsAndStatisticsSection({
         bet[5]
           .split(",")
           .map((s: string) => s.trim())
-          .includes(sport) && bet[3]
+          .includes(sport) && bet[3],
     );
   };
 
@@ -118,8 +122,8 @@ export function ProfitsAndStatisticsSection({
         data={data}
         getNetProfit={getNetProfit}
         getBetsBySport={getBetsBySport}
+        onLayoutChange={onLayoutChange}
       />
     </div>
   );
 }
-

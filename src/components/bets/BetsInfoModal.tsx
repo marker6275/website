@@ -1,5 +1,5 @@
 import Image from "next/image";
-import type { BetsInfoModalProps } from "../../types/components/bets";
+import type { BetsInfoModalProps } from "@/types/components";
 
 export function BetsInfoModal({ showInfoModal, onClick }: BetsInfoModalProps) {
   return (
@@ -21,4 +21,3 @@ export function BetsInfoModal({ showInfoModal, onClick }: BetsInfoModalProps) {
     </div>
   );
 }
-

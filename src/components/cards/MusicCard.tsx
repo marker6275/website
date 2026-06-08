@@ -1,7 +1,7 @@
 "use client";
-import { colors, months } from "../../utils";
-import { useSafeMediaQuery } from "../../hooks/useSafeMediaQuery";
-import type { MusicCardProps } from "../../types/components/cards";
+import { colors, months } from "@/utils";
+import { useSafeMediaQuery } from "@/hooks";
+import type { MusicCardProps } from "@/types/components";
 
 export function MusicCard({
   id,

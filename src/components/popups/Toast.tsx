@@ -1,4 +1,4 @@
-import type { ToastProps } from "../../types/components/popups";
+import type { ToastProps } from "@/types/components";
 
 export function Toast({ isFadingOut, message = "message" }: ToastProps) {
   return (
@@ -11,4 +11,3 @@ export function Toast({ isFadingOut, message = "message" }: ToastProps) {
     </div>
   );
 }
-

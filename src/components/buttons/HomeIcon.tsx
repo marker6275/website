@@ -1,5 +1,5 @@
 import Image from "next/image";
-import type { HomeIconProps } from "../../types/components/buttons";
+import type { HomeIconProps } from "@/types/components";
 
 export function HomeIcon({ src, alt }: HomeIconProps) {
   return (
@@ -12,4 +12,3 @@ export function HomeIcon({ src, alt }: HomeIconProps) {
     />
   );
 }
-
