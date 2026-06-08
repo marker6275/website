@@ -41,7 +41,7 @@ async function createSheetsClient() {
 
 export async function fetchLLMPortfolioData(): Promise<LLMPortfolioMonth[]> {
   const client = await getSheetsClient();
-  if (!client) {
+  if (!client || !llmPortfolioConfig.range) {
     throw new Error("Missing environment variables");
   }
 
@@ -51,7 +51,6 @@ export async function fetchLLMPortfolioData(): Promise<LLMPortfolioMonth[]> {
     sheets,
     spreadsheetId,
     llmPortfolioConfig.range,
-    llmPortfolioConfig.sheetGid,
   );
 
   const result = await sheets.spreadsheets.values.get({
