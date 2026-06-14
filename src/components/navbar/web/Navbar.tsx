@@ -105,6 +105,11 @@ export function Navbar() {
           selected={isActive("/music")}
         />
         <NavbarButton
+          title="NOW"
+          link="/now"
+          selected={isActive("/now")}
+        />
+        <NavbarButton
           title="RESUME"
           link="/resume"
           selected={isActive("/resume")}

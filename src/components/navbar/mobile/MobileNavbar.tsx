@@ -77,6 +77,7 @@ export function MobileNavbar() {
             link="/projects"
           />
           <MobileNavbarButton toggle={toggleMenu} title="MUSIC" link="/music" />
+          <MobileNavbarButton toggle={toggleMenu} title="NOW" link="/now" />
           <MobileNavbarButton
             toggle={toggleMenu}
             title="RESUME"
