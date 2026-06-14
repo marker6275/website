@@ -157,3 +157,4 @@
 
 - LLM portfolio reads from excel sheet
 - Cleaned up imports
+- Redesigned navbar

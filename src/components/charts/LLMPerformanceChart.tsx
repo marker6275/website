@@ -271,7 +271,16 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
     Record<StrategyKey, boolean>
   >({});
   const [selectedMonth, setSelectedMonth] = useState<string | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
   const chartHasRendered = useRef(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 639px)");
+    const update = () => setIsMobile(mediaQuery.matches);
+    update();
+    mediaQuery.addEventListener("change", update);
+    return () => mediaQuery.removeEventListener("change", update);
+  }, []);
 
   const allVisibleMap = useMemo(
     () =>
@@ -390,7 +399,7 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
         </div>
       </div>
 
-      <div className="h-[500px] min-h-[420px] w-full">
+      <div className="h-[360px] min-h-[320px] w-full sm:h-[500px] sm:min-h-[420px]">
         <div
           className="h-full w-full"
           onMouseDownCapture={(event) => {
@@ -401,7 +410,12 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
             <ComposedChart
               key={visibleStrategyKey}
               data={displayChartData}
-              margin={{ top: 10, right: 20, left: 8, bottom: 8 }}
+              margin={{
+                top: 10,
+                right: isMobile ? 6 : 20,
+                left: isMobile ? -12 : 8,
+                bottom: 8,
+              }}
               accessibilityLayer={false}
               tabIndex={-1}
             >
@@ -414,22 +428,27 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
                 dataKey="month"
                 tickLine={false}
                 axisLine={{ stroke: "#CBD5E1" }}
-                tick={{ fill: "#475569", fontSize: 12 }}
+                tick={{ fill: "#475569", fontSize: isMobile ? 10 : 12 }}
                 tickFormatter={formatMonth}
-                minTickGap={22}
+                minTickGap={isMobile ? 14 : 22}
               />
               <YAxis
                 yAxisId="returns"
                 orientation="left"
+                width={isMobile ? 36 : 60}
                 domain={[-maxAbsoluteReturn, maxAbsoluteReturn]}
-                tickFormatter={(value) => `${Number(value).toFixed(2)}%`}
+                tickFormatter={(value) =>
+                  isMobile
+                    ? `${Math.round(Number(value))}%`
+                    : `${Number(value).toFixed(2)}%`
+                }
                 tickLine={false}
                 axisLine={{
                   stroke: "#64748B",
                   strokeOpacity: 0.65,
                   strokeWidth: 1.25,
                 }}
-                tick={{ fill: "#64748B", fontSize: 12 }}
+                tick={{ fill: "#64748B", fontSize: isMobile ? 10 : 12 }}
               />
               <ReferenceLine
                 yAxisId="returns"
@@ -461,7 +480,7 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
                   stroke={strategy.color}
                   strokeOpacity={0.35}
                   radius={[4, 4, 0, 0]}
-                  barSize={12}
+                  barSize={isMobile ? 8 : 12}
                 >
                   {displayChartData.map((row, index) => {
                     const value = Number(row[`${strategy.key}_return`]);
@@ -519,14 +538,14 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
                         No holdings listed.
                       </p>
                     ) : (
-                      <div className="mt-3 grid grid-cols-5 gap-2">
+                      <div className="mt-3 grid grid-cols-3 gap-2 sm:grid-cols-5">
                         {tickers.map((ticker) => (
                           <div
                             key={`${strategy.key}-${ticker}`}
                             className="group relative"
                           >
                             <span
-                              className="block cursor-default rounded-md border border-slate-200 bg-slate-50 px-2.5 py-[0.22rem] text-center text-base font-medium text-slate-700 transition-colors duration-150 hover:border-slate-300 hover:bg-slate-100"
+                              className="block cursor-default rounded-md border border-slate-200 bg-slate-50 px-2.5 py-[0.22rem] text-center text-sm font-medium text-slate-700 transition-colors duration-150 hover:border-slate-300 hover:bg-slate-100 sm:text-base"
                               aria-label={`${ticker}: ${getTickerFullName(ticker)}`}
                             >
                               {ticker}

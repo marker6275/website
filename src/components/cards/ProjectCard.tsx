@@ -49,7 +49,7 @@ export function ProjectCard({
       ) : null}
       {showImage ? (
         <div className="flex h-28 w-28 min-w-0 shrink-0 items-center justify-center bg-white leading-none sm:h-auto sm:w-full sm:justify-start">
-          <div className="relative h-28 w-28 overflow-hidden rounded-full sm:hidden">
+          <div className="relative h-[80%] w-[80%] overflow-hidden rounded-full sm:hidden">
             <Image
               src={primary}
               alt={name}
