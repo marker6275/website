@@ -1,23 +1,22 @@
-import { NextRequest, NextResponse } from "next/server";
-import { google } from "googleapis";
-import betsConfig from "@/config/bets";
-import { BetResults } from "@/components/bets";
+import { NextRequest, NextResponse } from 'next/server';
+import { google } from 'googleapis';
+import betsConfig from '@/config/bets';
 
-export const runtime = "nodejs";
+export const runtime = 'nodejs';
 
 function getDate(date: string): string {
   let month = date.slice(0, 2);
   let day = date.slice(-2);
 
-  if (month[0] === "0") {
+  if (month[0] === '0') {
     month = month.slice(-1);
   }
 
-  if (day[0] === "0") {
+  if (day[0] === '0') {
     day = day.slice(-1);
   }
 
-  return month + "/" + day;
+  return month + '/' + day;
 }
 
 function parseBetAmount(betAmount: number): string {
@@ -28,29 +27,9 @@ function parseOdds(odds: number): string {
   return odds > 0 ? `+${odds}` : String(odds);
 }
 
-function parsePayout(betAmount: number, odds: number, result: string): string {
-  if ((result === BetResults.Won || result === BetResults.Open) && odds > 0) {
-    return `$${(betAmount + betAmount * (odds / 100)).toFixed(2)}`;
-  } else if (
-    (result === BetResults.Won || result === BetResults.Open) &&
-    odds < 0
-  ) {
-    return `$${(betAmount + betAmount * (100 / (odds * -1))).toFixed(2)}`;
-  } else if (result === BetResults.Lost || result === BetResults.Cashed) {
-    return "$0.00";
-  }
-
-  return "$0.00";
-}
-
-/** Column E from the sheet / client when appending; only used for Cashed bets. */
-function payoutFromSheetCell(raw: unknown): string | null {
-  if (raw == null) return null;
-  const s = String(raw).trim();
-  if (s === "") return null;
-  const n = parseFloat(s.replace(/^\$/, ""));
-  if (!Number.isFinite(n)) return null;
-  return `$${n.toFixed(2)}`;
+function payoutFromSheetCell(raw: string): string | null {
+  const payout = parseFloat(raw.trim().replace(/^\$/, ''));
+  return `$${payout.toFixed(2)}`;
 }
 
 function parseValues(values: any[]): string[][] {
@@ -64,11 +43,8 @@ function parseValues(values: any[]): string[][] {
 
   const result = values[3];
 
-  const explicitPayout = payoutFromSheetCell(values[4]);
-  const payout =
-    result === BetResults.Cashed
-      ? (explicitPayout ?? "$0.00")
-      : parsePayout(betAmountAsNumber, oddsAsNumber, result);
+  const payoutAsNumber = values[4];
+  const payout = payoutFromSheetCell(payoutAsNumber);
 
   const leagues = values[5];
 
@@ -86,16 +62,16 @@ async function getSheetsClient() {
     return null;
   }
 
-  privateKey = privateKey.replace(/^["']|["']$/g, "").replace(/\\n/g, "\n");
+  privateKey = privateKey.replace(/^["']|["']$/g, '').replace(/\\n/g, '\n');
 
   const auth = new google.auth.JWT({
     email: clientEmail,
     key: privateKey,
-    scopes: ["https://www.googleapis.com/auth/spreadsheets"],
+    scopes: ['https://www.googleapis.com/auth/spreadsheets'],
   });
 
   await auth.authorize();
-  const sheets = google.sheets({ version: "v4", auth });
+  const sheets = google.sheets({ version: 'v4', auth });
   return { sheets, spreadsheetId };
 }
 
@@ -104,7 +80,7 @@ export async function GET() {
     const client = await getSheetsClient();
     if (!client) {
       return NextResponse.json(
-        { error: "Missing environment variables" },
+        { error: 'Missing environment variables' },
         { status: 500 },
       );
     }
@@ -113,7 +89,7 @@ export async function GET() {
 
     const result = await sheets.spreadsheets.values.get({
       spreadsheetId,
-      range: "Bets!A:G",
+      range: 'Bets!A:G',
     });
 
     const values = result.data.values || [];
@@ -128,13 +104,13 @@ export async function POST(request: NextRequest) {
     const { values, update, password } = await request.json();
 
     if (password !== process.env.PASSWORD) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     const client = await getSheetsClient();
     if (!client) {
       return NextResponse.json(
-        { error: "Missing environment variables" },
+        { error: 'Missing environment variables' },
         { status: 500 },
       );
     }
@@ -146,9 +122,9 @@ export async function POST(request: NextRequest) {
 
       await sheets.spreadsheets.values.append({
         spreadsheetId: spreadsheetId,
-        range: "Bets!A:G",
-        valueInputOption: "RAW",
-        insertDataOption: "INSERT_ROWS",
+        range: 'Bets!A:G',
+        valueInputOption: 'RAW',
+        insertDataOption: 'INSERT_ROWS',
         requestBody: { values: parsedValues },
       });
     } else {
@@ -158,14 +134,14 @@ export async function POST(request: NextRequest) {
 
         data.push({
           range: `Bets!A${rowNum}:G${rowNum}`,
-          majorDimension: "ROWS",
+          majorDimension: 'ROWS',
           values: [value.slice(0, 7)],
         });
       }
 
       const batchUpdate = await sheets.spreadsheets.values.batchUpdate({
         spreadsheetId: spreadsheetId,
-        requestBody: { valueInputOption: "RAW", data },
+        requestBody: { valueInputOption: 'RAW', data },
       });
 
       return NextResponse.json({

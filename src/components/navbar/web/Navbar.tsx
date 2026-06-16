@@ -140,12 +140,28 @@ export function Navbar() {
                     : 'text-slate-500 hover:text-sky-800'
                 } ${scrolled ? 'py-4' : 'py-5'}`}
               >
-                {/* Active state: plain CSS so it rides the bar's transition
-                    without an independent framer animation on navigation. */}
+                {/* Active state: shared layoutId so the highlight + pill
+                    slide between nav items when the route changes. */}
                 {active && (
                   <>
-                    <span className="absolute inset-1 rounded-xl bg-sky-800/10" />
-                    <span className="absolute bottom-0 left-1/2 h-[3px] w-8 -translate-x-1/2 rounded-full bg-sky-800" />
+                    <motion.span
+                      layoutId={`nav-active-bg-${scrolled}`}
+                      className="absolute inset-1 rounded-xl bg-sky-800/10"
+                      transition={{
+                        type: 'spring',
+                        stiffness: 400,
+                        damping: 32,
+                      }}
+                    />
+                    <motion.span
+                      layoutId={`nav-active-pill-${scrolled}`}
+                      className="absolute bottom-0 left-0 right-0 mx-auto h-[3px] w-8 rounded-full bg-sky-800"
+                      transition={{
+                        type: 'spring',
+                        stiffness: 400,
+                        damping: 32,
+                      }}
+                    />
                   </>
                 )}
                 {hovered === item.link && !active && (

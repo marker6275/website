@@ -8,3 +8,4 @@ export * from "./navbar";
 export * from "./popups";
 export * from "./reactbits";
 export * from "./projects";
+export * from "./resume";

@@ -1,6 +1,6 @@
-import { LLMPerformanceChart } from "@/components/charts/LLMPerformanceChart";
-import { fetchLLMPortfolioData } from "@/lib/llmPortfolio/fetchPortfolioData";
-import { LLMPortfolioMonth } from "@/types/app";
+import { LLMPerformanceChart } from '@/components/charts/LLMPerformanceChart';
+import { fetchLLMPortfolioData } from '@/app/llm-portfolio/api/route';
+import { LLMPortfolioMonth } from '@/types/app';
 
 export const revalidate = 300;
 
@@ -11,13 +11,13 @@ export default async function LLMPortfolioPage() {
   try {
     data = await fetchLLMPortfolioData();
   } catch (err: unknown) {
-    error = err instanceof Error ? err.message : "Unknown error";
+    error = err instanceof Error ? err.message : 'Unknown error';
   }
 
   return (
     <div className="min-h-screen bg-slate-50">
       <main className="mx-auto w-full max-w-7xl px-4 pb-14 pt-10 sm:px-6 lg:px-8">
-        <section className="mb-8">
+        <div className="mb-8">
           <h1 className="text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">
             LLM Portfolio Experiment
           </h1>
@@ -25,7 +25,7 @@ export default async function LLMPortfolioPage() {
             Individualized portfolio performance of various LLMs, compared
             against the S&P 500
           </p>
-        </section>
+        </div>
 
         {error ? (
           <p className="text-sm text-red-600">

@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import type { ResumeEntry } from "./resume";
 
 export interface ProjectCardProps {
   name: string;
@@ -34,4 +35,8 @@ export interface MusicCardProps {
   year: string;
   composer: string;
   channel: string;
+}
+
+export interface ResumeCardProps {
+  entry: ResumeEntry;
 }

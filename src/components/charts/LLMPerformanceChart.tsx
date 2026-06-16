@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   useEffect,
@@ -6,18 +6,19 @@ import {
   useRef,
   useState,
   type CSSProperties,
-} from "react";
+} from 'react';
 import {
   ResponsiveContainer,
   ComposedChart,
   Bar,
-  Cell,
+  Rectangle,
   XAxis,
   YAxis,
   ReferenceLine,
   CartesianGrid,
   Tooltip,
-} from "recharts";
+} from 'recharts';
+import type { BarRectangleItem } from 'recharts';
 import type {
   LLMPortfolioStrategy,
   StrategyKey,
@@ -25,34 +26,25 @@ import type {
   PortfolioRow,
   LLMPerformanceChartProps,
   CustomTooltipProps,
-} from "@/types/components";
-import { getTickerFullName } from "@/utils";
+} from '@/types/components';
+import { getTickerFullName } from '@/utils';
 
 const STRATEGY_COLORS: Record<string, { color: string; barColor: string }> = {
-  gpt: { color: "#2563EB", barColor: "rgba(37, 99, 235, 0.40)" },
-  chatGPT: { color: "#2563EB", barColor: "rgba(37, 99, 235, 0.40)" },
-  claude: { color: "#F4A261", barColor: "rgba(244, 162, 97, 0.40)" },
-  gemini: { color: "#0F766E", barColor: "rgba(15, 118, 110, 0.40)" },
-  grok: { color: "#374151", barColor: "rgba(55, 65, 81, 0.40)" },
-  deepseek: { color: "#85B1E4", barColor: "rgba(133, 177, 228, 0.45)" },
-  spy: { color: "#6B7280", barColor: "rgba(107, 114, 128, 0.40)" },
+  chatGPT: { color: '#2563EB', barColor: 'rgba(37, 99, 235, 0.40)' },
+  claude: { color: '#F4A261', barColor: 'rgba(244, 162, 97, 0.40)' },
+  grok: { color: '#374151', barColor: 'rgba(55, 65, 81, 0.40)' },
+  deepseek: { color: '#85B1E4', barColor: 'rgba(133, 177, 228, 0.45)' },
+  spy: { color: '#6B7280', barColor: 'rgba(107, 114, 128, 0.40)' },
 };
 
-const FALLBACK_COLORS = [
-  { color: "#2563EB", barColor: "rgba(37, 99, 235, 0.40)" },
-  { color: "#7C3AED", barColor: "rgba(124, 58, 237, 0.40)" },
-  { color: "#0F766E", barColor: "rgba(15, 118, 110, 0.40)" },
-  { color: "#0891B2", barColor: "rgba(8, 145, 178, 0.40)" },
-  { color: "#BE123C", barColor: "rgba(190, 18, 60, 0.40)" },
-];
-
 const PREFERRED_ORDER = [
-  "chatGPT",
-  "claude",
-  "grok",
-  "deepseek",
-  "spy",
+  'chatGPT',
+  'claude',
+  'grok',
+  'deepseek',
+  'spy',
 ] as const;
+
 const EXPECTED_HOLDINGS_COUNT = 10;
 const BAR_ANIMATION_DURATION = 200;
 
@@ -74,26 +66,25 @@ function getOrderedStrategyKeys(rows: PortfolioRow[]): string[] {
   return [...preferredKeys, ...remainingKeys];
 }
 
-const POSITIVE_COLOR = "#16A34A";
-const POSITIVE_FILL = "rgba(22, 163, 74, 0.35)";
-const NEGATIVE_COLOR = "#DC2626";
-const NEGATIVE_FILL = "rgba(220, 38, 38, 0.35)";
+const POSITIVE_COLOR = '#16A34A';
+const POSITIVE_FILL = 'rgba(22, 163, 74, 0.35)';
+const NEGATIVE_COLOR = '#DC2626';
+const NEGATIVE_FILL = 'rgba(220, 38, 38, 0.35)';
 
-const CUMULATIVE_MONTH_KEY = "__cumulative__";
+const CUMULATIVE_MONTH_KEY = '__cumulative__';
 
-const monthFormatter = new Intl.DateTimeFormat("en-US", {
-  month: "short",
-  year: "numeric",
+const monthFormatter = new Intl.DateTimeFormat('en-US', {
+  month: 'short',
+  year: 'numeric',
 });
 
 function formatMonth(monthKey: string): string {
   if (monthKey === CUMULATIVE_MONTH_KEY) {
-    return "Total";
+    return 'Total';
   }
 
-  const [first, second] = monthKey.split("-").map(Number);
+  const [first, second] = monthKey.split('-').map(Number);
 
-  // Support both "YYYY-MM" and "MM-YYYY" month keys.
   const isYearFirst = first > 999;
   const year = isYearFirst ? first : second;
   const month = isYearFirst ? second : first;
@@ -106,7 +97,7 @@ function formatMonth(monthKey: string): string {
 }
 
 function formatPercent(value: number): string {
-  return `${value >= 0 ? "+" : ""}${value.toFixed(2)}%`;
+  return `${value >= 0 ? '+' : ''}${value.toFixed(2)}%`;
 }
 
 function getReturnFill(value: number) {
@@ -118,7 +109,7 @@ function sumCumulativePercent(monthlyPercents: number[]): number {
 }
 
 function toLabel(key: string): string {
-  return key === "spy" ? "S&P 500" : key.charAt(0).toUpperCase() + key.slice(1);
+  return key === 'spy' ? 'S&P 500' : key.charAt(0).toUpperCase() + key.slice(1);
 }
 
 function CustomTooltip({
@@ -168,11 +159,11 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
       data.map((row) => {
         const strategyEntries = Object.entries(row).filter(
           ([key, value]) =>
-            key !== "month" &&
-            typeof value === "object" &&
+            key !== 'month' &&
+            typeof value === 'object' &&
             value !== null &&
-            "return" in value &&
-            "stocks" in value,
+            'return' in value &&
+            'stocks' in value,
         ) as Array<[string, LLMPortfolioStrategy]>;
 
         const flattenedReturns = strategyEntries.reduce<Record<string, number>>(
@@ -186,7 +177,7 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
         const strategyData = strategyEntries.reduce<
           Record<string, LLMPortfolioStrategy>
         >((acc, [strategyKey, strategyValue]) => {
-          if (process.env.NODE_ENV !== "production" && strategyKey !== "spy") {
+          if (process.env.NODE_ENV !== 'production' && strategyKey !== 'spy') {
             if (strategyValue.stocks.length !== EXPECTED_HOLDINGS_COUNT) {
               throw new Error(
                 `Invalid holdings count for ${strategyKey} in ${row.month}: expected ${EXPECTED_HOLDINGS_COUNT}, got ${strategyValue.stocks.length}.`,
@@ -212,9 +203,9 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
       return [];
     }
 
-    return orderedReturnKeys.map((key, index) => {
-      const colors =
-        STRATEGY_COLORS[key] ?? FALLBACK_COLORS[index % FALLBACK_COLORS.length];
+    return orderedReturnKeys.map((key, _) => {
+      const colors = STRATEGY_COLORS[key];
+
       return {
         key,
         label: toLabel(key),
@@ -256,7 +247,7 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
         ([strategyKey, strategyValue]) => {
           const existing = new Set(acc[strategyKey] ?? []);
           strategyValue.stocks.forEach((ticker) => {
-            if (typeof ticker === "string") {
+            if (typeof ticker === 'string') {
               existing.add(ticker);
             }
           });
@@ -275,11 +266,11 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
   const chartHasRendered = useRef(false);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia("(max-width: 639px)");
+    const mediaQuery = window.matchMedia('(max-width: 639px)');
     const update = () => setIsMobile(mediaQuery.matches);
     update();
-    mediaQuery.addEventListener("change", update);
-    return () => mediaQuery.removeEventListener("change", update);
+    mediaQuery.addEventListener('change', update);
+    return () => mediaQuery.removeEventListener('change', update);
   }, []);
 
   const allVisibleMap = useMemo(
@@ -309,7 +300,7 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
   );
 
   const visibleStrategyKey = useMemo(
-    () => activeStrategies.map((strategy) => strategy.key).join(","),
+    () => activeStrategies.map((strategy) => strategy.key).join(','),
     [activeStrategies],
   );
 
@@ -331,11 +322,25 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
           Math.abs(Number(row[`${strategy.key}_return`])),
         );
       }, 0);
+
       return Math.max(max, rowMax);
     }, 0);
 
-    return Math.max(4, Math.ceil(maxVisible + 1));
+    return Math.max(4, Math.ceil(maxVisible));
   }, [activeStrategies, displayChartData]);
+
+  const yAxisTicks = useMemo(() => {
+    const max = maxAbsoluteReturn;
+    const positives: number[] = [];
+    for (let tick = 5; tick < max; tick += 5) {
+      positives.push(tick);
+    }
+    if (positives[positives.length - 1] !== max) {
+      positives.push(max);
+    }
+
+    return [...positives.map((tick) => -tick).reverse(), 0, ...positives];
+  }, [maxAbsoluteReturn]);
 
   const handleStrategyToggle = (key: StrategyKey) => {
     setVisibleStrategies((previous) => ({
@@ -348,6 +353,7 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
     if (!selectedMonth) {
       return null;
     }
+
     return displayChartData.find((row) => row.month === selectedMonth) ?? null;
   }, [displayChartData, selectedMonth]);
 
@@ -384,13 +390,13 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
               onClick={() => handleStrategyToggle(strategy.key)}
               style={
                 {
-                  "--strategy-hover-color": strategy.color,
+                  '--strategy-hover-color': strategy.color,
                 } as CSSProperties
               }
               className={`cursor-pointer rounded-md border px-3 py-1.5 text-sm font-medium transition-all duration-200 ease-out hover:-translate-y-0.5 active:translate-y-0 ${
                 visibleStrategies[strategy.key]
-                  ? "border-slate-300 bg-slate-100 text-slate-900 hover:border-slate-500 hover:text-[var(--strategy-hover-color)]"
-                  : "border-slate-200 bg-white text-slate-500 hover:border-slate-400 hover:text-[var(--strategy-hover-color)]"
+                  ? 'border-slate-300 bg-slate-100 text-slate-900 hover:border-slate-500 hover:text-[var(--strategy-hover-color)]'
+                  : 'border-slate-200 bg-white text-slate-500 hover:border-slate-400 hover:text-[var(--strategy-hover-color)]'
               }`}
             >
               {strategy.label}
@@ -427,8 +433,8 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
               <XAxis
                 dataKey="month"
                 tickLine={false}
-                axisLine={{ stroke: "#CBD5E1" }}
-                tick={{ fill: "#475569", fontSize: isMobile ? 10 : 12 }}
+                axisLine={{ stroke: '#CBD5E1' }}
+                tick={{ fill: '#475569', fontSize: isMobile ? 10 : 12 }}
                 tickFormatter={formatMonth}
                 minTickGap={isMobile ? 14 : 22}
               />
@@ -437,18 +443,16 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
                 orientation="left"
                 width={isMobile ? 36 : 60}
                 domain={[-maxAbsoluteReturn, maxAbsoluteReturn]}
-                tickFormatter={(value) =>
-                  isMobile
-                    ? `${Math.round(Number(value))}%`
-                    : `${Number(value).toFixed(2)}%`
-                }
+                ticks={yAxisTicks}
+                interval={0}
+                tickFormatter={(value) => `${Math.round(Number(value))}%`}
                 tickLine={false}
                 axisLine={{
-                  stroke: "#64748B",
+                  stroke: '#64748B',
                   strokeOpacity: 0.65,
                   strokeWidth: 1.25,
                 }}
-                tick={{ fill: "#64748B", fontSize: isMobile ? 10 : 12 }}
+                tick={{ fill: '#64748B', fontSize: isMobile ? 10 : 12 }}
               />
               <ReferenceLine
                 yAxisId="returns"
@@ -481,19 +485,22 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
                   strokeOpacity={0.35}
                   radius={[4, 4, 0, 0]}
                   barSize={isMobile ? 8 : 12}
-                >
-                  {displayChartData.map((row, index) => {
-                    const value = Number(row[`${strategy.key}_return`]);
+                  shape={(props: BarRectangleItem) => {
+                    const value = Number(
+                      props.payload?.[`${strategy.key}_return`],
+                    );
+
                     return (
-                      <Cell
-                        key={`${strategy.key}-${index}`}
+                      <Rectangle
+                        {...props}
                         fill={getReturnFill(value)}
                         stroke={strategy.color}
                         strokeOpacity={0.9}
+                        radius={[4, 4, 0, 0]}
                       />
                     );
-                  })}
-                </Bar>
+                  }}
+                />
               ))}
             </ComposedChart>
           </ResponsiveContainer>
@@ -502,7 +509,7 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
 
       <section className="mt-6 rounded-xl border border-slate-200 bg-slate-50 p-4 sm:p-5">
         <h2 className="text-sm font-semibold text-slate-900 sm:text-base">
-          Holdings {selectedRow ? `- ${formatMonth(selectedRow.month)}` : ""}
+          Holdings {selectedRow ? `- ${formatMonth(selectedRow.month)}` : ''}
         </h2>
         {!selectedRow ? (
           <p className="mt-2 text-sm text-slate-600">No month selected.</p>
@@ -513,7 +520,7 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
         ) : (
           <div className="mt-3 grid gap-3 sm:grid-cols-2">
             {activeStrategies
-              .filter((strategy) => strategy.key !== "spy")
+              .filter((strategy) => strategy.key !== 'spy')
               .map((strategy) => {
                 const stocks =
                   selectedRow.month === CUMULATIVE_MONTH_KEY
@@ -521,7 +528,7 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
                     : (selectedRow.strategyData[strategy.key]?.stocks ?? []);
                 const tickers = Array.isArray(stocks)
                   ? stocks.filter(
-                      (value): value is string => typeof value === "string",
+                      (value): value is string => typeof value === 'string',
                     )
                   : [];
 

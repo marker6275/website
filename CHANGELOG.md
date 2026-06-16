@@ -157,4 +157,9 @@
 
 - LLM portfolio reads from excel sheet
 - Cleaned up imports
+
+**4.5.0**
+
 - Redesigned navbar
+- Added new resume page
+- Update next.js version

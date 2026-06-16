@@ -1,6 +1,6 @@
 {
   "name": "website",
-  "version": "4.4.2",
+  "version": "4.5.0",
   "homepage": "https://www.mark-li.com",
   "private": true,
   "scripts": {
@@ -15,7 +15,7 @@
     "framer-motion": "^12.23.12",
     "googleapis": "^154.1.0",
     "gsap": "^3.13.0",
-    "next": "^15.5.11",
+    "next": "^16.2.9",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-responsive": "^10.0.1",

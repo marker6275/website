@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useState, useEffect, useRef } from "react";
-import { useProfitsSyncedColumnHeight } from "@/hooks";
+import { useState, useEffect, useRef } from 'react';
+import { useProfitsSyncedColumnHeight } from '@/hooks';
 import {
   BetResults,
   AddBetModal,
@@ -10,8 +10,8 @@ import {
   OpenBetsSection,
   ProfitsAndStatisticsSection,
   SportAllocationChartSection,
-} from "@/components/bets";
-import type { BetData } from "@/types/app";
+} from '@/components/bets';
+import type { BetData } from '@/types/app';
 
 export default function BetsPage() {
   const [data, setData] = useState<BetData>({
@@ -22,20 +22,20 @@ export default function BetsPage() {
   const [last10Bets, setLast10Bets] = useState<any[]>([]);
   const [uniqueSports, setUniqueSports] = useState<string[]>([]);
   const [showAddBetModal, setShowAddBetModal] = useState<boolean>(false);
-  const [mode, setMode] = useState<"Edit" | "Save">("Edit");
+  const [mode, setMode] = useState<'Edit' | 'Save'>('Edit');
   const [editedBets, setEditedBets] = useState<any[]>([]);
   const [authorized, setAuthorized] = useState<boolean>(false);
   const [showPasswordDialog, setShowPasswordDialog] = useState<boolean>(false);
-  const [pendingAction, setPendingAction] = useState<"edit" | "add" | null>(
+  const [pendingAction, setPendingAction] = useState<'edit' | 'add' | null>(
     null,
   );
-  const [password, setPassword] = useState<string>("");
+  const [password, setPassword] = useState<string>('');
   const headerRef = useRef<HTMLDivElement>(null);
   const { layoutRef, sideColumnHeight, scheduleMeasure } =
     useProfitsSyncedColumnHeight(headerRef);
 
   useEffect(() => {
-    if (sessionStorage.getItem("password_input")) {
+    if (sessionStorage.getItem('password_input')) {
       setAuthorized(true);
     }
   }, []);
@@ -47,7 +47,7 @@ export default function BetsPage() {
   }, [data.loading, scheduleMeasure]);
 
   useEffect(() => {
-    fetch("/bets/api")
+    fetch('/bets/api')
       .then((res) => {
         if (!res.ok) {
           return res
@@ -85,7 +85,7 @@ export default function BetsPage() {
   const getUniqueSports = (bets: any[]) => {
     const sports = bets
       .map((bet) => bet[5])
-      .filter((bet: string) => !bet.includes(","))
+      .filter((bet: string) => !bet.includes(','))
       .map((bet: string) => bet.trim());
 
     setUniqueSports([...new Set(sports)]);
@@ -103,15 +103,18 @@ export default function BetsPage() {
 
   const calculateProfits = () => {
     const completed = getCompletedBets(data.values);
+
     const totalWagered = completed.reduce(
-      (sum, bet) => sum + parseFloat(bet[1].replace(/^\$/, "")),
+      (sum, bet) => sum + parseFloat(bet[1].replace(/^\$/, '')),
       0,
     );
     const totalReturn = completed.reduce(
-      (sum, bet) => sum + parseFloat(bet[4].replace(/^\$/, "")),
+      (sum, bet) => sum + parseFloat(bet[4].replace(/^\$/, '')),
       0,
     );
+
     const profit = totalReturn - totalWagered;
+
     const winRate =
       completed.length > 0
         ? (
@@ -119,16 +122,18 @@ export default function BetsPage() {
               completed.length) *
             100
           ).toFixed(1)
-        : "0.0";
+        : '0.0';
+
     const lastDay =
       completed.length > 0 ? completed[completed.length - 1][0] : null;
+
     const lastDayProfit = completed
       .filter((bet) => bet[0] === lastDay)
       .reduce(
         (sum, bet) =>
           sum +
-          (parseFloat(bet[4].replace(/^\$/, "")) -
-            parseFloat(bet[1].replace(/^\$/, ""))),
+          (parseFloat(bet[4].replace(/^\$/, '')) -
+            parseFloat(bet[1].replace(/^\$/, ''))),
         0,
       );
     return {
@@ -148,65 +153,66 @@ export default function BetsPage() {
     }
 
     try {
-      await fetch("/bets/api", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      await fetch('/bets/api', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           values: editedBets,
           update: true,
-          password: sessionStorage.getItem("password_input"),
+          password: sessionStorage.getItem('password_input'),
         }),
       });
     } catch (error: any) {
-      console.error("Network Error:", error);
+      console.error('Network Error:', error);
       alert(`Network Error: ${error.message}`);
     }
 
     setEditedBets([]);
-    if (typeof window !== "undefined") {
+    if (typeof window !== 'undefined') {
       window.location.reload();
     }
   }
 
   function handleEditSave() {
-    if (mode === "Save") {
+    if (mode === 'Save') {
       handleSave();
-      setMode("Edit");
+      setMode('Edit');
       return;
     }
 
     if (authorized) {
-      setMode("Save");
+      setMode('Save');
       return;
     }
 
-    setPendingAction("edit");
+    setPendingAction('edit');
     setShowPasswordDialog(true);
   }
 
   function handlePasswordSubmit() {
-    if (password === "") {
+    if (password === '') {
       return;
     }
 
-    sessionStorage.setItem("password_input", password);
+    sessionStorage.setItem('password_input', password);
     setAuthorized(true);
     setShowPasswordDialog(false);
-    if (pendingAction === "edit") {
-      setMode("Save");
-    } else if (pendingAction === "add") {
+
+    if (pendingAction === 'edit') {
+      setMode('Save');
+    } else if (pendingAction === 'add') {
       setShowAddBetModal(true);
     }
     setPendingAction(null);
   }
 
   function handleTitleClick() {
-    sessionStorage.removeItem("password_input");
+    sessionStorage.removeItem('password_input');
     setAuthorized(false);
     setShowPasswordDialog(false);
     setPendingAction(null);
-    setPassword("");
-    setMode("Edit");
+    setPassword('');
+    setMode('Edit');
   }
 
   function handleAddClick() {
@@ -220,7 +226,7 @@ export default function BetsPage() {
       return;
     }
 
-    setPendingAction("add");
+    setPendingAction('add');
     setShowPasswordDialog(true);
   }
 
@@ -247,7 +253,7 @@ export default function BetsPage() {
     <div className="relative min-h-screen overflow-x-hidden bg-gray-50">
       <div
         className={`flex min-h-screen flex-col items-center gap-6 transition-all duration-300 ease-in-out ${
-          showAddBetModal ? "w-[78vw]" : "w-screen"
+          showAddBetModal ? 'w-[78vw]' : 'w-screen'
         }`}
       >
         <div ref={headerRef} className="w-full shrink-0">
@@ -278,7 +284,7 @@ export default function BetsPage() {
             <Last10BetsSection
               getCompletedBets={getCompletedBets}
               last10Bets={last10Bets}
-              editable={mode === "Save"}
+              editable={mode === 'Save'}
               setEditedBets={setEditedBets}
             />
           </div>
@@ -293,7 +299,7 @@ export default function BetsPage() {
           >
             <OpenBetsSection
               openBets={openBets}
-              editable={mode === "Save"}
+              editable={mode === 'Save'}
               setEditedBets={setEditedBets}
             />
           </div>
@@ -327,7 +333,7 @@ export default function BetsPage() {
               onChange={(e) => setPassword(e.target.value)}
               value={password}
               onKeyDown={(e) => {
-                if (e.key === "Enter") {
+                if (e.key === 'Enter') {
                   handlePasswordSubmit();
                 }
               }}

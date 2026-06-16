@@ -1,8 +1,8 @@
-import React from "react";
-import { T, ST, P, Line, BL, NL, ST2 } from "@/components/text";
+import React from 'react';
+import { T, ST, P, Line, BL, NL, ST2 } from '@/components/text';
 
 function Sports() {
-  const githubURL = "https://github.com/marker6275/sports-classifier";
+  const githubURL = 'https://github.com/marker6275/sports-classifier';
   return (
     <div className="py-5">
       <T>Sport Classifier</T>
@@ -24,7 +24,7 @@ function Sports() {
       <br />
       <P>
         <span className="font-medium">
-          Project code:{" "}
+          Project code:{' '}
           <a
             href={githubURL}
             target="_blank"
@@ -75,15 +75,15 @@ function Sports() {
       <br />
       <P>
         I captured every image myself. Initially, I would screen record games on
-        my laptop, using those to train the model. However, there were two flaws
-        with this method.
+        my laptop, using those to train the model. However, there were{' '}
+        <span className="underline">two flaws</span> with this method.
       </P>
       <NL>
         <li>
           <span className="font-semibold">
-            It took an absurd amount of time.{" "}
+            It took an absurd amount of time.{' '}
           </span>
-          Considering the average NBA/NFL game is around1.5 hours (if you
+          Considering the average NBA/NFL game is around 1.5 hours (if you
           exclude commercials), I would get around 700 or so usable images. This
           is plenty of data, but I didn't have time to burn for this.
         </li>
@@ -183,7 +183,7 @@ function Sports() {
         This was pretty cool for me since this is my first ML project that
         wasn't a homework assignment. I thought this idea was really cool and
         could actually showcase my skills. Also, it was cool to mostly
-        understand what was happening. This wasn't a{" "}
+        understand what was happening. This wasn't a{' '}
         <i>I'm just gonna copy a tutorial and call it a day</i> project.
       </P>
     </div>
@@ -191,16 +191,16 @@ function Sports() {
 }
 
 export const SportClassifier = {
-  name: "Sport Classifier",
+  name: 'Sport Classifier',
   color: {
     border: {
-      image: "border-blue-700",
-      outer: "hover:border-blue-700",
+      image: 'border-blue-700',
+      outer: 'hover:border-blue-700',
     },
-    text: "hover:text-blue-700",
+    text: 'hover:text-blue-700',
   },
-  description: "Which sport is on TV?",
-  image: "/assets/project_images/SportClassifier/sports.png",
-  tags: ["Python", "Electron", "Computer Vision"],
+  description: 'Which sport is on TV?',
+  image: '/assets/project_images/SportClassifier/sports.png',
+  tags: ['Python', 'Electron', 'Computer Vision'],
   body: <Sports />,
 };

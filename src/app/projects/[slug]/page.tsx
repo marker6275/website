@@ -1,6 +1,6 @@
-import { notFound } from "next/navigation";
-import { getProjectBySlug, projects, generateSlug } from "@/utils";
-import Link from "next/link";
+import { notFound } from 'next/navigation';
+import { getProjectBySlug, projects, generateSlug } from '@/utils';
+import Link from 'next/link';
 
 export async function generateStaticParams() {
   return projects
@@ -19,7 +19,7 @@ export async function generateMetadata({
   const project = getProjectBySlug(slug);
   if (!project?.body) {
     return {
-      title: "Project Not Found | Mark Li",
+      title: 'Project Not Found | Mark Li',
     };
   }
   return {
