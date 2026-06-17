@@ -1,5 +1,4 @@
-import React from "react";
-import { T, ST, P, Line } from "@/components/text";
+import { T, ST, P, Line } from '@/components/text';
 
 function Temp() {
   return (
@@ -13,18 +12,18 @@ function Temp() {
 }
 
 export const Template = {
-  name: "Template",
+  name: 'Template',
   color: {
     border: {
-      image: "border-white",
-      outer: "hover:border-white",
+      image: 'border-white',
+      outer: 'hover:border-white',
     },
-    text: "hover:text-white",
+    text: 'hover:text-white',
   },
-  description: "Generic description",
-  image: "/assets/not_found.jpg",
+  description: 'Generic description',
+  image: '/assets/not_found.jpg',
   body: <Temp />,
-  tags: ["Tag1", "Tag2", "Tag3"],
-  link: "/",
+  tags: ['Tag1', 'Tag2', 'Tag3'],
+  link: '/',
   inProgress: false,
 };

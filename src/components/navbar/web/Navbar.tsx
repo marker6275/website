@@ -140,27 +140,21 @@ export function Navbar() {
                     : 'text-slate-500 hover:text-sky-800'
                 } ${scrolled ? 'py-4' : 'py-5'}`}
               >
-                {/* Active state: shared layoutId so the highlight + pill
-                    slide between nav items when the route changes. */}
                 {active && (
                   <>
                     <motion.span
-                      layoutId={`nav-active-bg-${scrolled}`}
+                      key="bg"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
                       className="absolute inset-1 rounded-xl bg-sky-800/10"
-                      transition={{
-                        type: 'spring',
-                        stiffness: 400,
-                        damping: 32,
-                      }}
+                      transition={{ duration: 0.2 }}
                     />
                     <motion.span
-                      layoutId={`nav-active-pill-${scrolled}`}
+                      key="pill"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
                       className="absolute bottom-0 left-0 right-0 mx-auto h-[3px] w-8 rounded-full bg-sky-800"
-                      transition={{
-                        type: 'spring',
-                        stiffness: 400,
-                        damping: 32,
-                      }}
+                      transition={{ duration: 0.2 }}
                     />
                   </>
                 )}

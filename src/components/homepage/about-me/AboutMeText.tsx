@@ -1,4 +1,4 @@
-import { AnimatedContent } from "@/components/reactbits";
+import { AnimatedContent } from '@/components/reactbits';
 
 export function AboutMeText() {
   return (
@@ -15,16 +15,16 @@ export function AboutMeText() {
     >
       <div className="font-light text-xl sm:text-2xl py-5 px-10 sm:px-15">
         <p>
-          Hi! My name is Mark Li. I'm a recent graduate from{" "}
+          Hi! My name is Mark Li. I'm a software engineer at{' '}
+          <span className="text-lime-500">Shure</span> and a graduate from{' '}
           <span className="text-purple-700">Northwestern University</span> with
           a BS/MS in Computer Science and a BA in Music.
         </p>
         <br />
         <p>
-          I'm interested in sustainable computing, web design, and embedded
-          systems, but I'm always willing to learn something new. Outside of
-          programming, I enjoy making music, playing ultimate frisbee, and
-          trying new foods.
+          I'm interested in sustainable computing, web design, and finance
+          technology, but love learning new things. Outside of programming, I
+          enjoy making music, playing ultimate frisbee, and trying new foods.
         </p>
         <br />
         <p>If you want to chat, feel free to reach out!</p>

@@ -163,3 +163,4 @@
 - Redesigned navbar
 - Added new resume page
 - Update next.js version
+- Added Frisbee Tracker project

@@ -1,13 +1,13 @@
-import Link from "next/link";
+import Link from 'next/link';
 
 export const metadata = {
-  title: "Baby Projects | Mark Li",
+  title: 'Baby Projects | Mark Li',
 };
 
 export default function MiscIndex() {
   const links = [
-    { href: "/misc/tic-tac-toe", label: "Tic Tac Toe" },
-    { href: "/misc/calculator", label: "Calculator" },
+    { href: '/misc/tic-tac-toe', label: 'Tic Tac Toe' },
+    { href: '/misc/calculator', label: 'Calculator' },
   ];
   return (
     <main className="p-6">
@@ -15,7 +15,7 @@ export default function MiscIndex() {
       <ul className="space-y-2">
         {links.map(({ href, label }) => (
           <li key={href}>
-            <Link href={href} className="text-blue-500 hover:underline">
+            <Link href={href} className="text-blue-500 underline">
               {label}
             </Link>
           </li>
@@ -24,4 +24,3 @@ export default function MiscIndex() {
     </main>
   );
 }
-

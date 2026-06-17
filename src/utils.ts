@@ -10,10 +10,12 @@ import {
   SportClassifier,
   SpeedReader,
   LLMPortfolioProject,
+  FrisbeeTracker,
 } from '@/projects';
 import type { DateLike, Project, ResumeEntry } from '@/types/components';
 
 const projects: Project[] = [
+  FrisbeeTracker,
   LLMPortfolioProject,
   SpeedReader,
   SportClassifier,
@@ -28,12 +30,19 @@ const projects: Project[] = [
 ];
 
 const featuredProjects: Project[] = [
+  FrisbeeTracker,
   LLMPortfolioProject,
   Verdra,
-  IntermittentComputing,
 ];
 
-const validSearches = ['projects', 'music', 'resume', 'bets', 'misc'];
+const validSearches = [
+  'projects',
+  'music',
+  'resume',
+  'bets',
+  'misc',
+  'llm-portfolio',
+];
 
 const validMiscSearches = ['tic tac toe'];
 
@@ -63,9 +72,10 @@ function getSearchLink(search: string): string | null {
 }
 
 // TO UPDATE COLORS
-// update index 0
+// update value at index 0
 // [color, hover, hover-border]
-// [prev color + 0xBE1, prev hover + 0x1FC, same as color]
+// [prev color + 0xBE1, prev hover + 0x1FC, prev border + 0xBE1]
+// for music cards
 const colors = [
   ['hover:text-[#1C49FF]', 'hover:bg-[#E3E8FF]', 'hover:border-[#1C49FF]'],
   ['hover:text-[#1C55E0]', 'hover:bg-[#E3EAFB]', 'hover:border-[#1C55E0]'],

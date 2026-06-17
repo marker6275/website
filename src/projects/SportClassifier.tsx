@@ -1,4 +1,3 @@
-import React from 'react';
 import { T, ST, P, Line, BL, NL, ST2 } from '@/components/text';
 
 function Sports() {

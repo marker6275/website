@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import { getProjectSlug } from "@/utils";
-import type { ProjectCardProps } from "@/types/components";
+import Image from 'next/image';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { getProjectSlug } from '@/utils';
+import type { ProjectCardProps } from '@/types/components';
 
 export function ProjectCard({
   name,
@@ -21,7 +21,7 @@ export function ProjectCard({
   const hasBody = !!children && !link;
   const tagsToRender = (tags ?? []).slice(0, 3);
 
-  const primary = image?.trim() ?? "";
+  const primary = image?.trim() ?? '';
   const [broken, setBroken] = useState(false);
 
   useEffect(() => {
@@ -63,7 +63,7 @@ export function ProjectCard({
             />
           </div>
 
-          <div className="relative isolate hidden w-full min-w-0 max-w-full min-h-[10.5rem] overflow-hidden sm:flex sm:items-center sm:justify-center">
+          <div className="relative isolate hidden w-full min-w-0 max-w-full overflow-hidden sm:flex sm:items-center sm:justify-center">
             <Image
               src={primary}
               alt={name}
@@ -71,7 +71,7 @@ export function ProjectCard({
               height={800}
               sizes="(max-width: 640px) 92vw, (max-width: 1024px) 44vw, 28vw"
               className="h-auto w-full min-w-0 max-w-full object-contain transition-transform duration-300"
-              style={{ width: "100%", height: "auto", maxWidth: "100%" }}
+              style={{ width: '100%', height: 'auto', maxWidth: '100%' }}
               onError={() => setBroken(true)}
             />
           </div>
@@ -113,14 +113,15 @@ export function ProjectCard({
     );
   }
 
-  if (link?.startsWith("/")) {
+  if (link?.startsWith('/')) {
     return (
-      <Link
+      <a
         href={link}
+        target="_blank"
         className="block min-w-0 w-full max-w-full outline-offset-4"
       >
         {cardBody}
-      </Link>
+      </a>
     );
   }
 
