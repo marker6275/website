@@ -19,7 +19,7 @@ export function MusicCard({
   return (
     <a href={channel} target="_blank" rel="noreferrer">
       <div
-        className={`bg-white w-[460px] lg:w-[500px] xl:w-[600px] shadow-md flex flex-col items-center justify-center rounded-md border-2 ${colors[id][0]} ${colors[id][2]} transition duration-400`}
+        className={`bg-white w-[460px] lg:w-[500px] xl:w-[600px] shadow-md flex flex-col items-center justify-center rounded-md border-2 ${colors[id][0]} ${colors[id][2]} transition duration-400 hover:-translate-y-1 hover:shadow-lg transition-all duration-800 ease-in-out`}
       >
         <h1 className="text-2xl px-2 pt-2 overflow-hidden text-ellipsis whitespace-nowrap max-w-[420px] lg:max-w-[460px] xl:max-w-[560px]">
           {title}

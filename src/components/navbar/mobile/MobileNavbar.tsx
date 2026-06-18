@@ -83,7 +83,7 @@ export function MobileNavbar() {
             <button
               onClick={toggleMenu}
               aria-label="Toggle navigation"
-              className="text-slate-800 transition-colors hover:text-sky-800 focus:outline-none"
+              className="text-slate-800 transition-colors hover:text-sky-800 focus:outline-none cursor-pointer"
             >
               <svg
                 className="size-7"

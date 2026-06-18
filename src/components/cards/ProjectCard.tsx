@@ -19,6 +19,7 @@ export function ProjectCard({
   const projectSlug = getProjectSlug({ name });
   const projectPath = `/projects/${projectSlug}`;
   const hasBody = !!children && !link;
+  const opensNewTab = !!link && !link.startsWith('/');
   const tagsToRender = (tags ?? []).slice(0, 3);
 
   const primary = image?.trim() ?? '';
@@ -99,9 +100,33 @@ export function ProjectCard({
           </div>
         ) : null}
       </div>
+      {opensNewTab ? (
+        <span
+          className="pointer-events-none absolute bottom-1.5 right-1.5 z-10 text-slate-400 sm:bottom-2 sm:right-2"
+          aria-label="Opens in a new tab"
+          title="Opens in a new tab"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={2}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="h-3 w-3 sm:h-3.5 sm:w-3.5"
+            aria-hidden="true"
+          >
+            <path d="M15 3h6v6" />
+            <path d="M10 14 21 3" />
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+          </svg>
+        </span>
+      ) : null}
     </div>
   );
 
+  // Has info page
   if (hasBody) {
     return (
       <Link
@@ -113,18 +138,19 @@ export function ProjectCard({
     );
   }
 
+  // Internal page
   if (link?.startsWith('/')) {
     return (
-      <a
+      <Link
         href={link}
-        target="_blank"
         className="block min-w-0 w-full max-w-full outline-offset-4"
       >
         {cardBody}
-      </a>
+      </Link>
     );
   }
 
+  // External page
   if (link) {
     return (
       <a

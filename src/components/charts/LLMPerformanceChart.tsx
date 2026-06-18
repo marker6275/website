@@ -30,10 +30,10 @@ import type {
 import { getTickerFullName } from '@/utils';
 
 const STRATEGY_COLORS: Record<string, { color: string; barColor: string }> = {
-  chatGPT: { color: '#2563EB', barColor: 'rgba(37, 99, 235, 0.40)' },
+  chatGPT: { color: '#1e55cc', barColor: 'rgba(37, 99, 235, 0.40)' },
   claude: { color: '#F4A261', barColor: 'rgba(244, 162, 97, 0.40)' },
   grok: { color: '#374151', barColor: 'rgba(55, 65, 81, 0.40)' },
-  deepseek: { color: '#85B1E4', barColor: 'rgba(133, 177, 228, 0.45)' },
+  deepseek: { color: '#4a8fde', barColor: 'rgba(133, 177, 228, 0.45)' },
   spy: { color: '#6B7280', barColor: 'rgba(107, 114, 128, 0.40)' },
 };
 
@@ -384,23 +384,25 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
       <div className="mb-5 flex flex-col gap-4">
         <div className="flex flex-wrap gap-2">
           {strategies.map((strategy) => (
-            <button
+            <div
               key={strategy.key}
-              type="button"
               onClick={() => handleStrategyToggle(strategy.key)}
               style={
                 {
                   '--strategy-hover-color': strategy.color,
+                  color: visibleStrategies[strategy.key]
+                    ? strategy.color
+                    : undefined,
                 } as CSSProperties
               }
               className={`cursor-pointer rounded-md border px-3 py-1.5 text-sm font-medium transition-all duration-200 ease-out hover:-translate-y-0.5 active:translate-y-0 ${
                 visibleStrategies[strategy.key]
-                  ? 'border-slate-300 bg-slate-100 text-slate-900 hover:border-slate-500 hover:text-[var(--strategy-hover-color)]'
+                  ? 'border-slate-300 bg-slate-100 hover:border-slate-500'
                   : 'border-slate-200 bg-white text-slate-500 hover:border-slate-400 hover:text-[var(--strategy-hover-color)]'
               }`}
             >
               {strategy.label}
-            </button>
+            </div>
           ))}
         </div>
       </div>
@@ -483,7 +485,7 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
                   fill={POSITIVE_FILL}
                   stroke={strategy.color}
                   strokeOpacity={0.35}
-                  radius={[4, 4, 0, 0]}
+                  radius={[1, 1, 0, 0]}
                   barSize={isMobile ? 8 : 12}
                   shape={(props: BarRectangleItem) => {
                     const value = Number(
@@ -496,7 +498,7 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
                         fill={getReturnFill(value)}
                         stroke={strategy.color}
                         strokeOpacity={0.9}
-                        radius={[4, 4, 0, 0]}
+                        radius={[1, 1, 0, 0]}
                       />
                     );
                   }}
@@ -511,6 +513,32 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
         <h2 className="text-sm font-semibold text-slate-900 sm:text-base">
           Holdings {selectedRow ? `- ${formatMonth(selectedRow.month)}` : ''}
         </h2>
+        {displayChartData.length > 0 ? (
+          <div className="mt-3 flex flex-wrap gap-1.5">
+            {displayChartData.map((row) => (
+              <button
+                key={row.month}
+                type="button"
+                onClick={() => setSelectedMonth(row.month)}
+                className={`cursor-pointer rounded-md border w-14 h-5 text-xs font-medium transition-all duration-200 ease-out hover:-translate-y-0.5 active:translate-y-0 ${
+                  selectedMonth === row.month
+                    ? 'border-slate-400 bg-slate-200 text-slate-900'
+                    : 'border-slate-200 bg-white text-slate-500 hover:border-slate-400'
+                }`}
+              >
+                {row.month === CUMULATIVE_MONTH_KEY
+                  ? 'All'
+                  : formatMonth(row.month)}
+              </button>
+            ))}
+          </div>
+        ) : null}
+        {selectedRow?.month === CUMULATIVE_MONTH_KEY ? (
+          <p className="mt-3 text-xs italic text-slate-500">
+            Note: the total is the sum of each month&apos;s returns, not a
+            compounded cumulative return.
+          </p>
+        ) : null}
         {!selectedRow ? (
           <p className="mt-2 text-sm text-slate-600">No month selected.</p>
         ) : activeStrategies.length === 0 ? (

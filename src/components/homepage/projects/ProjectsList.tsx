@@ -1,11 +1,11 @@
-import { AnimatedContent } from "@/components/reactbits";
-import { HomeProjectCard } from "@/components/cards";
-import { featuredProjects } from "@/utils";
-import { Project } from "@/types/components";
+import { AnimatedContent } from '@/components/reactbits';
+import { HomeProjectCard } from '@/components/cards';
+import { featuredProjects } from '@/utils';
+import { Project } from '@/types/components';
 
 export function ProjectsList() {
   return (
-    <div className="flex flex-col lg:flex-col gap-8 px-10 lg:px-15 py-6">
+    <div className="flex flex-col lg:flex-col sm:gap-8 gap-4 px-10 lg:px-15 py-6">
       {featuredProjects.map((project: Project, index: number) => {
         return (
           <AnimatedContent
