@@ -2,7 +2,7 @@ import { LLMPerformanceChart } from '@/components/charts/LLMPerformanceChart';
 import { fetchLLMPortfolioData } from '@/app/llm-portfolio/api/route';
 import { LLMPortfolioMonth } from '@/types/app';
 
-export const revalidate = 300;
+export const revalidate = 60;
 
 export default async function LLMPortfolioPage() {
   let error: string | null = null;
