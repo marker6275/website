@@ -27,7 +27,7 @@ import type {
   LLMPerformanceChartProps,
   CustomTooltipProps,
 } from '@/types/components';
-import { getTickerFullName } from '@/utils';
+import { getTickerName } from '@/utils';
 
 const STRATEGY_COLORS: Record<string, { color: string; barColor: string }> = {
   chatGPT: { color: '#1e55cc', barColor: 'rgba(37, 99, 235, 0.40)' },
@@ -78,11 +78,32 @@ const monthFormatter = new Intl.DateTimeFormat('en-US', {
   year: 'numeric',
 });
 
-function formatMonth(monthKey: string): string {
-  if (monthKey === CUMULATIVE_MONTH_KEY) {
-    return 'Total';
-  }
+const MONTH_NAMES = [
+  'january',
+  'february',
+  'march',
+  'april',
+  'may',
+  'june',
+  'july',
+  'august',
+  'september',
+  'october',
+  'november',
+  'december',
+];
 
+function monthNumberFromName(monthKey: string): number | null {
+  const normalized = monthKey.trim().toLowerCase();
+  const index = MONTH_NAMES.findIndex(
+    (name) => name === normalized || name.startsWith(normalized),
+  );
+  return index === -1 ? null : index + 1;
+}
+
+function parseMonthKey(
+  monthKey: string,
+): { year: number; month: number } | null {
   const [first, second] = monthKey.split('-').map(Number);
 
   const isYearFirst = first > 999;
@@ -90,10 +111,39 @@ function formatMonth(monthKey: string): string {
   const month = isYearFirst ? second : first;
 
   if (!year || !month || month < 1 || month > 12) {
-    return monthKey;
+    return null;
   }
 
-  return monthFormatter.format(new Date(year, month - 1, 1));
+  return { year, month };
+}
+
+function isCurrentMonth(monthKey: string): boolean {
+  if (monthKey === CUMULATIVE_MONTH_KEY) {
+    return false;
+  }
+
+  const now = new Date();
+  const parsed = parseMonthKey(monthKey);
+  if (parsed) {
+    return (
+      parsed.year === now.getFullYear() && parsed.month === now.getMonth() + 1
+    );
+  }
+
+  return monthNumberFromName(monthKey) === now.getMonth() + 1;
+}
+
+function formatMonth(monthKey: string): string {
+  if (monthKey === CUMULATIVE_MONTH_KEY) {
+    return 'Total';
+  }
+
+  const parsed = parseMonthKey(monthKey);
+  const base = parsed
+    ? monthFormatter.format(new Date(parsed.year, parsed.month - 1, 1))
+    : monthKey;
+
+  return `${base}${isCurrentMonth(monthKey) ? '*' : ''}`;
 }
 
 function formatPercent(value: number): string {
@@ -538,6 +588,10 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
             Note: the total is the sum of each month&apos;s returns, not a
             compounded cumulative return.
           </p>
+        ) : selectedRow && isCurrentMonth(selectedRow.month) ? (
+          <p className="mt-3 text-xs italic text-slate-500">
+            * Current month (values are to date)
+          </p>
         ) : null}
         {!selectedRow ? (
           <p className="mt-2 text-sm text-slate-600">No month selected.</p>
@@ -581,12 +635,12 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
                           >
                             <span
                               className="block cursor-default rounded-md border border-slate-200 bg-slate-50 px-2.5 py-[0.22rem] text-center text-sm font-medium text-slate-700 transition-colors duration-150 hover:border-slate-300 hover:bg-slate-100 sm:text-base"
-                              aria-label={`${ticker}: ${getTickerFullName(ticker)}`}
+                              aria-label={`${ticker}: ${getTickerName(ticker)}`}
                             >
                               {ticker}
                             </span>
-                            <div className="pointer-events-none invisible absolute bottom-full left-1/2 z-20 mb-1 -translate-x-1/2 translate-y-0.5 whitespace-nowrap rounded-md border border-slate-200 bg-slate-900 px-2 py-1 text-xs font-medium text-white opacity-0 shadow-md transition-all delay-0 duration-150 ease-out group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-hover:delay-500">
-                              {getTickerFullName(ticker)}
+                            <div className="pointer-events-none invisible absolute bottom-full left-1/2 z-20 mb-1 -translate-x-1/2 translate-y-0.5 whitespace-nowrap rounded-md border border-slate-200 bg-slate-900 px-2 py-1 text-xs font-medium text-white opacity-0 shadow-md transition-all delay-0 duration-150 ease-out group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-hover:delay-200">
+                              {getTickerName(ticker)}
                             </div>
                           </div>
                         ))}

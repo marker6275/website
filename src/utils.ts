@@ -13,6 +13,7 @@ import {
   FrisbeeTracker,
 } from '@/projects';
 import type { DateLike, Project, ResumeEntry } from '@/types/components';
+import tickers from '@/stocks.json';
 
 const projects: Project[] = [
   FrisbeeTracker,
@@ -138,76 +139,8 @@ function getBetChartColor(label: string): string {
   return betChartColors[label] ?? '#475569';
 }
 
-const TICKER_FULL_NAMES: Record<string, string> = {
-  AAPL: 'Apple',
-  AKON: 'Axon Enterprise',
-  ALGM: 'Allegion',
-  ALNY: 'Alnylam Pharmaceuticals',
-  AMD: 'Advanced Micro Devices',
-  AMZN: 'Amazon',
-  ANET: 'Arista Networks',
-  ARM: 'Arm Holdings',
-  ASML: 'ASML Holding',
-  AVAV: 'AeroVironment',
-  AVGO: 'Broadcom',
-  AXON: 'Axon Enterprise',
-  'BRK.B': 'Berkshire Hathaway',
-  CAT: 'Caterpillar',
-  CELH: 'Celsius Holdings',
-  CF: 'CF Industries',
-  CNC: 'Centene',
-  COHR: 'Coherent',
-  COP: 'ConocoPhillips',
-  CPRX: 'Catalyst Pharmaceuticals',
-  FICO: 'Fair Isaac Corporation',
-  FCX: 'Freeport-McMoRan',
-  FDX: 'FedEx',
-  FIX: 'Comfort Systems',
-  GEV: 'GE Vernova',
-  GOOGL: 'Alphabet',
-  GS: 'Goldman Sachs',
-  INTC: 'Intel',
-  INTU: 'Intuit',
-  ISRG: 'Intuitive Surgical',
-  JPM: 'JPMorgan Chase',
-  KO: 'Coca-Cola',
-  LITE: 'Lumentum Holdings',
-  LNG: 'Cheniere Energy',
-  LLY: 'Eli Lilly',
-  LYB: 'LyondellBasell Industries',
-  MA: 'Mastercard',
-  MDB: 'MongoDB',
-  MELI: 'MercadoLibre',
-  META: 'Meta',
-  MSFT: 'Microsoft',
-  MU: 'Micron Technology',
-  NEM: 'Newmont',
-  NIO: 'Nio',
-  NOW: 'ServiceNow',
-  NUE: 'Nucor Corp',
-  NVDA: 'NVIDIA',
-  ON: 'ON Semiconductor',
-  OUST: 'Ouster',
-  PANW: 'Palo Alto Networks',
-  PEP: 'PepsiCo',
-  PLTR: 'Palantir Technologies',
-  QCOM: 'Qualcomm',
-  SHOP: 'Shopify',
-  SW: 'Smurfit WestRock',
-  TMUS: 'T-Mobile',
-  TPL: 'Texas Pacific Land',
-  TSLA: 'Tesla',
-  TSM: 'Taiwan Semiconductor Manufacturing',
-  TTD: 'The Trade Desk',
-  VKTX: 'Viking Therapeutics',
-  VRT: 'Vertiv Holdings',
-  WDC: 'Western Digital',
-  WMT: 'Walmart',
-  XOM: 'Exxon Mobil',
-};
-
-function getTickerFullName(ticker: string): string {
-  return TICKER_FULL_NAMES[ticker] ?? ticker;
+function getTickerName(ticker: string): string {
+  return (tickers as Record<string, string>)[ticker] ?? ticker;
 }
 
 function formatDate(date: DateLike | 'present') {
@@ -250,7 +183,7 @@ export {
   getProjectBySlug,
   getProjectSlug,
   getBetChartColor,
-  getTickerFullName,
+  getTickerName,
   formatDate,
   resumeCategoryStyles,
 };
