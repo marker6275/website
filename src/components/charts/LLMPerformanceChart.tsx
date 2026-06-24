@@ -152,11 +152,11 @@ function formatPercent(value: number): string {
 }
 
 interface BarLabelProps {
-  x?: number;
-  y?: number;
-  width?: number;
-  height?: number;
-  value?: number;
+  x?: string | number;
+  y?: string | number;
+  width?: string | number;
+  height?: string | number;
+  value?: string | number | boolean | null;
 }
 
 function renderBarLabel(isMobile: boolean, labelText: string) {
