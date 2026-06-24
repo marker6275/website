@@ -13,7 +13,7 @@ import {
   FrisbeeTracker,
 } from '@/projects';
 import type { DateLike, Project, ResumeEntry } from '@/types/components';
-import tickers from '@/stocks.json';
+import tickers from '@/data/stocks.json';
 
 const projects: Project[] = [
   FrisbeeTracker,

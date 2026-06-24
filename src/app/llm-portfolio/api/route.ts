@@ -1,9 +1,12 @@
 import { NextResponse } from 'next/server';
 import { google } from 'googleapis';
 import llmPortfolioConfig from '@/config/llmPortfolio';
+import stocks from '@/data/stocks.json';
 import type { LLMPortfolioMonth } from '@/types/app/llmPortfolio';
 
 export const runtime = 'nodejs';
+
+const VALID_TICKERS = new Set(Object.keys(stocks));
 
 const STRATEGY_KEY_MAP: Record<string, string> = {
   chatgpt: 'chatGPT',
@@ -86,6 +89,11 @@ export function parseSheetValues(values: string[][]): LLMPortfolioMonth[] {
     if (mod >= 3 && mod <= 3 + HOLDINGS_ROWS_PER_BLOCK - 1) {
       strategyKeys.entries().forEach(([columnIndex, strategyKey]) => {
         const ticker = String(row[columnIndex] ?? '').trim();
+        if (ticker && !VALID_TICKERS.has(ticker)) {
+          throw new Error(
+            `Unknown ticker "${ticker}" for ${strategyKey} in ${currentMonth ?? 'unknown month'}: not present in stocks.json.`,
+          );
+        }
         currentHoldings[strategyKey].push(ticker);
       });
     }

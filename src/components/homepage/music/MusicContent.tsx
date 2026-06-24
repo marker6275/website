@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { MusicCard } from "@/components/cards";
-import info from "@/info.json";
+import info from "@/data/personal-info.json";
 import { AnimatedContent } from "@/components/reactbits";
 
 export function MusicContent() {

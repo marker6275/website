@@ -1,6 +1,6 @@
 import { AnimatedContent } from "@/components/reactbits";
 import { HomeIcon, HomeIconButton } from "@/components/buttons";
-import data from "@/info.json";
+import data from "@/data/personal-info.json";
 import type { HeaderEmailIconProps } from "@/types/components";
 
 const contact = data.contact;

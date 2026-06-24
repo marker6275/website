@@ -3,7 +3,7 @@
 import { useMemo } from 'react';
 import { ResumeCard } from '@/components/cards';
 import type { ResumeEntry } from '@/types/components';
-import info from '@/info.json';
+import info from '@/data/personal-info.json';
 
 const ENTRIES = info.resume as ResumeEntry[];
 

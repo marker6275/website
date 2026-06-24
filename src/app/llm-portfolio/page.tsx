@@ -5,13 +5,13 @@ import { LLMPortfolioMonth } from '@/types/app';
 export const revalidate = 60;
 
 export default async function LLMPortfolioPage() {
-  let error: string | null = null;
+  let hasError = false;
   let data: LLMPortfolioMonth[] = [];
 
   try {
     data = await fetchLLMPortfolioData();
-  } catch (err: unknown) {
-    error = err instanceof Error ? err.message : 'Unknown error';
+  } catch {
+    hasError = true;
   }
 
   return (
@@ -27,10 +27,15 @@ export default async function LLMPortfolioPage() {
           </p>
         </div>
 
-        {error ? (
-          <p className="text-sm text-red-600">
-            Failed to load portfolio data: {error}
-          </p>
+        {hasError ? (
+          <div
+            role="alert"
+            className="rounded-lg border-l-4 border-red-500 bg-red-50 px-6 py-5"
+          >
+            <p className="text-base font-medium text-red-700">
+              Unable to load portfolio data right now
+            </p>
+          </div>
         ) : data.length === 0 ? (
           <p className="text-sm text-slate-600">No portfolio data found.</p>
         ) : (

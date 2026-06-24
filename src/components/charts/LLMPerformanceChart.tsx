@@ -70,6 +70,7 @@ const POSITIVE_COLOR = '#16A34A';
 const POSITIVE_FILL = 'rgba(22, 163, 74, 0.35)';
 const NEGATIVE_COLOR = '#DC2626';
 const NEGATIVE_FILL = 'rgba(220, 38, 38, 0.35)';
+const NEUTRAL_FILL = 'rgba(250, 204, 21, 0.45)';
 
 const CUMULATIVE_MONTH_KEY = '__cumulative__';
 
@@ -150,7 +151,87 @@ function formatPercent(value: number): string {
   return `${value >= 0 ? '+' : ''}${value.toFixed(2)}%`;
 }
 
-function getReturnFill(value: number) {
+interface BarLabelProps {
+  x?: number;
+  y?: number;
+  width?: number;
+  height?: number;
+  value?: number;
+}
+
+function renderBarLabel(isMobile: boolean, labelText: string) {
+  return function BarLabel(props: BarLabelProps) {
+    const x = Number(props.x);
+    const y = Number(props.y);
+    const width = Number(props.width);
+    const rawHeight = Number(props.height);
+    const value = Number(props.value);
+
+    if (!Number.isFinite(value) || !Number.isFinite(rawHeight)) {
+      return null;
+    }
+
+    // Recharts can hand back a negative height for downward (red) bars, so
+    // normalize it before measuring or positioning the label.
+    const barHeight = Math.abs(rawHeight);
+    if (barHeight <= 0) {
+      return null;
+    }
+
+    const fontSize = isMobile ? 7 : 9;
+    const charWidth = fontSize * 0.62;
+    // Bars are vertical, so the label is rotated and its length is the bar height.
+    const maxChars = Math.floor((barHeight - 4) / charWidth);
+    if (maxChars < 1) {
+      return null;
+    }
+
+    const fullText = labelText;
+    let text = fullText;
+    if (fullText.length > maxChars) {
+      if (maxChars < 2) {
+        return null;
+      }
+      text = `${fullText.slice(0, maxChars - 1)}…`;
+    }
+
+    const centerX = x + width / 2;
+    // Anchor at the bottom edge of the bar so the label always reads upward
+    // from there, whether the bar points up (green) or down (red).
+    const bottomY = Math.max(y, y + rawHeight) - 3;
+
+    return (
+      <text
+        x={centerX}
+        y={bottomY}
+        fill="#000000"
+        fontSize={fontSize}
+        fontWeight={600}
+        textAnchor="start"
+        dominantBaseline="central"
+        transform={`rotate(-90, ${centerX}, ${bottomY})`}
+        pointerEvents="none"
+      >
+        {text}
+      </text>
+    );
+  };
+}
+
+function getReturnFill(
+  value: number,
+  spyValue: number,
+  isSpy: boolean,
+): string {
+  // SPY is the benchmark, so it can't beat or trail itself.
+  if (!isSpy && Number.isFinite(spyValue)) {
+    const positiveButTrailing = value >= 0 && value <= spyValue;
+    const negativeButBeating = value < 0 && value > spyValue;
+    if (positiveButTrailing || negativeButBeating) {
+      return NEUTRAL_FILL;
+    }
+  }
+
   return value >= 0 ? POSITIVE_FILL : NEGATIVE_FILL;
 }
 
@@ -537,15 +618,21 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
                   strokeOpacity={0.35}
                   radius={[1, 1, 0, 0]}
                   barSize={isMobile ? 8 : 12}
+                  label={renderBarLabel(isMobile, strategy.label)}
                   shape={(props: BarRectangleItem) => {
                     const value = Number(
                       props.payload?.[`${strategy.key}_return`],
                     );
+                    const spyValue = Number(props.payload?.spy_return);
 
                     return (
                       <Rectangle
                         {...props}
-                        fill={getReturnFill(value)}
+                        fill={getReturnFill(
+                          value,
+                          spyValue,
+                          strategy.key === 'spy',
+                        )}
                         stroke={strategy.color}
                         strokeOpacity={0.9}
                         radius={[1, 1, 0, 0]}
