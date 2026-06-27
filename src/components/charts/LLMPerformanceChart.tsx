@@ -68,8 +68,9 @@ function getOrderedStrategyKeys(rows: PortfolioRow[]): string[] {
 
 const POSITIVE_COLOR = '#16A34A';
 const POSITIVE_FILL = 'rgba(22, 163, 74, 0.35)';
-const NEGATIVE_COLOR = '#DC2626';
+const NEGATIVE_COLOR = '#E63030';
 const NEGATIVE_FILL = 'rgba(220, 38, 38, 0.35)';
+const NEUTRAL_COLOR = '#F2B70A';
 const NEUTRAL_FILL = 'rgba(250, 204, 21, 0.45)';
 
 const CUMULATIVE_MONTH_KEY = '__cumulative__';
@@ -218,21 +219,43 @@ function renderBarLabel(isMobile: boolean, labelText: string) {
   };
 }
 
+function isNeutralReturn(
+  value: number,
+  spyValue: number,
+  isSpy: boolean,
+): boolean {
+  // SPY is the benchmark, so it can't beat or trail itself.
+  if (isSpy || !Number.isFinite(spyValue)) {
+    return false;
+  }
+
+  const positiveButTrailing = value >= 0 && value <= spyValue;
+  const negativeButBeating = value < 0 && value > spyValue;
+  return positiveButTrailing || negativeButBeating;
+}
+
 function getReturnFill(
   value: number,
   spyValue: number,
   isSpy: boolean,
 ): string {
-  // SPY is the benchmark, so it can't beat or trail itself.
-  if (!isSpy && Number.isFinite(spyValue)) {
-    const positiveButTrailing = value >= 0 && value <= spyValue;
-    const negativeButBeating = value < 0 && value > spyValue;
-    if (positiveButTrailing || negativeButBeating) {
-      return NEUTRAL_FILL;
-    }
+  if (isNeutralReturn(value, spyValue, isSpy)) {
+    return NEUTRAL_FILL;
   }
 
   return value >= 0 ? POSITIVE_FILL : NEGATIVE_FILL;
+}
+
+function getReturnColor(
+  value: number,
+  spyValue: number,
+  isSpy: boolean,
+): string {
+  if (isNeutralReturn(value, spyValue, isSpy)) {
+    return NEUTRAL_COLOR;
+  }
+
+  return value >= 0 ? POSITIVE_COLOR : NEGATIVE_COLOR;
 }
 
 function sumCumulativePercent(monthlyPercents: number[]): number {
@@ -259,26 +282,34 @@ function CustomTooltip({
     <div className="rounded-md border border-slate-200 bg-white/95 p-2 text-xs shadow-md backdrop-blur-sm">
       <p className="mb-1 font-semibold text-slate-900">{formatMonth(label)}</p>
       <div className="space-y-1.5">
-        {activeStrategies.map((strategy) => (
-          <div
-            key={strategy.key}
-            className="flex items-start justify-between gap-3"
-          >
-            <span className="font-medium text-slate-700">{strategy.label}</span>
-            <div className="text-right text-slate-700">
-              <div
-                style={{
-                  color:
-                    Number(row[`${strategy.key}_return`]) >= 0
-                      ? POSITIVE_COLOR
-                      : NEGATIVE_COLOR,
-                }}
-              >
-                {formatPercent(Number(row[`${strategy.key}_return`]))}
+        {activeStrategies.map((strategy) => {
+          const value = Number(row[`${strategy.key}_return`]);
+          const spyValue = Number(row.spy_return);
+
+          return (
+            <div
+              key={strategy.key}
+              className="flex items-start justify-between gap-3"
+            >
+              <span className="font-medium text-slate-700">
+                {strategy.label}
+              </span>
+              <div className="text-right text-slate-700">
+                <div
+                  style={{
+                    color: getReturnColor(
+                      value,
+                      spyValue,
+                      strategy.key === 'spy',
+                    ),
+                  }}
+                >
+                  {formatPercent(value)}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
