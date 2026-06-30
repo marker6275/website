@@ -37,6 +37,7 @@ function Frisbee() {
         <a
           href="https://www.youtube.com/watch?v=aBVGKoNZQUw&t=297s"
           target="_blank"
+          rel="noopener noreferrer"
           className="text-blue-500 underline"
         >
           someone created tracking for soccer

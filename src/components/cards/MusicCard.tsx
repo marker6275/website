@@ -17,7 +17,7 @@ export function MusicCard({
   const large = useSafeMediaQuery('(max-width: 1279px)');
 
   return (
-    <a href={channel} target="_blank" rel="noreferrer">
+    <a href={channel} target="_blank" rel="noopener noreferrer">
       <div
         className={`bg-white w-[460px] lg:w-[500px] xl:w-[600px] shadow-md flex flex-col items-center justify-center rounded-md border-2 ${colors[id][0]} ${colors[id][2]} transition duration-400 hover:-translate-y-1 hover:shadow-lg transition-all duration-800 ease-in-out`}
       >

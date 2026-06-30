@@ -1,10 +1,10 @@
-import React from "react";
-import { T, ST, NL, BL, P, Line } from "@/components/text";
-import Link from "next/link";
-import Image from "next/image";
+import React from 'react';
+import { T, ST, NL, BL, P, Line } from '@/components/text';
+import Link from 'next/link';
+import Image from 'next/image';
 
 function TC() {
-  const githubURL = "https://github.com/marker6275/Text-Classifier";
+  const githubURL = 'https://github.com/marker6275/Text-Classifier';
   return (
     <div className="py-5">
       <T>Text Classifier</T>
@@ -18,7 +18,7 @@ function TC() {
       <br />
       <P>
         <span className="font-medium">
-          Project code:{" "}
+          Project code:{' '}
           <a
             href={githubURL}
             target="_blank"
@@ -68,7 +68,7 @@ function TC() {
       <P>Very basic.</P>
       <br />
       <P>
-        But I adapted the Python code into React JS to be able to upload{" "}
+        But I adapted the Python code into React JS to be able to upload{' '}
         <i>.txt</i> files into AWS. Then, it can display the result of the
         analysis. There is also a line that shows the number of files currently
         in S3 and an option to clear those.
@@ -92,7 +92,7 @@ function TC() {
       <P>
         One issue that appears on occasion is when the call to the server fails
         with status 502, meaning there was an error in the evaluation or calling
-        of the API. There are general solutions to it such as <i>try-catch</i>{" "}
+        of the API. There are general solutions to it such as <i>try-catch</i>{' '}
         handling or running the call until it responds properly. I currently
         have neither of those implemented and when it errors with 502, it will
         simply log in the console and nothing will happen so you might just need
@@ -103,7 +103,7 @@ function TC() {
       <P>
         The <i>naivebayes</i> function will be triggered when a file is placed
         into the S3 bucket into the <i>/files</i> folder. When this happens, the
-        function will then train the classifier on prewritten data from{" "}
+        function will then train the classifier on prewritten data from{' '}
         <i>training_data/trainingdata.txt</i>. The reason the model trains on
         every call to the function is because the model also appends the
         currently inputted text into the training data for (ideally) more
@@ -139,7 +139,7 @@ function TC() {
       <ST>API</ST>
       <P>
         There are 4 API functions that the (original) client calls. All four of
-        these are implemented{" "}
+        these are implemented{' '}
         <Link href="/analyze" className="text-blue-500 underline">
           here
         </Link>
@@ -150,7 +150,7 @@ function TC() {
           <i>/upload</i> (POST)
           <BL>
             <li>
-              Uploads a text file to S3, subsequently running the{" "}
+              Uploads a text file to S3, subsequently running the{' '}
               <i>naivebayes</i> lambda function to perform a computation on the
               text.
             </li>
@@ -170,7 +170,7 @@ function TC() {
           <BL>
             <li>Gets the number of files the client has uploaded into S3.</li>
             <li>
-              More specifically, reads the number of objects that begin with{" "}
+              More specifically, reads the number of objects that begin with{' '}
               <i>files/</i>.
             </li>
           </BL>
@@ -201,16 +201,16 @@ function TC() {
 }
 
 export const TextClassifier = {
-  name: "Text Classifier",
+  name: 'Text Classifier',
   color: {
     border: {
-      image: "border-gray-200",
-      outer: "hover:border-gray-200",
+      image: 'border-gray-200',
+      outer: 'hover:border-gray-200',
     },
-    text: "hover:text-gray-500",
+    text: 'hover:text-gray-500',
   },
-  description: "Classify how words feel",
-  image: "/assets/project_images/TextClassifier/aws.png",
-  tags: ["Python", "Naive Bayes", "AWS Lambda"],
+  description: 'Classify how words feel',
+  image: '/assets/project_images/TextClassifier/aws.png',
+  tags: ['Python', 'Naive Bayes', 'AWS Lambda'],
   body: <TC />,
 };
