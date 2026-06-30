@@ -73,6 +73,9 @@ const NEGATIVE_FILL = 'rgba(220, 38, 38, 0.35)';
 const NEUTRAL_COLOR = '#F2B70A';
 const NEUTRAL_FILL = 'rgba(250, 204, 21, 0.45)';
 
+const TOTAL_COLOR = '#2563EB';
+const TOTAL_FILL = 'rgba(37, 99, 235, 0.35)';
+
 const CUMULATIVE_MONTH_KEY = '__cumulative__';
 
 const monthFormatter = new Intl.DateTimeFormat('en-US', {
@@ -282,6 +285,14 @@ function CustomTooltip({
     <div className="rounded-md border border-slate-200 bg-white/95 p-2 text-xs shadow-md backdrop-blur-sm">
       <p className="mb-1 font-semibold text-slate-900">{formatMonth(label)}</p>
       <div className="space-y-1.5">
+        {label === CUMULATIVE_MONTH_KEY ? (
+          <div className="flex items-start justify-between gap-3">
+            <span className="font-medium text-slate-700">Total</span>
+            <div className="text-right" style={{ color: TOTAL_COLOR }}>
+              {formatPercent(Number(row.total_return))}
+            </div>
+          </div>
+        ) : null}
         {activeStrategies.map((strategy) => {
           const value = Number(row[`${strategy.key}_return`]);
           const spyValue = Number(row.spy_return);
@@ -394,10 +405,18 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
     );
 
     const lastRow = chartData[chartData.length - 1];
+    const totalCombined = strategies
+      .filter((strategy) => strategy.key !== 'spy')
+      .reduce(
+        (sum, strategy) =>
+          sum + Number(cumulativeReturns[`${strategy.key}_return`]),
+        0,
+      );
     const cumulativeRow: PortfolioRow = {
       month: CUMULATIVE_MONTH_KEY,
       strategyData: { ...lastRow.strategyData },
       ...cumulativeReturns,
+      total_return: totalCombined,
     };
 
     return [cumulativeRow, ...chartData];
@@ -485,7 +504,13 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
         );
       }, 0);
 
-      return Math.max(max, rowMax);
+      const totalValue = Math.abs(Number(row.total_return));
+
+      return Math.max(
+        max,
+        rowMax,
+        Number.isFinite(totalValue) ? totalValue : 0,
+      );
     }, 0);
 
     return Math.max(4, Math.ceil(maxVisible));
@@ -628,6 +653,35 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
               <Tooltip
                 content={<CustomTooltip activeStrategies={activeStrategies} />}
                 cursor={false}
+              />
+              <Bar
+                yAxisId="returns"
+                dataKey="total_return"
+                name="Total Return"
+                activeBar={false}
+                isAnimationActive={shouldAnimateBars}
+                animationDuration={BAR_ANIMATION_DURATION}
+                animationEasing="ease-out"
+                onClick={(state) =>
+                  setSelectedMonth(
+                    String(state?.payload?.month ?? selectedMonth),
+                  )
+                }
+                fill={TOTAL_FILL}
+                stroke={TOTAL_COLOR}
+                strokeOpacity={0.35}
+                radius={[1, 1, 0, 0]}
+                barSize={isMobile ? 8 : 12}
+                label={renderBarLabel(isMobile, 'Total')}
+                shape={(props: BarRectangleItem) => (
+                  <Rectangle
+                    {...props}
+                    fill={TOTAL_FILL}
+                    stroke={TOTAL_COLOR}
+                    strokeOpacity={0.9}
+                    radius={[1, 1, 0, 0]}
+                  />
+                )}
               />
               {activeStrategies.map((strategy) => (
                 <Bar
