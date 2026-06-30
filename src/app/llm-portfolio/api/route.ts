@@ -80,22 +80,11 @@ export function parseSheetValues(values: string[][]): LLMPortfolioMonth[] {
     const rowNumber = rowIndex + 1;
     const mod = rowNumber % BLOCK_SIZE;
     const row = values[rowIndex] ?? [];
+    let numberOfReturnValues = 0;
 
     if (mod === 2) {
       currentMonth = row[0].trim();
       currentHoldings = createEmptyHoldings(strategyKeys);
-    }
-
-    if (mod >= 3 && mod <= 3 + HOLDINGS_ROWS_PER_BLOCK - 1) {
-      strategyKeys.entries().forEach(([columnIndex, strategyKey]) => {
-        const ticker = String(row[columnIndex] ?? '').trim();
-        if (ticker && !VALID_TICKERS.has(ticker)) {
-          throw new Error(
-            `Unknown ticker "${ticker}" for ${strategyKey} in ${currentMonth ?? 'unknown month'}: not present in stocks.json.`,
-          );
-        }
-        currentHoldings[strategyKey].push(ticker);
-      });
     }
 
     if (mod === 0) {
@@ -104,18 +93,35 @@ export function parseSheetValues(values: string[][]): LLMPortfolioMonth[] {
       }
 
       const monthEntry: LLMPortfolioMonth = { month: currentMonth };
-
       strategyKeys.entries().forEach(([columnIndex, strategyKey]) => {
         const returnValue = parseReturnValue(row[columnIndex]);
+        if (!returnValue) {
+          return;
+        }
+
         monthEntry[strategyKey] = {
           return: returnValue,
           stocks: currentHoldings[strategyKey],
         };
+
+        numberOfReturnValues++;
       });
 
       months.push(monthEntry);
       currentMonth = null;
       currentHoldings = createEmptyHoldings(strategyKeys);
+    }
+
+    if (mod >= 3 && mod <= 3 + HOLDINGS_ROWS_PER_BLOCK - 1) {
+      strategyKeys.entries().forEach(([columnIndex, strategyKey]) => {
+        const ticker = String(row[columnIndex] ?? '').trim();
+        if (ticker && !VALID_TICKERS.has(ticker) && numberOfReturnValues == 5) {
+          throw new Error(
+            `Unknown ticker "${ticker}" for ${strategyKey} in ${currentMonth ?? 'unknown month'}: not present in stocks.json.`,
+          );
+        }
+        currentHoldings[strategyKey].push(ticker);
+      });
     }
   }
 
