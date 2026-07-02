@@ -7,7 +7,7 @@ function Frisbee() {
       <Line />
 
       <div className="flex justify-center py-3">
-        <video controls preload="metadata" className="w-1/2">
+        <video controls preload="metadata" className="w-1/2" muted>
           <source
             src="/assets/project_images/FrisbeeTracker/v1_demo.mp4"
             type="video/mp4"
@@ -115,7 +115,7 @@ export const FrisbeeTracker = {
     },
     text: 'hover:text-blue-400',
   },
-  description: 'Player tracking a frisbee game',
+  description: 'Player tracking in ultimate frisbee',
   image: '/assets/project_images/FrisbeeTracker/logo.png',
   body: <Frisbee />,
   tags: ['Computer Vision', 'OpenCV', 'YOLO'],

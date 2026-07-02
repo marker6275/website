@@ -57,7 +57,7 @@ async function createSheetsClient() {
 function parseReturnValue(raw: unknown): number {
   const normalized = String(raw).trim().replace(/%$/, '');
   const value = parseFloat(normalized);
-  return Number.isFinite(value) ? value : 0;
+  return Number.isFinite(value) ? value * 100 : 0;
 }
 
 function createEmptyHoldings(strategyKeys: string[]): Record<string, string[]> {
@@ -140,6 +140,7 @@ export async function fetchLLMPortfolioData(): Promise<LLMPortfolioMonth[]> {
   const result = await sheets.spreadsheets.values.get({
     spreadsheetId,
     range,
+    valueRenderOption: 'UNFORMATTED_VALUE',
   });
 
   return parseSheetValues(result.data.values ?? []);
