@@ -158,7 +158,7 @@
 - LLM portfolio reads from excel sheet
 - Cleaned up imports
 
-**4.5.0**
+**4.5**
 
 - Redesigned navbar
 - Added new resume page

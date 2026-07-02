@@ -1,4 +1,5 @@
-import { T, ST, ST2, P, BL, NL, Line, C } from '@/components/text';
+import { T, ST, ST2, P, NL, Line } from '@/components/text';
+import { FrisbeeVersionSwitcher } from '@/components/projects/FrisbeeVersionSwitcher';
 
 function Frisbee() {
   return (
@@ -6,16 +7,7 @@ function Frisbee() {
       <T>Frisbee Tracker</T>
       <Line />
 
-      <div className="flex justify-center py-3">
-        <video controls preload="metadata" className="w-1/2" muted>
-          <source
-            src="/assets/project_images/FrisbeeTracker/v1_demo.mp4"
-            type="video/mp4"
-          />
-          Your browser does not support the video tag.
-        </video>
-      </div>
-      <C>V1 (USA vs. Belgium 2025 U24 Mens World Championship)</C>
+      <FrisbeeVersionSwitcher />
 
       <ST>Overview</ST>
       <P>
@@ -35,7 +27,7 @@ function Frisbee() {
       <P>
         I saw a video where{' '}
         <a
-          href="https://www.youtube.com/watch?v=aBVGKoNZQUw&t=297s"
+          href="https://youtu.be/aBVGKoNZQUw"
           target="_blank"
           rel="noopener noreferrer"
           className="text-blue-500 underline"
@@ -55,8 +47,8 @@ function Frisbee() {
         I'm going to update this page as I make updates.
       </P>
 
-      <ST>Approach</ST>
-      <P>V1:</P>
+      <ST>Results</ST>
+      <ST2>V1:</ST2>
       <NL>
         <li>
           A quite pass through the video and learn the two team colors (k-means
@@ -79,12 +71,32 @@ function Frisbee() {
         </li>
       </NL>
 
-      <ST>Implementation</ST>
-      <BL>
-        <li>Python</li>
-        <li>YOLO11 for image detection</li>
-        <li>OpenCV for video analysis</li>
-      </BL>
+      <ST2>V2:</ST2>
+      <NL>
+        <li>
+          Not much really changed implementation wise, but it uses better field
+          calibration to more accurately determine the sideline.
+        </li>
+        <li>
+          The new disc detection logic involves taking the entire player
+          outline, then subtracting the known features of the player. If the
+          disc remains, that's the player holding the frisbee.
+        </li>
+        <li>
+          Added a 2D representation of the field, it seems to be fairly accurate
+          when the field is isolated (such as at the end of the video and the
+          players on the field are the only thing in frame). Otherwise, it shows
+          the players on the bench, polluting the view.
+        </li>
+        <li>
+          The 2D field dimensions also aren't quite proportional to the actual
+          field, so players are not being tracked perfectly accurately.
+        </li>
+        <li>
+          There's still occasionally false disc detection with random white
+          lines or blobs near the sideline.
+        </li>
+      </NL>
 
       <ST>Next Steps</ST>
       <P>
@@ -99,7 +111,7 @@ function Frisbee() {
 
       <NL>
         <li>Improve player/disc tracking</li>
-        <li>Convert image to top-down 2D view/field representation</li>
+        <li>Improve 2D view</li>
         <li>Identify and determine player openness</li>
       </NL>
     </div>
