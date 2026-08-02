@@ -1,0 +1,194 @@
+[
+  {
+    "id": "ARI",
+    "name": "Arizona Cardinals",
+    "x": 183.12,
+    "y": 388.55
+  },
+  {
+    "id": "ATL",
+    "name": "Atlanta Falcons",
+    "x": 709.39,
+    "y": 396.26
+  },
+  {
+    "id": "BAL",
+    "name": "Baltimore Ravens",
+    "x": 828.75,
+    "y": 247.21
+  },
+  {
+    "id": "BUF",
+    "name": "Buffalo Bills",
+    "x": 776.84,
+    "y": 174.99
+  },
+  {
+    "id": "CAR",
+    "name": "Carolina Panthers",
+    "x": 770.49,
+    "y": 353.28
+  },
+  {
+    "id": "CHI",
+    "name": "Chicago Bears",
+    "x": 632.32,
+    "y": 215.78
+  },
+  {
+    "id": "CIN",
+    "name": "Cincinnati Bengals",
+    "x": 692.32,
+    "y": 273.83
+  },
+  {
+    "id": "CLE",
+    "name": "Cleveland Browns",
+    "x": 733.16,
+    "y": 211.98
+  },
+  {
+    "id": "DAL",
+    "name": "Dallas Cowboys",
+    "x": 469.38,
+    "y": 432.79
+  },
+  {
+    "id": "DEN",
+    "name": "Denver Broncos",
+    "x": 333.01,
+    "y": 263.57
+  },
+  {
+    "id": "DET",
+    "name": "Detroit Lions",
+    "x": 707.84,
+    "y": 196.17
+  },
+  {
+    "id": "GB",
+    "name": "Green Bay Packers",
+    "x": 619.72,
+    "y": 155.81
+  },
+  {
+    "id": "HOU",
+    "name": "Houston Texans",
+    "x": 502.1,
+    "y": 503.35
+  },
+  {
+    "id": "IND",
+    "name": "Indianapolis Colts",
+    "x": 661.87,
+    "y": 261.78
+  },
+  {
+    "id": "JAX",
+    "name": "Jacksonville Jaguars",
+    "x": 773.11,
+    "y": 467.31
+  },
+  {
+    "id": "KC",
+    "name": "Kansas City Chiefs",
+    "x": 517.11,
+    "y": 286.92
+  },
+  {
+    "id": "LV",
+    "name": "Las Vegas Raiders",
+    "x": 140.52,
+    "y": 320.2
+  },
+  {
+    "id": "LAC",
+    "name": "Los Angeles Chargers",
+    "x": 72.44,
+    "y": 355.72
+  },
+  {
+    "id": "LAR",
+    "name": "Los Angeles Rams",
+    "x": 72.44,
+    "y": 355.72
+  },
+  {
+    "id": "MIA",
+    "name": "Miami Dolphins",
+    "x": 816.87,
+    "y": 561.36
+  },
+  {
+    "id": "MIN",
+    "name": "Minnesota Vikings",
+    "x": 534.79,
+    "y": 149.71
+  },
+  {
+    "id": "NE",
+    "name": "New England Patriots",
+    "x": 903.7,
+    "y": 162.67
+  },
+  {
+    "id": "NO",
+    "name": "New Orleans Saints",
+    "x": 607.78,
+    "y": 493.61
+  },
+  {
+    "id": "NYG",
+    "name": "New York Giants",
+    "x": 864.38,
+    "y": 202.96
+  },
+  {
+    "id": "NYJ",
+    "name": "New York Jets",
+    "x": 864.38,
+    "y": 202.96
+  },
+  {
+    "id": "PHI",
+    "name": "Philadelphia Eagles",
+    "x": 850.64,
+    "y": 227.77
+  },
+  {
+    "id": "PIT",
+    "name": "Pittsburgh Steelers",
+    "x": 765.59,
+    "y": 231.58
+  },
+  {
+    "id": "SF",
+    "name": "San Francisco 49ers",
+    "x": 27.63,
+    "y": 261.63
+  },
+  {
+    "id": "SEA",
+    "name": "Seattle Seahawks",
+    "x": 85.59,
+    "y": 33.95
+  },
+  {
+    "id": "TB",
+    "name": "Tampa Bay Buccaneers",
+    "x": 763.8,
+    "y": 523.07
+  },
+  {
+    "id": "TEN",
+    "name": "Tennessee Titans",
+    "x": 659.38,
+    "y": 345.66
+  },
+  {
+    "id": "WAS",
+    "name": "Washington Commanders",
+    "x": 826.3,
+    "y": 256.47
+  }
+]
