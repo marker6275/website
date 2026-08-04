@@ -1,4 +1,4 @@
-import { AnimatedContent } from "@/components/reactbits";
+import { AnimatedContent } from '@/components/reactbits';
 
 export function HeaderName() {
   return (
@@ -10,7 +10,7 @@ export function HeaderName() {
       delay={0.2}
       ease="bounce3.out"
     >
-      <h1 className="text-slate-800 text-4xl sm:text-6xl duration-300">
+      <h1 className="text-slate-800 text-4xl sm:text-6xl duration-300 select-none">
         Mark Li
       </h1>
     </AnimatedContent>

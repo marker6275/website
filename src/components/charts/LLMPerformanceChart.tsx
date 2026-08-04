@@ -557,7 +557,7 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
                     : undefined,
                 } as CSSProperties
               }
-              className={`cursor-pointer rounded-md border px-3 py-1.5 text-sm font-medium transition-all duration-200 ease-out hover:-translate-y-0.5 active:translate-y-0 ${
+              className={`cursor-pointer rounded-md border px-3 py-1.5 text-sm font-medium transition-all duration-200 ease-out hover:-translate-y-0.5 active:translate-y-0 select-none ${
                 visibleStrategies[strategy.key]
                   ? 'border-slate-300 bg-slate-100 hover:border-slate-500'
                   : 'border-slate-200 bg-white text-slate-500 hover:border-slate-400 hover:text-[var(--strategy-hover-color)]'
@@ -752,7 +752,7 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
                             className="group relative"
                           >
                             <span
-                              className="block cursor-default rounded-md border border-slate-200 bg-slate-50 px-2.5 py-[0.22rem] text-center text-sm font-medium text-slate-700 transition-colors duration-150 hover:border-slate-300 hover:bg-slate-100 sm:text-base"
+                              className="block cursor-default rounded-md border border-slate-200 bg-slate-50 px-2.5 py-[0.22rem] text-center text-sm font-medium text-slate-700 transition-colors duration-150 hover:border-slate-300 hover:bg-slate-100 sm:text-base select-none"
                               aria-label={`${ticker}: ${getTickerName(ticker)}`}
                             >
                               {ticker}

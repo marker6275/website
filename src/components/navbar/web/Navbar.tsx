@@ -89,7 +89,7 @@ export function Navbar() {
               alt="Mark"
               width={40}
               height={40}
-              className={`rounded-full m-3 transition-all duration-300 hover:animate-pulse ${
+              className={`rounded-full m-3 transition-all duration-300 hover:animate-pulse select-none ${
                 scrolled ? 'size-10' : 'size-12'
               }`}
               onClick={() => {
@@ -165,7 +165,7 @@ export function Navbar() {
                     transition={{ type: 'spring', stiffness: 400, damping: 32 }}
                   />
                 )}
-                <span className="relative z-10">{item.title}</span>
+                <span className="relative z-10 select-none">{item.title}</span>
               </Link>
             );
           })}

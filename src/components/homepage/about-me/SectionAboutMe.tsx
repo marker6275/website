@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { AboutMeTitle } from "./AboutMeTitle";
-import { AboutMeText } from "./AboutMeText";
-import { HomepageDivider } from "../shared";
+import { AboutMeTitle } from './AboutMeTitle';
+import { AboutMeText } from './AboutMeText';
+import { HomepageDivider } from '../shared';
 
 export function SectionAboutMe() {
   return (
     <div className="flex">
-      <div className="py-5 w-full md:w-1/2">
+      <div className="py-5 w-full md:w-1/2 select-none">
         <AboutMeTitle />
         <HomepageDivider hide={false} />
         <AboutMeText />

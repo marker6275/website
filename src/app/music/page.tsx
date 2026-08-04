@@ -9,7 +9,7 @@ export default function MusicPage() {
   const info = data.music;
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 select-none">
       <div className="mx-auto flex w-fit max-w-full min-w-0 flex-col items-start">
         <h1 className="text-start text-4xl font-semibold tracking-tight text-slate-900 lg:text-5xl">
           Music

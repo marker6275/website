@@ -6,7 +6,7 @@ export const metadata = {
 
 export default function ResumePage() {
   return (
-    <div className="bg-[#FAFAF9] min-h-screen overflow-x-hidden pt-24 pb-12 text-center">
+    <div className="bg-[#FAFAF9] min-h-screen overflow-x-hidden pt-24 pb-12 text-center select-none">
       <h1 className="text-3xl sm:text-4xl font-light text-gray-900">Resume</h1>
       <a
         href="/assets/Mark_Li_Resume.pdf"

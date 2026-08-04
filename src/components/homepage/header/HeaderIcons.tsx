@@ -1,7 +1,7 @@
-import { AnimatedContent } from "@/components/reactbits";
-import { HomeIcon, HomeIconButton } from "@/components/buttons";
-import data from "@/data/personal-info.json";
-import type { HeaderEmailIconProps } from "@/types/components";
+import { AnimatedContent } from '@/components/reactbits';
+import { HomeIcon, HomeIconButton } from '@/components/buttons';
+import data from '@/data/personal-info.json';
+import type { HeaderEmailIconProps } from '@/types/components';
 
 const contact = data.contact;
 
@@ -31,7 +31,7 @@ export function HeaderEmailIcon({
             }, 2200);
           }
         }}
-        style={{ cursor: "pointer", position: "relative" }}
+        style={{ cursor: 'pointer', position: 'relative', userSelect: 'none' }}
         title="Click to copy email"
       >
         <HomeIcon src="/assets/icons/email.png" alt="email" />

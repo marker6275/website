@@ -1,8 +1,8 @@
-import { AnimatedContent } from "@/components/reactbits";
+import { AnimatedContent } from '@/components/reactbits';
 
 export function HeaderSubtitle() {
   return (
-    <h2 className="ml-1 font-light tracking-wide text-sm sm:text-lg mt-1 text-slate-500 leading-relaxed">
+    <h2 className="ml-1 font-light tracking-wide text-sm sm:text-lg mt-1 text-slate-500 leading-relaxed select-none">
       <AnimatedContent
         distance={100}
         direction="horizontal"

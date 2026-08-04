@@ -1,9 +1,9 @@
-import { AnimatedContent } from "@/components/reactbits";
-import { useSafeMediaQuery } from "@/hooks";
-import Image from "next/image";
+import { AnimatedContent } from '@/components/reactbits';
+import { useSafeMediaQuery } from '@/hooks';
+import Image from 'next/image';
 
 export function HeaderProfilePicture() {
-  const smallScreen = useSafeMediaQuery("(max-width: 767px)");
+  const smallScreen = useSafeMediaQuery('(max-width: 767px)');
 
   return (
     <AnimatedContent
@@ -20,8 +20,8 @@ export function HeaderProfilePicture() {
         width={220}
         height={220}
         className={`rounded-full ${
-          smallScreen ? "size-36" : "size-56"
-        } object-cover ring-1 ring-slate-200 shadow-sm saturate-85 contrast-95 brightness-95`}
+          smallScreen ? 'size-36' : 'size-56'
+        } object-cover ring-1 ring-slate-200 shadow-sm saturate-85 contrast-95 brightness-95 select-none`}
       />
     </AnimatedContent>
   );

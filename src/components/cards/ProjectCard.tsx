@@ -36,7 +36,7 @@ export function ProjectCard({
       className={`
         relative flex min-w-0 w-full max-w-full flex-row gap-0 overflow-hidden rounded-lg border-2 border-slate-400/80 bg-white sm:flex-col
         shadow-sm transition-all duration-200
-        hover:-translate-y-0.5 hover:shadow-md
+        hover:-translate-y-0.5 hover:shadow-md select-none
         ${color.text} ${color.border.outer}
       `}
     >
