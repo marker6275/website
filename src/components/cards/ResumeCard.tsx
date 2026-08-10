@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import type { ResumeCardProps } from '@/types/components';
 import { formatDate, resumeCategoryStyles } from '@/utils';
 
@@ -64,29 +65,48 @@ export function ResumeCard({ entry }: ResumeCardProps) {
             }}
           />
           <div
-            className={`flex items-center gap-2 mb-1.5 flex-wrap ${isLeft ? 'lg:justify-end' : 'lg:justify-start'}`}
+            className={`flex items-start gap-3 ${isLeft ? 'lg:flex-row-reverse' : ''}`}
           >
-            <span className="text-xs text-gray-500">
-              {formatDate(entry.start)} — {formatDate(entry.end)}
-            </span>
+            {entry.logo && (
+              <div
+                className={`relative h-10 w-10 shrink-0 overflow-hidden rounded-lg ring-1 ${styles.ring}`}
+              >
+                <Image
+                  src={entry.logo}
+                  alt={`${entry.org} logo`}
+                  fill
+                  sizes="40px"
+                  className="object-cover"
+                />
+              </div>
+            )}
+            <div className="min-w-0 flex-1">
+              <div
+                className={`flex items-center gap-2 mb-1.5 flex-wrap ${isLeft ? 'lg:justify-end' : 'lg:justify-start'}`}
+              >
+                <span className="text-xs text-gray-500">
+                  {formatDate(entry.start)} — {formatDate(entry.end)}
+                </span>
+              </div>
+              <h3
+                className={`font-semibold text-base lg:text-lg text-gray-900 leading-snug ${isLeft ? 'lg:text-right' : 'lg:text-left'}`}
+              >
+                {entry.role}
+              </h3>
+              <p
+                className={`text-sm text-gray-700 mt-0.5 ${isLeft ? 'lg:text-right' : 'lg:text-left'}`}
+              >
+                {entry.org}
+              </p>
+              {entry.location && (
+                <p
+                  className={`text-xs text-gray-500 italic ${isLeft ? 'lg:text-right' : 'lg:text-left'}`}
+                >
+                  {entry.location}
+                </p>
+              )}
+            </div>
           </div>
-          <h3
-            className={`font-semibold text-base lg:text-lg text-gray-900 leading-snug ${isLeft ? 'lg:text-right' : 'lg:text-left'}`}
-          >
-            {entry.role}
-          </h3>
-          <p
-            className={`text-sm text-gray-700 mt-0.5 ${isLeft ? 'lg:text-right' : 'lg:text-left'}`}
-          >
-            {entry.org}
-          </p>
-          {entry.location && (
-            <p
-              className={`text-xs text-gray-500 italic ${isLeft ? 'lg:text-right' : 'lg:text-left'}`}
-            >
-              {entry.location}
-            </p>
-          )}
         </div>
       </div>
 

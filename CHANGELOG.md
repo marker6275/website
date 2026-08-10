@@ -164,3 +164,7 @@
 - Added new resume page
 - Update next.js version
 - Added Frisbee Tracker project
+
+**4.6**
+
+- Add not found page

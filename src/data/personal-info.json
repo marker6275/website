@@ -80,7 +80,8 @@
       "role": "BS Computer Science",
       "location": "Evanston, IL",
       "start": { "year": 2021, "month": 9 },
-      "end": { "year": 2024, "month": 6 }
+      "end": { "year": 2024, "month": 6 },
+      "logo": "/assets/resume_images/northwestern.png"
     },
     {
       "id": "nu-bs-music",
@@ -89,7 +90,8 @@
       "role": "BA Music",
       "location": "Evanston, IL",
       "start": { "year": 2021, "month": 9 },
-      "end": { "year": 2024, "month": 6 }
+      "end": { "year": 2024, "month": 6 },
+      "logo": "/assets/resume_images/northwestern.png"
     },
     {
       "id": "nu-ms",
@@ -98,7 +100,8 @@
       "role": "MS Computer Science",
       "location": "Evanston, IL",
       "start": { "year": 2024, "month": 9 },
-      "end": { "year": 2025, "month": 6 }
+      "end": { "year": 2025, "month": 6 },
+      "logo": "/assets/resume_images/northwestern.png"
     },
     {
       "id": "shure-ft",
@@ -107,7 +110,8 @@
       "role": "Applications Development Engineer",
       "location": "Niles, IL",
       "start": { "year": 2025, "month": 7 },
-      "end": "present"
+      "end": "present",
+      "logo": "/assets/resume_images/shure.png"
     },
     {
       "id": "shure-intern",
@@ -116,7 +120,8 @@
       "role": "Applications Development Engineer Intern",
       "location": "Niles, IL",
       "start": { "year": 2024, "month": 6 },
-      "end": { "year": 2025, "month": 3 }
+      "end": { "year": 2025, "month": 3 },
+      "logo": "/assets/resume_images/shure.png"
     },
     {
       "id": "esl",
@@ -125,7 +130,8 @@
       "role": "Graduate Researcher",
       "location": "Northwestern University",
       "start": { "year": 2024, "month": 3 },
-      "end": { "year": 2025, "month": 6 }
+      "end": { "year": 2025, "month": 6 },
+      "logo": "/assets/resume_images/embodied_systems_lab.png"
     },
     {
       "id": "ta",
@@ -134,7 +140,8 @@
       "role": "Teaching Assistant · CS321 Programming Languages",
       "location": "Evanston, IL",
       "start": { "year": 2023, "month": 9 },
-      "end": { "year": 2024, "month": 3 }
+      "end": { "year": 2024, "month": 3 },
+      "logo": "/assets/resume_images/northwestern.png"
     },
     {
       "id": "explorate",
@@ -143,7 +150,8 @@
       "role": "Full-Stack Developer",
       "location": "Evanston, IL",
       "start": { "year": 2023, "month": 6 },
-      "end": { "year": 2023, "month": 9 }
+      "end": { "year": 2023, "month": 9 },
+      "logo": "/assets/resume_images/explorate.png"
     },
     {
       "id": "pl-lab",
@@ -152,7 +160,8 @@
       "role": "Research Assistant",
       "location": "Northwestern University",
       "start": { "year": 2022, "month": 6 },
-      "end": { "year": 2024, "month": 3 }
+      "end": { "year": 2024, "month": 3 },
+      "logo": "/assets/resume_images/northwestern.png"
     }
   ]
 }

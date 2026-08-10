@@ -8,4 +8,5 @@ export type ResumeEntry = {
   location?: string;
   start: DateLike;
   end: DateLike | 'present';
+  logo?: string;
 };
