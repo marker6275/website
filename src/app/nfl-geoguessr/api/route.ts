@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { readTeams } from "@/lib/nfl-geography/store";
+import { readTeams } from "@/lib/nfl-geoguessr/store";
 
 export const runtime = "nodejs";
 

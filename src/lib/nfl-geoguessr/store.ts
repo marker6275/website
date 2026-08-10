@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 
-export type NflGeographyTeam = {
+export type NflGeoguessrTeam = {
   id: string;
   name: string;
   x: number | null;
@@ -10,10 +10,10 @@ export type NflGeographyTeam = {
 
 const DATA_PATH = path.join(
   process.cwd(),
-  "src/data/nflGeographyTeams.json",
+  "src/data/nflGeoguessrTeams.json",
 );
 
-export function readTeams(): NflGeographyTeam[] {
+export function readTeams(): NflGeoguessrTeam[] {
   const raw = fs.readFileSync(DATA_PATH, "utf8");
   return JSON.parse(raw);
 }
@@ -22,7 +22,7 @@ export function writeTeamPosition(
   id: string,
   x: number,
   y: number,
-): NflGeographyTeam | null {
+): NflGeoguessrTeam | null {
   const teams = readTeams();
   const team = teams.find((t) => t.id === id);
   if (!team) return null;

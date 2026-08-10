@@ -1,11 +1,11 @@
 import type { ReactNode } from 'react';
 
 export const metadata = {
-  title: 'NFL Geography',
+  title: 'NFL Geoguessr',
   description: 'Guess where each NFL team is located on the map.',
 };
 
-export default function NflGeographyLayout({
+export default function NflGeoguessrLayout({
   children,
 }: {
   children: ReactNode;

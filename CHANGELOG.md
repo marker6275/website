@@ -168,3 +168,4 @@
 **4.6**
 
 - Add not found page
+- Add NFL Geoguessr to projects

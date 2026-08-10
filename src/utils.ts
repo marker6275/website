@@ -11,11 +11,13 @@ import {
   SpeedReader,
   LLMPortfolioProject,
   FrisbeeTracker,
+  NFLGeoguessr,
 } from '@/projects';
 import type { DateLike, Project, ResumeEntry } from '@/types/components';
 import tickers from '@/data/stocks.json';
 
 const projects: Project[] = [
+  NFLGeoguessr,
   FrisbeeTracker,
   LLMPortfolioProject,
   SpeedReader,
@@ -41,15 +43,8 @@ const validSearches = [
   'music',
   'resume',
   'bets',
-  'misc',
   'llm-portfolio',
 ];
-
-const validMiscSearches = ['tic tac toe'];
-
-const miscSearchesMap: Record<string, string> = {
-  'tic tac toe': 'tic-tac-toe',
-};
 
 function getSearchLink(search: string): string | null {
   if (search === 'home') {
@@ -62,11 +57,6 @@ function getSearchLink(search: string): string | null {
 
   if (validSearches.includes(search.toLowerCase())) {
     return `/${search.toLowerCase()}`;
-  }
-
-  if (validMiscSearches.includes(search.toLowerCase())) {
-    const endpoint = miscSearchesMap[search.toLowerCase()];
-    return `/misc/${endpoint}`;
   }
 
   return null;

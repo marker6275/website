@@ -1,19 +1,17 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import {
   USMap,
   type Point,
   type MapMarker,
   type GuessPair,
-} from '@/components/nfl-geography';
-import type { NflGeographyTeam } from '@/lib/nfl-geography/store';
+} from '@/components/nfl-geoguessr';
+import type { NflGeoguessrTeam } from '@/lib/nfl-geoguessr/store';
 
 const MAX_SCORE = 100;
 const DECAY_K = 100 / Math.log(2);
-
-type SubmitStatus = 'idle' | 'saving' | 'saved' | 'error';
 
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr];
@@ -32,22 +30,18 @@ function scoreFor(dist: number) {
   return Math.round(MAX_SCORE * Math.exp(-dist / DECAY_K));
 }
 
-type Phase = 'loading' | 'not-enough' | 'enter-name' | 'playing' | 'finished';
+type Phase = 'loading' | 'not-enough' | 'playing' | 'finished';
 
-export default function NflGeographyPage() {
+export default function NflGeoguessrPage() {
   const [phase, setPhase] = useState<Phase>('loading');
-  const [allTeams, setAllTeams] = useState<NflGeographyTeam[]>([]);
-  const [playerName, setPlayerName] = useState('');
-  const [rounds, setRounds] = useState<NflGeographyTeam[]>([]);
+  const [rounds, setRounds] = useState<NflGeoguessrTeam[]>([]);
   const [roundIndex, setRoundIndex] = useState(0);
   const [guess, setGuess] = useState<Point | null>(null);
   const [pastGuesses, setPastGuesses] = useState<MapMarker[]>([]);
   const [roundResults, setRoundResults] = useState<GuessPair[]>([]);
   const [totalScore, setTotalScore] = useState(0);
-  const [submitStatus, setSubmitStatus] = useState<SubmitStatus>('idle');
-  const hasPostedScore = useRef(false);
 
-  function startGame(teams: NflGeographyTeam[]) {
+  function startGame(teams: NflGeoguessrTeam[]) {
     const plotted = teams.filter((t) => t.x != null && t.y != null);
     if (plotted.length < 2) {
       setPhase('not-enough');
@@ -59,43 +53,14 @@ export default function NflGeographyPage() {
     setGuess(null);
     setPastGuesses([]);
     setRoundResults([]);
-    setSubmitStatus('idle');
-    hasPostedScore.current = false;
     setPhase('playing');
   }
 
   useEffect(() => {
-    fetch('/nfl-geography/api/')
+    fetch('/nfl-geoguessr/api/')
       .then((r) => r.json())
-      .then((data: NflGeographyTeam[]) => {
-        setAllTeams(data);
-        const plotted = data.filter((t) => t.x != null && t.y != null);
-        setPhase(plotted.length < 2 ? 'not-enough' : 'enter-name');
-      });
+      .then((data: NflGeoguessrTeam[]) => startGame(data));
   }, []);
-
-  useEffect(() => {
-    if (phase !== 'finished' || hasPostedScore.current) return;
-    hasPostedScore.current = true;
-    setSubmitStatus('saving');
-    fetch('/nfl-geography/api/leaderboard/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name: playerName,
-        score: totalScore,
-      }),
-    })
-      .then((r) => setSubmitStatus(r.ok ? 'saved' : 'error'))
-      .catch(() => setSubmitStatus('error'));
-  }, [phase, playerName, totalScore]);
-
-  function handleStartGame() {
-    if (!playerName.trim()) {
-      return;
-    }
-    startGame(allTeams);
-  }
 
   const current = rounds[roundIndex];
   const actual: Point | null = current
@@ -134,9 +99,9 @@ export default function NflGeographyPage() {
   });
 
   function handlePlayAgain() {
-    fetch('/nfl-geography/api/')
+    fetch('/nfl-geoguessr/api/')
       .then((r) => r.json())
-      .then((data: NflGeographyTeam[]) => startGame(data));
+      .then((data: NflGeoguessrTeam[]) => startGame(data));
   }
 
   const progressLabel = useMemo(
@@ -160,43 +125,11 @@ export default function NflGeographyPage() {
           Plot at least two team locations before you can play.
         </p>
         <Link
-          href="/nfl-geography/admin"
+          href="/nfl-geoguessr/admin"
           className="px-5 py-2.5 rounded bg-blue-600 text-white text-base font-medium"
         >
           Go to admin
         </Link>
-      </div>
-    );
-  }
-
-  if (phase === 'enter-name') {
-    return (
-      <div className="flex flex-1 flex-col items-center justify-center gap-5 p-8 text-center">
-        <h1 className="text-2xl font-semibold">NFL Geography</h1>
-        <p className="text-neutral-500 max-w-md text-lg">
-          Enter your name to start.
-        </p>
-        <input
-          type="text"
-          value={playerName}
-          onChange={(e) => setPlayerName(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') {
-              handleStartGame();
-            }
-          }}
-          placeholder="Your name"
-          maxLength={40}
-          autoFocus
-          className="w-64 px-4 py-2.5 rounded border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 text-base text-center focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        <button
-          onClick={handleStartGame}
-          disabled={!playerName.trim()}
-          className="px-5 py-2.5 rounded bg-blue-600 text-white text-base font-medium disabled:opacity-40 disabled:cursor-not-allowed"
-        >
-          Start Game
-        </button>
       </div>
     );
   }
@@ -213,11 +146,6 @@ export default function NflGeographyPage() {
           <span className="font-bold">
             {totalScore} / {rounds.length * MAX_SCORE}
           </span>
-        </p>
-        <p className="text-sm text-neutral-500 h-5">
-          {submitStatus === 'saving' && 'Saving your score…'}
-          {submitStatus === 'saved' && 'Score saved to the leaderboard!'}
-          {submitStatus === 'error' && "Couldn't save your score."}
         </p>
         <button
           onClick={handlePlayAgain}

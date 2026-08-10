@@ -1,19 +1,19 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { USMap, type Point } from "@/components/nfl-geography";
-import type { NflGeographyTeam } from "@/lib/nfl-geography/store";
+import { USMap, type Point } from "@/components/nfl-geoguessr";
+import type { NflGeoguessrTeam } from "@/lib/nfl-geoguessr/store";
 
-export default function NflGeographyAdminPage() {
-  const [teams, setTeams] = useState<NflGeographyTeam[]>([]);
+export default function NflGeoguessrAdminPage() {
+  const [teams, setTeams] = useState<NflGeoguessrTeam[]>([]);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-    fetch("/nfl-geography/api/")
+    fetch("/nfl-geoguessr/api/")
       .then((r) => r.json())
-      .then((data: NflGeographyTeam[]) => {
+      .then((data: NflGeoguessrTeam[]) => {
         setTeams(data);
         const firstUnplotted = data.find((t) => t.x == null);
         setSelectedId(firstUnplotted?.id ?? data[0]?.id ?? null);
@@ -40,12 +40,12 @@ export default function NflGeographyAdminPage() {
   async function handlePick(p: Point) {
     if (!selected) return;
     setSaving(true);
-    const res = await fetch(`/nfl-geography/api/${selected.id}/`, {
+    const res = await fetch(`/nfl-geoguessr/api/${selected.id}/`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(p),
     });
-    const updated: NflGeographyTeam = await res.json();
+    const updated: NflGeoguessrTeam = await res.json();
     setTeams((prev) => prev.map((t) => (t.id === updated.id ? updated : t)));
     setSaving(false);
 

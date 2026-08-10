@@ -10,3 +10,4 @@ export { SportClassifier } from './SportClassifier';
 export { SpeedReader } from './SpeedReader';
 export { LLMPortfolioProject } from './LLMPortfolioProject';
 export { FrisbeeTracker } from './FrisbeeTracker';
+export { NFLGeoguessr } from './NFLGeoguessr';

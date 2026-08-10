@@ -1,6 +1,6 @@
 'use client';
 
-import { MAP_WIDTH, MAP_HEIGHT } from '@/lib/nfl-geography/constants';
+import { MAP_WIDTH, MAP_HEIGHT } from '@/lib/nfl-geoguessr/constants';
 
 export type Point = { x: number; y: number };
 

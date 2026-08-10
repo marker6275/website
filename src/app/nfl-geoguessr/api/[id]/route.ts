@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { writeTeamPosition } from "@/lib/nfl-geography/store";
-import { MAP_WIDTH, MAP_HEIGHT } from "@/lib/nfl-geography/constants";
+import { writeTeamPosition } from "@/lib/nfl-geoguessr/store";
+import { MAP_WIDTH, MAP_HEIGHT } from "@/lib/nfl-geoguessr/constants";
 
 export const runtime = "nodejs";
 

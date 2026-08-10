@@ -32,7 +32,7 @@ export function NavbarWrapper() {
       mediaQuery.removeEventListener('change', handleMediaQueryChange);
   }, []);
 
-  const ignoredPathnames = ['/bets', '/nfl-geography', '/nfl-geography/admin'];
+  const ignoredPathnames = ['/bets', '/nfl-geoguessr', '/nfl-geoguessr/admin'];
 
   if (
     ignoredPathnames.includes(pathname) ||
