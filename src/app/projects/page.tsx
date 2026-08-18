@@ -1,4 +1,5 @@
 import { ProjectsMasonry } from '@/components/projects';
+import { PageBanner } from '@/components/banner';
 import { projects } from '@/utils';
 
 export const metadata = {
@@ -7,11 +8,9 @@ export const metadata = {
 
 export default function ProjectsPage() {
   return (
-    <div className="min-h-screen bg-slate-50">
-      <main className="mx-auto w-full min-w-0 max-w-7xl overflow-x-clip px-4 pb-12 pt-10 sm:px-6 lg:px-8">
-        <h1 className="text-4xl font-semibold tracking-tight text-slate-900 sm:text-5xl select-none">
-          Projects
-        </h1>
+    <div className="bg-[#FAFAF9] min-h-screen overflow-x-hidden pt-24 pb-12 select-none">
+      <PageBanner title="Projects" dotClassName="rounded-sm bg-blue-700" />
+      <main className="mx-auto w-full min-w-0 max-w-7xl overflow-x-clip px-4 sm:px-6 lg:px-8 mt-10">
         <ProjectsMasonry projects={projects} />
       </main>
     </div>

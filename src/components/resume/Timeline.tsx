@@ -4,6 +4,7 @@ import { useMemo } from 'react';
 import { ResumeCard } from '@/components/cards';
 import type { ResumeEntry } from '@/types/components';
 import info from '@/data/personal-info.json';
+import { TimelineEnd } from './TimelineEnd';
 
 const ENTRIES = info.resume as ResumeEntry[];
 
@@ -19,12 +20,14 @@ export function Timeline() {
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-8">
       <div className="relative">
-        <div className="hidden lg:block absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-px bg-gray-200" />
+        <div className="hidden lg:block absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-px bg-gray-300" />
+        <TimelineEnd isStart={true} />
         <div className="flex flex-col lg:gap-6">
           {ordered.map((entry) => (
             <ResumeCard key={entry.id} entry={entry} />
           ))}
         </div>
+        <TimelineEnd isStart={false} />
       </div>
     </div>
   );

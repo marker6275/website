@@ -2,14 +2,12 @@
 
 import { AboutMeTitle } from './AboutMeTitle';
 import { AboutMeText } from './AboutMeText';
-import { HomepageDivider } from '../shared';
 
 export function SectionAboutMe() {
   return (
     <div className="flex">
-      <div className="py-5 w-full md:w-1/2 select-none">
+      <div className="py-10 sm:py-14 px-6 sm:px-10 w-full md:w-1/2 select-none">
         <AboutMeTitle />
-        <HomepageDivider hide={false} />
         <AboutMeText />
       </div>
     </div>

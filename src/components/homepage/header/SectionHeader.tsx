@@ -1,29 +1,36 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Toast } from "@/components/popups";
-import { HeaderProfilePicture } from "./HeaderProfilePicture";
-import { HeaderName } from "./HeaderName";
-import { HeaderSubtitle } from "./HeaderSubtitle";
+import { useState } from 'react';
+import Image from 'next/image';
+import { Toast } from '@/components/popups';
+import { PageBanner } from '@/components/banner';
 import {
   HeaderEmailIcon,
   HeaderInstagramIcon,
   HeaderGithubIcon,
   HeaderLinkedinIcon,
-} from "./HeaderIcons";
+} from './HeaderIcons';
 
 export function SectionHeader() {
   const [showToast, setShowToast] = useState(false);
   const [isFadingOut, setIsFadingOut] = useState(false);
 
   return (
-    <div className="my-4 sm:my-8 mx-4">
-      <div className="flex justify-center items-center duration-300">
-        <HeaderProfilePicture />
-        <div className="ml-4 sm:ml-8">
-          <HeaderName />
-          <HeaderSubtitle />
-          <div className="flex gap-4 sm:gap-6 space-between mt-2 ml-1 duration-300">
+    <div>
+      <PageBanner
+        title="Mark Li"
+        avatar={
+          <Image
+            src="/assets/profile_pic.jpg"
+            alt="Profile Picture"
+            width={96}
+            height={96}
+            className="size-16 sm:size-36 rounded-full object-cover ring-1 ring-slate-200 shadow-sm saturate-85 contrast-95 brightness-95 shrink-0 select-none"
+          />
+        }
+        accentClassName="border-emerald-200"
+        action={
+          <div className="flex gap-4 sm:gap-6 duration-300">
             <HeaderEmailIcon
               showToast={showToast}
               setShowToast={setShowToast}
@@ -33,8 +40,8 @@ export function SectionHeader() {
             <HeaderGithubIcon />
             <HeaderLinkedinIcon />
           </div>
-        </div>
-      </div>
+        }
+      />
       {showToast && (
         <Toast message="Email copied to clipboard!" isFadingOut={isFadingOut} />
       )}

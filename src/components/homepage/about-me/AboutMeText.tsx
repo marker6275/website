@@ -13,7 +13,7 @@ export function AboutMeText() {
       scale={1}
       threshold={0.2}
     >
-      <div className="font-light text-xl sm:text-2xl py-5 px-10 sm:px-15">
+      <div className="font-light text-xl sm:text-2xl">
         <p>
           Hi! My name is Mark Li. I'm a software engineer at{' '}
           <span className="text-lime-500">Shure</span> and a graduate from{' '}

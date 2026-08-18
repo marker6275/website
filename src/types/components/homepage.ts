@@ -4,8 +4,10 @@ export interface HomepageButtonProps {
   reverse?: boolean;
 }
 
-export interface HomepageDividerProps {
-  hide?: boolean;
+export interface SectionHeadingProps {
+  title: string;
+  italic?: boolean;
+  ruleClassName: string;
 }
 
 export interface HeaderEmailIconProps {
