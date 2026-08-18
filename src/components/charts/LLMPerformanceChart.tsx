@@ -1,6 +1,7 @@
 'use client';
 
 import {
+  useCallback,
   useEffect,
   useMemo,
   useRef,
@@ -47,6 +48,8 @@ const PREFERRED_ORDER = [
 
 const EXPECTED_HOLDINGS_COUNT = 10;
 const BAR_ANIMATION_DURATION = 200;
+const MOBILE_PX_PER_POINT = 140;
+const MOBILE_MIN_CHART_WIDTH = 320;
 
 function getOrderedStrategyKeys(rows: PortfolioRow[]): string[] {
   const availableKeys = new Set<string>();
@@ -428,7 +431,7 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
   const chartHasRendered = useRef(false);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(max-width: 639px)');
+    const mediaQuery = window.matchMedia('(max-width: 767px)');
     const update = () => setIsMobile(mediaQuery.matches);
     update();
     mediaQuery.addEventListener('change', update);
@@ -519,6 +522,33 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
     return displayChartData.find((row) => row.month === selectedMonth) ?? null;
   }, [displayChartData, selectedMonth]);
 
+  const mobileChartWidth = useMemo(
+    () =>
+      Math.max(
+        displayChartData.length * MOBILE_PX_PER_POINT,
+        MOBILE_MIN_CHART_WIDTH,
+      ),
+    [displayChartData.length],
+  );
+
+  const monthCount = displayChartData.length;
+
+  // Draws a divider between each month's bar group rather than through it,
+  // so the boundaries are placed evenly across the plot width instead of
+  // at the (band-centered) axis tick coordinates.
+  const generateMonthDividers = useCallback(
+    ({ offset }: { offset?: { left: number; width: number } }) => {
+      if (!offset || monthCount < 2) {
+        return [];
+      }
+      const bandWidth = offset.width / monthCount;
+      return Array.from({ length: monthCount - 1 }, (_, index) =>
+        offset.left + bandWidth * (index + 1),
+      );
+    },
+    [monthCount],
+  );
+
   return (
     <section className="w-full rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
       <style jsx global>{`
@@ -569,9 +599,13 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
         </div>
       </div>
 
-      <div className="h-[360px] min-h-[320px] w-full sm:h-[500px] sm:min-h-[420px]">
+      <div
+        className="h-[360px] min-h-[320px] w-full overflow-x-auto overflow-y-hidden md:h-[500px] md:min-h-[420px]"
+        style={{ WebkitOverflowScrolling: 'touch' }}
+      >
         <div
-          className="h-full w-full"
+          className="h-full"
+          style={isMobile ? { width: mobileChartWidth } : { width: '100%' }}
           onMouseDownCapture={(event) => {
             event.preventDefault();
           }}
@@ -582,8 +616,8 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
               data={displayChartData}
               margin={{
                 top: 10,
-                right: isMobile ? 6 : 20,
-                left: isMobile ? -12 : 8,
+                right: isMobile ? 12 : 20,
+                left: isMobile ? 0 : 8,
                 bottom: 8,
               }}
               accessibilityLayer={false}
@@ -592,20 +626,21 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
               <CartesianGrid
                 stroke="#94A3B8"
                 strokeOpacity={0.18}
-                vertical={false}
+                vertical
+                verticalCoordinatesGenerator={generateMonthDividers}
               />
               <XAxis
                 dataKey="month"
                 tickLine={false}
                 axisLine={{ stroke: '#CBD5E1' }}
-                tick={{ fill: '#475569', fontSize: isMobile ? 10 : 12 }}
+                tick={{ fill: '#475569', fontSize: isMobile ? 11 : 12 }}
                 tickFormatter={formatMonth}
-                minTickGap={isMobile ? 14 : 22}
+                minTickGap={isMobile ? 20 : 22}
               />
               <YAxis
                 yAxisId="returns"
                 orientation="left"
-                width={isMobile ? 36 : 60}
+                width={isMobile ? 48 : 60}
                 domain={[-maxAbsoluteReturn, maxAbsoluteReturn]}
                 ticks={yAxisTicks}
                 interval={0}
@@ -616,7 +651,7 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
                   strokeOpacity: 0.65,
                   strokeWidth: 1.25,
                 }}
-                tick={{ fill: '#64748B', fontSize: isMobile ? 10 : 12 }}
+                tick={{ fill: '#64748B', fontSize: isMobile ? 11 : 12 }}
               />
               <ReferenceLine
                 yAxisId="returns"
@@ -648,7 +683,7 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
                   stroke={strategy.color}
                   strokeOpacity={0.35}
                   radius={[1, 1, 0, 0]}
-                  barSize={isMobile ? 8 : 12}
+                  barSize={isMobile ? 10 : 12}
                   label={renderBarLabel(isMobile, strategy.label)}
                   shape={(props: BarRectangleItem) => {
                     const value = Number(
