@@ -169,3 +169,4 @@
 
 - Add not found page
 - Add NFL Geoguessr to projects
+- Add individual stock performance

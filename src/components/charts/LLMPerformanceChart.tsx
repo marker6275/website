@@ -151,8 +151,8 @@ function formatMonth(monthKey: string): string {
   return `${base}${isCurrentMonth(monthKey) ? '*' : ''}`;
 }
 
-function formatPercent(value: number): string {
-  return `${value >= 0 ? '+' : ''}${value.toFixed(2)}%`;
+function formatPercent(value: number, digits = 2): string {
+  return `${value >= 0 ? '+' : ''}${value.toFixed(digits)}%`;
 }
 
 interface BarLabelProps {
@@ -267,6 +267,88 @@ function sumCumulativePercent(monthlyPercents: number[]): number {
 
 function toLabel(key: string): string {
   return key === 'spy' ? 'S&P 500' : key.charAt(0).toUpperCase() + key.slice(1);
+}
+
+const STOCK_PERFORMANCE_CAP = 25;
+
+function getStockPerformanceStyle(value: number): CSSProperties {
+  const ratio =
+    Math.min(Math.abs(value), STOCK_PERFORMANCE_CAP) / STOCK_PERFORMANCE_CAP;
+  const lightness = 94 - ratio * 30; // 94% (near white) down to 64% (muted) at the cap
+  const hue = value >= 0 ? 142 : 4;
+  const saturation = 38;
+
+  return {
+    backgroundColor: `hsl(${hue} ${saturation}% ${lightness}%)`,
+    borderColor: `hsl(${hue} ${saturation}% ${Math.max(lightness - 15, 45)}%)`,
+    color: '#1E293B',
+  };
+}
+
+function toISODate(date: Date): string {
+  return date.toISOString().slice(0, 10);
+}
+
+function resolveMonthNumber(monthKey: string): number | null {
+  return parseMonthKey(monthKey)?.month ?? monthNumberFromName(monthKey);
+}
+
+// The sheet stores bare month names ("March", "August", ...) with no year, so
+// years are inferred by walking backward from the most recent row (assumed to
+// be the current year) and decrementing whenever the month number wraps.
+function buildMonthYears(chartData: PortfolioRow[]): number[] {
+  const currentYear = new Date().getFullYear();
+  const years = new Array<number>(chartData.length);
+  years[chartData.length - 1] = currentYear;
+
+  for (let i = chartData.length - 2; i >= 0; i--) {
+    const currentNum = resolveMonthNumber(chartData[i].month);
+    const nextNum = resolveMonthNumber(chartData[i + 1].month);
+    years[i] =
+      currentNum !== null && nextNum !== null && currentNum > nextNum
+        ? years[i + 1] - 1
+        : years[i + 1];
+  }
+
+  return years;
+}
+
+function getMonthDateRange(
+  monthKey: string,
+  chartData: PortfolioRow[],
+): { start: string; end: string } | null {
+  if (chartData.length === 0) {
+    return null;
+  }
+
+  const monthYears = buildMonthYears(chartData);
+
+  if (monthKey === CUMULATIVE_MONTH_KEY) {
+    const firstMonthNumber = resolveMonthNumber(chartData[0].month);
+    if (firstMonthNumber === null) {
+      return null;
+    }
+    return {
+      start: toISODate(
+        new Date(Date.UTC(monthYears[0], firstMonthNumber - 1, 1)),
+      ),
+      end: toISODate(new Date()),
+    };
+  }
+
+  const rowIndex = chartData.findIndex((row) => row.month === monthKey);
+  const monthNumber = resolveMonthNumber(monthKey);
+  if (rowIndex === -1 || monthNumber === null) {
+    return null;
+  }
+
+  const year = parseMonthKey(monthKey)?.year ?? monthYears[rowIndex];
+  const start = new Date(Date.UTC(year, monthNumber - 1, 1));
+  const end = isCurrentMonth(monthKey)
+    ? new Date()
+    : new Date(Date.UTC(year, monthNumber, 0));
+
+  return { start: toISODate(start), end: toISODate(end) };
 }
 
 function CustomTooltip({
@@ -423,6 +505,33 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
     }, {});
   }, [chartData]);
 
+  // Tracks which months each ticker was actually held under each strategy, so
+  // the cumulative ("All") view can sum only the months a stock was in the
+  // portfolio rather than pricing it over the whole date span.
+  const strategyTickerMonths = useMemo<
+    Record<string, Record<string, string[]>>
+  >(() => {
+    return chartData.reduce<Record<string, Record<string, string[]>>>(
+      (acc, row) => {
+        Object.entries(row.strategyData).forEach(
+          ([strategyKey, strategyValue]) => {
+            const tickerMonths = acc[strategyKey] ?? (acc[strategyKey] = {});
+            strategyValue.stocks.forEach((ticker) => {
+              if (typeof ticker !== 'string' || !ticker) {
+                return;
+              }
+              const months =
+                tickerMonths[ticker] ?? (tickerMonths[ticker] = []);
+              months.push(row.month);
+            });
+          },
+        );
+        return acc;
+      },
+      {},
+    );
+  }, [chartData]);
+
   const [visibleStrategies, setVisibleStrategies] = useState<
     Record<StrategyKey, boolean>
   >({});
@@ -522,6 +631,243 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
     return displayChartData.find((row) => row.month === selectedMonth) ?? null;
   }, [displayChartData, selectedMonth]);
 
+  const [showStockPerformance, setShowStockPerformance] = useState(false);
+  const [stockPerformanceCache, setStockPerformanceCache] = useState<
+    Record<string, number | null>
+  >({});
+  const [loadingStockPerformance, setLoadingStockPerformance] = useState(false);
+
+  const selectedRowTickers = useMemo(() => {
+    if (!selectedRow) {
+      return [];
+    }
+
+    const tickerSet = new Set<string>();
+    activeStrategies
+      .filter((strategy) => strategy.key !== 'spy')
+      .forEach((strategy) => {
+        const stocks =
+          selectedRow.month === CUMULATIVE_MONTH_KEY
+            ? (cumulativeHoldingsByStrategy[strategy.key] ?? [])
+            : (selectedRow.strategyData[strategy.key]?.stocks ?? []);
+        stocks.forEach((ticker) => {
+          if (typeof ticker === 'string' && ticker) {
+            tickerSet.add(ticker);
+          }
+        });
+      });
+
+    return Array.from(tickerSet);
+  }, [selectedRow, activeStrategies, cumulativeHoldingsByStrategy]);
+
+  const selectedRange = useMemo(
+    () =>
+      selectedRow ? getMonthDateRange(selectedRow.month, chartData) : null,
+    [selectedRow, chartData],
+  );
+
+  const isCumulativeSelected = selectedRow?.month === CUMULATIVE_MONTH_KEY;
+
+  useEffect(() => {
+    if (!showStockPerformance || !selectedRow) {
+      return;
+    }
+
+    if (isCumulativeSelected) {
+      // Sum each ticker's monthly returns instead of pricing it over the
+      // whole span, so a stock only counts for the months it was held.
+      const requestsByRange = new Map<
+        string,
+        { start: string; end: string; tickers: Set<string> }
+      >();
+
+      activeStrategies
+        .filter((strategy) => strategy.key !== 'spy')
+        .forEach((strategy) => {
+          const tickers = cumulativeHoldingsByStrategy[strategy.key] ?? [];
+          tickers.forEach((ticker) => {
+            const months = strategyTickerMonths[strategy.key]?.[ticker] ?? [];
+            months.forEach((month) => {
+              const range = getMonthDateRange(month, chartData);
+              if (!range) {
+                return;
+              }
+              const cacheKey = `${range.start}_${range.end}_${ticker}`;
+              if (cacheKey in stockPerformanceCache) {
+                return;
+              }
+              const rangeKey = `${range.start}_${range.end}`;
+              const entry = requestsByRange.get(rangeKey) ?? {
+                start: range.start,
+                end: range.end,
+                tickers: new Set<string>(),
+              };
+              entry.tickers.add(ticker);
+              requestsByRange.set(rangeKey, entry);
+            });
+          });
+        });
+
+      if (requestsByRange.size === 0) {
+        return;
+      }
+
+      let cancelled = false;
+      setLoadingStockPerformance(true);
+
+      Promise.all(
+        Array.from(requestsByRange.values()).map((entry) => {
+          const params = new URLSearchParams({
+            tickers: Array.from(entry.tickers).join(','),
+            start: entry.start,
+            end: entry.end,
+          });
+          return fetch(
+            `/llm-portfolio/api/stock-performance/?${params.toString()}`,
+          )
+            .then((response) => (response.ok ? response.json() : null))
+            .then((json) => ({ entry, json }))
+            .catch(() => ({ entry, json: null }));
+        }),
+      )
+        .then((results) => {
+          if (cancelled) {
+            return;
+          }
+          setStockPerformanceCache((previous) => {
+            const next = { ...previous };
+            results.forEach(({ entry, json }) => {
+              if (!json?.data) {
+                return;
+              }
+              Object.entries(
+                json.data as Record<string, number | null>,
+              ).forEach(([ticker, value]) => {
+                next[`${entry.start}_${entry.end}_${ticker}`] = value;
+              });
+            });
+            return next;
+          });
+        })
+        .finally(() => {
+          if (!cancelled) {
+            setLoadingStockPerformance(false);
+          }
+        });
+
+      return () => {
+        cancelled = true;
+      };
+    }
+
+    if (!selectedRange || selectedRowTickers.length === 0) {
+      return;
+    }
+
+    const missing = selectedRowTickers.filter(
+      (ticker) =>
+        !(
+          `${selectedRange.start}_${selectedRange.end}_${ticker}` in
+          stockPerformanceCache
+        ),
+    );
+
+    if (missing.length === 0) {
+      return;
+    }
+
+    let cancelled = false;
+    setLoadingStockPerformance(true);
+
+    const params = new URLSearchParams({
+      tickers: missing.join(','),
+      start: selectedRange.start,
+      end: selectedRange.end,
+    });
+
+    fetch(`/llm-portfolio/api/stock-performance/?${params.toString()}`)
+      .then((response) => (response.ok ? response.json() : null))
+      .then((json) => {
+        if (cancelled || !json?.data) {
+          return;
+        }
+        setStockPerformanceCache((previous) => {
+          const next = { ...previous };
+          Object.entries(json.data as Record<string, number | null>).forEach(
+            ([ticker, value]) => {
+              next[`${selectedRange.start}_${selectedRange.end}_${ticker}`] =
+                value;
+            },
+          );
+          return next;
+        });
+      })
+      .catch(() => {})
+      .finally(() => {
+        if (!cancelled) {
+          setLoadingStockPerformance(false);
+        }
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [
+    showStockPerformance,
+    selectedRow,
+    isCumulativeSelected,
+    selectedRange,
+    selectedRowTickers,
+    stockPerformanceCache,
+    activeStrategies,
+    cumulativeHoldingsByStrategy,
+    strategyTickerMonths,
+    chartData,
+  ]);
+
+  const getTickerReturn = useCallback(
+    (strategyKey: string, ticker: string): number | null | undefined => {
+      if (isCumulativeSelected) {
+        const months = strategyTickerMonths[strategyKey]?.[ticker] ?? [];
+        if (months.length === 0) {
+          return undefined;
+        }
+
+        let sum = 0;
+        for (const month of months) {
+          const range = getMonthDateRange(month, chartData);
+          if (!range) {
+            return undefined;
+          }
+          const value =
+            stockPerformanceCache[`${range.start}_${range.end}_${ticker}`];
+          if (value === undefined) {
+            return undefined;
+          }
+          if (value === null) {
+            continue;
+          }
+          sum += value;
+        }
+        return sum;
+      }
+
+      if (!selectedRange) {
+        return undefined;
+      }
+      return stockPerformanceCache[
+        `${selectedRange.start}_${selectedRange.end}_${ticker}`
+      ];
+    },
+    [
+      isCumulativeSelected,
+      strategyTickerMonths,
+      chartData,
+      selectedRange,
+      stockPerformanceCache,
+    ],
+  );
+
   const mobileChartWidth = useMemo(
     () =>
       Math.max(
@@ -542,8 +888,9 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
         return [];
       }
       const bandWidth = offset.width / monthCount;
-      return Array.from({ length: monthCount - 1 }, (_, index) =>
-        offset.left + bandWidth * (index + 1),
+      return Array.from(
+        { length: monthCount - 1 },
+        (_, index) => offset.left + bandWidth * (index + 1),
       );
     },
     [monthCount],
@@ -713,9 +1060,35 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
       </div>
 
       <section className="mt-6 rounded-xl border border-slate-200 bg-slate-50 p-4 sm:p-5">
-        <h2 className="text-sm font-semibold text-slate-900 sm:text-base">
-          Holdings {selectedRow ? `- ${formatMonth(selectedRow.month)}` : ''}
-        </h2>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <h2 className="text-sm font-semibold text-slate-900 sm:text-base">
+            Holdings {selectedRow ? `- ${formatMonth(selectedRow.month)}` : ''}
+          </h2>
+          <div className="flex shrink-0 items-center gap-2">
+            <span className="select-none text-xs font-medium text-slate-500">
+              {showStockPerformance && loadingStockPerformance
+                ? 'Loading performance…'
+                : 'Show stock performance'}
+            </span>
+            <button
+              type="button"
+              onClick={() => setShowStockPerformance((previous) => !previous)}
+              role="switch"
+              aria-checked={showStockPerformance}
+              className={`relative inline-flex h-6 w-14 shrink-0 cursor-pointer items-center rounded-md border transition-colors duration-150 ${
+                showStockPerformance
+                  ? 'border-slate-400 bg-slate-200'
+                  : 'border-slate-200 bg-white hover:border-slate-400'
+              }`}
+            >
+              <span
+                className={`inline-block h-5 w-7 transform rounded-sm bg-slate-500 transition-transform duration-200 ease-out ${
+                  showStockPerformance ? 'translate-x-6' : 'translate-x-0.5'
+                }`}
+              />
+            </button>
+          </div>
+        </div>
         {displayChartData.length > 0 ? (
           <div className="mt-3 flex flex-wrap gap-1.5">
             {displayChartData.map((row) => (
@@ -781,22 +1154,79 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
                       </p>
                     ) : (
                       <div className="mt-3 grid grid-cols-3 gap-2 sm:grid-cols-5">
-                        {tickers.map((ticker) => (
-                          <div
-                            key={`${strategy.key}-${ticker}`}
-                            className="group relative"
-                          >
-                            <span
-                              className="block cursor-default rounded-md border border-slate-200 bg-slate-50 px-2.5 py-[0.22rem] text-center text-sm font-medium text-slate-700 transition-colors duration-150 hover:border-slate-300 hover:bg-slate-100 sm:text-base select-none"
-                              aria-label={`${ticker}: ${getTickerName(ticker)}`}
+                        {tickers.map((ticker) => {
+                          const tickerReturn = showStockPerformance
+                            ? getTickerReturn(strategy.key, ticker)
+                            : undefined;
+                          const hasReturn =
+                            typeof tickerReturn === 'number' &&
+                            Number.isFinite(tickerReturn);
+                          const performanceStyle =
+                            showStockPerformance && hasReturn
+                              ? getStockPerformanceStyle(tickerReturn)
+                              : undefined;
+
+                          return (
+                            <div
+                              key={`${strategy.key}-${ticker}`}
+                              className="group relative"
                             >
-                              {ticker}
-                            </span>
-                            <div className="pointer-events-none invisible absolute bottom-full left-1/2 z-20 mb-1 -translate-x-1/2 translate-y-0.5 whitespace-nowrap rounded-md border border-slate-200 bg-slate-900 px-2 py-1 text-xs font-medium text-white opacity-0 shadow-md transition-all delay-0 duration-150 ease-out group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-hover:delay-200">
-                              {getTickerName(ticker)}
+                              <span
+                                className={`relative block h-[1.69rem] cursor-default overflow-hidden rounded-md border px-2.5 font-medium transition-colors duration-150 sm:h-[1.94rem] select-none ${
+                                  performanceStyle
+                                    ? ''
+                                    : 'border-slate-200 bg-slate-50 text-slate-700 hover:border-slate-300 hover:bg-slate-100'
+                                }`}
+                                style={performanceStyle}
+                                aria-label={`${ticker}: ${getTickerName(ticker)}${
+                                  hasReturn
+                                    ? `, ${formatPercent(tickerReturn, 1)}`
+                                    : ''
+                                }`}
+                              >
+                                <span className="absolute inset-y-0 inset-x-0 flex items-center justify-center [container-type:inline-size]">
+                                  <span
+                                    className={`inline-flex transition-transform duration-300 ease-out will-change-transform ${
+                                      showStockPerformance
+                                        ? 'text-xs sm:text-sm'
+                                        : 'text-sm sm:text-base'
+                                    }`}
+                                    style={{
+                                      transform: showStockPerformance
+                                        ? 'translateX(calc(0.4rem - 50cqw + 50%))'
+                                        : 'translateX(0)',
+                                    }}
+                                  >
+                                    {ticker}
+                                  </span>
+                                </span>
+                                <span
+                                  className={`absolute inset-y-0 right-1.5 flex items-center text-[10px] font-normal transition-all duration-300 ease-out ${
+                                    showStockPerformance
+                                      ? 'translate-x-0 opacity-90'
+                                      : 'pointer-events-none translate-x-2 opacity-0'
+                                  }`}
+                                >
+                                  {hasReturn
+                                    ? formatPercent(tickerReturn, 1)
+                                    : loadingStockPerformance
+                                      ? '…'
+                                      : '—'}
+                                </span>
+                              </span>
+                              <div
+                                className={`pointer-events-none invisible absolute bottom-full left-1/2 z-20 mb-1 -translate-x-1/2 translate-y-0.5 whitespace-nowrap rounded-md border px-2 py-1 text-xs font-medium opacity-0 shadow-md transition-all delay-0 duration-150 ease-out group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-hover:delay-200 ${
+                                  performanceStyle
+                                    ? ''
+                                    : 'border-slate-200 bg-slate-900 text-white'
+                                }`}
+                                style={performanceStyle}
+                              >
+                                {getTickerName(ticker)}
+                              </div>
                             </div>
-                          </div>
-                        ))}
+                          );
+                        })}
                       </div>
                     )}
                   </article>

@@ -1,4 +1,5 @@
 import { AnimatedContent } from '@/components/reactbits';
+import data from '@/data/personal-info.json';
 
 export function AboutMeText() {
   return (
@@ -16,7 +17,7 @@ export function AboutMeText() {
       <div className="font-light text-xl sm:text-2xl py-5 px-10 sm:px-15">
         <p>
           Hi! My name is Mark Li. I'm a software engineer at{' '}
-          <span className="text-lime-500">Shure</span> and a graduate from{' '}
+          <span className="text-lime-500">{data.currentEmployer}</span> and a graduate from{' '}
           <span className="text-purple-700">Northwestern University</span> with
           a BS/MS in Computer Science and a BA in Music.
         </p>
