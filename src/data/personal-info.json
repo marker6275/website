@@ -111,7 +111,7 @@
       "role": "Applications Development Engineer",
       "location": "Niles, IL",
       "start": { "year": 2025, "month": 7 },
-      "end": "present",
+      "end": { "year": 2026, "month": 8 },
       "logo": "/assets/resume_images/shure.png"
     },
     {

@@ -3,6 +3,7 @@
 import {
   useCallback,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
@@ -540,7 +541,7 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
   const chartHasRendered = useRef(false);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(max-width: 767px)');
+    const mediaQuery = window.matchMedia('(max-width: 1023px)');
     const update = () => setIsMobile(mediaQuery.matches);
     update();
     mediaQuery.addEventListener('change', update);
@@ -630,6 +631,40 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
 
     return displayChartData.find((row) => row.month === selectedMonth) ?? null;
   }, [displayChartData, selectedMonth]);
+
+  const monthButtonLabels = useMemo(
+    () =>
+      displayChartData.map((row) =>
+        row.month === CUMULATIVE_MONTH_KEY ? 'All' : formatMonth(row.month),
+      ),
+    [displayChartData],
+  );
+
+  // ch-based widths don't work here because the buttons use a proportional
+  // font, so the widest label's rendered width isn't just "N characters".
+  // Measure the actual rendered widths instead and size every button to the
+  // widest one.
+  const monthButtonRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const [monthButtonWidth, setMonthButtonWidth] = useState<number | null>(
+    null,
+  );
+
+  useLayoutEffect(() => {
+    setMonthButtonWidth(null);
+  }, [monthButtonLabels]);
+
+  useLayoutEffect(() => {
+    if (monthButtonWidth !== null) {
+      return;
+    }
+    const widths = monthButtonRefs.current
+      .slice(0, monthButtonLabels.length)
+      .map((button) => button?.offsetWidth ?? 0);
+    const widest = Math.max(0, ...widths);
+    if (widest > 0) {
+      setMonthButtonWidth(widest);
+    }
+  }, [monthButtonLabels, monthButtonWidth]);
 
   const [showStockPerformance, setShowStockPerformance] = useState(false);
   const [stockPerformanceCache, setStockPerformanceCache] = useState<
@@ -1091,20 +1126,26 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
         </div>
         {displayChartData.length > 0 ? (
           <div className="mt-3 flex flex-wrap gap-1.5">
-            {displayChartData.map((row) => (
+            {displayChartData.map((row, index) => (
               <button
                 key={row.month}
                 type="button"
+                ref={(node) => {
+                  monthButtonRefs.current[index] = node;
+                }}
                 onClick={() => setSelectedMonth(row.month)}
-                className={`cursor-pointer rounded-md border w-14 h-5 text-xs font-medium transition-all duration-200 ease-out hover:-translate-y-0.5 active:translate-y-0 ${
+                style={
+                  monthButtonWidth !== null
+                    ? { width: monthButtonWidth }
+                    : undefined
+                }
+                className={`cursor-pointer rounded-md border h-5 px-2 text-center text-xs font-medium whitespace-nowrap transition-all duration-200 ease-out hover:-translate-y-0.5 active:translate-y-0 ${
                   selectedMonth === row.month
                     ? 'border-slate-400 bg-slate-200 text-slate-900'
                     : 'border-slate-200 bg-white text-slate-500 hover:border-slate-400'
                 }`}
               >
-                {row.month === CUMULATIVE_MONTH_KEY
-                  ? 'All'
-                  : formatMonth(row.month)}
+                {monthButtonLabels[index]}
               </button>
             ))}
           </div>
@@ -1126,7 +1167,7 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
             Enable at least one strategy to view holdings.
           </p>
         ) : (
-          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+          <div className="mt-3 grid gap-2 sm:grid-cols-2 sm:gap-3">
             {activeStrategies
               .filter((strategy) => strategy.key !== 'spy')
               .map((strategy) => {
@@ -1143,7 +1184,7 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
                 return (
                   <article
                     key={`${selectedRow.month}-${strategy.key}`}
-                    className="rounded-lg border border-slate-200 bg-white p-[0.95rem]"
+                    className="rounded-lg border border-slate-200 bg-white p-3 sm:p-[0.95rem]"
                   >
                     <h3 className="cursor-pointer text-[15px] font-medium text-slate-900">
                       {strategy.label}
@@ -1153,7 +1194,13 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
                         No holdings listed.
                       </p>
                     ) : (
-                      <div className="mt-3 grid grid-cols-3 gap-2 sm:grid-cols-5">
+                      <div
+                        className={`mt-3 grid grid-cols-2 gap-1.5 sm:gap-2 ${
+                          showStockPerformance
+                            ? 'lg:grid-cols-5'
+                            : 'md:grid-cols-5'
+                        }`}
+                      >
                         {tickers.map((ticker) => {
                           const tickerReturn = showStockPerformance
                             ? getTickerReturn(strategy.key, ticker)
@@ -1184,46 +1231,43 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
                                     : ''
                                 }`}
                               >
-                                <span className="absolute inset-y-0 inset-x-0 flex items-center justify-center [container-type:inline-size]">
+                                <span className="absolute inset-0">
                                   <span
-                                    className={`inline-flex transition-transform duration-300 ease-out will-change-transform ${
+                                    className={`absolute inset-0 flex items-center justify-center text-sm transition-all duration-300 ease-out will-change-transform ${
                                       showStockPerformance
-                                        ? 'text-xs sm:text-sm'
-                                        : 'text-sm sm:text-base'
+                                        ? 'group-hover:scale-90 group-hover:opacity-0'
+                                        : ''
                                     }`}
-                                    style={{
-                                      transform: showStockPerformance
-                                        ? 'translateX(calc(0.4rem - 50cqw + 50%))'
-                                        : 'translateX(0)',
-                                    }}
                                   >
                                     {ticker}
                                   </span>
-                                </span>
-                                <span
-                                  className={`absolute inset-y-0 right-1.5 flex items-center text-[10px] font-normal transition-all duration-300 ease-out ${
-                                    showStockPerformance
-                                      ? 'translate-x-0 opacity-90'
-                                      : 'pointer-events-none translate-x-2 opacity-0'
-                                  }`}
-                                >
-                                  {hasReturn
-                                    ? formatPercent(tickerReturn, 1)
-                                    : loadingStockPerformance
-                                      ? '…'
-                                      : '—'}
+                                  {showStockPerformance ? (
+                                    <span className="absolute left-1 right-1 top-0.5 truncate text-[7px] font-semibold leading-none tracking-wide opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-70">
+                                      {ticker} - {getTickerName(ticker)}
+                                    </span>
+                                  ) : null}
+                                  <span
+                                    className={`absolute inset-0 flex translate-y-1 items-center justify-center text-sm font-semibold transition-all duration-300 ease-out will-change-transform ${
+                                      showStockPerformance
+                                        ? 'scale-75 opacity-0 group-hover:scale-100 group-hover:opacity-100'
+                                        : 'pointer-events-none opacity-0'
+                                    }`}
+                                  >
+                                    {hasReturn
+                                      ? formatPercent(tickerReturn, 1)
+                                      : loadingStockPerformance
+                                        ? '…'
+                                        : '—'}
+                                  </span>
                                 </span>
                               </span>
-                              <div
-                                className={`pointer-events-none invisible absolute bottom-full left-1/2 z-20 mb-1 -translate-x-1/2 translate-y-0.5 whitespace-nowrap rounded-md border px-2 py-1 text-xs font-medium opacity-0 shadow-md transition-all delay-0 duration-150 ease-out group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-hover:delay-200 ${
-                                  performanceStyle
-                                    ? ''
-                                    : 'border-slate-200 bg-slate-900 text-white'
-                                }`}
-                                style={performanceStyle}
-                              >
-                                {getTickerName(ticker)}
-                              </div>
+                              {!showStockPerformance ? (
+                                <div
+                                  className={`pointer-events-none invisible absolute bottom-full left-1/2 z-20 mb-1 -translate-x-1/2 translate-y-0.5 whitespace-nowrap rounded-md border px-2 py-1 text-xs font-medium opacity-0 shadow-md transition-all delay-0 duration-150 ease-out group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-hover:delay-200 border-slate-200 bg-slate-900 text-white`}
+                                >
+                                  {getTickerName(ticker)}
+                                </div>
+                              ) : null}
                             </div>
                           );
                         })}
