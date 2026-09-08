@@ -19,8 +19,8 @@ export function Timeline() {
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-8">
       <div className="relative">
-        <div className="hidden lg:block absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-px bg-gray-200" />
-        <div className="flex flex-col lg:gap-6">
+        <div className="hidden md:block absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-px bg-gray-200" />
+        <div className="flex flex-col md:gap-6">
           {ordered.map((entry) => (
             <ResumeCard key={entry.id} entry={entry} />
           ))}
