@@ -11,10 +11,10 @@ export default function MusicPage() {
   return (
     <div className="min-h-screen bg-slate-50 select-none">
       <div className="mx-auto flex w-fit max-w-full min-w-0 flex-col items-start">
-        <h1 className="text-start text-4xl font-semibold tracking-tight text-slate-900 lg:text-5xl">
+        <h1 className="mx-4 text-start text-4xl font-semibold tracking-tight text-slate-900 sm:mx-0 lg:text-5xl">
           Music
         </h1>
-        <div className="flex w-full flex-col items-start gap-x-20 gap-y-10 py-5 lg:grid lg:grid-cols-2 lg:justify-items-start">
+        <div className="flex w-full flex-col items-start gap-x-20 gap-y-4 py-5 md:gap-y-10 lg:grid lg:grid-cols-2 lg:justify-items-start">
           {info.map((item: any) => (
             <MusicCard
               key={item.id}
