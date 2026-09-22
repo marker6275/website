@@ -7,7 +7,7 @@ export const metadata = {
 export default function ResumePage() {
   return (
     <div className="min-h-screen overflow-x-hidden bg-slate-50 pt-10 pb-12 text-center select-none">
-      <h1 className="text-4xl font-semibold tracking-tight text-slate-900 sm:text-5xl">
+      <h1 className="text-4xl font-medium tracking-tight text-slate-900 sm:text-5xl">
         Resume
       </h1>
       <a

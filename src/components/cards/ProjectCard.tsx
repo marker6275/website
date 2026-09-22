@@ -42,7 +42,7 @@ export function ProjectCard({
     >
       {inProgress ? (
         <span
-          className="pointer-events-none absolute right-2 top-2 z-10 rounded-full border border-green-700/90 bg-green-50 px-2 py-0.5 text-[10px] font-semibold text-black sm:right-2.5 sm:top-2.5 sm:px-2.5 sm:py-1 sm:text-xs"
+          className="pointer-events-none absolute right-2 top-2 z-10 rounded-full border border-green-700/90 bg-green-50 px-2 py-0.5 text-[10px] font-medium text-black sm:right-2.5 sm:top-2.5 sm:px-2.5 sm:py-1 sm:text-xs"
           aria-label="In progress"
         >
           In Progress
@@ -79,11 +79,11 @@ export function ProjectCard({
         </div>
       ) : null}
       <div className="flex min-w-0 flex-1 flex-col gap-1 px-3 py-3 text-left justify-center sm:flex-none sm:px-3.5 sm:py-3 sm:justify-start">
-        <h2 className="text-sm font-semibold leading-tight text-slate-900 sm:text-lg">
+        <h2 className="text-sm font-medium leading-tight text-slate-900 sm:text-lg">
           {name}
         </h2>
         {description ? (
-          <p className="line-clamp-1 text-xs leading-snug text-slate-600 sm:line-clamp-2 sm:text-sm">
+          <p className="line-clamp-1 text-xs font-light leading-snug text-slate-600 sm:line-clamp-2 sm:text-sm">
             {description}
           </p>
         ) : null}
@@ -92,7 +92,7 @@ export function ProjectCard({
             {tagsToRender.map((tag) => (
               <span
                 key={tag}
-                className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-medium leading-none text-slate-600 sm:text-xs"
+                className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-normal leading-none text-slate-600 sm:text-xs"
               >
                 {tag}
               </span>

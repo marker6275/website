@@ -10,8 +10,8 @@ export default function MusicPage() {
 
   return (
     <div className="min-h-screen bg-slate-50 select-none">
-      <div className="mx-auto flex w-fit max-w-full min-w-0 flex-col items-start">
-        <h1 className="mx-4 text-start text-4xl font-semibold tracking-tight text-slate-900 sm:mx-0 lg:text-5xl">
+      <main className="mx-auto flex w-full min-w-0 max-w-7xl flex-col items-start px-4 pb-12 pt-10">
+        <h1 className="text-4xl font-medium tracking-tight text-slate-900 sm:text-5xl">
           Music
         </h1>
         <div className="flex w-full flex-col items-start gap-x-20 gap-y-4 py-5 md:gap-y-10 lg:grid lg:grid-cols-2 lg:justify-items-start">
@@ -28,7 +28,7 @@ export default function MusicPage() {
             />
           ))}
         </div>
-      </div>
+      </main>
     </div>
   );
 }

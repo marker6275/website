@@ -89,7 +89,7 @@ export function ResumeCard({ entry }: ResumeCardProps) {
                 </span>
               </div>
               <h3
-                className={`font-semibold text-base md:text-lg text-gray-900 leading-snug ${isLeft ? 'md:text-right' : 'md:text-left'}`}
+                className={`font-medium text-base md:text-lg text-gray-900 leading-snug ${isLeft ? 'md:text-right' : 'md:text-left'}`}
               >
                 {entry.role}
               </h3>

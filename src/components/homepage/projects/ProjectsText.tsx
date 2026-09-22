@@ -1,9 +1,9 @@
-import { AnimatedContent } from "@/components/reactbits";
-import { HomepageButton } from "../shared";
+import { AnimatedContent } from '@/components/reactbits';
+import { HomepageButton } from '../shared';
 
 export function ProjectsText() {
   return (
-    <div className="px-10 sm:px-24 sm:py-16 font-light text-xl sm:text-2xl font-light flex flex-col items-center sm:block">
+    <div className="px-10 sm:px-24 sm:py-16 text-xl sm:text-2xl font-extralight flex flex-col items-center sm:block">
       <AnimatedContent
         distance={50}
         direction="horizontal"

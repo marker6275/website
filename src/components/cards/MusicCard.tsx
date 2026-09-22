@@ -36,8 +36,8 @@ export function MusicCard({
         <h1 className="text-2xl px-2 sm:px-0 pt-2 w-full max-w-full truncate text-left sm:max-w-[420px] lg:max-w-[460px] xl:max-w-[560px]">
           {title}
         </h1>
-        <p className="text-sm pb-2 px-2 sm:px-0 w-full max-w-full truncate text-left sm:max-w-[420px] lg:max-w-[460px] xl:max-w-[560px]">
-          Written by: <span className="font-medium">{composer}</span>
+        <p className="text-sm pb-2 px-2 sm:px-0 w-full max-w-full truncate text-left sm:max-w-[420px] lg:max-w-[460px] xl:max-w-[560px] font-light">
+          Written by: <span className="font-normal">{composer}</span>
         </p>
       </a>
       <iframe
@@ -66,7 +66,7 @@ export function MusicCard({
             className="rounded-sm object-cover shrink-0"
           />
         )}
-        <span className="text-lg font-medium truncate min-w-0 flex-1 text-left">
+        <span className="text-lg font-normal truncate min-w-0 flex-1 text-left">
           Watch on YouTube
         </span>
       </a>

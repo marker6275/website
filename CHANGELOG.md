@@ -170,3 +170,7 @@
 - Add not found page
 - Add NFL Geoguessr to projects
 - Add individual stock performance
+
+**4.7**
+
+- Change font to Ubuntu Sans
