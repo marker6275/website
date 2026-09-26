@@ -13,5 +13,8 @@ export { BetCountBySportChart } from "./BetCountBySportChart";
 export { MoneyBySportChart } from "./MoneyBySportChart";
 export { BetResultsChart } from "./BetResultsChart";
 export { SportAllocationChartSection } from "./SportAllocationChartSection";
+export { IndividualDataDropdown } from "./IndividualDataDropdown";
+export { IndividualDataCard } from "./IndividualDataCard";
+export { BetSortSelect } from "./BetSortSelect";
 export { BetResults } from "./BetUtils";
 

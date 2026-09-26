@@ -102,3 +102,31 @@ export interface SportAllocationChartSectionProps {
   data: BetRow[];
   onLayoutChange?: () => void;
 }
+
+export interface IndividualDataDropdownProps {
+  data: BetRow[];
+  onLayoutChange?: () => void;
+}
+
+export type BetSortMode = "profit" | "spent" | "winrate" | "settled";
+
+export interface BetSortStats {
+  name: string;
+  settled: number;
+  won: number;
+  netProfit: number;
+  totalSpent: number;
+}
+
+export interface BetSortSelectProps {
+  sortMode: BetSortMode;
+  setSortMode: (sortMode: BetSortMode) => void;
+  reversed: boolean;
+  setReversed: (reversed: boolean) => void;
+}
+
+export type IndividualStats = BetSortStats;
+
+export interface IndividualDataCardProps {
+  individual: IndividualStats;
+}

@@ -174,3 +174,4 @@
 **4.7**
 
 - Change font to Ubuntu Sans
+- Add data by individual bets dropdown

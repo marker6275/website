@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useSafeMediaQuery } from "@/hooks";
-import { BetsBySportDropdown, BetResults } from ".";
+import { BetsBySportDropdown, IndividualDataDropdown, BetResults } from ".";
 import type { ProfitsAndStatisticsSectionProps } from "@/types/components";
 
 export function ProfitsAndStatisticsSection({
@@ -124,6 +124,8 @@ export function ProfitsAndStatisticsSection({
         getBetsBySport={getBetsBySport}
         onLayoutChange={onLayoutChange}
       />
+
+      <IndividualDataDropdown data={data} onLayoutChange={onLayoutChange} />
     </div>
   );
 }
