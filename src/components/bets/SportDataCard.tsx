@@ -29,7 +29,10 @@ export function SportDataCard({
       </div>
       <div className="flex flex-col justify-between items-center">
         <div className="text-sm lg:text-lg">
-          Net Profit: {netProfit < 0 ? `-$${netProfit * -1}` : `+$${netProfit}`}
+          Net Profit:{" "}
+          {netProfit < 0
+            ? `-$${Math.abs(netProfit).toFixed(2)}`
+            : `+$${netProfit.toFixed(2)}`}
         </div>
         <div className="text-sm lg:text-lg">Total Spent: ${totalSpent}</div>
       </div>
