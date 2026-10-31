@@ -54,10 +54,10 @@ async function createSheetsClient() {
   return { sheets, spreadsheetId };
 }
 
-function parseReturnValue(raw: unknown): number {
-  const normalized = String(raw).trim().replace(/%$/, '');
+function parseReturnValue(raw: unknown): number | null {
+  const normalized = String(raw ?? '').trim().replace(/%$/, '');
   const value = parseFloat(normalized);
-  return Number.isFinite(value) ? value * 100 : 0;
+  return Number.isFinite(value) ? value * 100 : null;
 }
 
 function createEmptyHoldings(strategyKeys: string[]): Record<string, string[]> {
@@ -80,7 +80,6 @@ export function parseSheetValues(values: string[][]): LLMPortfolioMonth[] {
     const rowNumber = rowIndex + 1;
     const mod = rowNumber % BLOCK_SIZE;
     const row = values[rowIndex] ?? [];
-    let numberOfReturnValues = 0;
 
     if (mod === 2) {
       currentMonth = row[0].trim();
@@ -92,35 +91,36 @@ export function parseSheetValues(values: string[][]): LLMPortfolioMonth[] {
         continue;
       }
 
-      const monthEntry: LLMPortfolioMonth = { month: currentMonth };
-      strategyKeys.entries().forEach(([columnIndex, strategyKey]) => {
-        const returnValue = parseReturnValue(row[columnIndex]);
-        if (!returnValue) {
-          return;
-        }
+      const returnValues = strategyKeys.map((_, columnIndex) => parseReturnValue(row[columnIndex]));
 
-        monthEntry[strategyKey] = {
-          return: returnValue,
-          stocks: currentHoldings[strategyKey],
-        };
+      // Skip the whole month if any strategy's return is empty or an error
+      if (returnValues.every((returnValue) => returnValue !== null)) {
+        const monthEntry: LLMPortfolioMonth = { month: currentMonth };
+        strategyKeys.forEach((strategyKey, columnIndex) => {
+          currentHoldings[strategyKey].forEach((ticker) => {
+            if (ticker && !VALID_TICKERS.has(ticker)) {
+              console.warn(
+                `Unknown ticker "${ticker}" for ${strategyKey} in ${currentMonth}: not present in stocks.json.`,
+              );
+            }
+          });
 
-        numberOfReturnValues++;
-      });
+          monthEntry[strategyKey] = {
+            return: returnValues[columnIndex] as number,
+            stocks: currentHoldings[strategyKey],
+          };
+        });
 
-      months.push(monthEntry);
+        months.push(monthEntry);
+      }
+
       currentMonth = null;
       currentHoldings = createEmptyHoldings(strategyKeys);
     }
 
     if (mod >= 3 && mod <= 3 + HOLDINGS_ROWS_PER_BLOCK - 1) {
-      strategyKeys.entries().forEach(([columnIndex, strategyKey]) => {
-        const ticker = String(row[columnIndex] ?? '').trim();
-        if (ticker && !VALID_TICKERS.has(ticker) && numberOfReturnValues == 5) {
-          throw new Error(
-            `Unknown ticker "${ticker}" for ${strategyKey} in ${currentMonth ?? 'unknown month'}: not present in stocks.json.`,
-          );
-        }
-        currentHoldings[strategyKey].push(ticker);
+      strategyKeys.forEach((strategyKey, columnIndex) => {
+        currentHoldings[strategyKey].push(String(row[columnIndex] ?? '').trim());
       });
     }
   }
