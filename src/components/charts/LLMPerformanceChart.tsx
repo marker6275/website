@@ -8,6 +8,7 @@ import {
   useRef,
   useState,
   type CSSProperties,
+  type MouseEvent,
 } from 'react';
 import {
   ResponsiveContainer,
@@ -19,6 +20,9 @@ import {
   ReferenceLine,
   CartesianGrid,
   Tooltip,
+  usePlotArea,
+  ZIndexLayer,
+  DefaultZIndexes,
 } from 'recharts';
 import type { BarRectangleItem } from 'recharts';
 import type {
@@ -176,8 +180,6 @@ function renderBarLabel(isMobile: boolean, labelText: string) {
       return null;
     }
 
-    // Recharts can hand back a negative height for downward (red) bars, so
-    // normalize it before measuring or positioning the label.
     const barHeight = Math.abs(rawHeight);
     if (barHeight <= 0) {
       return null;
@@ -201,8 +203,6 @@ function renderBarLabel(isMobile: boolean, labelText: string) {
     }
 
     const centerX = x + width / 2;
-    // Anchor at the bottom edge of the bar so the label always reads upward
-    // from there, whether the bar points up (green) or down (red).
     const bottomY = Math.max(y, y + rawHeight) - 3;
 
     return (
@@ -228,7 +228,6 @@ function isNeutralReturn(
   spyValue: number,
   isSpy: boolean,
 ): boolean {
-  // SPY is the benchmark, so it can't beat or trail itself.
   if (isSpy || !Number.isFinite(spyValue)) {
     return false;
   }
@@ -350,6 +349,115 @@ function getMonthDateRange(
     : new Date(Date.UTC(year, monthNumber, 0));
 
   return { start: toISODate(start), end: toISODate(end) };
+}
+
+const STOPPED_BUYING_TOOLTIP_WIDTH = 360;
+const STOPPED_BUYING_TOOLTIP_HEIGHT = 46;
+const STOPPED_BUYING_LABEL_LINES = [
+  'I stopped buying here to avoid losing money,',
+  'but I enjoyed this experiment enough to keep tracking',
+];
+const STOPPED_BUYING_COLOR = '#F97316';
+const STOPPED_BUYING_CURSOR_GAP = 8;
+
+function StoppedBuyingMarker({
+  boundaryIndex,
+  bandCount,
+  isHovered,
+  onHoverChange,
+}: {
+  boundaryIndex: number;
+  bandCount: number;
+  isHovered: boolean;
+  onHoverChange: (hovered: boolean) => void;
+}) {
+  const plotArea = usePlotArea();
+  const [cursor, setCursor] = useState<{ x: number; y: number } | null>(null);
+
+  if (!plotArea || bandCount < 2) {
+    return null;
+  }
+
+  const x = plotArea.x + (plotArea.width / bandCount) * boundaryIndex;
+  // The tooltip follows the cursor, sitting up and to the left of it, and
+  // drops below the cursor when there's no room above.
+  const cursorX = cursor?.x ?? x;
+  const cursorY = cursor?.y ?? 0;
+  const tooltipX =
+    cursorX - STOPPED_BUYING_CURSOR_GAP - STOPPED_BUYING_TOOLTIP_WIDTH;
+  const tooltipAboveY =
+    cursorY - STOPPED_BUYING_CURSOR_GAP - STOPPED_BUYING_TOOLTIP_HEIGHT;
+  const tooltipY =
+    tooltipAboveY >= plotArea.y
+      ? tooltipAboveY
+      : cursorY + STOPPED_BUYING_CURSOR_GAP;
+
+  const updateCursor = (event: MouseEvent<SVGRectElement>) => {
+    const matrix = event.currentTarget.ownerSVGElement
+      ?.getScreenCTM()
+      ?.inverse();
+    if (!matrix) {
+      return;
+    }
+    const point = new DOMPoint(event.clientX, event.clientY).matrixTransform(
+      matrix,
+    );
+    setCursor({ x: point.x, y: point.y });
+  };
+
+  return (
+    <g>
+      <line
+        x1={x}
+        x2={x}
+        y1={plotArea.y}
+        y2={plotArea.y + plotArea.height}
+        stroke={STOPPED_BUYING_COLOR}
+        strokeOpacity={isHovered ? 1 : 0.75}
+        strokeWidth={1.5}
+        strokeDasharray="5 4"
+        pointerEvents="none"
+      />
+      <rect
+        x={x - 6}
+        y={plotArea.y}
+        width={12}
+        height={plotArea.height}
+        fill="transparent"
+        style={{ cursor: 'default' }}
+        onMouseEnter={(event) => {
+          updateCursor(event);
+          onHoverChange(true);
+        }}
+        onMouseMove={updateCursor}
+        onMouseLeave={() => {
+          setCursor(null);
+          onHoverChange(false);
+        }}
+      />
+      {/* Recharts paints bars and their labels in higher layers than plain
+          children, so lift the tooltip above them or they show through. */}
+      {isHovered && cursor !== null ? (
+        <ZIndexLayer zIndex={DefaultZIndexes.label + 1}>
+          <foreignObject
+            x={tooltipX}
+            y={tooltipY}
+            width={STOPPED_BUYING_TOOLTIP_WIDTH}
+            height={STOPPED_BUYING_TOOLTIP_HEIGHT}
+            pointerEvents="none"
+          >
+            <div className="flex justify-end">
+              <div className="w-max shrink-0 rounded-md border border-slate-200 bg-white px-2 py-1 text-right text-xs font-medium whitespace-nowrap text-slate-700 shadow-md">
+                {STOPPED_BUYING_LABEL_LINES.map((line) => (
+                  <div key={line}>{line}</div>
+                ))}
+              </div>
+            </div>
+          </foreignObject>
+        </ZIndexLayer>
+      ) : null}
+    </g>
+  );
 }
 
 function CustomTooltip({
@@ -506,9 +614,6 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
     }, {});
   }, [chartData]);
 
-  // Tracks which months each ticker was actually held under each strategy, so
-  // the cumulative ("All") view can sum only the months a stock was in the
-  // portfolio rather than pricing it over the whole date span.
   const strategyTickerMonths = useMemo<
     Record<string, Record<string, string[]>>
   >(() => {
@@ -537,6 +642,7 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
     Record<StrategyKey, boolean>
   >({});
   const [selectedMonth, setSelectedMonth] = useState<string | null>(null);
+  const [isStoppedBuyingHovered, setIsStoppedBuyingHovered] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const chartHasRendered = useRef(false);
 
@@ -640,14 +746,8 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
     [displayChartData],
   );
 
-  // ch-based widths don't work here because the buttons use a proportional
-  // font, so the widest label's rendered width isn't just "N characters".
-  // Measure the actual rendered widths instead and size every button to the
-  // widest one.
   const monthButtonRefs = useRef<Array<HTMLButtonElement | null>>([]);
-  const [monthButtonWidth, setMonthButtonWidth] = useState<number | null>(
-    null,
-  );
+  const [monthButtonWidth, setMonthButtonWidth] = useState<number | null>(null);
 
   useLayoutEffect(() => {
     setMonthButtonWidth(null);
@@ -709,8 +809,6 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
     }
 
     if (isCumulativeSelected) {
-      // Sum each ticker's monthly returns instead of pricing it over the
-      // whole span, so a stock only counts for the months it was held.
       const requestsByRange = new Map<
         string,
         { start: string; end: string; tickers: Set<string> }
@@ -914,6 +1012,17 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
 
   const monthCount = displayChartData.length;
 
+  // Index of the band boundary between October and November, if both are
+  // shown side by side.
+  const stoppedBuyingBoundaryIndex = useMemo(() => {
+    const octoberIndex = displayChartData.findIndex(
+      (row, index) =>
+        resolveMonthNumber(row.month) === 10 &&
+        resolveMonthNumber(displayChartData[index + 1]?.month ?? '') === 11,
+    );
+    return octoberIndex === -1 ? null : octoberIndex + 1;
+  }, [displayChartData]);
+
   // Draws a divider between each month's bar group rather than through it,
   // so the boundaries are placed evenly across the plot width instead of
   // at the (band-centered) axis tick coordinates.
@@ -997,6 +1106,7 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
               key={visibleStrategyKey}
               data={displayChartData}
               margin={{
+                // Leaves room for the stopped-buying tooltip above the plot.
                 top: 10,
                 right: isMobile ? 12 : 20,
                 left: isMobile ? 0 : 8,
@@ -1045,6 +1155,7 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
               <Tooltip
                 content={<CustomTooltip activeStrategies={activeStrategies} />}
                 cursor={false}
+                active={isStoppedBuyingHovered ? false : undefined}
               />
               {activeStrategies.map((strategy) => (
                 <Bar
@@ -1089,6 +1200,14 @@ export function LLMPerformanceChart({ data }: LLMPerformanceChartProps) {
                   }}
                 />
               ))}
+              {stoppedBuyingBoundaryIndex !== null ? (
+                <StoppedBuyingMarker
+                  boundaryIndex={stoppedBuyingBoundaryIndex}
+                  bandCount={monthCount}
+                  isHovered={isStoppedBuyingHovered}
+                  onHoverChange={setIsStoppedBuyingHovered}
+                />
+              ) : null}
             </ComposedChart>
           </ResponsiveContainer>
         </div>
