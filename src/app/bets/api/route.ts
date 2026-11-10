@@ -1,8 +1,59 @@
+import { createHash, timingSafeEqual } from 'crypto';
 import { NextRequest, NextResponse } from 'next/server';
 import { google } from 'googleapis';
 import betsConfig from '@/config/bets';
 
 export const runtime = 'nodejs';
+
+const VALID_RESULTS = new Set(['Won', 'Lost', 'Cashed', 'Open']);
+const PAYOUT_PATTERN = /^(\$?-?\d+(\.\d+)?)?$/;
+
+function isPasswordValid(input: unknown): boolean {
+  const expected = process.env.PASSWORD;
+  if (!expected || typeof input !== 'string' || input === '') {
+    return false;
+  }
+
+  // Hash both sides so timingSafeEqual gets equal-length buffers
+  const a = createHash('sha256').update(input).digest();
+  const b = createHash('sha256').update(expected).digest();
+  return timingSafeEqual(a, b);
+}
+
+function isCell(value: unknown): boolean {
+  return typeof value === 'string' || typeof value === 'number';
+}
+
+function isValidRow(row: unknown, withRowNum: boolean): boolean {
+  if (!Array.isArray(row) || row.length !== (withRowNum ? 8 : 7)) {
+    return false;
+  }
+
+  if (!row.slice(0, 7).every(isCell)) {
+    return false;
+  }
+
+  if (!VALID_RESULTS.has(String(row[3]))) {
+    return false;
+  }
+
+  if (!PAYOUT_PATTERN.test(String(row[4]).trim())) {
+    return false;
+  }
+
+  if (withRowNum) {
+    const rowNum = row[7];
+    if (
+      typeof rowNum !== 'number' ||
+      !Number.isInteger(rowNum) ||
+      rowNum < 2
+    ) {
+      return false;
+    }
+  }
+
+  return true;
+}
 
 function getDate(date: string): string {
   let month = date.slice(0, 2);
@@ -27,8 +78,8 @@ function parseOdds(odds: number): string {
   return odds > 0 ? `+${odds}` : String(odds);
 }
 
-function payoutFromSheetCell(raw: string): string | null {
-  const payout = parseFloat(raw.trim().replace(/^\$/, ''));
+function payoutFromSheetCell(raw: string | number): string | null {
+  const payout = parseFloat(String(raw).trim().replace(/^\$/, ''));
   return `$${payout.toFixed(2)}`;
 }
 
@@ -103,8 +154,18 @@ export async function POST(request: NextRequest) {
   try {
     const { values, update, password } = await request.json();
 
-    if (password !== process.env.PASSWORD) {
+    if (!isPasswordValid(password)) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const rowsValid = update
+      ? Array.isArray(values) &&
+        values.length > 0 &&
+        values.every((row) => isValidRow(row, true))
+      : isValidRow(values, false);
+
+    if (!rowsValid) {
+      return NextResponse.json({ error: 'Invalid bet data' }, { status: 400 });
     }
 
     const client = await getSheetsClient();

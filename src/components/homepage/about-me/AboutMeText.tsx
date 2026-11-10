@@ -16,11 +16,29 @@ export function AboutMeText() {
     >
       <div className="font-extralight text-xl sm:text-2xl py-5 px-10 sm:px-15">
         <p>
-          Hi! My name is Mark Li. I'm a software engineer at{' '}
-          <span className="text-lime-500">{data.currentEmployer}</span> and a
-          graduate from{' '}
-          <span className="text-purple-700">Northwestern University</span> with
-          a BS/MS in Computer Science and a BA in Music.
+          Hi! My name is Mark Li. I'm a{' '}
+          {data.currentJobTitle ? (
+            <>{data.currentJobTitle}</>
+          ) : (
+            'software engineer'
+          )}
+          {data.currentEmployer && (
+            <>
+              {' '}
+              at{' '}
+              <span
+                className={`font-light ${data.currentEmployerColor ?? ''}`}
+                style={{ color: data.currentEmployerColor || undefined }}
+              >
+                {data.currentEmployer}
+              </span>
+            </>
+          )}{' '}
+          and a graduate from{' '}
+          <span className="text-purple-700 font-light">
+            Northwestern University
+          </span>{' '}
+          with degrees in Computer Science and Music.
         </p>
         <br />
         <p>

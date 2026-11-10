@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import Link from 'next/link';
 import {
   USMap,
   type Point,
@@ -122,14 +121,8 @@ export default function NflGeoguessrPage() {
       <div className="flex flex-1 flex-col items-center justify-center gap-5 p-8 text-center">
         <h1 className="text-2xl font-semibold">Not enough teams plotted yet</h1>
         <p className="text-neutral-500 max-w-md text-lg">
-          Plot at least two team locations before you can play.
+          At least two team locations are needed before you can play.
         </p>
-        <Link
-          href="/nfl-geoguessr/admin"
-          className="px-5 py-2.5 rounded bg-blue-600 text-white text-base font-medium"
-        >
-          Go to admin
-        </Link>
       </div>
     );
   }

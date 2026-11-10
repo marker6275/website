@@ -6,6 +6,13 @@ const YAHOO_CHART_URL = 'https://query1.finance.yahoo.com/v8/finance/chart';
 const YAHOO_USER_AGENT =
   'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
 const DAY_IN_SECONDS = 24 * 60 * 60;
+const MAX_TICKERS = 100;
+const TICKER_PATTERN = /^[A-Z0-9.^=-]{1,15}$/i;
+const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
+
+function isValidDate(dateStr: string): boolean {
+  return DATE_PATTERN.test(dateStr) && !isNaN(toUnixSeconds(dateStr));
+}
 
 function toYahooSymbol(ticker: string): string {
   return ticker.replace(/\./g, '-');
@@ -78,8 +85,21 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ data: {} });
   }
 
+  if (
+    tickers.length > MAX_TICKERS ||
+    !tickers.every((ticker) => TICKER_PATTERN.test(ticker)) ||
+    !isValidDate(start) ||
+    !isValidDate(end)
+  ) {
+    return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
+  }
+
   const period1 = toUnixSeconds(start);
   const period2 = toUnixSeconds(end) + DAY_IN_SECONDS;
+
+  if (period1 >= period2) {
+    return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
+  }
 
   const entries = await Promise.all(
     tickers.map(

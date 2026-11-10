@@ -46,6 +46,15 @@ export function BetCard({
     return isNaN(num) ? value : `$${num.toFixed(2)}`;
   };
 
+  // Payout is rendered via innerHTML (for contentEditable), so escape sheet data
+  const escapeHtml = (value: string): string =>
+    value
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+
   const formatOdds = (odds: string): string => {
     const num = parseInt(odds);
     return isNaN(num) ? odds : num > 0 ? `+${num}` : `${num}`;
@@ -153,13 +162,15 @@ export function BetCard({
               });
             }}
             dangerouslySetInnerHTML={{
-              __html: formatCurrency(
-                editResult.result === BetResults.Open ||
-                  editResult.result === BetResults.Won
-                  ? payout
-                  : editResult.payout,
-                true,
-                editResult.result === BetResults.Lost,
+              __html: escapeHtml(
+                formatCurrency(
+                  editResult.result === BetResults.Open ||
+                    editResult.result === BetResults.Won
+                    ? payout
+                    : editResult.payout,
+                  true,
+                  editResult.result === BetResults.Lost,
+                ),
               ),
             }}
           ></span>

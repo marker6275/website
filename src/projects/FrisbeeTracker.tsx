@@ -131,5 +131,5 @@ export const FrisbeeTracker = {
   image: '/assets/project_images/FrisbeeTracker/logo.png',
   body: <Frisbee />,
   tags: ['Computer Vision', 'OpenCV', 'YOLO'],
-  inProgress: true,
+  inProgress: false,
 };
